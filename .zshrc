@@ -42,7 +42,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 . ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 . ~/.zsh/colorize.plugin.zsh
-. ~/.zsh/ls/ls.plugin.zsh > /dev/null
+. ~/.zsh/ls/ls.plugin.zsh
 
 # setup history subsearch
 bindkey '^[[A' history-substring-search-up
