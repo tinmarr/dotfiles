@@ -56,11 +56,11 @@ gpg --full-generate-key
 ```
 
 Make sure to use the following settings:
-RSA
-4096 bits
-1m
-Name: GithubMartinMmmDD
-Email: martin.chapino@gmail.com
+- RSA
+- 4096 bits
+- 1m
+- Name: GithubMartinMmmDD
+- Email: martin.chapino@gmail.com
 
 Next get the key ID with `gpg --list-secret-keys --keyid-format=long`.
 Then get the key block with `gpg --armor --export [key id]`. Use this to import
@@ -73,6 +73,20 @@ To delete a key:
 ```shell
 gpg --list-secret-keys # get uid
 gpg --delete-secret-key [uid]
+```
+
+To export a key: 
+
+```shell
+gpg --export ${ID} > public.key
+gpg --export-secret-key ${ID} > private.key
+```
+
+To import a key:
+
+```shell
+gpg --import public.key
+gpg --import private.key
 ```
 
 ### Touchpad Configuration
