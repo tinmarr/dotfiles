@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-local mag="\e[35m"
-local green="\e[32m"
-local reset="\e[m"
+mag="\e[35m"
+green="\e[32m"
+reset="\e[m"
 
 # Dotfile requirements
 sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat gitui
