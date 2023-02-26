@@ -54,7 +54,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 autoload -U colors && colors
 local lc=$'\e[' rc=m
 
-echo -e "$lc${color[magenta]}$rc""Welcome $(whoami)!$reset_color"
+printf "$lc${color[magenta]}$rc""Welcome $(whoami)!$reset_color\n"
 echo "Today is $(date +%A,\ %B\ %d,\ %Y)"
 echo "The time now is $(date +%Hh%M)"
 

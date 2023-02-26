@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+local mag="\e[35m"
+local green="\e[32m"
+local reset="\e[m"
+
 # Dotfile requirements
 sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat gitui
 
@@ -9,7 +13,7 @@ sudo usermod -a -G video $USER
 
 # Setup dotfiles
 cd $HOME
-echo "Authenticate gh with an SSH Key"
+printf "$mag""Authenticate gh with an SSH Key""$reset""\n"
 gh auth login # login with ssh 
 gh repo clone tinmarr/.dotfiles -- --bare
 mv .dotfiles.git .dotfiles
@@ -27,6 +31,10 @@ python -m ensurepip
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 yay -S nvim-packer-git
 
+printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
+read tmp
+nvim
+
 echo 'Section "InputClass"
     Identifier "devname"
     Driver "libinput"
@@ -36,10 +44,10 @@ echo 'Section "InputClass"
     Option "NaturalScrolling" "true"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
 
-echo "Installing Utilities"
+printf "$mag""Installing Utilities""$reset""\n"
 yay -S --needed neofetch btop ranger man ncspot
 
-echo "Install WM things? [Y/n]"
+printf "$mag""Install WM things? [Y/n] ""$reset"
 read wm
 case $wm in 
     "n" | "N")
@@ -50,10 +58,10 @@ case $wm in
         yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret libgnome-keyring obsidian 
         sudo systemctl enable ly
         gh repo clone tinmarr/obsidian-vault
-        echo "The following tools need to be configured manually:
+        printf "$mag""The following tools need to be configured manually:
             - lxappearance
             - brave
-            - visual-studio-code"
+            - visual-studio-code""$reset""\n"
         ;;
 esac
-echo "Installation Complete!"
+printf "$green""Setup Complete\!""$reset""\n"
