@@ -41,7 +41,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 . ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-. ~/.zsh/colorize.plugin.zsh
 
 # setup history subsearch
 bindkey '^[[A' history-substring-search-up

@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Dotfile requirements
+sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat gitui
+
+# Configure user
+chsh -s /bin/zsh
+sudo usermod -a -G video $USER
+
+# Setup dotfiles
+cd $HOME
+echo "Authenticate gh with an SSH Key"
+gh auth login # login with ssh 
+gh repo clone tinmarr/.dotfiles -- --bare
+mv .dotfiles.git .dotfiles
+git --git-dir=.dotfiles --work-tree=. checkout -f
+git --git-dir=.dotfiles --work-tree=. submodule update --init --recursive
+git --git-dir=.dotfiles --work-tree=. config --local status.showUntrackedFiles no
+
+# Setup fonts
+fc-cache -f -v
+
+# Install utilities
+curl https://pyenv.run | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+python -m ensurepip
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
+yay -S nvim-packer-git
+
+echo 'Section "InputClass"
+    Identifier "devname"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "Tapping" "on"
+    Option "ClickMethod" "clickfinger"
+    Option "NaturalScrolling" "true"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+
+echo "Installing Utilities"
+yay -S --needed neofetch btop ranger man ncspot
+
+echo "Install WM things? [Y/n]"
+read wm
+case $wm in 
+    "n" | "N")
+        echo "Skipping WM things"
+        ;;
+    *)
+        yay -S --needed awesome lxsession picom kdeconnect alacritty bemenu pavucontrol betterlockscreen 
+        yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret libgnome-keyring obsidian 
+        sudo systemctl enable ly
+        gh repo clone tinmarr/obsidian-vault
+        echo "The following tools need to be configured manually:
+            - lxappearance
+            - brave
+            - visual-studio-code"
+        ;;
+esac
+echo "Installation Complete!"
