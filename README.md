@@ -21,7 +21,7 @@ config push
 Run the following:
 
 ```shell
-curl "https://github.com/tinmarr/.dotfiles/blob/main/.local/bin/archpost" | bash
+curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/archpost" | bash
 ```
 
 ### Keyboard Configuration
