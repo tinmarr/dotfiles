@@ -38,15 +38,26 @@ alias la="ls -a"
 alias ll="ls -l --git --git-ignore"
 alias lla="ls -l -a --git"
 
+# Better cat
+alias cat="bat"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Better grep
+alias grep="rg"
+
+# GitUI Dotfiles
+alias dots="gitui -d ~/.dotfiles -w ~ --polling"
+
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 update () {
     sudo test
     config submodule update --checkout --recursive
+    yes o | yay -Syyu --answerclean A --answerdiff N --removemake
     git -C $NVM_DIR fetch --tags origin
     git -C $NVM_DIR checkout `git -C $NVM_DIR describe --abbrev=0 --tags --match "v[0-9]*" $(git -C $NVM_DIR rev-list --tags --max-count=1)`
     pyenv update
-    yes o | yay -Syyu --answerclean A --answerdiff N --removemake
+    rustup update
 }
 
 tzupdate () {

@@ -21,7 +21,7 @@ config push
 Install the following.
 
 ```shell
-sudo pacman -S --needed awesome git base-devel openssl zlib xz tk python-pip python-pygments github-cli zsh openssh lxsession picom kdeconnect neovim alacritty bemenu acpi acpilight pavucontrol alsa-utils exa betterlockscreen
+sudo pacman -S --needed awesome git base-devel openssl zlib xz tk python-pip python-pygments github-cli zsh openssh lxsession picom kdeconnect neovim alacritty bemenu acpi acpilight pavucontrol alsa-utils ripgrep exa bat betterlockscreen gitui
 ```
 
 Then:
@@ -114,7 +114,7 @@ Use `cat /etc/x11/xorg.conf.org/00-keyboard.conf` to check default options
 ### Useful things to install
 
 ```shell
-yay -S lxappearance gnu-free-fonts neofetch ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret libgnome-keyring obsidian btop ranger man
+yay -S lxappearance gnu-free-fonts neofetch ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret libgnome-keyring obsidian btop ranger man ncspot
 ```
 
 Once these are installed, this is what needs to be configured.
