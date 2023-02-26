@@ -10,9 +10,6 @@
 [submodule ".icons/dracula-icons"]
 	path = .icons/dracula-icons
 	url = https://github.com/m4thewz/dracula-icons.git
-[submodule ".zsh/ls"]
-	path = .zsh/ls
-	url = https://github.com/zpm-zsh/ls.git
 [submodule ".zsh/powerlevel10k"]
 	path = .zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git

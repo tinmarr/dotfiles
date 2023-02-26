@@ -31,6 +31,13 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gpu="__GLX_VENDOR_LIBRARY_NAME=nvidia"
 alias v="nvim"
 
+# Better ls
+alias ls="exa --icons --group-directories-first"
+alias l="ls --git-ignore"
+alias la="ls -a"
+alias ll="ls -l --git --git-ignore"
+alias lla="ls -l -a --git"
+
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 update () {
