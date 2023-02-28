@@ -25,6 +25,7 @@ git --git-dir=.dotfiles --work-tree=. config --local status.showUntrackedFiles n
 fc-cache -f -v
 
 # Install utilities
+printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 python -m ensurepip
@@ -44,8 +45,7 @@ echo 'Section "InputClass"
     Option "NaturalScrolling" "true"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
 
-printf "$mag""Installing Utilities""$reset""\n"
-yay -S --needed neofetch btop ranger man ncspot
+yay -S --needed neofetch btop ranger man ncspot xdg-user-dirs
 
 printf "$mag""Install WM things? [Y/n] ""$reset"
 read wm

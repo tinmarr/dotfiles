@@ -214,7 +214,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "[", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 3840x2400 --scale 1") end, 
         { description = "set the resolution to 3840x2400", group = "screen" }),
-    awful.key({ modkey, "Control" }, "]", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 960x600_60.00 --scale 2") end,
+    awful.key({ modkey, "Control" }, "]", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 1280x800 --scale 1") end,
         { description = "set the resolution to 1280x800", group = "screen" }),
 
     awful.key({}, "Print", function() awful.spawn.with_shell("flameshot gui") end,
@@ -573,4 +573,3 @@ end)
 awful.spawn("betterlockscreen -u "..beautiful.wallpaper)
 awful.spawn("lxsession")
 awful.spawn("picom")
-awful.spawn.with_shell("xrandr --newmode '960x600_60.00'   45.25  960 992 1088 1216  600 603 609 624 -hsync +vsync; xrandr --addmode eDP-1 960x600_60.00")
