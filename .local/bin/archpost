@@ -5,7 +5,7 @@ green="\e[32m"
 reset="\e[m"
 
 # Dotfile requirements
-sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat gitui
+sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat
 
 # Configure user
 chsh -s /bin/zsh
