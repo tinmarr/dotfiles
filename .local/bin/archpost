@@ -45,6 +45,14 @@ echo 'Section "InputClass"
     Option "NaturalScrolling" "true"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
 
+echo 'Section "Device"
+    Identifier "Intel Graphics"
+    Driver "intel"
+    Option "TearFree" "true"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+
+
+
 yay -S --needed neofetch btop ranger man ncspot xdg-user-dirs
 
 printf "$mag""Install WM things? [Y/n] ""$reset"

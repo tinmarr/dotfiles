@@ -105,16 +105,11 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-        awful.button({}, 1, function() awful.layout.inc(1) end),
-        awful.button({}, 3, function() awful.layout.inc(-1) end),
-        awful.button({}, 4, function() awful.layout.inc(1) end),
-        awful.button({}, 5, function() awful.layout.inc(-1) end)))
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
@@ -129,45 +124,32 @@ awful.screen.connect_for_each_screen(function(s)
     s.mysystray.opacity = 0.8
 
     -- Create the wibox
-    local wibox_pading = dpi(12)
-    local wibox_height = dpi(24)
+    local wibox_pading = dpi(12, s)
+    local wibox_height = dpi(24, s)
+    local top_padding = dpi(4, s)
+
     s.mywibox = wibox {
         screen = s,
         visible = true,
+        x = wibox_pading, 
+        y = top_padding,
+        width = s.geometry.width - (2 * wibox_pading),
+        height = wibox_height,
+        shape = gears.shape.rounded_bar
     }
 
-    function Floating_Wibox()
-        s.mywibox.x = wibox_pading
-        s.mywibox.y = dpi(4)
-        s.mywibox.width = s.geometry.width - (2 * wibox_pading)
-        s.mywibox.height = wibox_height
-        s.mywibox.shape = gears.shape.rounded_bar
 
-        s.mywibox:struts({
-            top = dpi(4) + wibox_height,
-        })
-    end
+    s.mywibox:struts({
+        top = top_padding + wibox_height,
+    })
 
-    function Top_Wibox()
-        s.mywibox.x = 0
-        s.mywibox.y = 0
-        s.mywibox.width = s.geometry.width
-        s.mywibox.height = wibox_height
-        s.mywibox.shape = gears.shape.rectangle
-
-        s.mywibox:struts({
-            top = wibox_height,
-        })
-    end
-
-    Floating_Wibox()
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.margin(s.mytaglist, dpi(12)),
+            wibox.container.margin(s.mytaglist, wibox_pading),
         },
         {
             layout = wibox.layout.align.horizontal,
@@ -188,7 +170,7 @@ awful.screen.connect_for_each_screen(function(s)
                 show_notification_mode = "on_click",
             }, 5, 5),
             mytextclock,
-            wibox.container.margin(s.mylayoutbox, 0, dpi(12)),
+            wibox.container.margin(s.mylayoutbox, 0, wibox_pading),
         },
     }
 end)
@@ -554,11 +536,9 @@ end
 local function border_adjust(c)
     if c.maximized then -- no borders if only 1 client visible
         c.border_width = 0
-        Top_Wibox()
     else
         c.border_width = beautiful.border_width
         c.border_color = beautiful.border_focus
-        Floating_Wibox()
     end
 end
 
