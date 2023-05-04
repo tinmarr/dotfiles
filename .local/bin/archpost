@@ -5,7 +5,10 @@ green="\e[32m"
 reset="\e[m"
 
 # Dotfile requirements
-sudo pacman -S --needed git base-devel openssl zlib xz tk python-pip github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat
+sudo pacman -S --needed git github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat
+
+# Pyenv requirements
+base-devel openssl zlib xz tk
 
 # Configure user
 chsh -s /bin/zsh
@@ -28,9 +31,8 @@ fc-cache -f -v
 printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-python -m ensurepip
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
-yay -S nvim-packer-git
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
 read tmp
@@ -53,7 +55,7 @@ EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
 
 
 
-yay -S --needed neofetch btop ranger man ncspot xdg-user-dirs
+yay -S --needed neofetch btop ranger man xdg-user-dirs
 
 printf "$mag""Install WM things? [Y/n] ""$reset"
 read wm
@@ -63,8 +65,9 @@ case $wm in
         ;;
     *)
         yay -S --needed awesome lxsession picom kdeconnect alacritty bemenu pavucontrol betterlockscreen 
-        yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret libgnome-keyring obsidian 
+        yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret obsidian 
         sudo systemctl enable ly
+        sudo systemctl disable getty@tty2.service
         gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
             - lxappearance

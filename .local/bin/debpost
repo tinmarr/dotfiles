@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+mag="\e[35m"
+green="\e[32m"
+reset="\e[m"
+
+# Dotfile requirements
+sudo apt update
+sudo apt upgrade
+sudo apt install git gh zsh ssh neovim acpi alsa-utils ripgrep exa bat 
+
+# Pyenv requirements
+sudo apt install build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev 
+
+# Configure user
+chsh -s /bin/zsh
+sudo usermod -a -G video $USER
+
+# Setup dotfiles
+cd $HOME
+printf "$mag""Authenticate gh with an SSH Key""$reset""\n"
+gh auth login # login with ssh 
+gh repo clone tinmarr/.dotfiles -- --bare
+mv .dotfiles.git .dotfiles
+git --git-dir=.dotfiles --work-tree=. checkout -f
+git --git-dir=.dotfiles --work-tree=. submodule update --init --recursive
+git --git-dir=.dotfiles --work-tree=. config --local status.showUntrackedFiles no
+
+# Setup fonts
+fc-cache -f -v
+
+# Install utilities
+printf "$mag""Installing Utilities""$reset""\n"
+curl https://pyenv.run | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
+read tmp
+nvim
+
+echo 'Section "InputClass"
+    Identifier "devname"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+    Option "Tapping" "on"
+    Option "ClickMethod" "clickfinger"
+    Option "NaturalScrolling" "true"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+
+echo 'Section "Device"
+    Identifier "Intel Graphics"
+    Driver "intel"
+    Option "TearFree" "true"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+
+yay -S --needed neofetch btop ranger man ncspot xdg-user-dirs
+sudo apt install neofetch btop ranger xdg-user-dirs
+
+printf "$mag""Install WM things? [Y/n] ""$reset"
+read wm
+case $wm in 
+    "n" | "N")
+        echo "Skipping WM things"
+        ;;
+    *)
+        # Most things
+        sudo apt install awesome lxsession picom kdeconnect alacritty bemenu pavucontrol lxappearance thunar gnome-keyring libsecret-1-0 
+        wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | bash -s user
+        # ly
+        sudo apt install build-essential libpam0g-dev libxcb-xkb-dev
+        git clone --recurse-submodules https://github.com/fairyglade/ly
+        cd ly
+        make
+        make install installsystemd
+        sudo systemctl enable ly.service
+        sudo systemctl disable getty@tty2.service
+        cd ..
+        rm -rf ly
+        
+        # brave beta
+        sudo apt install curl
+
+        sudo curl -fsSLo /usr/share/keyrings/brave-browser-beta-archive-keyring.gpg https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg
+
+        echo "deb [signed-by=/usr/share/keyrings/brave-browser-beta-archive-keyring.gpg] https://brave-browser-apt-beta.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-beta.list
+
+        sudo apt update
+
+        sudo apt install brave-browser-beta
+        
+        # VSCode
+        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+        sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft-archive-keyring.gpg
+        sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+        sudo apt-get install apt-transport-https
+        sudo apt-get update
+        sudo apt-get install code 
+
+        printf "$mag""The following tools need to be configured manually:
+            - lxappearance
+            - brave
+            - visual-studio-code""$reset""\n"
+        ;;
+esac
+printf "$green""Setup Complete\!""$reset""\n"
