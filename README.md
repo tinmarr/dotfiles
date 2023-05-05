@@ -16,12 +16,16 @@ config commit -m "Add bashrc"
 config push
 ```
 
-## To get onto new computer (Arch Only)
+## To get onto new computer
 
-Run the following:
-
+Arch:
 ```shell
 curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/archpost" | bash
+```
+
+Debian (tested on Debian 12, maybe works on Ubuntu):
+```shell
+curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/debpost" | bash
 ```
 
 ### Keyboard Configuration
