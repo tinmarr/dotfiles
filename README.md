@@ -23,7 +23,7 @@ Arch:
 curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/archpost" | bash
 ```
 
-Debian (tested on Debian 12, maybe works on Ubuntu):
+Debian (untested):
 ```shell
 curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/debpost" | bash
 ```
