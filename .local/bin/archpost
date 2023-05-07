@@ -8,7 +8,7 @@ reset="\e[m"
 sudo pacman -S --needed git github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat
 
 # Pyenv requirements
-sudo pacmam -S --needed base-devel openssl zlib xz tk
+sudo pacman -S --needed base-devel openssl zlib xz tk
 
 # Configure user
 chsh -s /bin/zsh
