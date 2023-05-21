@@ -49,7 +49,7 @@ Make sure to use the following settings:
 
 - RSA
 - 4096 bits
-- 1m
+- 0
 - Name: GithubMartinMmmDD
 - Email: martin.chapino@gmail.com
 
