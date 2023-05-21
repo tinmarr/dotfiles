@@ -3,7 +3,7 @@
 [user]
 	name = Martin Chaperot
 	email = martin.chapino@gmail.com
-	signingkey = D88766A19D1241B5 
+	signingkey = 534B75E41C6F90AE 
 [fetch]
 	prune = true
 [commit]

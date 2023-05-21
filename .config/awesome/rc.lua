@@ -524,14 +524,6 @@ end)
 -- end)
 
 
-local function set_picom(value)
-    if value then
-        awful.spawn.with_shell("picom")
-    else
-        awful.spawn.with_shell("killall picom")
-    end
-end
-
 -- No border for maximized clients
 local function border_adjust(c)
     if c.maximized then -- no borders if only 1 client visible
@@ -545,11 +537,7 @@ end
 client.connect_signal("focus", border_adjust)
 client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-client.connect_signal("property::fullscreen", function(c)
-    set_picom(not c.fullscreen)
-end)
 
 -- Autostart
 awful.spawn("betterlockscreen -u "..beautiful.wallpaper)
 awful.spawn("lxsession")
-awful.spawn("picom")
