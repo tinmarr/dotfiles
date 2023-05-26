@@ -74,16 +74,6 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["coc.nvim"] = {
-    loaded = true,
-    path = "/home/martin/.local/share/nvim/site/pack/packer/start/coc.nvim",
-    url = "https://github.com/neoclide/coc.nvim"
-  },
-  ["copilot.vim"] = {
-    loaded = true,
-    path = "/home/martin/.local/share/nvim/site/pack/packer/start/copilot.vim",
-    url = "https://github.com/github/copilot.vim"
-  },
   ["nvim-transparent"] = {
     loaded = true,
     path = "/home/martin/.local/share/nvim/site/pack/packer/start/nvim-transparent",
