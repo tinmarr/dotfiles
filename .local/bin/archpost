@@ -64,7 +64,7 @@ case $wm in
         echo "Skipping WM things"
         ;;
     *)
-        yay -S --needed awesome lxsession kdeconnect alacritty bemenu pavucontrol betterlockscreen 
+        yay -S --needed awesome lxsession kdeconnect kitty bemenu pavucontrol betterlockscreen 
         yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret obsidian 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
