@@ -39,7 +39,9 @@ Use `cat /etc/x11/xorg.conf.org/00-keyboard.conf` to check default options
 
 ## GPG
 
-Currently I use a GPG key that expires every month. To generate a new one do:
+Currently I use a GPG key that expires every month. 
+
+#### To generate a new one:
 
 ```shell
 gpg --full-generate-key
@@ -59,21 +61,29 @@ the key into Github.
 
 Finally update the git config signing key with `git config --global -e`.
 
-To delete a key:
+#### To edit key:
+
+```shell
+gpg --edit-key [uid]
+help # to see options
+expire # to change expire date
+```
+
+#### To delete a key:
 
 ```shell
 gpg --list-secret-keys # get uid
 gpg --delete-secret-key [uid]
 ```
 
-To export a key:
+#### To export a key:
 
 ```shell
-gpg --export ${ID} > public.key
-gpg --export-secret-key ${ID} > private.key
+gpg --export [uid] > public.key
+gpg --export-secret-key [uid] > private.key
 ```
 
-To import a key:
+#### To import a key:
 
 ```shell
 gpg --import public.key
