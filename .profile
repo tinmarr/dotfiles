@@ -55,7 +55,7 @@ alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 update () {
     sudo test
     config submodule update --checkout --recursive
-    yes o | yay -Syyu --answerclean A --answerdiff N --removemake
+    yay -Syyu --answerclean A --answerdiff N --removemake --noconfirm
     git -C $NVM_DIR fetch --tags origin
     git -C $NVM_DIR checkout `git -C $NVM_DIR describe --abbrev=0 --tags --match "v[0-9]*" $(git -C $NVM_DIR rev-list --tags --max-count=1)`
     pyenv update
