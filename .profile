@@ -75,11 +75,14 @@ unshush_fan () {
     sudo dell-bios-fan-control 1
 }
 
+# Git stuff
 gitc () {
     git add .
     git commit -m $1
     git push
 }
+
+alias gits="git fetch && git status"
 
 export EDITOR=nvim
 export GPG_TTY=$TTY
