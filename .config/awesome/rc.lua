@@ -54,7 +54,7 @@ beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -124,23 +124,23 @@ awful.screen.connect_for_each_screen(function(s)
     s.mysystray.opacity = 0.8
 
     -- Create the wibox
-    local wibox_pading = dpi(12, s)
-    local wibox_height = dpi(24, s)
-    local top_padding = dpi(4, s)
+    s.wibox_pading = dpi(12, s)
+    s.wibox_height = dpi(24, s)
+    s.top_padding = dpi(4, s)
 
-    s.mywibox = wibox {
+    s.mywibox = awful.wibar({
         screen = s,
         visible = true,
-        x = wibox_pading, 
-        y = top_padding,
-        width = s.geometry.width - (2 * wibox_pading),
-        height = wibox_height,
+        x = s.wibox_pading, 
+        y = s.top_padding,
+        width = s.geometry.width - (2 * s.wibox_pading),
+        height = s.wibox_height,
         shape = gears.shape.rounded_bar
-    }
+    })
 
 
     s.mywibox:struts({
-        top = top_padding + wibox_height,
+        top = s.top_padding + s.wibox_height,
     })
 
 
@@ -149,7 +149,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.margin(s.mytaglist, wibox_pading),
+            wibox.container.margin(s.mytaglist, s.wibox_pading),
         },
         {
             layout = wibox.layout.align.horizontal,
@@ -170,7 +170,7 @@ awful.screen.connect_for_each_screen(function(s)
                 show_notification_mode = "on_click",
             }, 5, 5),
             mytextclock,
-            wibox.container.margin(s.mylayoutbox, 0, wibox_pading),
+            wibox.container.margin(s.mylayoutbox, 0, s.wibox_pading),
         },
     }
 end)
@@ -196,7 +196,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "[", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 3840x2400 --scale 1") end, 
         { description = "set the resolution to 3840x2400", group = "screen" }),
-    awful.key({ modkey, "Control" }, "]", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 1280x800 --scale 1") end,
+    awful.key({ modkey, "Control" }, "]", function() awful.spawn.with_shell("xrandr --output eDP-1 --mode 1280x800 --scale 2") end,
         { description = "set the resolution to 1280x800", group = "screen" }),
 
     awful.key({}, "Print", function() awful.spawn.with_shell("flameshot gui") end,
