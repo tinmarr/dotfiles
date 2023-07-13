@@ -83,6 +83,7 @@ gitc () {
 }
 
 alias gits="git fetch && git status"
+alias gitl="git log --compact-summary"
 
 export EDITOR=nvim
 export GPG_TTY=$TTY
