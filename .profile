@@ -12,7 +12,7 @@ _load_nvm() {
 }
 
 for cmd in "${NODE_GLOBALS[@]}"; do
-    eval "function ${cmd}(){ unset -f ${NODE_GLOBALS[*]}; _load_nvm; unset -f _load_nvm; ${cmd} \$@; }"
+    eval "function ${cmd}(){ unset -f ${NODE_GLOBALS[*]} 2> /dev/null; _load_nvm; unset -f _load_nvm; ${cmd} \$@; }"
 done
 
 unset cmd NODE_GLOBALS
