@@ -131,18 +131,10 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({
         screen = s,
         visible = true,
-        x = s.wibox_pading, 
-        y = s.top_padding,
         width = s.geometry.width - (2 * s.wibox_pading),
         height = s.wibox_height,
         shape = gears.shape.rounded_bar
     })
-
-
-    s.mywibox:struts({
-        top = s.top_padding + s.wibox_height,
-    })
-
 
     -- Add widgets to the wibox
     s.mywibox:setup {
