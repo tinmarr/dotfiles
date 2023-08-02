@@ -68,6 +68,8 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile.right,
     awful.layout.suit.corner.nw,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal,
 }
 -- }}}
 
