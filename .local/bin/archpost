@@ -64,10 +64,13 @@ case $wm in
         echo "Skipping WM things"
         ;;
     *)
-        yay -S --needed awesome lxsession kdeconnect kitty bemenu pavucontrol betterlockscreen 
+        printf "$mag""Which WMs? (package names, space seperated) [awesome, qtile] ""$reset"
+        yay -S --needed "$mag"
+        yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr
         yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret obsidian 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
+        sudo systemctl enable autorandr
         gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
             - lxappearance

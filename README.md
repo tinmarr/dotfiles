@@ -23,11 +23,6 @@ Arch:
 curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/archpost" | bash
 ```
 
-Debian (untested):
-```shell
-curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/debpost" | bash
-```
-
 ### Keyboard Configuration
 
 The keyboard needs to be configured manually.
