@@ -1,7 +1,8 @@
 import subprocess
 
 from libqtile import bar, hook, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.backend.base import Window
+from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 mod = "mod4"
@@ -25,7 +26,7 @@ class Theme:
 
 bemenu = """
             bemenu-run \
-                --fn 'JetBrainsMono Nerd Font 32'\
+                --fn 'JetBrainsMono Nerd Font Mono 32'\
                 --tb '#6272a4'\
                 --tf '#f8f8f2'\
                 --fb '#282a36'\
@@ -48,10 +49,29 @@ bemenu = """
         """
 
 
+def make_icon(raw_unicode: str) -> str:
+    return raw_unicode.encode("utf-16", "surrogatepass").decode("utf-16")
+
+
 @hook.subscribe.startup_once
 def autostart():
     subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
     subprocess.Popen(["autorandr", "-c"])
+
+
+last_window: Window | None = None
+
+
+@hook.subscribe.client_focus
+def save_last_window(window: Window):
+    global last_window
+    last_window = window
+
+
+@lazy.function
+def focus_last_window(qtile):
+    if last_window:
+        last_window.focus(cursor_warp)
 
 
 keys = [
@@ -62,6 +82,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "tab", focus_last_window(), desc="Move focus to previous window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key(
@@ -183,12 +204,14 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="JetBrainsMono Nerd Font",
+    font="JetBrainsMono Nerd Font Mono Light",
     fontsize=24,
     padding=12,
     background=None,
+    foreground=Theme.foreground,
 )
 extension_defaults = widget_defaults.copy()
+
 
 screens = [
     Screen(
@@ -203,14 +226,23 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
-                widget.Volume(),
+                widget.Volume(
+                    volume_app="pavucontrol", fmt=make_icon("\udb81\udd7e") + " {}"
+                ),
                 widget.Backlight(
+                    fmt=make_icon("\udb80\udcde") + " {}",
                     backlight_name="intel_backlight",
                 ),
                 widget.Battery(
                     notify_below=10,
+                    charge_char=make_icon("\udb80\udc84"),
+                    discharge_char=make_icon("\udb80\udc7e"),
+                    empty_char=make_icon("\udb80\udc83"),
+                    full_char=make_icon("\udb80\udc79"),
+                    unknown_char=make_icon("\udb80\udc91"),
+                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
                 ),
-                widget.Clock(format="%Y-%m-%d %a %H:%M"),
+                widget.Clock(format="%a, %d %b %H:%M"),
             ],
             48,
             background=Theme.alternate,
@@ -243,6 +275,9 @@ follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(  # type: ignore
+    border_focus=Theme.pink,
+    border_normal=Theme.secondary,
+    border_width=4,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,  # type: ignore
@@ -252,7 +287,7 @@ floating_layout = layout.Floating(  # type: ignore
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-    ]
+    ],
 )
 auto_fullscreen = True
 focus_on_window_activation = "urgent"

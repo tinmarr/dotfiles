@@ -32,6 +32,10 @@ The keyboard needs to be configured manually.
 Use `cat /etc/x11/xorg.conf.org/00-keyboard.conf` to check default options
 (only before running command).
 
+### Language configuration
+
+Use [this](https://wiki.archlinux.org/title/Locale) guide.
+
 ## GPG
 
 Currently I use a GPG key that expires every month. 
