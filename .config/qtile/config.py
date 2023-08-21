@@ -165,6 +165,8 @@ keys = [
     # Window modification
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle window fullscreen"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle window float"),
+    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window fullscreen"),
+    Key([mod, "shift"], "m", lazy.window.toggle_minimize(), desc="Toggle window float"),
     Key([mod], "u", lazy.next_urgent(), desc="To urgent window"),
 ]
 
@@ -218,12 +220,17 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(padding=3),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
+                widget.TaskList(
+                    border=Theme.purple,
+                    highlight_method="block",
+                    margin=0,
+                    unfocused_border=Theme.secondary,
+                    urgent_border=Theme.red,
+                    txt_minimized=make_icon("\udb81\uddb0") + " ",
+                    txt_floating=make_icon("\udb84\udcac") + " ",
+                    txt_maximized=make_icon("\udb81\uddaf") + " ",
+                    icon_size=24,
+                    title_width_method="uniform",
                 ),
                 widget.Systray(),
                 widget.Volume(
@@ -242,7 +249,10 @@ screens = [
                     unknown_char=make_icon("\udb80\udc91"),
                     format="{char} {percent:2.0%} {hour:d}:{min:02d}",
                 ),
-                widget.Clock(format="%a, %d %b %H:%M"),
+                widget.ThermalSensor(
+                    fmt=make_icon("\uf4bc") + " {}",
+                ),
+                widget.Clock(format="%a %d %b %H:%M:%S"),
             ],
             48,
             background=Theme.alternate,
@@ -272,7 +282,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = False
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(  # type: ignore
     border_focus=Theme.pink,
@@ -289,8 +299,9 @@ floating_layout = layout.Floating(  # type: ignore
         Match(title="pinentry"),  # GPG key password entry
     ],
 )
+floats_kept_above = True
 auto_fullscreen = True
-focus_on_window_activation = "urgent"
+focus_on_window_activation = "focus"
 reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing
