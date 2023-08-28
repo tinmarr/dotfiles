@@ -1,11 +1,13 @@
+# pylint: disable=missing-docstring,invalid-name,too-few-public-methods
 import subprocess
 
-from libqtile import bar, hook, layout, widget
-from libqtile.backend.base import Window
+from libqtile import bar, hook
 from libqtile.config import Drag, Group, Key, Match, Screen
+from libqtile.layout.columns import Columns
+from libqtile.layout.floating import Floating
 from libqtile.lazy import lazy
+from qtile_extras import widget
 
-mod = "mod4"
 terminal = "kitty"
 
 
@@ -53,28 +55,21 @@ def make_icon(raw_unicode: str) -> str:
     return raw_unicode.encode("utf-16", "surrogatepass").decode("utf-16")
 
 
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
+def send_notif(_, title: str, body: str = ""):
+    subprocess.Popen(["notify-send", title, body])
+
+
+@hook.subscribe.screen_change
+def screen_change():
+    send_notify("Configuring screens...")
     subprocess.Popen(["autorandr", "-c"])
+    subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
 
 
-last_window: Window | None = None
+mod = "mod4"
+alt = "mod1"
 
-
-@hook.subscribe.client_focus
-def save_last_window(window: Window):
-    global last_window
-    last_window = window
-
-
-@lazy.function
-def focus_last_window(qtile):
-    if last_window:
-        last_window.focus(cursor_warp)
-
-
-keys = [
+focus_keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -82,7 +77,14 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "tab", focus_last_window(), desc="Move focus to previous window"),
+    Key([mod], "tab", lazy.layout.previous(), desc="Move focus to previous window"),
+    Key([mod], "u", lazy.next_urgent(), desc="To urgent window"),
+    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, alt], "h", lazy.prev_screen(), desc="Move focus to previous screen"),
+    Key([mod, alt], "l", lazy.next_screen(), desc="Move focus to next screen"),
+]
+
+layout_keys = [
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key(
@@ -118,11 +120,14 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn(bemenu), desc="Launch bemenu"),
+    # Window modification
+    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle window fullscreen"),
+    Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle window float"),
+    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window fullscreen"),
+    Key([mod, "shift"], "m", lazy.window.toggle_minimize(), desc="Toggle window float"),
+]
+
+system_keys = [
     # System Controls
     Key(
         [],
@@ -139,21 +144,28 @@ keys = [
     Key(
         [],
         "XF86AudioRaiseVolume",
-        lazy.spawn("amixer -D 'default' set 'Master' playback 5%+"),
+        lazy.spawn("amixer -D default set Master 5%+"),
         desc="Increase volume",
     ),
     Key(
         [],
         "XF86AudioLowerVolume",
-        lazy.spawn("amixer -D 'default' set 'Master' playback 5%-"),
+        lazy.spawn("amixer -D default set Master 5%-"),
         desc="Decrease volume",
     ),
     Key(
         [],
         "XF86AudioMute",
-        lazy.spawn("amixer -D 'default' set 'Master' toggle"),
+        lazy.spawn("amixer -D default set Master toggle"),
         desc="Mute volume",
     ),
+]
+
+action_keys = [
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod], "r", lazy.spawn(bemenu), desc="Launch bemenu"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     # Lockscreen
     Key(
@@ -162,13 +174,9 @@ keys = [
         lazy.spawn("betterlockscreen -l dimblur"),
         desc="Lock screen",
     ),
-    # Window modification
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle window fullscreen"),
-    Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle window float"),
-    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window fullscreen"),
-    Key([mod, "shift"], "m", lazy.window.toggle_minimize(), desc="Toggle window float"),
-    Key([mod], "u", lazy.next_urgent(), desc="To urgent window"),
 ]
+
+keys = [*focus_keys, *layout_keys, *system_keys, *action_keys]
 
 groups = [Group(i) for i in "1234567890"]
 
@@ -180,20 +188,20 @@ for i in groups:
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
+                desc=f"Switch to group {i.name}",
             ),
             # mod1 + shift + letter of group = move focused window to group
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name),
-                desc="Move focused window to group {}".format(i.name),
+                desc=f"Move focused window to group {i.name}",
             ),
         ]
     )
 
 layouts = [
-    layout.Columns(  # type: ignore
+    Columns(
         border_focus=Theme.purple,
         border_focus_stack=Theme.purple,
         border_normal=Theme.secondary,
@@ -211,56 +219,77 @@ widget_defaults = dict(
     padding=12,
     background=None,
     foreground=Theme.foreground,
+    # theme_path="~/.icons/dracula-icons/24",
 )
 extension_defaults = widget_defaults.copy()
+
+BARS_COUNT = 0
+
+def make_bar():
+    global BARS_COUNT
+    BARS_COUNT+=1
+    return bar.Bar(
+        [
+            widget.GroupBox(padding=3),
+            widget.TaskList(
+                border=Theme.purple,
+                highlight_method="block",
+                margin=0,
+                unfocused_border=Theme.secondary,
+                urgent_border=Theme.red,
+                txt_minimized=make_icon("\udb81\uddb0") + " ",
+                txt_floating=make_icon("\udb84\udcac") + " ",
+                txt_maximized=make_icon("\udb81\uddaf") + " ",
+                icon_size=24,
+                title_width_method="uniform",
+            ),
+            widget.Systray() if BARS_COUNT == 1 else widget.TextBox(padding=0),
+            widget.Volume(
+                volume_app="pavucontrol",
+                fmt=make_icon("\udb81\udd7e") + " {}",
+            ),
+            widget.Backlight(
+                fmt=make_icon("\udb80\udcde") + " {}",
+                backlight_name="intel_backlight",
+            ),
+            widget.Battery(
+                notify_below=10,
+                charge_char=make_icon("\udb80\udc84"),
+                discharge_char=make_icon("\udb80\udc7e"),
+                empty_char=make_icon("\udb80\udc83"),
+                full_char=make_icon("\udb80\udc79"),
+                unknown_char=make_icon("\udb80\udc91"),
+                format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                threshold=90,
+                foreground_alert=Theme.red,
+            ),
+            widget.ThermalSensor(
+                fmt=make_icon("\uf4bc") + " {}",
+            ),
+            widget.Clock(format="%a %d %b %H:%M:%S"),
+        ],
+        48,
+        background=Theme.alternate,
+        border_width=4,
+        border_color=Theme.secondary,
+        margin=[8, 8, 0, 8],
+        opacity=0.5,
+    )
 
 
 screens = [
     Screen(
-        top=bar.Bar(
-            [
-                widget.GroupBox(padding=3),
-                widget.TaskList(
-                    border=Theme.purple,
-                    highlight_method="block",
-                    margin=0,
-                    unfocused_border=Theme.secondary,
-                    urgent_border=Theme.red,
-                    txt_minimized=make_icon("\udb81\uddb0") + " ",
-                    txt_floating=make_icon("\udb84\udcac") + " ",
-                    txt_maximized=make_icon("\udb81\uddaf") + " ",
-                    icon_size=24,
-                    title_width_method="uniform",
-                ),
-                widget.Systray(),
-                widget.Volume(
-                    volume_app="pavucontrol", fmt=make_icon("\udb81\udd7e") + " {}"
-                ),
-                widget.Backlight(
-                    fmt=make_icon("\udb80\udcde") + " {}",
-                    backlight_name="intel_backlight",
-                ),
-                widget.Battery(
-                    notify_below=10,
-                    charge_char=make_icon("\udb80\udc84"),
-                    discharge_char=make_icon("\udb80\udc7e"),
-                    empty_char=make_icon("\udb80\udc83"),
-                    full_char=make_icon("\udb80\udc79"),
-                    unknown_char=make_icon("\udb80\udc91"),
-                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
-                ),
-                widget.ThermalSensor(
-                    fmt=make_icon("\uf4bc") + " {}",
-                ),
-                widget.Clock(format="%a %d %b %H:%M:%S"),
-            ],
-            48,
-            background=Theme.alternate,
-            border_width=4,
-            border_color=Theme.secondary,
-            margin=[8, 8, 0, 8],
-            opacity=0.5,
-        ),
+        top=make_bar(),
+        wallpaper=Theme.wallpaper,
+        wallpaper_mode="fill",
+    ),
+    Screen(
+        top=make_bar(),
+        wallpaper=Theme.wallpaper,
+        wallpaper_mode="fill",
+    ),
+    Screen(
+        top=make_bar(),
         wallpaper=Theme.wallpaper,
         wallpaper_mode="fill",
     ),
@@ -284,24 +313,25 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = False
 bring_front_click = True
 cursor_warp = False
-floating_layout = layout.Floating(  # type: ignore
+floating_layout = Floating(
     border_focus=Theme.pink,
     border_normal=Theme.secondary,
     border_width=4,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
-        *layout.Floating.default_float_rules,  # type: ignore
+        *Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(title="zoom"),  # zoom
     ],
 )
 floats_kept_above = True
 auto_fullscreen = True
-focus_on_window_activation = "focus"
+focus_on_window_activation = "smart"
 reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing

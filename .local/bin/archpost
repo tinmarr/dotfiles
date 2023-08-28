@@ -66,6 +66,9 @@ case $wm in
     *)
         printf "$mag""Which WMs? (package names, space seperated) [awesome, qtile] ""$reset"
         yay -S --needed "$mag"
+        if [[ "$mag" = "qtile" ]]; then
+            yay -S --needed qtile-extras
+        fi
         yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr dunst
         yay -S --needed lxappearance gnu-free-fonts ly brave-nightly-bin thunar visual-studio-code-bin gnome-keyring libsecret obsidian 
         sudo systemctl enable ly
