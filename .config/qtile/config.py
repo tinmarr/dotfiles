@@ -59,12 +59,10 @@ def send_notif(_, title: str, body: str = ""):
     subprocess.Popen(["notify-send", title, body])
 
 
-@hook.subscribe.screen_change
-def screen_change():
-    send_notify("Configuring screens...")
+@hook.subscribe.startup_complete
+def autostart():
     subprocess.Popen(["autorandr", "-c"])
     subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
-
 
 mod = "mod4"
 alt = "mod1"
@@ -260,11 +258,11 @@ def make_bar():
                 full_char=make_icon("\udb80\udc79"),
                 unknown_char=make_icon("\udb80\udc91"),
                 format="{char} {percent:2.0%} {hour:d}:{min:02d}",
-                threshold=90,
-                foreground_alert=Theme.red,
             ),
             widget.ThermalSensor(
                 fmt=make_icon("\uf4bc") + " {}",
+                threshold=90,
+                foreground_alert=Theme.red,
             ),
             widget.Clock(format="%a %d %b %H:%M:%S"),
         ],
