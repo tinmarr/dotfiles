@@ -5,7 +5,7 @@ green="\e[32m"
 reset="\e[m"
 
 # Dotfile requirements
-sudo pacman -S --needed git github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat
+sudo pacman -S --needed git github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep exa bat direnv
 
 # Pyenv requirements
 sudo pacman -S --needed base-devel openssl zlib xz tk

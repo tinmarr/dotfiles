@@ -1,5 +1,5 @@
 # pylint: disable=missing-docstring,invalid-name,too-few-public-methods
-import subprocess
+import subprocess, os, random
 
 from libqtile import bar, hook
 from libqtile.config import Drag, Group, Key, Match, Screen
@@ -11,8 +11,14 @@ from qtile_extras import widget
 terminal = "kitty"
 
 
+def get_wallpaper():
+    folder = os.path.expanduser("~/.local/share/backgrounds")
+    files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+    return "~/.local/share/backgrounds/" + random.choice(files) if files else ""
+
+
 class Theme:
-    wallpaper = "~/.local/share/backgrounds/planets.jpg"
+    wallpaper = get_wallpaper()
     background = "#282a36"
     secondary = "#44475a"
     alternate = "#6272a4"
@@ -63,6 +69,7 @@ def send_notif(_, title: str, body: str = ""):
 def autostart():
     subprocess.Popen(["autorandr", "-c"])
     subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
+
 
 mod = "mod4"
 alt = "mod1"
@@ -223,9 +230,10 @@ extension_defaults = widget_defaults.copy()
 
 BARS_COUNT = 0
 
+
 def make_bar():
     global BARS_COUNT
-    BARS_COUNT+=1
+    BARS_COUNT += 1
     return bar.Bar(
         [
             widget.GroupBox(padding=3),

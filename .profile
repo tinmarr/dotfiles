@@ -45,11 +45,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # Better grep
 alias grep="rg"
 
-# Load environment variable file
-load () {
-    export $(xargs < $1)
-}
-
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 update () {

@@ -50,6 +50,8 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 . ~/.profile
 
+eval "$(direnv hook zsh)"
+
 # Load Colors
 autoload -U colors && colors
 local lc=$'\e[' rc=m
