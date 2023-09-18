@@ -246,7 +246,7 @@ def make_bar():
     decoration_group = {
         "decorations": [
             widget.decorations.RectDecoration(
-                colour=Theme.alternate, radius=21, filled=True, group=True
+                colour=[Theme.alternate], radius=23, filled=True, group=True
             )
         ],
     }
@@ -265,7 +265,7 @@ def make_bar():
                 disable_drag=True,
                 **decoration_group,
             ),
-            widget.Spacer(length=240),
+            widget.Spacer(length=300),
             t := widget.TaskList(
                 border=Theme.purple,
                 highlight_method="block",
@@ -281,11 +281,11 @@ def make_bar():
                 title_width_method="uniform",
                 decorations=[
                     widget.decorations.RectDecoration(
-                        colour=Theme.transparent, radius=21, filled=True, group=True
+                        colour=Theme.transparent, radius=23, filled=True, group=True
                     )
                 ],
             ),
-            widget.Spacer(length=240),
+            widget.Spacer(length=300),
             widget.Systray() if BARS_COUNT == 1 else widget.TextBox(padding=0),
             widget.Volume(
                 volume_app="pavucontrol",
