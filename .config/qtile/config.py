@@ -1,13 +1,16 @@
 # pylint: disable=missing-docstring,invalid-name,too-few-public-methods
 import subprocess, os, random
 
-from libqtile import bar, hook
+from libqtile import bar, hook, qtile
 from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.layout.columns import Columns
 from libqtile.layout.floating import Floating
 from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 from qtile_extras import widget
 
+from libqtile.command.client import InteractiveCommandClient
+c = InteractiveCommandClient()
 terminal = "kitty"
 
 
@@ -234,19 +237,21 @@ extension_defaults = widget_defaults.copy()
 BARS_COUNT = 0
 
 
-decoration_group = {
-    "decorations": [
-        widget.decorations.RectDecoration(
-            colour=Theme.alternate, radius=21, filled=True, group=True
-        )
-    ],
-}
 
 
 def make_bar():
     global BARS_COUNT
     BARS_COUNT += 1
-    return bar.Bar(
+
+    decoration_group = {
+        "decorations": [
+            widget.decorations.RectDecoration(
+                colour=Theme.alternate, radius=21, filled=True, group=True
+            )
+        ],
+    }
+
+    b = bar.Bar(
         [
             widget.GroupBox(
                 highlight_method="block",
@@ -261,7 +266,7 @@ def make_bar():
                 **decoration_group,
             ),
             widget.Spacer(length=240),
-            widget.TaskList(
+            t := widget.TaskList(
                 border=Theme.purple,
                 highlight_method="block",
                 margin_x=24,
@@ -274,7 +279,11 @@ def make_bar():
                 txt_maximized=make_icon("\udb81\uddaf") + " ",
                 icon_size=24,
                 title_width_method="uniform",
-                **decoration_group,
+                decorations=[
+                    widget.decorations.RectDecoration(
+                        colour=Theme.transparent, radius=21, filled=True, group=True
+                    )
+                ],
             ),
             widget.Spacer(length=240),
             widget.Systray() if BARS_COUNT == 1 else widget.TextBox(padding=0),
@@ -315,6 +324,18 @@ def make_bar():
         margin=[8, 8, 0, 8],
         opacity=1,
     )
+    return b
+
+@hook.subscribe.focus_change
+def color_tasklist():
+    window_count = len(qtile.current_screen.group.windows) 
+    tasklist = qtile.current_screen.top.widgets[2]
+    if window_count == 0:
+        tasklist.decorations[0].colour = Theme.transparent
+    if window_count == 1:
+        tasklist.decorations[0].colour = Theme.purple
+    if window_count > 1:
+        tasklist.decorations[0].colour = Theme.alternate
 
 
 screens = [
