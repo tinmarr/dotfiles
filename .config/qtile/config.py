@@ -30,6 +30,7 @@ class Theme:
     cyan = "#8be9fd"
     orange = "#ffb86c"
     yellow = "#f1fa8c"
+    transparent = "#00000000"
 
 
 bemenu = """
@@ -68,7 +69,9 @@ def send_notif(_, title: str, body: str = ""):
 @hook.subscribe.startup_complete
 def autostart():
     subprocess.Popen(["autorandr", "-c"])
-    subprocess.Popen(["betterlockscreen", "-u", Theme.wallpaper])
+    subprocess.Popen(["betterlockscreen", "-u", get_wallpaper()])
+    subprocess.Popen(["/usr/lib/kdeconnectd"])
+    subprocess.Popen(["picom", "-b"])
 
 
 mod = "mod4"
@@ -222,7 +225,7 @@ widget_defaults = dict(
     font="JetBrainsMono Nerd Font Mono Light",
     fontsize=24,
     padding=12,
-    background=None,
+    background=Theme.transparent,
     foreground=Theme.foreground,
     # theme_path="~/.icons/dracula-icons/24",
 )
@@ -231,33 +234,61 @@ extension_defaults = widget_defaults.copy()
 BARS_COUNT = 0
 
 
+decoration_group = {
+    "decorations": [
+        widget.decorations.RectDecoration(
+            colour=Theme.alternate, radius=21, filled=True, group=True
+        )
+    ],
+}
+
+
 def make_bar():
     global BARS_COUNT
     BARS_COUNT += 1
     return bar.Bar(
         [
-            widget.GroupBox(padding=3),
+            widget.GroupBox(
+                highlight_method="block",
+                this_current_screen_border=Theme.purple,
+                this_screen_border=Theme.secondary,
+                other_current_screen_border=Theme.background,
+                other_screen_border=Theme.background,
+                spacing=3,
+                padding=3,
+                margin_x=12,
+                disable_drag=True,
+                **decoration_group,
+            ),
+            widget.Spacer(length=240),
             widget.TaskList(
                 border=Theme.purple,
                 highlight_method="block",
-                margin=0,
-                unfocused_border=Theme.secondary,
+                margin_x=24,
+                margin_y=3,
+                padding=9,
+                unfocused_border=Theme.alternate,
                 urgent_border=Theme.red,
                 txt_minimized=make_icon("\udb81\uddb0") + " ",
                 txt_floating=make_icon("\udb84\udcac") + " ",
                 txt_maximized=make_icon("\udb81\uddaf") + " ",
                 icon_size=24,
                 title_width_method="uniform",
+                **decoration_group,
             ),
+            widget.Spacer(length=240),
             widget.Systray() if BARS_COUNT == 1 else widget.TextBox(padding=0),
             widget.Volume(
                 volume_app="pavucontrol",
                 fmt=make_icon("\udb81\udd7e") + " {}",
+                **decoration_group,
             ),
             widget.Backlight(
                 fmt=make_icon("\udb80\udcde") + " {}",
                 backlight_name="intel_backlight",
+                **decoration_group,
             ),
+            widget.Spacer(length=15),
             widget.Battery(
                 notify_below=10,
                 charge_char=make_icon("\udb80\udc84"),
@@ -266,20 +297,23 @@ def make_bar():
                 full_char=make_icon("\udb80\udc79"),
                 unknown_char=make_icon("\udb80\udc91"),
                 format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                **decoration_group,
             ),
             widget.ThermalSensor(
                 fmt=make_icon("\uf4bc") + " {}",
                 threshold=90,
                 foreground_alert=Theme.red,
+                **decoration_group,
             ),
-            widget.Clock(format="%a %d %b %H:%M:%S"),
+            widget.Spacer(length=15),
+            widget.Clock(format="%a %d %b %H:%M:%S", **decoration_group),
         ],
         48,
-        background=Theme.alternate,
-        border_width=4,
-        border_color=Theme.secondary,
+        background=Theme.transparent,
+        border_width=0,
+        border_color=Theme.transparent,
         margin=[8, 8, 0, 8],
-        opacity=0.5,
+        opacity=1,
     )
 
 
