@@ -1,16 +1,18 @@
-# pylint: disable=missing-docstring,invalid-name,too-few-public-methods
-import subprocess, os, random
+# pylint: disable=missing-docstring,invalid-name,too-few-public-methods, global-statement
+import os
+import random
+import subprocess
 
 from libqtile import bar, hook, qtile
+from libqtile.backend import base
 from libqtile.config import Drag, Group, Key, Match, Screen
+from libqtile.core.manager import Qtile
 from libqtile.layout.columns import Columns
 from libqtile.layout.floating import Floating
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
 from qtile_extras import widget
 
-from libqtile.command.client import InteractiveCommandClient
-c = InteractiveCommandClient()
+qtile: Qtile
 terminal = "kitty"
 
 
@@ -75,6 +77,18 @@ def autostart():
     subprocess.Popen(["betterlockscreen", "-u", get_wallpaper()])
     subprocess.Popen(["/usr/lib/kdeconnectd"])
     subprocess.Popen(["picom", "-b"])
+
+
+@hook.subscribe.focus_change
+def color_tasklist():
+    window_count = len(qtile.current_screen.group.windows)
+    tasklist = qtile.current_screen.top.widgets[2]
+    if window_count == 0:
+        tasklist.decorations[0].colour = Theme.transparent
+    if window_count == 1:
+        tasklist.decorations[0].colour = Theme.purple
+    if window_count > 1:
+        tasklist.decorations[0].colour = Theme.alternate
 
 
 mod = "mod4"
@@ -237,8 +251,6 @@ extension_defaults = widget_defaults.copy()
 BARS_COUNT = 0
 
 
-
-
 def make_bar():
     global BARS_COUNT
     BARS_COUNT += 1
@@ -266,7 +278,7 @@ def make_bar():
                 **decoration_group,
             ),
             widget.Spacer(length=300),
-            t := widget.TaskList(
+            widget.TaskList(
                 border=Theme.purple,
                 highlight_method="block",
                 margin_x=24,
@@ -286,7 +298,8 @@ def make_bar():
                 ],
             ),
             widget.Spacer(length=300),
-            widget.Systray() if BARS_COUNT == 1 else widget.TextBox(padding=0),
+            widget.StatusNotifier(**decoration_group),
+            widget.Spacer(length=15),
             widget.Volume(
                 volume_app="pavucontrol",
                 fmt=make_icon("\udb81\udd7e") + " {}",
@@ -325,17 +338,6 @@ def make_bar():
         opacity=1,
     )
     return b
-
-@hook.subscribe.focus_change
-def color_tasklist():
-    window_count = len(qtile.current_screen.group.windows) 
-    tasklist = qtile.current_screen.top.widgets[2]
-    if window_count == 0:
-        tasklist.decorations[0].colour = Theme.transparent
-    if window_count == 1:
-        tasklist.decorations[0].colour = Theme.purple
-    if window_count > 1:
-        tasklist.decorations[0].colour = Theme.alternate
 
 
 screens = [
@@ -390,7 +392,6 @@ floating_layout = Floating(
         Match(title="zoom"),  # zoom
     ],
 )
-floats_kept_above = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
