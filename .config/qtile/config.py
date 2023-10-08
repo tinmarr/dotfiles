@@ -74,6 +74,7 @@ def send_notif(_, title: str, body: str = ""):
 @hook.subscribe.startup_complete
 def autostart():
     subprocess.Popen(["/usr/lib/kdeconnectd"])
+    subprocess.Popen("playerctld daemon", shell=True)
     subprocess.Popen(["picom", "-b"])
     subprocess.run("autorandr -c", shell=True)
     subprocess.Popen(f"betterlockscreen -u {get_wallpaper()}", shell=True)
@@ -183,6 +184,24 @@ system_keys = [
         "XF86AudioMute",
         lazy.spawn("amixer -D default set Master toggle"),
         desc="Mute volume",
+    ),
+    Key(
+        [],
+        "XF86AudioPlay",
+        lazy.spawn("playerctl play-pause"),
+        desc="Toggle audio",
+    ),
+    Key(
+        [],
+        "XF86AudioPrev",
+        lazy.spawn("playerctl previous"),
+        desc="Toggle audio",
+    ),
+    Key(
+        [],
+        "XF86AudioNext",
+        lazy.spawn("playerctl next"),
+        desc="Toggle audio",
     ),
 ]
 
