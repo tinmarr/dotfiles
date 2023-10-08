@@ -73,10 +73,10 @@ def send_notif(_, title: str, body: str = ""):
 
 @hook.subscribe.startup_complete
 def autostart():
-    subprocess.Popen(["autorandr", "-c"])
-    subprocess.Popen(["betterlockscreen", "-u", get_wallpaper()])
     subprocess.Popen(["/usr/lib/kdeconnectd"])
     subprocess.Popen(["picom", "-b"])
+    subprocess.run("autorandr -c", shell=True)
+    subprocess.Popen(f"betterlockscreen -u {get_wallpaper()}", shell=True)
 
 
 @hook.subscribe.focus_change
