@@ -69,11 +69,13 @@ case $wm in
         if [[ "$mag" = "qtile" ]]; then
             yay -S --needed qtile-extras
         fi
-        yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr dunst qt5ct-kde picom
-        yay -S --needed lxappearance-gtk3 gnu-free-fonts ly brave-beta-bin thunar visual-studio-code-bin libsecret obsidian 
+        yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr \
+            dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
+            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr
+        sudo systemctl enable autorandr-lid-listener.service
         gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
             - lxappearance
