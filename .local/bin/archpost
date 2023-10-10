@@ -38,21 +38,6 @@ printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to 
 read tmp
 nvim
 
-echo 'Section "InputClass"
-    Identifier "devname"
-    Driver "libinput"
-    MatchIsTouchpad "on"
-    Option "Tapping" "on"
-    Option "ClickMethod" "clickfinger"
-    Option "NaturalScrolling" "true"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
-
-echo 'Section "Device"
-    Identifier "Intel Graphics"
-    Driver "intel"
-    Option "TearFree" "true"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
-
 
 
 yay -S --needed neofetch btop ranger man xdg-user-dirs
@@ -69,13 +54,31 @@ case $wm in
         if [[ "$mag" = "qtile" ]]; then
             yay -S --needed qtile-extras
         fi
+
+        echo 'Section "InputClass"
+            Identifier "devname"
+            Driver "libinput"
+            MatchIsTouchpad "on"
+            Option "Tapping" "on"
+            Option "ClickMethod" "clickfinger"
+            Option "NaturalScrolling" "true"
+        EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+
+        echo 'Section "Device"
+            Identifier "Intel Graphics"
+            Driver "intel"
+            Option "TearFree" "true"
+        EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+
         yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
-            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl
+            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr
         sudo systemctl enable autorandr-lid-listener.service
+        sudo cp ~/.config/tlp.conf /etc
+        sudo systemctl enable tlp
         gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
             - lxappearance
