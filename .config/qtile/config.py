@@ -17,9 +17,12 @@ terminal = "kitty"
 
 
 def get_wallpaper():
-    folder = os.path.expanduser("~/.local/share/backgrounds")
-    files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-    return "~/.local/share/backgrounds/" + random.choice(files) if files else ""
+    BACKGROUNDS_PATH = "~/.local/share/backgrounds"
+    return f"{BACKGROUNDS_PATH}/pyramids.jpg"
+    # Randomly get a wallpaper
+    # folder = os.path.expanduser(BACKGROUNDS_PATH)
+    # files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+    # return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
 
 
 class Theme:
@@ -36,31 +39,6 @@ class Theme:
     orange = "#ffb86c"
     yellow = "#f1fa8c"
     transparent = "#00000000"
-
-
-bemenu = """
-            bemenu-run \
-                --fn 'JetBrainsMono Nerd Font Mono 32'\
-                --tb '#6272a4'\
-                --tf '#f8f8f2'\
-                --fb '#282a36'\
-                --ff '#f8f8f2'\
-                --nb '#282a36'\
-                --nf '#6272a4'\
-                --hb '#44475a'\
-                --hf '#50fa7b'\
-                --sb '#44475a'\
-                --sf '#50fa7b'\
-                --scb '#282a36'\
-                --scf '#ff79c6'\
-                --bdr '#bd93f9'\
-                -l 10\
-                -c\
-                -W 0.25\
-                -p 'run'\
-                -i\
-                -B 4
-        """
 
 
 def make_icon(raw_unicode: str) -> str:
@@ -209,7 +187,7 @@ action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn(bemenu), desc="Launch bemenu"),
+    Key([mod], "r", lazy.spawn("bemenu-run"), desc="Launch bemenu"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     # Lockscreen
     Key(
