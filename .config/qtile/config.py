@@ -387,6 +387,7 @@ floating_layout = Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         Match(title="zoom"),  # zoom
+        Match(wm_class="solanum"), # solanum
     ],
 )
 auto_fullscreen = True

@@ -72,7 +72,8 @@ case $wm in
 
         yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
-            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-dmenu
+            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-dmenu \
+            solanum
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr

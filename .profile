@@ -54,7 +54,9 @@ update () {
     git -C $NVM_DIR fetch --tags origin
     git -C $NVM_DIR checkout `git -C $NVM_DIR describe --abbrev=0 --tags --match "v[0-9]*" $(git -C $NVM_DIR rev-list --tags --max-count=1)`
     pyenv update
-    rustup update
+    if command -v rustup &> /dev/null; then
+        rustup update
+    fi
 }
 
 tzupdate () {
@@ -87,4 +89,3 @@ export GPG_TTY=$TTY
 export PATH="$HOME/.amplify/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
