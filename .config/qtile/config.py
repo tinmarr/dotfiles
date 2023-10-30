@@ -187,7 +187,8 @@ action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn("bemenu-run"), desc="Launch bemenu"),
+    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
+    Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Alt-tab with rofi"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     # Lockscreen
     Key(

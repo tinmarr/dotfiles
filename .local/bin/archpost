@@ -70,9 +70,9 @@ case $wm in
             Option "TearFree" "true"
         EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
 
-        yay -S --needed kdeconnect kitty bemenu pavucontrol betterlockscreen autorandr \
+        yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
-            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-dmenu \
+            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-rofi \
             solanum
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
