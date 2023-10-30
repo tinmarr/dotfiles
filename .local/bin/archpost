@@ -52,7 +52,7 @@ case $wm in
         printf "$mag""Which WMs? (package names, space seperated) [awesome, qtile] ""$reset"
         yay -S --needed "$mag"
         if [[ "$mag" = "qtile" ]]; then
-            yay -S --needed qtile-extras
+            yay -S --needed qtile-extras python-psutil
         fi
 
         echo 'Section "InputClass"
