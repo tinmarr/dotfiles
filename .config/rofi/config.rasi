@@ -4,6 +4,7 @@ configuration {
     display-drun:    "";
     font: "JetBrainsMono Nerd Font Mono 32";
     disable-history: false;
+    auto-select: true;
 }
 
 * {
