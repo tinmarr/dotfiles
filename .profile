@@ -87,5 +87,4 @@ export GPG_TTY=$TTY
 
 # Path Edits
 export PATH="$HOME/.amplify/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"

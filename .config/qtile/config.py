@@ -5,7 +5,7 @@ import subprocess
 
 from libqtile import bar, hook, qtile
 from libqtile.backend import base
-from libqtile.config import Drag, Group, Key, Match, Screen
+from libqtile.config import Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.core.manager import Qtile
 from libqtile.layout.columns import Columns
 from libqtile.layout.floating import Floating
@@ -187,7 +187,6 @@ action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
     Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Alt-tab with rofi"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     # Lockscreen
@@ -199,7 +198,20 @@ action_keys = [
     ),
 ]
 
-keys = [*focus_keys, *layout_keys, *system_keys, *action_keys]
+rofi_script_keys = [
+    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
+    KeyChord(
+        [mod, "shift"],
+        "r",
+        [
+            Key([], "m", lazy.spawn("rofi-autorandr")),
+        ],
+        name="scripts",
+        desc="Run rofi scripts",
+    ),
+]
+
+keys = [*focus_keys, *layout_keys, *system_keys, *action_keys, *rofi_script_keys]
 
 groups = [Group(i) for i in "1234567890"]
 
@@ -297,6 +309,7 @@ def make_bar():
             ),
             widget.Spacer(length=300),
             widget.StatusNotifier(**decoration_group),
+            widget.Chord(**decoration_group),
             widget.Spacer(length=15),
             widget.Volume(
                 volume_app="pavucontrol",
@@ -388,7 +401,7 @@ floating_layout = Floating(
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
         Match(title="zoom"),  # zoom
-        Match(wm_class="solanum"), # solanum
+        Match(wm_class="solanum"),  # solanum
     ],
 )
 auto_fullscreen = True
