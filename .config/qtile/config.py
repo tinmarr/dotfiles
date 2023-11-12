@@ -404,6 +404,7 @@ floating_layout = Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(title="zoom"),  # zoom
         Match(wm_class="solanum"),  # solanum
+        Match(role="pop-up"),
     ],
 )
 auto_fullscreen = True
