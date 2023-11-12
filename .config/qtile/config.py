@@ -206,6 +206,7 @@ rofi_script_keys = [
         [
             Key([], "m", lazy.spawn("rofi-autorandr")),
             Key([], "c", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort")),
+            Key([], "e", lazy.spawn("rofi -modi emoji -show emoji -kb-custom-1 Ctrl+c")),
         ],
         name="scripts",
         desc="Run rofi scripts",
