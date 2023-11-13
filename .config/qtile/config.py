@@ -338,6 +338,7 @@ def make_bar():
                 fmt=make_icon("\uf4bc") + " {}",
                 threshold=90,
                 foreground_alert=Theme.red,
+                tag_sensor="CPU",
                 **decoration_group,
             ),
             widget.Spacer(length=15),
