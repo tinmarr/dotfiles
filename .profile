@@ -88,3 +88,6 @@ export GPG_TTY=$TTY
 # Path Edits
 export PATH="$HOME/.amplify/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# Set Terminal to English
+export LANG=en_US.UTF-8
