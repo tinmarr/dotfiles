@@ -5,7 +5,7 @@ import subprocess
 
 from libqtile import bar, hook, qtile
 from libqtile.backend import base
-from libqtile.config import Drag, Group, Key, KeyChord, Match, Screen
+from libqtile.config import Drag, Group, Key, KeyChord, Match, Screen, Rule
 from libqtile.core.manager import Qtile
 from libqtile.layout.columns import Columns
 from libqtile.layout.floating import Floating
@@ -205,8 +205,14 @@ rofi_script_keys = [
         "r",
         [
             Key([], "m", lazy.spawn("rofi-autorandr")),
-            Key([], "c", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort")),
-            Key([], "e", lazy.spawn("rofi -modi emoji -show emoji -kb-custom-1 Ctrl+c")),
+            Key(
+                [],
+                "c",
+                lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"),
+            ),
+            Key(
+                [], "e", lazy.spawn("rofi -modi emoji -show emoji -kb-custom-1 Ctrl+c")
+            ),
         ],
         name="scripts",
         desc="Run rofi scripts",
@@ -215,7 +221,18 @@ rofi_script_keys = [
 
 keys = [*focus_keys, *layout_keys, *system_keys, *action_keys, *rofi_script_keys]
 
-groups = [Group(i) for i in "1234567890"]
+groups = [
+    Group("1"),
+    Group("2", matches=[Match(wm_class="code")]),
+    Group("3"),
+    Group("4", matches=[Match(wm_class="slack")]),
+    Group("5", matches=[Match(wm_class="zoom")]),
+    Group("6"),
+    Group("7"),
+    Group("8"),
+    Group("9", matches=[Match(wm_class="spotify")]),
+    Group("0", matches=[Match(wm_class="clockify")]),
+]
 
 for i in groups:
     keys.extend(
@@ -386,10 +403,11 @@ mouse = [
 ]
 
 dgroups_key_binder = None
-dgroups_app_rules = []  # type: list
+dgroups_app_rules = []
 follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
+floats_kept_above = True
 floating_layout = Floating(
     border_focus=Theme.pink,
     border_normal=Theme.secondary,
