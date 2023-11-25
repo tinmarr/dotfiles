@@ -4,11 +4,21 @@ mag="\e[35m"
 green="\e[32m"
 reset="\e[m"
 
-# Dotfile requirements
-sudo pacman -S --needed git github-cli zsh openssh neovim acpi alsa-utils ripgrep eza bat direnv
+printf "$mag""Install WM things? [Y/n] ""$reset"
+read wm
+if [[ "$wm" != "n" ]]; then
+    printf "$mag""Which WM? [(a)wesome/(q)tile] ""$reset"
+    read which
+    printf "$mag""Touchpad? [Y/n]""$reset"
+    read touchpad
+    printf "$mag""Intel Graphics? [Y/n]""$reset"
+    read intel
+    printf "$mag""Nvidia Card? [Y/n]""$reset"
+    read nvidia
+fi
 
-# Pyenv requirements
-sudo pacman -S --needed base-devel openssl zlib tk
+# Dotfile requirements
+sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh neovim acpi alsa-utils ripgrep eza bat direnv
 
 # Configure user
 chsh -s /bin/zsh
@@ -34,41 +44,29 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
-read tmp
-nvim
-
-
-
 yay -S --needed neofetch btop ranger man xdg-user-dirs
 
-printf "$mag""Install WM things? [Y/n] ""$reset"
-read wm
 case $wm in 
     "n" | "N")
         echo "Skipping WM things"
         ;;
     *)
         sudo pacman -S xorg
-        printf "$mag""Which WM? [awesome/qtile] ""$reset"
-        read which
         case "$which" in 
-            "qtile")
+            "q"|"qtile")
                 yay -S --needed qtile qtile-extras python-psutil
                 ;;
-            "awesome")
+            "a"|"awesome")
                 yay -S --needed awesome
                 ;;
             *)
-                printf "$mag""Not a valid option""$reset"
+                printf "$mag""Not a valid option. No WM installed.""$reset"
                 ;;
         esac
 
         yay -Rns xorg-xbacklight
         localectl --no-convert set-x11-keymap us pc105 "" "compose:ralt"
 
-        printf "$mag""Touchpad? [Y/n]""$reset"
-        read touchpad
         if [[ "$touchpad" != "n" ]]; then
             echo 'Section "InputClass"
                 Identifier "devname"
@@ -80,8 +78,6 @@ case $wm in
             EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
         fi 
 
-        printf "$mag""Intel Graphics? [Y/n]""$reset"
-        read intel
         if [[ "$intel" != "n" ]]; then
             echo 'Section "Device"
                 Identifier "Intel Graphics"
@@ -90,8 +86,6 @@ case $wm in
             EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
         fi 
 
-        printf "$mag""Nvidia Card? [Y/n]""$reset"
-        read nvidia
         if [[ "$nvidia" != "n" ]]; then
             sudo pacman -S --needed nvidia nvidia-utils lib32-nvidia-utils
         fi
@@ -112,4 +106,8 @@ case $wm in
             - visual-studio-code""$reset""\n"
         ;;
 esac
+printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
+read tmp
+nvim
+
 printf "$green""Setup Complete!""$reset""\n"
