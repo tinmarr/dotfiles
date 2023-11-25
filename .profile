@@ -63,15 +63,6 @@ tzupdate () {
     timedatectl set-timezone $(curl https://ipapi.co/timezone)
 }
 
-shush_fan () {
-    sudo dell-bios-fan-control 0
-    sudo i8kctl fan 0 2
-}
-
-unshush_fan () {
-    sudo dell-bios-fan-control 1
-}
-
 # Git stuff
 gitc () {
     git add .
@@ -81,6 +72,11 @@ gitc () {
 
 alias gits="git fetch && git status"
 alias gitl="git log --compact-summary"
+
+configc () {
+    config commit -am $1
+    config push
+}
 
 export EDITOR=nvim
 export GPG_TTY=$TTY
