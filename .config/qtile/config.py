@@ -14,15 +14,16 @@ from qtile_extras import widget
 
 qtile: Qtile
 terminal = "kitty"
+RANDOM_WALLPAPER = True
 
 
 def get_wallpaper():
     BACKGROUNDS_PATH = "~/.local/share/backgrounds"
-    return f"{BACKGROUNDS_PATH}/pyramids.jpg"
+    if not RANDOM_WALLPAPER: return f"{BACKGROUNDS_PATH}/pyramids.jpg"
     # Randomly get a wallpaper
-    # folder = os.path.expanduser(BACKGROUNDS_PATH)
-    # files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-    # return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
+    folder = os.path.expanduser(BACKGROUNDS_PATH)
+    files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+    return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
 
 
 class Theme:
@@ -186,6 +187,7 @@ system_keys = [
 action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "shift", "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     # Lockscreen
