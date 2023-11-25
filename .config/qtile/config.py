@@ -15,6 +15,8 @@ from qtile_extras import widget
 qtile: Qtile
 terminal = "kitty"
 RANDOM_WALLPAPER = True
+DESKTOP = os.getenv("DESKTOP", "false") == "true"
+NVIDIA = os.getenv("NVIDIA", "false") == "true"
 
 
 def get_wallpaper():
@@ -341,7 +343,7 @@ def make_bar():
                 fmt=make_icon("\udb80\udcde") + " {}",
                 backlight_name="intel_backlight",
                 **decoration_group,
-            ),
+            ) if not DESKTOP else widget.Spacer(length=0),
             widget.Spacer(length=15),
             widget.Battery(
                 notify_below=10,
@@ -352,14 +354,20 @@ def make_bar():
                 unknown_char=make_icon("\udb80\udc91"),
                 format="{char} {percent:2.0%} {hour:d}:{min:02d}",
                 **decoration_group,
-            ),
+            ) if not DESKTOP else widget.Spacer(length=0),
             widget.ThermalSensor(
                 fmt=make_icon("\uf4bc") + " {}",
                 threshold=90,
                 foreground_alert=Theme.red,
-                tag_sensor="CPU",
+                tag_sensor="Package id 0", # CPU
                 **decoration_group,
             ),
+            widget.NvidiaSensors(
+                fmt=make_icon("\ue266") + " {}",
+                threshold=90,
+                foreground_alert=Theme.red,
+                **decoration_group,
+            ) if NVIDIA else widget.Spacer(length=0),
             widget.Spacer(length=15),
             widget.Clock(format="%a %d %b %H:%M:%S", **decoration_group),
         ],

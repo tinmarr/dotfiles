@@ -65,15 +65,20 @@ case $wm in
         esac
 
         yay -Rns xorg-xbacklight
+        localectl --no-convert set-x11-keymap us pc105 "" "compose:ralt"
 
-        echo 'Section "InputClass"
-            Identifier "devname"
-            Driver "libinput"
-            MatchIsTouchpad "on"
-            Option "Tapping" "on"
-            Option "ClickMethod" "clickfinger"
-            Option "NaturalScrolling" "true"
-        EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+        printf "$mag""Touchpad? [Y/n]""$reset"
+        read touchpad
+        if [[ "$touchpad" != "n" ]]; then
+            echo 'Section "InputClass"
+                Identifier "devname"
+                Driver "libinput"
+                MatchIsTouchpad "on"
+                Option "Tapping" "on"
+                Option "ClickMethod" "clickfinger"
+                Option "NaturalScrolling" "true"
+            EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+        fi 
 
         printf "$mag""Intel Graphics? [Y/n]""$reset"
         read intel
@@ -103,8 +108,6 @@ case $wm in
         sudo systemctl enable tlp
         gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
-            - lxappearance
-            - qt5ct
             - brave
             - visual-studio-code""$reset""\n"
         ;;

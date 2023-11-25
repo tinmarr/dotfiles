@@ -16,28 +16,14 @@ config commit -m "Add bashrc"
 config push
 ```
 
-## To get onto new computer
+## To get onto new computer 
 
-Arch:
+Install Arch normally. Then:
 ```shell
 curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/.local/bin/archpost" > archpost
 ./archpost
 rm archpost
 ```
-
-### Keyboard Configuration
-
-The keyboard needs to be configured manually.
-
-`localectl --no-convert set-x11-keymap us [XkbModel] "" "compose:ralt"`
-
-Use `cat /etc/x11/xorg.conf.org/00-keyboard.conf` to check default options
-(only before running command).
-
-### Language configuration
-
-Use [this](https://wiki.archlinux.org/title/Locale) guide.
-
 ## GPG
 
 Currently I use a GPG key that expires every month. 
@@ -52,8 +38,7 @@ Make sure to use the following settings:
 
 - RSA
 - 4096 bits
-- 0
-- Name: GithubMartinMmmDD
+- 1m
 - Email: martin.chapino@gmail.com
 
 Next get the key ID with `gpg --list-secret-keys --keyid-format=long`.

@@ -6,3 +6,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export GDK_DPI_SCALE=1
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
+
+if [[ -e ~/.localenv ]]; then
+    . ~/.localenv
+fi
