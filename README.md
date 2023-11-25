@@ -20,7 +20,9 @@ config push
 
 Arch:
 ```shell
-curl "https://raw.githubusercontent.com/tinmarr/.dotfiles/main/.local/bin/archpost" | bash
+curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/.local/bin/archpost" > archpost
+./archpost
+rm archpost
 ```
 
 ### Keyboard Configuration

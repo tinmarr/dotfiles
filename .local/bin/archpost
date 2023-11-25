@@ -5,10 +5,10 @@ green="\e[32m"
 reset="\e[m"
 
 # Dotfile requirements
-sudo pacman -S --needed git github-cli zsh openssh neovim acpi acpilight alsa-utils ripgrep eza bat direnv
+sudo pacman -S --needed git github-cli zsh openssh neovim acpi alsa-utils ripgrep eza bat direnv
 
 # Pyenv requirements
-sudo pacman -S --needed base-devel openssl zlib xz tk
+sudo pacman -S --needed base-devel openssl zlib tk
 
 # Configure user
 chsh -s /bin/zsh
@@ -16,10 +16,10 @@ sudo usermod -a -G video $USER
 
 # Setup dotfiles
 cd $HOME
-printf "$mag""Authenticate gh with an SSH Key""$reset""\n"
+printf "$mag""Authenticate gh with a new SSH Key (auth with web browser)""$reset""\n"
 gh auth login # login with ssh 
-gh repo clone tinmarr/.dotfiles -- --bare
-mv .dotfiles.git .dotfiles
+gh repo clone tinmarr/dotfiles -- --bare
+mv dotfiles.git .dotfiles
 git --git-dir=.dotfiles --work-tree=. checkout -f
 git --git-dir=.dotfiles --work-tree=. submodule update --init --recursive
 git --git-dir=.dotfiles --work-tree=. config --local status.showUntrackedFiles no
@@ -49,11 +49,22 @@ case $wm in
         echo "Skipping WM things"
         ;;
     *)
-        printf "$mag""Which WMs? (package names, space seperated) [awesome, qtile] ""$reset"
-        yay -S --needed "$mag"
-        if [[ "$mag" = "qtile" ]]; then
-            yay -S --needed qtile-extras python-psutil
-        fi
+        sudo pacman -S xorg
+        printf "$mag""Which WM? [awesome/qtile] ""$reset"
+        read which
+        case "$which" in 
+            "qtile")
+                yay -S --needed qtile qtile-extras python-psutil
+                ;;
+            "awesome")
+                yay -S --needed awesome
+                ;;
+            *)
+                printf "$mag""Not a valid option""$reset"
+                ;;
+        esac
+
+        yay -Rns xorg-xbacklight
 
         echo 'Section "InputClass"
             Identifier "devname"
@@ -64,16 +75,26 @@ case $wm in
             Option "NaturalScrolling" "true"
         EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
 
-        echo 'Section "Device"
-            Identifier "Intel Graphics"
-            Driver "intel"
-            Option "TearFree" "true"
-        EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+        printf "$mag""Intel Graphics? [Y/n]""$reset"
+        read intel
+        if [[ "$intel" != "n" ]]; then
+            echo 'Section "Device"
+                Identifier "Intel Graphics"
+                Driver "intel"
+                Option "TearFree" "true"
+            EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+        fi 
+
+        printf "$mag""Nvidia Card? [Y/n]""$reset"
+        read nvidia
+        if [[ "$nvidia" != "n" ]]; then
+            sudo pacman -S --needed nvidia nvidia-utils lib32-nvidia-utils
+        fi
 
         yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
             brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-rofi \
-            solanum rofi-calc xclip xdotool rofi-emoji
+            solanum rofi-calc xclip xdotool rofi-emoji acpilight 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr
@@ -88,4 +109,4 @@ case $wm in
             - visual-studio-code""$reset""\n"
         ;;
 esac
-printf "$green""Setup Complete\!""$reset""\n"
+printf "$green""Setup Complete!""$reset""\n"
