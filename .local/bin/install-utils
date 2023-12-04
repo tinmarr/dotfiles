@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+parse-programs() {
+    for ((i = 0; i < $# ; i++)); do
+        $1
+        shift
+    done
+}
+
+tex() {
+    sudo pacman -S --needed texlive perl-file-homedir perl-yaml-tiny 
+}
+
+
+printf "What do you want to install? (space separated) [tex] "
+read programs
+
+if [[ -n "$programs" ]]; then
+    parse-programs "$programs"
+    printf "Successfully installed ${programs// /, }\n"
+else
+    printf "Nothing requested. Nothing installed\n"
+fi
