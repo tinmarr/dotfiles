@@ -50,6 +50,9 @@ alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 update () {
     sudo test
     config submodule update --checkout --recursive
+    curl "https://archlinux.org/mirrorlist/?country=CA&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /tmp/mirrorlist
+    sed -i 's/#//' /tmp/mirrorlist
+    sudo mv /tmp/mirrorlist /etc/pacman.d/
     yay -Syyu --answerclean A --answerdiff N --removemake --noconfirm
     git -C $NVM_DIR fetch --tags origin
     git -C $NVM_DIR checkout `git -C $NVM_DIR describe --abbrev=0 --tags --match "v[0-9]*" $(git -C $NVM_DIR rev-list --tags --max-count=1)`
