@@ -40,6 +40,7 @@ alias lla="ls -l -a --git"
 
 # Better cat
 alias cat="bat"
+export MANROFFOPT="-c" 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Better grep
@@ -56,7 +57,6 @@ update () {
     yay -Syyu --answerclean A --answerdiff N --removemake --noconfirm
     git -C $NVM_DIR fetch --tags origin
     git -C $NVM_DIR checkout `git -C $NVM_DIR describe --abbrev=0 --tags --match "v[0-9]*" $(git -C $NVM_DIR rev-list --tags --max-count=1)`
-    pyenv update
     if command -v rustup &> /dev/null; then
         rustup update
     fi
