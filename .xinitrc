@@ -48,7 +48,4 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xrandr --newmode "960x600_60.00"   45.25  960 992 1088 1216  600 603 609 624 -hsync +vsync
-xrandr --addmode eDP1 960x600_60.00
-
-exec awesome
+exec qtile start
