@@ -13,6 +13,9 @@ setopt autocd
 unsetopt beep
 unsetopt completealiases
 
+# Enable vi mode
+bindkey -v
+
 # key binds
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
@@ -47,9 +50,6 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-
-# Enable vi mode
-bindkey -v
 
 . ~/.profile
 
