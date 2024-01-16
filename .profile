@@ -46,6 +46,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # Better grep
 alias grep="rg"
 
+# Kitty SSH
+alias s="kitten ssh"
+
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 update () {
