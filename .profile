@@ -22,13 +22,14 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+alias pgadmin="pyenv activate pgadmin && pgadmin4"
           
 # Helpful functions / Aliases
 alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias gpu="__GLX_VENDOR_LIBRARY_NAME=nvidia"
 alias v="nvim"
 
 # Better ls
@@ -93,3 +94,5 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 # Set Terminal to English
 export LANG=en_US.UTF-8
+
+export QSYS_ROOTDIR="/home/martin/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
