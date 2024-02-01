@@ -47,6 +47,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # Better grep
 alias grep="rg"
 
+# Ranger follow
+alias fr=". ranger"
+
 # Kitty SSH
 alias s="kitten ssh"
 
