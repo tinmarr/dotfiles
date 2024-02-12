@@ -93,7 +93,7 @@ case $wm in
         yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
             brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-rofi \
-            solanum rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji
+            rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr

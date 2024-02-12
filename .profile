@@ -98,4 +98,4 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # Set Terminal to English
 export LANG=en_US.UTF-8
 
-export QSYS_ROOTDIR="/home/martin/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
+export QSYS_ROOTDIR="/home/martin/intelFPGA_lite/quartus/sopc_builder/bin"
