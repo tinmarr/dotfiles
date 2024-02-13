@@ -1,7 +1,11 @@
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Martin Chaperot
 #+PROPERTY: header-args :tangle init.el
+#+OPTIONS: toc:2
 
+* Table of Contents :toc:
+
+* Packages
 
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
