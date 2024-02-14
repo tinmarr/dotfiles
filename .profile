@@ -4,7 +4,7 @@
 export NVM_DIR="$HOME/.nvm"
 
 NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-NODE_GLOBALS+=(node nvm yarn nvim)
+NODE_GLOBALS+=(node nvm yarn)
 
 _load_nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -30,7 +30,7 @@ alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias v="nvim"
+alias e="emacs -nw"
 
 # Better ls
 alias ls="exa --icons --group-directories-first"
@@ -88,7 +88,7 @@ configc () {
     config push
 }
 
-export EDITOR=nvim
+export EDITOR="emacs -nw"
 export GPG_TTY=$TTY
 
 # Path Edits

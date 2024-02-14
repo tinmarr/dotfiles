@@ -18,7 +18,7 @@ if [[ "$wm" != "n" ]]; then
 fi
 
 # Dotfile requirements
-sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh neovim acpi alsa-utils ripgrep eza bat direnv
+sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi alsa-utils ripgrep eza bat direnv emacs
 
 # Configure user
 chsh -s /bin/zsh
@@ -42,7 +42,6 @@ printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 yay -S --needed neofetch btop ranger man xdg-user-dirs
 
@@ -92,7 +91,7 @@ case $wm in
 
         yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
-            brave-beta-bin thunar visual-studio-code-bin obsidian playerctl tlp pinentry-rofi \
+            brave-beta-bin thunar visual-studio-code-bin playerctl tlp pinentry-rofi \
             rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
@@ -100,14 +99,10 @@ case $wm in
         sudo systemctl enable autorandr-lid-listener.service
         sudo cp ~/.config/tlp.conf /etc
         sudo systemctl enable tlp
-        gh repo clone tinmarr/obsidian-vault
         printf "$mag""The following tools need to be configured manually:
             - brave
             - visual-studio-code""$reset""\n"
         ;;
 esac
-printf "$mag""neovim will now launch. Please run :PackerSync.\nPress any key to continue.""$reset"
-read tmp
-nvim
 
 printf "$green""Setup Complete!""$reset""\n"
