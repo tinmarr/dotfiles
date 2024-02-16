@@ -63,4 +63,4 @@ printf "$lc${color[magenta]}$rc""Welcome $(whoami)!$reset_color\n"
 echo "Today is $(date +%A,\ %B\ %d,\ %Y)"
 echo "The time now is $(date +%Hh%M)"
 
-export QSYS_ROOTDIR="/home/martin/intelFPGA_lite/quartus/sopc_builder/bin"
+export QSYS_ROOTDIR="/home/martin/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"
