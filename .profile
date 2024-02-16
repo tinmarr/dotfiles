@@ -28,9 +28,7 @@ alias pgadmin="pyenv activate pgadmin && pgadmin4"
 # Helpful functions / Aliases
 alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias e="emacs -nw"
 
 # Better ls
 alias ls="exa --icons --group-directories-first"
@@ -43,6 +41,9 @@ alias lla="ls -l -a --git"
 alias cat="bat"
 export MANROFFOPT="-c" 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Quick Emacs in Terminal
+alias e="emacsclient -nw"
 
 # Better grep
 alias grep="rg"

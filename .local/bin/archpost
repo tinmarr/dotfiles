@@ -18,7 +18,7 @@ if [[ "$wm" != "n" ]]; then
 fi
 
 # Dotfile requirements
-sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi alsa-utils ripgrep eza bat direnv emacs
+sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi alsa-utils ripgrep eza bat direnv emacs stow
 
 # Configure user
 chsh -s /bin/zsh
@@ -28,12 +28,9 @@ sudo usermod -a -G video $USER
 cd $HOME
 printf "$mag""Authenticate gh with a new SSH Key (auth with web browser)""$reset""\n"
 gh auth login # login with ssh 
-gh repo clone tinmarr/dotfiles -- --bare
-mv dotfiles.git .dotfiles
-git --git-dir=.dotfiles --work-tree=. checkout -f
-git --git-dir=.dotfiles --work-tree=. submodule update --init --recursive
-git --git-dir=.dotfiles --work-tree=. config --local status.showUntrackedFiles no
-
+gh repo clone tinmarr/dotfiles
+cd dotfiles
+stow .
 # Setup fonts
 fc-cache -f -v
 

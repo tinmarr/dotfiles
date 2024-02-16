@@ -1,27 +1,13 @@
 # .dotfiles
 
-[Article used to set this up](https://www.atlassian.com/git/tutorials/dotfiles)
-
-TLDR:
-There's a config command used for all git operations involving this repo.
-
-Example flow
-
-```shell
-config status
-config add .vimrc
-config commit -m "Add vimrc"
-config add .bashrc
-config commit -m "Add bashrc"
-config push
-```
+I use [GNU Stow](https://www.gnu.org/software/stow/) to manage all my dotfiles. I clone the repo in my home folder then run `stow .`
 
 ## To get onto new computer 
 
 Install Arch normally. Then:
 ```shell
-curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/.local/bin/archpost" > archpost
-./archpost
+curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/.local/bin/archpost" > archpost && \
+./archpost && \
 rm archpost
 ```
 ## GPG
