@@ -81,10 +81,10 @@
 
 (use-package ivy
 :bind (:map ivy-minibuffer-map
-	("C-l" . ivy-alt-done)
-	("TAB" . ivy-alt-done)
-	("C-j" . ivy-next-line)
-	("C-k" . ivy-previous-line))
+        ("C-l" . ivy-alt-done)
+        ("TAB" . ivy-alt-done)
+        ("C-j" . ivy-next-line)
+        ("C-k" . ivy-previous-line))
 :config
 (ivy-mode 1))
 
@@ -92,7 +92,14 @@
 
 (add-hook 'org-mode-hook
     (lambda ()
-	(add-hook 'after-save-hook #'org-babel-tangle
-		nil 'make-it-local)))
+        (add-hook 'after-save-hook #'org-babel-tangle
+                nil 'make-it-local)))
 
 (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+
+(setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+      backup-by-copying      t  ; Don't de-link hard links
+      version-control        t  ; Use version numbers on backups
+      delete-old-versions    t  ; Automatically delete excess backups:
+      kept-new-versions      20 ; how many of the newest versions to keep
+      kept-old-versions      2) ; and how many of the old

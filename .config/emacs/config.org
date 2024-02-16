@@ -129,36 +129,44 @@ Makes ~(~, ~[~, and ~{~ rainbow!
         (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 #+end_src
 
-
-
 * Quality of Life
 ** Ivy/Swiper
 Handles the better autocompletion/search functionality in the minibuffer
 #+begin_src emacs-lisp
-(use-package ivy
-:bind (:map ivy-minibuffer-map
-	("C-l" . ivy-alt-done)
-	("TAB" . ivy-alt-done)
-	("C-j" . ivy-next-line)
-	("C-k" . ivy-previous-line))
-:config
-(ivy-mode 1))
+  (use-package ivy
+  :bind (:map ivy-minibuffer-map
+          ("C-l" . ivy-alt-done)
+          ("TAB" . ivy-alt-done)
+          ("C-j" . ivy-next-line)
+          ("C-k" . ivy-previous-line))
+  :config
+  (ivy-mode 1))
 
-(use-package swiper)
+  (use-package swiper)
 #+end_src
 
 ** Auto Tangleing
 Automatically tangles my org files
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook
-    (lambda ()
-	(add-hook 'after-save-hook #'org-babel-tangle
-		nil 'make-it-local)))
+  (add-hook 'org-mode-hook
+      (lambda ()
+          (add-hook 'after-save-hook #'org-babel-tangle
+                  nil 'make-it-local)))
 #+end_src
 
 ** Disable auto indenting
 #+begin_src emacs-lisp
-(when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+  (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+#+end_src
+
+** Move Backup Files
+#+begin_src emacs-lisp
+  (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+        backup-by-copying      t  ; Don't de-link hard links
+        version-control        t  ; Use version numbers on backups
+        delete-old-versions    t  ; Automatically delete excess backups:
+        kept-new-versions      20 ; how many of the newest versions to keep
+        kept-old-versions      2) ; and how many of the old
 #+end_src
 
 

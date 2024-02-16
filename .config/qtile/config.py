@@ -27,7 +27,6 @@ def get_wallpaper():
     files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
     return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
 
-
 class Theme:
     wallpaper = get_wallpaper()
     background = "#282a36"
@@ -58,8 +57,8 @@ def autostart():
     subprocess.Popen("playerctld daemon", shell=True)
     subprocess.Popen(["picom", "-b"])
     subprocess.run("autorandr -c", shell=True)
+    subprocess.Popen("emacs --daemon", shell=True)
     subprocess.Popen(f"betterlockscreen -u {get_wallpaper()}", shell=True)
-
 
 @hook.subscribe.focus_change
 def color_tasklist():
@@ -188,6 +187,7 @@ system_keys = [
 
 action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch Emacs"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift", "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
