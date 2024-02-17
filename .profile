@@ -49,7 +49,7 @@ alias e="emacsclient -nw"
 alias grep="rg"
 
 # Ranger follow
-alias fr=". ranger"
+alias lr=". ranger"
 
 # Kitty SSH
 alias s="kitten ssh"
