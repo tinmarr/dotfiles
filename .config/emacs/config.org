@@ -1,9 +1,6 @@
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Martin Chaperot
 #+PROPERTY: header-args :tangle init.el
-#+OPTIONS: toc:2
-
-* Table of Contents :toc:
 
 * Package Manager 
 Configure the package manager and package manager sources. We also want to use ~use-package~.
@@ -24,27 +21,44 @@ Configure the package manager and package manager sources. We also want to use ~
 
   (require 'use-package)
   (setq use-package-always-ensure t)
+
+  ;; Add diminish
+  (use-package diminish)
 #+end_src
 
 * Keyboard
 ** EVIL Mode
 #+begin_src emacs-lisp
   (use-package evil
-    :init
-    (setq evil-undo-system 'undo-redo)
-    (setq evil-want-C-d-scroll t)
-    (setq evil-want-C-u-scroll t)
-    (setq evil-search-module 'swiper)
-    (setq evil-auto-indent nil)
+    :diminish
+    :custom
+    (evil-undo-system 'undo-redo)
+    (evil-want-C-d-scroll t)
+    (evil-want-C-u-scroll t)
+    (evil-search-module 'swiper)
+    (evil-auto-indent nil)
+    (evil-want-keybinding nil)
     :config
     (evil-mode 1))
 #+end_src
-
+*** EVIL Collection
+Additional keybindings to make evil work better
+#+begin_src emacs-lisp
+  (use-package evil-collection 
+    :diminish evil-collection-unimpaired-mode
+    :after evil
+    :config
+    (evil-collection-init))
+#+end_src
 ** General 
 | Keybinding | Map      | Description                     |
 |------------+----------+---------------------------------|
 | SPC i      | org-mode | Edit a latex fragment (preview) |
-| C-p        |          | Search for a file               |
+| C-o        |          | Search for a file               |
+|------------+----------+---------------------------------|
+| C-p        |          | Projectile Find File            |
+| C-S-O      |          | Projectile Switch Project       |
+| C-S-F      |          | Projectile Find Text            |
 
 #+begin_src emacs-lisp
   (use-package general
@@ -54,9 +68,13 @@ Configure the package manager and package manager sources. We also want to use ~
       :states 'normal
       :prefix "SPC")
     (spc-def org-mode-map "i" 'org-edit-latex-fragment)
-    (general-define-key :states '(normal insert) "C-p" 'find-file)
+    (general-define-key :states 'normal "C-o" 'find-file)
+    (general-define-key :states 'normal "C-p" 'projectile-find-file)
+    (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
+    (general-define-key :states 'normal "C-S-F" 'projectile-grep)
   )
 #+end_src
+
 
 
 * UI Tweaks
@@ -64,6 +82,7 @@ Configure the package manager and package manager sources. We also want to use ~
 As always, I use the dracula theme
 #+begin_src emacs-lisp
   (use-package dracula-theme
+    :diminish
     :config
     (load-theme 'dracula t))
 #+end_src
@@ -71,6 +90,14 @@ As always, I use the dracula theme
 ** Font
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+#+end_src
+
+** Icons
+[[https://github.com/rainstormstudio/nerd-icons.el][Nerd Fonts for Emacs]]
+#+begin_src emacs-lisp
+  (use-package nerd-icons
+    :custom 
+    (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
 #+end_src
 
 ** Builtin UI Tweaks
@@ -85,7 +112,9 @@ As always, I use the dracula theme
 
   ;; Line numbers
   (column-number-mode)
-  (setq-default display-line-numbers 'relative)
+  (setq-default display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode t)
+
 #+end_src
 
 ** Other Tweaks
@@ -96,13 +125,54 @@ Makes ~(~, ~[~, and ~{~ rainbow!
     :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
+*** Diminish ElDoc
+#+begin_src emacs-lisp
+  (diminish 'eldoc-mode)
+#+end_src
+
+* Projectile
+[[https://github.com/bbatsov/projectile][Projectile Github]]
+#+begin_src emacs-lisp
+  (use-package projectile
+    :diminish
+    :config
+    (projectile-mode 1))
+#+end_src
+
+* Dashboard
+[[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]]
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :requires (nerd-icons projectile)
+    :custom
+    (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
+    (dashboard-startup-banner 'logo)
+    (dashboard-center-content t)
+    (dashboard-display-icons-p t)
+    (dashboard-icon-type 'nerd-icons) 
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-items '((projects . 5)
+                       (bookmarks . 5)
+                       (recents  . 10)))
+    :config
+    (dashboard-setup-startup-hook))
+#+end_src
+And to have it automatically show with the daemon.
+#+begin_src emacs-lisp
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+#+end_src
+
 * Org Mode
 #+begin_src emacs-lisp
   (use-package org
-    :config
-    (setq org-hide-emphasis-markers t)
-    (setq org-startup-indented t))
-    (setq org-startup-with-latex-preview t)
+    :custom
+    (org-hide-emphasis-markers t)
+    (org-startup-indented t)
+    (org-startup-with-latex-preview t)
+    (org-startup-with-inline-images t)
+    (org-image-actual-width '(0.5))
+  )
 #+end_src
 ** Org Superstar
 ~org-superstar~ handles the nice rendering of bullets in headers and lists
@@ -128,12 +198,27 @@ Makes ~(~, ~[~, and ~{~ rainbow!
     (lambda ()
         (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 #+end_src
+** Auto Tangleing
+Automatically tangles my org files
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+      (lambda ()
+          (add-hook 'after-save-hook #'org-babel-tangle
+                  nil 'make-it-local)))
+#+end_src
+* Language Support
+** Markdown
+[[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
+#+begin_src emacs_lisp
+  (use-package markdown-mode)
+#+end_src
 
 * Quality of Life
 ** Ivy/Swiper
 Handles the better autocompletion/search functionality in the minibuffer
 #+begin_src emacs-lisp
   (use-package ivy
+  :diminish
   :bind (:map ivy-minibuffer-map
           ("C-l" . ivy-alt-done)
           ("TAB" . ivy-alt-done)
@@ -145,16 +230,13 @@ Handles the better autocompletion/search functionality in the minibuffer
   (use-package swiper)
 #+end_src
 
-** Auto Tangleing
-Automatically tangles my org files
+** VTerm
+Better terminal emulator inside of emacs. [[https://github.com/akermu/emacs-libvterm][Github]]
 #+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-      (lambda ()
-          (add-hook 'after-save-hook #'org-babel-tangle
-                  nil 'make-it-local)))
+  (use-package vterm)
 #+end_src
 
-** Disable auto indenting
+** Disable electric auto indenting
 #+begin_src emacs-lisp
   (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
 #+end_src

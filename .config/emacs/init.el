@@ -14,15 +14,26 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Add diminish
+(use-package diminish)
+
 (use-package evil
-  :init
-  (setq evil-undo-system 'undo-redo)
-  (setq evil-want-C-d-scroll t)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-search-module 'swiper)
-  (setq evil-auto-indent nil)
+  :diminish
+  :custom
+  (evil-undo-system 'undo-redo)
+  (evil-want-C-d-scroll t)
+  (evil-want-C-u-scroll t)
+  (evil-search-module 'swiper)
+  (evil-auto-indent nil)
+  (evil-want-keybinding nil)
   :config
   (evil-mode 1))
+
+(use-package evil-collection 
+  :diminish evil-collection-unimpaired-mode
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package general
   :after evil
@@ -31,14 +42,22 @@
     :states 'normal
     :prefix "SPC")
   (spc-def org-mode-map "i" 'org-edit-latex-fragment)
-  (general-define-key :states '(normal insert) "C-p" 'find-file)
+  (general-define-key :states 'normal "C-o" 'find-file)
+  (general-define-key :states 'normal "C-p" 'projectile-find-file)
+  (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
+  (general-define-key :states 'normal "C-S-F" 'projectile-grep)
 )
 
 (use-package dracula-theme
+  :diminish
   :config
   (load-theme 'dracula t))
 
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+
+(use-package nerd-icons
+  :custom 
+  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
 
 (setq inhibit-startup-message t)
 
@@ -50,16 +69,45 @@
 
 ;; Line numbers
 (column-number-mode)
-(setq-default display-line-numbers 'relative)
+(setq-default display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package org
+(diminish 'eldoc-mode)
+
+(use-package projectile
+  :diminish
   :config
-  (setq org-hide-emphasis-markers t)
-  (setq org-startup-indented t))
-  (setq org-startup-with-latex-preview t)
+  (projectile-mode 1))
+
+(use-package dashboard
+  :requires (nerd-icons projectile)
+  :custom
+  (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons) 
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-items '((projects . 5)
+                     (bookmarks . 5)
+                     (recents  . 10)))
+  :config
+  (dashboard-setup-startup-hook))
+
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+
+(use-package org
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-startup-indented t)
+  (org-startup-with-latex-preview t)
+  (org-startup-with-inline-images t)
+  (org-image-actual-width '(0.5))
+)
 
 (use-package org-superstar
   :hook (org-mode . (lambda () (org-superstar-mode 1)))
@@ -79,7 +127,15 @@
   (lambda ()
       (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 
+(add-hook 'org-mode-hook
+    (lambda ()
+        (add-hook 'after-save-hook #'org-babel-tangle
+                nil 'make-it-local)))
+
+(use-package markdown-mode)
+
 (use-package ivy
+:diminish
 :bind (:map ivy-minibuffer-map
         ("C-l" . ivy-alt-done)
         ("TAB" . ivy-alt-done)
@@ -90,10 +146,7 @@
 
 (use-package swiper)
 
-(add-hook 'org-mode-hook
-    (lambda ()
-        (add-hook 'after-save-hook #'org-babel-tangle
-                nil 'make-it-local)))
+(use-package vterm)
 
 (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
 
