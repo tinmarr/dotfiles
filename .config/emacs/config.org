@@ -12,8 +12,7 @@ Configure the package manager and package manager sources. We also want to use ~
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
   (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
+  (package-refresh-contents)
 
   ;; Initialize use-package
   (unless (package-installed-p 'use-package)
@@ -100,13 +99,18 @@ As always, I use the dracula theme
 #+end_src
 
 ** Icons
-[[https://github.com/rainstormstudio/nerd-icons.el][Nerd Fonts for Emacs]]
+*** [[https://github.com/rainstormstudio/nerd-icons.el][Nerd Fonts for Emacs]]
 #+begin_src emacs-lisp
   (use-package nerd-icons
     :custom 
     (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
-  (use-package all-the-icons
-    :if (display-graphic-p))
+#+end_src
+*** All the icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons)
+
+  (use-package all-the-icons-dired
+    :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 #+end_src
 
 ** Builtin UI Tweaks
