@@ -55,6 +55,8 @@ Additional keybindings to make evil work better
 |------------+----------+---------------------------------|
 | SPC i      | org-mode | Edit a latex fragment (preview) |
 | C-o        |          | Search for a file               |
+| M-RET      |          | Go to dashboard                 |
+| C-e        |          | Toggle NeoTree                  |
 |------------+----------+---------------------------------|
 | C-p        |          | Projectile Find File            |
 | C-S-O      |          | Projectile Switch Project       |
@@ -64,11 +66,16 @@ Additional keybindings to make evil work better
   (use-package general
     :after evil
     :config
+    ; Prefixes
     (general-create-definer spc-def
       :states 'normal
       :prefix "SPC")
+    ; Bindings
     (spc-def org-mode-map "i" 'org-edit-latex-fragment)
     (general-define-key :states 'normal "C-o" 'find-file)
+    (general-define-key :states 'normal "M-RET" 'dashboard-open)
+    (general-define-key :states 'normal "C-e" 'neotree-toggle)
+    ; Projectile
     (general-define-key :states 'normal "C-p" 'projectile-find-file)
     (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
     (general-define-key :states 'normal "C-S-F" 'projectile-grep)
@@ -98,6 +105,8 @@ As always, I use the dracula theme
   (use-package nerd-icons
     :custom 
     (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
+  (use-package all-the-icons
+    :if (display-graphic-p))
 #+end_src
 
 ** Builtin UI Tweaks
@@ -117,6 +126,12 @@ As always, I use the dracula theme
 
 #+end_src
 
+** Transparency 
+#+begin_src emacs-lisp
+  (set-frame-parameter nil 'alpha-background 95)
+
+  (add-to-list 'default-frame-alist '(alpha-background . 95))
+#+end_src
 ** Other Tweaks
 *** Rainbow Delimiters
 Makes ~(~, ~[~, and ~{~ rainbow!
@@ -130,7 +145,8 @@ Makes ~(~, ~[~, and ~{~ rainbow!
   (diminish 'eldoc-mode)
 #+end_src
 
-* Projectile
+* Misc Packages
+** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
 #+begin_src emacs-lisp
   (use-package projectile
@@ -139,7 +155,7 @@ Makes ~(~, ~[~, and ~{~ rainbow!
     (projectile-mode 1))
 #+end_src
 
-* Dashboard
+** Dashboard
 [[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]]
 #+begin_src emacs-lisp
   (use-package dashboard
@@ -163,7 +179,7 @@ And to have it automatically show with the daemon.
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 #+end_src
 
-* Org Mode
+** Org Mode
 #+begin_src emacs-lisp
   (use-package org
     :custom
@@ -174,7 +190,7 @@ And to have it automatically show with the daemon.
     (org-image-actual-width '(0.5))
   )
 #+end_src
-** Org Superstar
+*** Org Superstar
 ~org-superstar~ handles the nice rendering of bullets in headers and lists
 #+begin_src emacs-lisp 
   (use-package org-superstar
@@ -184,7 +200,7 @@ And to have it automatically show with the daemon.
     (setq org-superstar-special-todo-items t))
 #+end_src
 
-** Latex Formating
+*** Latex Formating
 #+begin_src emacs-lisp
   (setq org-format-latex-options 
     '(:foreground default 
@@ -198,13 +214,26 @@ And to have it automatically show with the daemon.
     (lambda ()
         (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 #+end_src
-** Auto Tangleing
+*** Auto image rendering
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+    (lambda ()
+        (add-hook 'after-save-hook (lambda () (org-display-inline-images)))))
+#+end_src
+*** Auto Tangleing
 Automatically tangles my org files
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
       (lambda ()
           (add-hook 'after-save-hook #'org-babel-tangle
                   nil 'make-it-local)))
+#+end_src
+** NeoTree
+#+begin_src emacs-lisp
+  (use-package neotree
+    :custom
+    (neo-theme 'icons 'arrow)
+  )
 #+end_src
 * Language Support
 ** Markdown

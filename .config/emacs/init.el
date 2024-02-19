@@ -38,11 +38,16 @@
 (use-package general
   :after evil
   :config
+  ; Prefixes
   (general-create-definer spc-def
     :states 'normal
     :prefix "SPC")
+  ; Bindings
   (spc-def org-mode-map "i" 'org-edit-latex-fragment)
   (general-define-key :states 'normal "C-o" 'find-file)
+  (general-define-key :states 'normal "M-RET" 'dashboard-open)
+  (general-define-key :states 'normal "C-e" 'neotree-toggle)
+  ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-F" 'projectile-grep)
@@ -58,6 +63,8 @@
 (use-package nerd-icons
   :custom 
   (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
+(use-package all-the-icons
+  :if (display-graphic-p))
 
 (setq inhibit-startup-message t)
 
@@ -71,6 +78,10 @@
 (column-number-mode)
 (setq-default display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
+
+(set-frame-parameter nil 'alpha-background 95)
+
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -128,9 +139,18 @@
       (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 
 (add-hook 'org-mode-hook
+  (lambda ()
+      (add-hook 'after-save-hook (lambda () (org-display-inline-images)))))
+
+(add-hook 'org-mode-hook
     (lambda ()
         (add-hook 'after-save-hook #'org-babel-tangle
                 nil 'make-it-local)))
+
+(use-package neotree
+  :custom
+  (neo-theme 'icons 'arrow)
+)
 
 (use-package markdown-mode)
 
