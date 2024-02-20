@@ -6,48 +6,49 @@
 Configure the package manager and package manager sources. We also want to use ~use-package~.
 
 #+begin_src emacs-lisp
-  ;; Setup Package Manager
-  (require 'package)
+;; Setup Package Manager
+(require 'package)
 
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-  (package-initialize)
-  (package-refresh-contents)
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
-  ;; Initialize use-package
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+;; Initialize use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-  ;; Add diminish
-  (use-package diminish)
+;; Add diminish
+(use-package diminish)
 #+end_src
 
 * Keyboard
 ** EVIL Mode
 #+begin_src emacs-lisp
-  (use-package evil
-    :diminish
-    :custom
-    (evil-undo-system 'undo-redo)
-    (evil-want-C-d-scroll t)
-    (evil-want-C-u-scroll t)
-    (evil-search-module 'swiper)
-    (evil-auto-indent nil)
-    (evil-want-keybinding nil)
-    :config
-    (evil-mode 1))
+(use-package evil
+  :diminish
+  :custom
+  (evil-undo-system 'undo-redo)
+  (evil-want-C-d-scroll t)
+  (evil-want-C-u-scroll t)
+  (evil-search-module 'swiper)
+  (evil-auto-indent nil)
+  (evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
 #+end_src
 *** EVIL Collection
 Additional keybindings to make evil work better
 #+begin_src emacs-lisp
-  (use-package evil-collection 
-    :diminish evil-collection-unimpaired-mode
-    :after evil
-    :config
-    (evil-collection-init))
+(use-package evil-collection 
+  :diminish evil-collection-unimpaired-mode
+  :after evil
+  :config
+  (evil-collection-init))
 #+end_src
 ** General 
 | Keybinding | Map      | Description                     |
@@ -62,23 +63,28 @@ Additional keybindings to make evil work better
 | C-S-F      |          | Projectile Find Text            |
 
 #+begin_src emacs-lisp
-  (use-package general
-    :after evil
-    :config
-    ; Prefixes
-    (general-create-definer spc-def
-      :states 'normal
-      :prefix "SPC")
-    ; Bindings
-    (spc-def org-mode-map "i" 'org-edit-latex-fragment)
-    (general-define-key :states 'normal "C-o" 'find-file)
-    (general-define-key :states 'normal "M-RET" 'dashboard-open)
-    (general-define-key :states 'normal "C-e" 'neotree-toggle)
-    ; Projectile
-    (general-define-key :states 'normal "C-p" 'projectile-find-file)
-    (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
-    (general-define-key :states 'normal "C-S-F" 'projectile-grep)
-  )
+(use-package general
+  :after evil
+  :config
+  ; Prefixes
+  (general-create-definer spc-def
+    :states 'normal
+    :prefix "SPC")
+  ; Bindings
+  (spc-def org-mode-map "i" 'org-edit-latex-fragment)
+  (general-define-key :states 'normal "C-o" 'find-file)
+  (general-define-key :states 'normal "M-RET" 'dashboard-open)
+  (general-define-key :states 'normal "C-e" 'neotree-toggle)
+  ; Projectile
+  (general-define-key :states 'normal "C-p" 'projectile-find-file)
+  (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
+  (general-define-key :states 'normal "C-S-F" 'projectile-grep)
+)
+#+end_src
+** Escape Binding
+Makes escape quit whatever your doing just like in Vim
+#+begin_src emacs-lisp
+(global-set-key [escape] 'keyboard-escape-quit)
 #+end_src
 
 
@@ -87,201 +93,236 @@ Additional keybindings to make evil work better
 ** Theme
 As always, I use the dracula theme
 #+begin_src emacs-lisp
-  (use-package dracula-theme
-    :diminish
-    :config
-    (load-theme 'dracula t))
+(use-package dracula-theme
+  :diminish
+  :config
+  (load-theme 'dracula t))
 #+end_src
 
+** Modeline
+[[https://github.com/seagle0128/doom-modeline?tab=readme-ov-file#screenshots][Doom Modeline]]
+#+begin_src emacs-lisp
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-hud t)
+  (doom-modeline-modal-modern-icon nil)
+)
+#+end_src
 ** Font
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
 #+end_src
 
 ** Icons
 *** [[https://github.com/rainstormstudio/nerd-icons.el][Nerd Fonts for Emacs]]
 #+begin_src emacs-lisp
-  (use-package nerd-icons
-    :custom 
-    (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
+(use-package nerd-icons
+  :custom 
+  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono")
+ )
 #+end_src
 *** All the icons
 #+begin_src emacs-lisp
-  (use-package all-the-icons)
+(use-package all-the-icons)
 
-  (use-package all-the-icons-dired
-    :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 #+end_src
 
 ** Builtin UI Tweaks
 #+begin_src emacs-lisp
-  (setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
 
-  (menu-bar-mode -1)
+(menu-bar-mode -1)
 
-  ;; Line numbers
-  (column-number-mode)
-  (setq-default display-line-numbers-type 'relative)
-  (global-display-line-numbers-mode t)
+;; Line numbers
+(column-number-mode)
+(setq-default display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 
+;; Disable dialogs/popup windows'
+(setq use-file-dialog nil)   ;; No file dialog
+(setq use-dialog-box nil)    ;; No dialog box
+(setq pop-up-windows nil)    ;; No popup windows
 #+end_src
 
 ** Transparency 
 #+begin_src emacs-lisp
-  (set-frame-parameter nil 'alpha-background 95)
+(set-frame-parameter nil 'alpha-background 95)
 
-  (add-to-list 'default-frame-alist '(alpha-background . 95))
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 #+end_src
 ** Other Tweaks
 *** Rainbow Delimiters
 Makes ~(~, ~[~, and ~{~ rainbow!
 #+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
+*** Rainbow Mode
+Displays the color for any hex (i.e. #0000FF)
+#+begin_src emacs-lisp
+(use-package rainbow-mode
+  :diminish
+  :hook org-mode prog-mode)
+#+end_src
 *** Diminish ElDoc
 #+begin_src emacs-lisp
-  (diminish 'eldoc-mode)
+(diminish 'eldoc-mode)
 #+end_src
 
 * Misc Packages
 ** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
 #+begin_src emacs-lisp
-  (use-package projectile
-    :diminish
-    :config
-    (projectile-mode 1))
+(use-package projectile
+  :diminish
+  :config
+  (projectile-mode 1))
 #+end_src
 
 ** Dashboard
 [[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]]
 #+begin_src emacs-lisp
-  (use-package dashboard
-    :requires (nerd-icons projectile)
-    :custom
-    (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
-    (dashboard-startup-banner 'logo)
-    (dashboard-center-content t)
-    (dashboard-display-icons-p t)
-    (dashboard-icon-type 'nerd-icons) 
-    (dashboard-set-heading-icons t)
-    (dashboard-set-file-icons t)
-    (dashboard-items '((projects . 5)
-                       (bookmarks . 5)
-                       (recents  . 10)))
-    :config
-    (dashboard-setup-startup-hook))
+(use-package dashboard
+  :requires (nerd-icons projectile)
+  :custom
+  (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons) 
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-items '((projects . 5)
+                     (bookmarks . 5)
+                     (recents  . 10)))
+  :config
+  (dashboard-setup-startup-hook))
 #+end_src
 And to have it automatically show with the daemon.
 #+begin_src emacs-lisp
-  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 #+end_src
 
 ** Org Mode
 #+begin_src emacs-lisp
-  (use-package org
-    :custom
-    (org-hide-emphasis-markers t)
-    (org-startup-indented t)
-    (org-startup-with-latex-preview t)
-    (org-startup-with-inline-images t)
-    (org-image-actual-width '(0.5))
-  )
+(use-package org
+  :diminish org-indent-mode
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-startup-indented t)
+  (org-startup-with-latex-preview t)
+  (org-startup-with-inline-images t)
+  (org-image-actual-width '(0.5))
+  (org-edit-src-content-indentation 0)
+)
 #+end_src
 *** Org Superstar
 ~org-superstar~ handles the nice rendering of bullets in headers and lists
 #+begin_src emacs-lisp 
-  (use-package org-superstar
-    :hook (org-mode . (lambda () (org-superstar-mode 1)))
-    :config
-    (setq org-superstar-leading-bullet "  ")
-    (setq org-superstar-special-todo-items t))
+(use-package org-superstar
+  :hook (org-mode . (lambda () (org-superstar-mode 1)))
+  :config
+  (setq org-superstar-leading-bullet "  ")
+  (setq org-superstar-special-todo-items t))
 #+end_src
 
 *** Latex Formating
 #+begin_src emacs-lisp
-  (setq org-format-latex-options 
-    '(:foreground default 
-      :background default 
-      :scale 3
-      :html-foreground "Black" 
-      :html-background "Transparent" 
-      :html-scale 1.0 
-      :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
-  (add-hook 'org-mode-hook
-    (lambda ()
-        (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
+(setq org-format-latex-options 
+  '(:foreground default 
+    :background default 
+    :scale 3
+    :html-foreground "Black" 
+    :html-background "Transparent" 
+    :html-scale 1.0 
+    :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+(add-hook 'org-mode-hook
+  (lambda ()
+      (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
 #+end_src
 *** Auto image rendering
 #+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-    (lambda ()
-        (add-hook 'after-save-hook (lambda () (org-display-inline-images)))))
+(add-hook 'org-mode-hook
+  (lambda ()
+      (add-hook 'after-save-hook (lambda () (org-display-inline-images)))))
 #+end_src
 *** Auto Tangleing
 Automatically tangles my org files
 #+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-      (lambda ()
-          (add-hook 'after-save-hook #'org-babel-tangle
-                  nil 'make-it-local)))
+(add-hook 'org-mode-hook
+    (lambda ()
+        (add-hook 'after-save-hook #'org-babel-tangle
+                nil 'make-it-local)))
 #+end_src
 ** NeoTree
 #+begin_src emacs-lisp
-  (use-package neotree
-    :custom
-    (neo-theme 'icons 'arrow)
-  )
+(use-package neotree
+  :custom
+  (neo-theme 'icons 'arrow)
+)
+#+end_src
+** PDF Tools
+Using [[https://github.com/vedang/pdf-tools][PDF Tools]]
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :init (pdf-loader-install)
+)
+
+(add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
 #+end_src
 * Language Support
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
-#+begin_src emacs_lisp
-  (use-package markdown-mode)
+#+begin_src emacs-lisp
+(use-package markdown-mode)
 #+end_src
 
 * Quality of Life
 ** Ivy/Swiper
 Handles the better autocompletion/search functionality in the minibuffer
 #+begin_src emacs-lisp
-  (use-package ivy
-  :diminish
-  :bind (:map ivy-minibuffer-map
-          ("C-l" . ivy-alt-done)
-          ("TAB" . ivy-alt-done)
-          ("C-j" . ivy-next-line)
-          ("C-k" . ivy-previous-line))
-  :config
-  (ivy-mode 1))
+(use-package ivy
+:diminish
+:bind (:map ivy-minibuffer-map
+        ("C-l" . ivy-alt-done)
+        ("TAB" . ivy-alt-done)
+        ("C-j" . ivy-next-line)
+        ("C-k" . ivy-previous-line))
+:config
+(ivy-mode 1))
 
-  (use-package swiper)
+(use-package swiper)
 #+end_src
 
 ** VTerm
 Better terminal emulator inside of emacs. [[https://github.com/akermu/emacs-libvterm][Github]]
 #+begin_src emacs-lisp
-  (use-package vterm)
+(use-package vterm)
 #+end_src
 
-** Disable electric auto indenting
+** Manage electric things
 #+begin_src emacs-lisp
-  (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+(electric-indent-mode -1) ; Disable auto indenting
+(electric-pair-mode 1) ; Enable auto paren pairing
 #+end_src
-
 ** Move Backup Files
 #+begin_src emacs-lisp
-  (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
-        backup-by-copying      t  ; Don't de-link hard links
-        version-control        t  ; Use version numbers on backups
-        delete-old-versions    t  ; Automatically delete excess backups:
-        kept-new-versions      20 ; how many of the newest versions to keep
-        kept-old-versions      2) ; and how many of the old
+(setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+      backup-by-copying      t  ; Don't de-link hard links
+      version-control        t  ; Use version numbers on backups
+      delete-old-versions    t  ; Automatically delete excess backups:
+      kept-new-versions      20 ; how many of the newest versions to keep
+      kept-old-versions      2) ; and how many of the old
 #+end_src
 
 

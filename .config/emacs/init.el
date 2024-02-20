@@ -4,7 +4,8 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
-(package-refresh-contents)
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 ;; Initialize use-package
 (unless (package-installed-p 'use-package)
@@ -52,16 +53,28 @@
   (general-define-key :states 'normal "C-S-F" 'projectile-grep)
 )
 
+(global-set-key [escape] 'keyboard-escape-quit)
+
 (use-package dracula-theme
   :diminish
   :config
   (load-theme 'dracula t))
 
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-hud t)
+  (doom-modeline-modal-modern-icon nil)
+)
+
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
 
 (use-package nerd-icons
   :custom 
-  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono"))
+  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono")
+ )
 
 (use-package all-the-icons)
 
@@ -81,12 +94,21 @@
 (setq-default display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
+;; Disable dialogs/popup windows'
+(setq use-file-dialog nil)   ;; No file dialog
+(setq use-dialog-box nil)    ;; No dialog box
+(setq pop-up-windows nil)    ;; No popup windows
+
 (set-frame-parameter nil 'alpha-background 95)
 
 (add-to-list 'default-frame-alist '(alpha-background . 95))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package rainbow-mode
+  :diminish
+  :hook org-mode prog-mode)
 
 (diminish 'eldoc-mode)
 
@@ -114,12 +136,14 @@
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 
 (use-package org
+  :diminish org-indent-mode
   :custom
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
   (org-startup-with-latex-preview t)
   (org-startup-with-inline-images t)
   (org-image-actual-width '(0.5))
+  (org-edit-src-content-indentation 0)
 )
 
 (use-package org-superstar
@@ -154,6 +178,12 @@
   (neo-theme 'icons 'arrow)
 )
 
+(use-package pdf-tools
+  :init (pdf-loader-install)
+)
+
+(add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
+
 (use-package markdown-mode)
 
 (use-package ivy
@@ -170,7 +200,8 @@
 
 (use-package vterm)
 
-(when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+(electric-indent-mode -1) ; Disable auto indenting
+(electric-pair-mode 1) ; Enable auto paren pairing
 
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
       backup-by-copying      t  ; Don't de-link hard links
