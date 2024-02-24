@@ -199,6 +199,8 @@ action_keys = [
         lazy.spawn("betterlockscreen -l dimblur"),
         desc="Lock screen",
     ),
+    # Turn off screen
+    Key([mod], "s", lazy.spawn("xdg-screensaver activate"), desc="Turn off screen"),
 ]
 
 rofi_script_keys = [
