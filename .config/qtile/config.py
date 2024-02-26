@@ -200,7 +200,7 @@ action_keys = [
         desc="Lock screen",
     ),
     # Turn off screen
-    Key([mod], "s", lazy.spawn("xdg-screensaver activate"), desc="Turn off screen"),
+    Key([mod], "s", lazy.spawn("xdg-screensaver activate", shell=True), desc="Turn off screen"),
 ]
 
 rofi_script_keys = [

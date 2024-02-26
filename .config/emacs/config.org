@@ -303,13 +303,6 @@ Handles the better autocompletion/search functionality in the minibuffer
 
 (use-package swiper)
 #+end_src
-
-** VTerm
-Better terminal emulator inside of emacs. [[https://github.com/akermu/emacs-libvterm][Github]]
-#+begin_src emacs-lisp
-(use-package vterm)
-#+end_src
-
 ** Manage electric things
 #+begin_src emacs-lisp
 (electric-indent-mode -1) ; Disable auto indenting

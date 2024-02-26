@@ -198,8 +198,6 @@
 
 (use-package swiper)
 
-(use-package vterm)
-
 (electric-indent-mode -1) ; Disable auto indenting
 (electric-pair-mode 1) ; Enable auto paren pairing
 
