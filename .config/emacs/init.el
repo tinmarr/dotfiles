@@ -162,7 +162,7 @@
     :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
 (add-hook 'org-mode-hook
   (lambda ()
-      (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
+      (add-hook 'after-save-hook 'org-latex-preview nil 'make-local)))
 
 (add-hook 'org-mode-hook
   (lambda ()

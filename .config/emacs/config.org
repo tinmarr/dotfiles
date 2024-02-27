@@ -88,7 +88,6 @@ Makes escape quit whatever your doing just like in Vim
 #+end_src
 
 
-
 * UI Tweaks
 ** Theme
 As always, I use the dracula theme
@@ -248,7 +247,7 @@ And to have it automatically show with the daemon.
     :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
 (add-hook 'org-mode-hook
   (lambda ()
-      (add-hook 'after-save-hook (lambda () (org-latex-preview)))))
+      (add-hook 'after-save-hook 'org-latex-preview nil 'make-local)))
 #+end_src
 *** Auto image rendering
 #+begin_src emacs-lisp
