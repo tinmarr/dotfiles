@@ -61,7 +61,7 @@ case $wm in
         esac
 
         yay -Rns xorg-xbacklight
-        localectl --no-convert set-x11-keymap us pc105 "" "compose:ralt"
+        localectl --no-convert set-x11-keymap "us,us" pc105 ",dvorak" "compose:ralt"
 
         if [[ "$touchpad" != "n" ]]; then
             echo 'Section "InputClass"

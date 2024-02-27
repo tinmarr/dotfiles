@@ -131,6 +131,8 @@ layout_keys = [
     Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle window float"),
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window fullscreen"),
     Key([mod, "shift"], "m", lazy.window.toggle_minimize(), desc="Toggle window float"),
+    # Keyboard layout
+    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
 ]
 
 system_keys = [
@@ -336,6 +338,10 @@ def make_bar():
             widget.StatusNotifier(**decoration_group),
             widget.Chord(**decoration_group),
             widget.Spacer(length=15),
+            widget.KeyboardLayout(
+                configured_keyboards=["us", "us dvorak"],
+                **decoration_group,
+            ),
             widget.Volume(
                 volume_app="pavucontrol",
                 fmt=make_icon("\udb81\udd7e") + " {}",
