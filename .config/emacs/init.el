@@ -178,12 +178,6 @@
   (neo-theme 'icons 'arrow)
 )
 
-(use-package pdf-tools
-  :init (pdf-loader-install)
-)
-
-(add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
-
 (use-package markdown-mode)
 
 (use-package ivy

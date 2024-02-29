@@ -270,15 +270,6 @@ Automatically tangles my org files
   (neo-theme 'icons 'arrow)
 )
 #+end_src
-** PDF Tools
-Using [[https://github.com/vedang/pdf-tools][PDF Tools]]
-#+begin_src emacs-lisp
-(use-package pdf-tools
-  :init (pdf-loader-install)
-)
-
-(add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
-#+end_src
 * Language Support
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
