@@ -62,5 +62,6 @@ local lc=$'\e[' rc=m
 printf "$lc${color[magenta]}$rc""Welcome $(whoami)!$reset_color\n"
 echo "Today is $(date +%A,\ %B\ %d,\ %Y)"
 echo "The time now is $(date +%Hh%M)"
+echo "You have $(pacman -Qu | wc -l) update(s) to do"
 
 export QSYS_ROOTDIR="/home/martin/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"
