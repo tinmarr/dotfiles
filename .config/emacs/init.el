@@ -201,3 +201,16 @@
       delete-old-versions    t  ; Automatically delete excess backups:
       kept-new-versions      20 ; how many of the newest versions to keep
       kept-old-versions      2) ; and how many of the old
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(doom-modeline vterm swiper shrink-path rainbow-mode rainbow-delimiters projectile pdf-tools page-break-lines org-superstar nerd-icons neotree markdown-mode general evil-collection dracula-theme diminish dashboard compat all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
