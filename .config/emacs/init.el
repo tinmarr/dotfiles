@@ -38,6 +38,9 @@
 (use-package general
   :after evil
   :config
+  ; Better vim motions
+  (general-define-key :states '(normal visual) "C-u" (general-simulate-key ('evil-scroll-up "z z")))
+  (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
   ; Prefixes
   (general-create-definer spc-def
     :states 'normal
@@ -51,6 +54,12 @@
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-F" 'projectile-grep)
+  ; Buffer management
+  (spc-def "b l" 'list-buffers)
+  (spc-def "b i" 'switch-to-buffer)
+  (spc-def "b j" 'next-buffer)
+  (spc-def "b p" 'previous-buffer)
+  (spc-def "b k" 'kill-current-buffer)
 )
 
 (global-set-key [escape] 'keyboard-escape-quit)
@@ -201,16 +210,6 @@
       delete-old-versions    t  ; Automatically delete excess backups:
       kept-new-versions      20 ; how many of the newest versions to keep
       kept-old-versions      2) ; and how many of the old
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(doom-modeline vterm swiper shrink-path rainbow-mode rainbow-delimiters projectile pdf-tools page-break-lines org-superstar nerd-icons neotree markdown-mode general evil-collection dracula-theme diminish dashboard compat all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(setq custom-file "~/.config/emacs-custom.el")
+(load custom-file)

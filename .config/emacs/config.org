@@ -61,11 +61,20 @@ Additional keybindings to make evil work better
 | C-p        |          | Projectile Find File            |
 | C-S-O      |          | Projectile Switch Project       |
 | C-S-F      |          | Projectile Find Text            |
+|------------+----------+---------------------------------|
+| SPC b l    |          | List buffers                    |
+| SPC b s    |          | Switch to buffer                |
+| SPC b j    |          | Next buffer                     |
+| SPC b k    |          | Previous buffer                 |
+| SPC b h    |          | Kill current buffer             |
 
 #+begin_src emacs-lisp
 (use-package general
   :after evil
   :config
+  ; Better vim motions
+  (general-define-key :states '(normal visual) "C-u" (general-simulate-key ('evil-scroll-up "z z")))
+  (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
   ; Prefixes
   (general-create-definer spc-def
     :states 'normal
@@ -79,6 +88,12 @@ Additional keybindings to make evil work better
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-F" 'projectile-grep)
+  ; Buffer management
+  (spc-def "b l" 'list-buffers)
+  (spc-def "b i" 'switch-to-buffer)
+  (spc-def "b j" 'next-buffer)
+  (spc-def "b p" 'previous-buffer)
+  (spc-def "b k" 'kill-current-buffer)
 )
 #+end_src
 ** Escape Binding
@@ -307,5 +322,9 @@ Handles the better autocompletion/search functionality in the minibuffer
       kept-new-versions      20 ; how many of the newest versions to keep
       kept-old-versions      2) ; and how many of the old
 #+end_src
-
+** Move Custom File
+#+begin_src emacs-lisp
+(setq custom-file "~/.config/emacs-custom.el")
+(load custom-file)
+#+end_src
 
