@@ -23,7 +23,7 @@ Other than that, i've set some custom bindings for myself. Here they are:
 | SPC b k    |          | Previous buffer                 |
 | SPC b h    |          | Kill current buffer             |
 
-All custom bindings are defined here: [[*General]]
+All custom bindings are defined here: [[#general]]
 I've also defined bindings to make certain interfaces more vim-like (i.e. ivy minibuffer) but those are defined in the corresponding use-package.
 * Package Manager 
 Configure the package manager and package manager sources. We also want to use ~use-package~.
@@ -74,6 +74,9 @@ Additional keybindings to make evil work better
   (evil-collection-init))
 #+end_src
 ** General 
+:PROPERTIES:
+:CUSTOM_ID: general
+:END:
 #+begin_src emacs-lisp
 (use-package general
   :after evil
