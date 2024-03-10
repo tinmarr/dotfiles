@@ -43,12 +43,12 @@
   (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
   ; Prefixes
   (general-create-definer spc-def
-    :states 'normal
+    :states '(normal visual)
     :prefix "SPC")
   ; Bindings
   (spc-def org-mode-map "i" 'org-edit-latex-fragment)
   (general-define-key :states 'normal "C-o" 'find-file)
-  (general-define-key :states 'normal "M-RET" 'dashboard-open)
+  (spc-def :states 'normal "RET" 'dashboard-open)
   (general-define-key :states 'normal "C-e" 'neotree-toggle)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
@@ -58,11 +58,15 @@
   (spc-def "b l" 'list-buffers)
   (spc-def "b i" 'switch-to-buffer)
   (spc-def "b j" 'next-buffer)
-  (spc-def "b p" 'previous-buffer)
-  (spc-def "b k" 'kill-current-buffer)
+  (spc-def "b k" 'previous-buffer)
+  (spc-def "b h" 'kill-current-buffer)
 )
 
 (global-set-key [escape] 'keyboard-escape-quit)
+
+(set-locale-environment "en_US.UTF-8")
+(set-language-environment "English")
+(setenv "LANG" "en_US.UTF-8")
 
 (use-package dracula-theme
   :diminish
@@ -189,6 +193,17 @@
 
 (use-package markdown-mode)
 
+(use-package lsp-mode
+  :hook (prog-mode . lsp)
+  :commands lsp
+)
+(use-package lsp-ui)
+
+(use-package lsp-pyright
+  :init
+  (setq lsp-pyright-multi-root nil)
+)
+
 (use-package ivy
 :diminish
 :bind (:map ivy-minibuffer-map
@@ -197,6 +212,7 @@
         ("C-j" . ivy-next-line)
         ("C-k" . ivy-previous-line))
 :config
+(setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
 (ivy-mode 1))
 
 (use-package swiper)
@@ -213,3 +229,13 @@
 
 (setq custom-file "~/.config/emacs-custom.el")
 (load custom-file)
+
+(use-package flycheck
+  :config
+  (flycheck-mode)
+)
+
+(use-package company
+  :config
+  (company-mode)
+)

@@ -1,6 +1,7 @@
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Martin Chaperot
 #+PROPERTY: header-args :tangle init.el
+#+STARTUP: overview
 
 * Package Manager 
 Configure the package manager and package manager sources. We also want to use ~use-package~.
@@ -55,7 +56,7 @@ Additional keybindings to make evil work better
 |------------+----------+---------------------------------|
 | SPC i      | org-mode | Edit a latex fragment (preview) |
 | C-o        |          | Search for a file               |
-| M-RET      |          | Go to dashboard                 |
+| SPC RET    |          | Go to dashboard                 |
 | C-e        |          | Toggle NeoTree                  |
 |------------+----------+---------------------------------|
 | C-p        |          | Projectile Find File            |
@@ -77,12 +78,12 @@ Additional keybindings to make evil work better
   (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
   ; Prefixes
   (general-create-definer spc-def
-    :states 'normal
+    :states '(normal visual)
     :prefix "SPC")
   ; Bindings
   (spc-def org-mode-map "i" 'org-edit-latex-fragment)
   (general-define-key :states 'normal "C-o" 'find-file)
-  (general-define-key :states 'normal "M-RET" 'dashboard-open)
+  (spc-def :states 'normal "RET" 'dashboard-open)
   (general-define-key :states 'normal "C-e" 'neotree-toggle)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
@@ -92,8 +93,8 @@ Additional keybindings to make evil work better
   (spc-def "b l" 'list-buffers)
   (spc-def "b i" 'switch-to-buffer)
   (spc-def "b j" 'next-buffer)
-  (spc-def "b p" 'previous-buffer)
-  (spc-def "b k" 'kill-current-buffer)
+  (spc-def "b k" 'previous-buffer)
+  (spc-def "b h" 'kill-current-buffer)
 )
 #+end_src
 ** Escape Binding
@@ -102,8 +103,13 @@ Makes escape quit whatever your doing just like in Vim
 (global-set-key [escape] 'keyboard-escape-quit)
 #+end_src
 
-
 * UI Tweaks
+** Language
+#+begin_src emacs-lisp
+(set-locale-environment "en_US.UTF-8")
+(set-language-environment "English")
+(setenv "LANG" "en_US.UTF-8")
+#+end_src
 ** Theme
 As always, I use the dracula theme
 #+begin_src emacs-lisp
@@ -292,6 +298,22 @@ Automatically tangles my org files
 (use-package markdown-mode)
 #+end_src
 
+** LSP Mode
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :hook (prog-mode . lsp)
+  :commands lsp
+)
+(use-package lsp-ui)
+#+end_src
+** Python 
+*** Pyright
+#+begin_src emacs-lisp
+(use-package lsp-pyright
+  :init
+  (setq lsp-pyright-multi-root nil)
+)
+#+end_src
 * Quality of Life
 ** Ivy/Swiper
 Handles the better autocompletion/search functionality in the minibuffer
@@ -304,6 +326,7 @@ Handles the better autocompletion/search functionality in the minibuffer
         ("C-j" . ivy-next-line)
         ("C-k" . ivy-previous-line))
 :config
+(setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
 (ivy-mode 1))
 
 (use-package swiper)
@@ -328,3 +351,20 @@ Handles the better autocompletion/search functionality in the minibuffer
 (load custom-file)
 #+end_src
 
+** Flycheck
+Modern on-the-fly syntax checking extension. [[https://github.com/flycheck/flycheck][Github]]
+#+begin_src emacs-lisp
+(use-package flycheck
+  :config
+  (flycheck-mode)
+)
+#+end_src
+
+** Company Mode
+A text completion framework
+#+begin_src emacs-lisp
+(use-package company
+  :config
+  (company-mode)
+)
+#+end_src

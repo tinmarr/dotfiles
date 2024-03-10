@@ -37,6 +37,7 @@ fc-cache -f -v
 # Install utilities
 printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
+git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 
