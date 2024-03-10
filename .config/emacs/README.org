@@ -3,6 +3,28 @@
 #+PROPERTY: header-args :tangle init.el
 #+STARTUP: overview
 
+* Usage
+I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
+Other than that, i've set some custom bindings for myself. Here they are:
+| Keybinding | Map      | Description                     |
+|------------+----------+---------------------------------|
+| SPC i      | org-mode | Edit a latex fragment (preview) |
+| C-o        |          | Search for a file               |
+| SPC RET    |          | Go to dashboard                 |
+| C-e        |          | Toggle NeoTree                  |
+|------------+----------+---------------------------------|
+| C-p        |          | Projectile Find File            |
+| C-S-O      |          | Projectile Switch Project       |
+| C-S-F      |          | Projectile Find Text            |
+|------------+----------+---------------------------------|
+| SPC b l    |          | List buffers                    |
+| SPC b s    |          | Switch to buffer                |
+| SPC b j    |          | Next buffer                     |
+| SPC b k    |          | Previous buffer                 |
+| SPC b h    |          | Kill current buffer             |
+
+All custom bindings are defined here: [[*General]]
+I've also defined bindings to make certain interfaces more vim-like (i.e. ivy minibuffer) but those are defined in the corresponding use-package.
 * Package Manager 
 Configure the package manager and package manager sources. We also want to use ~use-package~.
 
@@ -52,23 +74,6 @@ Additional keybindings to make evil work better
   (evil-collection-init))
 #+end_src
 ** General 
-| Keybinding | Map      | Description                     |
-|------------+----------+---------------------------------|
-| SPC i      | org-mode | Edit a latex fragment (preview) |
-| C-o        |          | Search for a file               |
-| SPC RET    |          | Go to dashboard                 |
-| C-e        |          | Toggle NeoTree                  |
-|------------+----------+---------------------------------|
-| C-p        |          | Projectile Find File            |
-| C-S-O      |          | Projectile Switch Project       |
-| C-S-F      |          | Projectile Find Text            |
-|------------+----------+---------------------------------|
-| SPC b l    |          | List buffers                    |
-| SPC b s    |          | Switch to buffer                |
-| SPC b j    |          | Next buffer                     |
-| SPC b k    |          | Previous buffer                 |
-| SPC b h    |          | Kill current buffer             |
-
 #+begin_src emacs-lisp
 (use-package general
   :after evil
