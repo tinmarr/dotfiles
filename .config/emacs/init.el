@@ -50,6 +50,7 @@
   (general-define-key :states 'normal "C-o" 'find-file)
   (spc-def :states 'normal "RET" 'dashboard-open)
   (general-define-key :states 'normal "C-e" 'neotree-toggle)
+  (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
@@ -69,9 +70,9 @@
 (setenv "LANG" "en_US.UTF-8")
 
 (use-package dracula-theme
-  :diminish
   :config
-  (load-theme 'dracula t))
+  (load-theme 'dracula t)
+)
 
 (use-package doom-modeline
   :init
@@ -83,6 +84,29 @@
 )
 
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+
+(use-package ligature
+  :config
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia Code ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  (global-ligature-mode 't)
+)
 
 (use-package nerd-icons
   :custom 
@@ -127,6 +151,8 @@
 
 (use-package projectile
   :diminish
+  :custom
+  (projectile-git-command "git ls-files -zco") 
   :config
   (projectile-mode 1))
 
@@ -191,10 +217,18 @@
   (neo-theme 'icons 'arrow)
 )
 
+(setq treesit-language-source-alist
+  '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+    (python "https://github.com/tree-sitter/tree-sitter-python")
+   ))
+
+(add-hook 'sh-mode-hook 'bash-ts-mode)
+(add-hook 'python-mode-hook 'python-ts-mode)
+
 (use-package markdown-mode)
 
 (use-package lsp-mode
-  :hook (prog-mode . lsp)
+  :hook (python-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)
@@ -217,9 +251,6 @@
 
 (use-package swiper)
 
-(electric-indent-mode -1) ; Disable auto indenting
-(electric-pair-mode 1) ; Enable auto paren pairing
-
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
       backup-by-copying      t  ; Don't de-link hard links
       version-control        t  ; Use version numbers on backups
@@ -227,8 +258,12 @@
       kept-new-versions      20 ; how many of the newest versions to keep
       kept-old-versions      2) ; and how many of the old
 
-(setq custom-file "~/.config/emacs-custom.el")
+(setq custom-file "~/.config/emacs/emacs-custom.el")
 (load custom-file)
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
+(global-auto-revert-mode)
 
 (use-package flycheck
   :config

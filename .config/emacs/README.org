@@ -12,6 +12,7 @@ Other than that, i've set some custom bindings for myself. Here they are:
 | C-o        |          | Search for a file               |
 | SPC RET    |          | Go to dashboard                 |
 | C-e        |          | Toggle NeoTree                  |
+| C-i        |          | imenu                           |
 |------------+----------+---------------------------------|
 | C-p        |          | Projectile Find File            |
 | C-S-O      |          | Projectile Switch Project       |
@@ -93,6 +94,7 @@ Additional keybindings to make evil work better
   (general-define-key :states 'normal "C-o" 'find-file)
   (spc-def :states 'normal "RET" 'dashboard-open)
   (general-define-key :states 'normal "C-e" 'neotree-toggle)
+  (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
@@ -122,11 +124,10 @@ Makes escape quit whatever your doing just like in Vim
 As always, I use the dracula theme
 #+begin_src emacs-lisp
 (use-package dracula-theme
-  :diminish
   :config
-  (load-theme 'dracula t))
+  (load-theme 'dracula t)
+)
 #+end_src
-
 ** Modeline
 [[https://github.com/seagle0128/doom-modeline?tab=readme-ov-file#screenshots][Doom Modeline]]
 #+begin_src emacs-lisp
@@ -143,7 +144,31 @@ As always, I use the dracula theme
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
 #+end_src
-
+*** Ligatures
+#+begin_src emacs-lisp
+(use-package ligature
+  :config
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia Code ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  (global-ligature-mode 't)
+)
+#+end_src
 ** Icons
 *** [[https://github.com/rainstormstudio/nerd-icons.el][Nerd Fonts for Emacs]]
 #+begin_src emacs-lisp
@@ -213,10 +238,11 @@ Displays the color for any hex (i.e. #0000FF)
 #+begin_src emacs-lisp
 (use-package projectile
   :diminish
+  :custom
+  (projectile-git-command "git ls-files -zco") 
   :config
   (projectile-mode 1))
 #+end_src
-
 ** Dashboard
 [[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]]
 #+begin_src emacs-lisp
@@ -300,16 +326,28 @@ Automatically tangles my org files
 )
 #+end_src
 * Language Support
+** Tree Sitter (Syntax Highlighting)
+*** Grammar list
+#+begin_src emacs-lisp
+(setq treesit-language-source-alist
+  '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+    (python "https://github.com/tree-sitter/tree-sitter-python")
+   ))
+#+end_src
+*** Enable modes
+#+begin_src emacs-lisp
+(add-hook 'sh-mode-hook 'bash-ts-mode)
+(add-hook 'python-mode-hook 'python-ts-mode)
+#+end_src
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
 #+begin_src emacs-lisp
 (use-package markdown-mode)
 #+end_src
-
 ** LSP Mode
 #+begin_src emacs-lisp
 (use-package lsp-mode
-  :hook (prog-mode . lsp)
+  :hook (python-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)
@@ -339,11 +377,6 @@ Handles the better autocompletion/search functionality in the minibuffer
 
 (use-package swiper)
 #+end_src
-** Manage electric things
-#+begin_src emacs-lisp
-(electric-indent-mode -1) ; Disable auto indenting
-(electric-pair-mode 1) ; Enable auto paren pairing
-#+end_src
 ** Move Backup Files
 #+begin_src emacs-lisp
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
@@ -355,10 +388,18 @@ Handles the better autocompletion/search functionality in the minibuffer
 #+end_src
 ** Move Custom File
 #+begin_src emacs-lisp
-(setq custom-file "~/.config/emacs-custom.el")
+(setq custom-file "~/.config/emacs/emacs-custom.el")
 (load custom-file)
 #+end_src
 
+** Enable Folding 
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+#+end_src
+** Auto Revert
+#+begin_src emacs-lisp
+(global-auto-revert-mode)
+#+end_src
 ** Flycheck
 Modern on-the-fly syntax checking extension. [[https://github.com/flycheck/flycheck][Github]]
 #+begin_src emacs-lisp
