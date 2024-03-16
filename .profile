@@ -84,7 +84,7 @@ gitc () {
     git push
 }
 
-alias gits="(git fetch &) && git status"
+alias gits="(git fetch &>/dev/null &) && git status"
 alias gitl="git log --compact-summary"
 
 configc () {

@@ -42,13 +42,13 @@
   (general-define-key :states '(normal visual) "C-u" (general-simulate-key ('evil-scroll-up "z z")))
   (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
   ; Prefixes
-  (general-create-definer spc-def
+  (general-create-definer leader
     :states '(normal visual)
     :prefix "SPC")
   ; Bindings
-  (spc-def org-mode-map "i" 'org-edit-latex-fragment)
+  (leader org-mode-map "i" 'org-edit-latex-fragment)
   (general-define-key :states 'normal "C-o" 'find-file)
-  (spc-def :states 'normal "RET" 'dashboard-open)
+  (leader :states 'normal "RET" 'dashboard-open)
   (general-define-key :states 'normal "C-e" 'neotree-toggle)
   (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
   ; Projectile
@@ -56,14 +56,20 @@
   (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-F" 'projectile-grep)
   ; Buffer management
-  (spc-def "b l" 'list-buffers)
-  (spc-def "b i" 'switch-to-buffer)
-  (spc-def "b j" 'next-buffer)
-  (spc-def "b k" 'previous-buffer)
-  (spc-def "b h" 'kill-current-buffer)
+  (leader "b l" 'list-buffers)
+  (leader "b i" 'switch-to-buffer)
+  (leader "b j" 'next-buffer)
+  (leader "b k" 'previous-buffer)
+  (leader "b h" 'kill-current-buffer)
 )
 
 (global-set-key [escape] 'keyboard-escape-quit)
+
+(use-package which-key
+  :config
+  (which-key-mode)
+  (which-key-add-key-based-replacements "SPC b" "Buffer Management")
+)
 
 (set-locale-environment "en_US.UTF-8")
 (set-language-environment "English")
