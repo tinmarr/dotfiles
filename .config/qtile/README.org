@@ -1,3 +1,10 @@
+#+title: Qtile Config
+#+AUTHOR: Martin Chaperot
+#+PROPERTY: header-args :tangle config.py 
+#+STARTUP: overview
+
+* Imports
+#+begin_src python
 import os
 import random
 import subprocess
@@ -10,7 +17,9 @@ from libqtile.layout.columns import Columns
 from libqtile.layout.floating import Floating
 from libqtile.lazy import lazy
 from qtile_extras import widget
-
+#+end_src
+* Global variables
+#+begin_src python
 qtile: Qtile
 terminal = "kitty"
 RANDOM_WALLPAPER = True
@@ -34,21 +43,30 @@ class Theme:
     orange = "#ffb86c"
     yellow = "#f1fa8c"
     transparent = "#00000000"
-
+#+end_src
+* Helper Functions
+** Get Wallpaper
+Gets a random wallpaper or a predefined one.
+#+begin_src python
 def get_wallpaper():
     BACKGROUNDS_PATH = "~/.local/share/backgrounds"
     if not RANDOM_WALLPAPER: return f"{BACKGROUNDS_PATH}/pyramids.jpg"
     folder = os.path.expanduser(BACKGROUNDS_PATH)
     files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
     return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
-
+#+end_src
+** Misc
+These are self explainatory
+#+begin_src python
 def make_icon(raw_unicode: str) -> str:
     return raw_unicode.encode("utf-16", "surrogatepass").decode("utf-16")
 
 
 def send_notif(_, title: str, body: str = ""):
     subprocess.Popen(["notify-send", title, body])
-
+#+end_src
+* Hooks
+#+begin_src python
 @hook.subscribe.startup_complete
 def autostart():
     subprocess.Popen(["/usr/lib/kdeconnectd"])
@@ -68,7 +86,10 @@ def color_tasklist():
         tasklist.decorations[0].colour = Theme.purple
     if window_count > 1:
         tasklist.decorations[0].colour = Theme.alternate
-
+#+end_src
+* Keybindings
+** Movement Keys
+#+begin_src python
 focus_keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -83,7 +104,9 @@ focus_keys = [
     Key([mod, alt], "h", lazy.prev_screen(), desc="Move focus to previous screen"),
     Key([mod, alt], "l", lazy.next_screen(), desc="Move focus to next screen"),
 ]
-
+#+end_src
+** Layout Editing Keys
+#+begin_src python
 layout_keys = [
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -118,7 +141,9 @@ layout_keys = [
     # Keyboard layout
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
 ]
-
+#+end_src
+** System Keys
+#+begin_src python
 system_keys = [
     # System Controls
     Key(
@@ -170,7 +195,9 @@ system_keys = [
         desc="Toggle audio",
     ),
 ]
-
+#+end_src
+** General Actions
+#+begin_src python
 action_keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch Emacs"),
@@ -188,7 +215,9 @@ action_keys = [
     # Turn off screen
     Key([mod], "s", lazy.spawn("xdg-screensaver activate", shell=True), desc="Turn off screen"),
 ]
-
+#+end_src
+** Rofi Scripts
+#+begin_src python
 rofi_script_keys = [
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
     Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Alt-tab with rofi"),
@@ -210,9 +239,13 @@ rofi_script_keys = [
         desc="Run rofi scripts",
     ),
 ]
-
+#+end_src
+** Merging of keybindings
+#+begin_src python
 keys = [*focus_keys, *layout_keys, *system_keys, *action_keys, *rofi_script_keys]
-
+#+end_src
+* Groups
+#+begin_src python
 groups = [
     Group("1"),
     Group("2", matches=[Match(wm_class="code")]),
@@ -447,3 +480,4 @@ wl_input_rules = None
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+#+end_src
