@@ -53,8 +53,8 @@
   (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
-  (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
-  (general-define-key :states 'normal "C-S-F" 'projectile-grep)
+  (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
+  (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
   ; Buffer management
   (leader "b l" 'list-buffers)
   (leader "b i" 'switch-to-buffer)
@@ -142,9 +142,9 @@
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
 
-(set-frame-parameter nil 'alpha-background 95)
+(set-frame-parameter nil 'alpha-background 100)
 
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -161,6 +161,8 @@
   (projectile-git-command "git ls-files -zco") 
   :config
   (projectile-mode 1))
+
+(use-package ripgrep)
 
 (use-package dashboard
   :requires (nerd-icons projectile)
@@ -234,7 +236,7 @@
 (use-package markdown-mode)
 
 (use-package lsp-mode
-  :hook (python-mode . lsp)
+  :hook (python-ts-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)

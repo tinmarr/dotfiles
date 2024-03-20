@@ -88,7 +88,7 @@ case $wm in
         fi
 
         yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
-            dunst qt5ct-kde picom python-dbus-next lxappearance-gtk3 gnu-free-fonts ly \
+            dunst qt5ct-kde picom python-dbus-next nwg-look gnu-free-fonts ly \
             brave-beta-bin thunar visual-studio-code-bin playerctl tlp pinentry-rofi \
             rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji
         sudo systemctl enable ly

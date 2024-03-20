@@ -28,21 +28,6 @@ NVIDIA = os.getenv("NVIDIA", "false") == "true"
 
 mod = "mod4" # Super
 alt = "mod1" # Alt
-
-class Theme:
-    wallpaper = get_wallpaper()
-    background = "#282a36"
-    secondary = "#44475a"
-    alternate = "#6272a4"
-    foreground = "#f8f8f2"
-    purple = "#bd93f9"
-    pink = "#ff79c6"
-    red = "#ff5555"
-    green = "#50fa7b"
-    cyan = "#8be9fd"
-    orange = "#ffb86c"
-    yellow = "#f1fa8c"
-    transparent = "#00000000"
 #+end_src
 * Helper Functions
 ** Get Wallpaper
@@ -64,6 +49,23 @@ def make_icon(raw_unicode: str) -> str:
 
 def send_notif(_, title: str, body: str = ""):
     subprocess.Popen(["notify-send", title, body])
+#+end_src
+* Theme Definition
+#+begin_src python
+class Theme:
+    wallpaper = get_wallpaper()
+    background = "#282a36"
+    secondary = "#44475a"
+    alternate = "#6272a4"
+    foreground = "#f8f8f2"
+    purple = "#bd93f9"
+    pink = "#ff79c6"
+    red = "#ff5555"
+    green = "#50fa7b"
+    cyan = "#8be9fd"
+    orange = "#ffb86c"
+    yellow = "#f1fa8c"
+    transparent = "#00000000"
 #+end_src
 * Hooks
 #+begin_src python
@@ -278,7 +280,9 @@ for i in groups:
             ),
         ]
     )
-
+#+end_src
+* Layout
+#+begin_src python
 layouts = [
     Columns(
         border_focus=Theme.purple,
@@ -291,7 +295,10 @@ layouts = [
         margin=8,
     ),
 ]
-
+#+end_src
+* Status Bar Widgets
+** Default setttings
+#+begin_src python
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font Mono",
     fontsize=24,
@@ -300,9 +307,12 @@ widget_defaults = dict(
     foreground=Theme.foreground,
 )
 extension_defaults = widget_defaults.copy()
+#+end_src
 
+** Widget Creator Function
+I do it like this to have bars on all my monitors that work well
+#+begin_src python
 BARS_COUNT = 0
-
 
 def make_bar():
     global BARS_COUNT
@@ -403,8 +413,10 @@ def make_bar():
         opacity=1,
     )
     return b
-
-
+#+end_src
+* Screen Config
+I create 3 screens because I never need more
+#+begin_src python
 screens = [
     Screen(
         top=make_bar(),
@@ -422,7 +434,9 @@ screens = [
         wallpaper_mode="fill",
     ),
 ]
-
+#+end_src
+* Mouse config
+#+begin_src python
 # Drag floating layouts.
 mouse = [
     Drag(
@@ -435,7 +449,9 @@ mouse = [
         [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
     ),
 ]
-
+#+end_src
+* Misc config
+#+begin_src python
 dgroups_key_binder = None
 dgroups_app_rules = []
 follow_mouse_focus = False

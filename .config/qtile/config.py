@@ -20,6 +20,20 @@ NVIDIA = os.getenv("NVIDIA", "false") == "true"
 mod = "mod4" # Super
 alt = "mod1" # Alt
 
+def get_wallpaper():
+    BACKGROUNDS_PATH = "~/.local/share/backgrounds"
+    if not RANDOM_WALLPAPER: return f"{BACKGROUNDS_PATH}/pyramids.jpg"
+    folder = os.path.expanduser(BACKGROUNDS_PATH)
+    files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+    return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
+
+def make_icon(raw_unicode: str) -> str:
+    return raw_unicode.encode("utf-16", "surrogatepass").decode("utf-16")
+
+
+def send_notif(_, title: str, body: str = ""):
+    subprocess.Popen(["notify-send", title, body])
+
 class Theme:
     wallpaper = get_wallpaper()
     background = "#282a36"
@@ -34,20 +48,6 @@ class Theme:
     orange = "#ffb86c"
     yellow = "#f1fa8c"
     transparent = "#00000000"
-
-def get_wallpaper():
-    BACKGROUNDS_PATH = "~/.local/share/backgrounds"
-    if not RANDOM_WALLPAPER: return f"{BACKGROUNDS_PATH}/pyramids.jpg"
-    folder = os.path.expanduser(BACKGROUNDS_PATH)
-    files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-    return BACKGROUNDS_PATH + "/" + random.choice(files) if files else ""
-
-def make_icon(raw_unicode: str) -> str:
-    return raw_unicode.encode("utf-16", "surrogatepass").decode("utf-16")
-
-
-def send_notif(_, title: str, body: str = ""):
-    subprocess.Popen(["notify-send", title, body])
 
 @hook.subscribe.startup_complete
 def autostart():
@@ -270,7 +270,6 @@ extension_defaults = widget_defaults.copy()
 
 BARS_COUNT = 0
 
-
 def make_bar():
     global BARS_COUNT
     BARS_COUNT += 1
@@ -370,7 +369,6 @@ def make_bar():
         opacity=1,
     )
     return b
-
 
 screens = [
     Screen(

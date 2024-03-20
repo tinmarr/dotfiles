@@ -15,8 +15,8 @@ Other than that, i've set some custom bindings for myself. Here they are below. 
 | C-i        |          | imenu                           |
 |------------+----------+---------------------------------|
 | C-p        |          | Projectile Find File            |
-| C-S-O      |          | Projectile Switch Project       |
-| C-S-F      |          | Projectile Find Text            |
+| C-S-o      |          | Projectile Switch Project       |
+| C-S-f      |          | Projectile Find Text            |
 |------------+----------+---------------------------------|
 | SPC b l    |          | List buffers                    |
 | SPC b s    |          | Switch to buffer                |
@@ -97,8 +97,8 @@ Additional keybindings to make evil work better
   (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
   ; Projectile
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
-  (general-define-key :states 'normal "C-S-O" 'projectile-switch-project)
-  (general-define-key :states 'normal "C-S-F" 'projectile-grep)
+  (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
+  (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
   ; Buffer management
   (leader "b l" 'list-buffers)
   (leader "b i" 'switch-to-buffer)
@@ -216,9 +216,9 @@ As always, I use the dracula theme
 
 ** Transparency 
 #+begin_src emacs-lisp
-(set-frame-parameter nil 'alpha-background 95)
+(set-frame-parameter nil 'alpha-background 100)
 
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 #+end_src
 ** Other Tweaks
 *** Rainbow Delimiters
@@ -250,6 +250,10 @@ Displays the color for any hex (i.e. #0000FF)
   (projectile-git-command "git ls-files -zco") 
   :config
   (projectile-mode 1))
+#+end_src
+*** Ripgrep support
+#+begin_src emacs-lisp
+(use-package ripgrep)
 #+end_src
 ** Dashboard
 [[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]]
@@ -355,7 +359,7 @@ Automatically tangles my org files
 ** LSP Mode
 #+begin_src emacs-lisp
 (use-package lsp-mode
-  :hook (python-mode . lsp)
+  :hook (python-ts-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)

@@ -17,10 +17,18 @@ _darcs
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
 
-.*\.org # Org Files
-
-^/\.local/bin/archpost # archpost install
-
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+
+#### My additions to the default
+
+.+\.org # Org Files
+README.org # Config compiler files
+
+^/\.local/bin/archpost # archpost install
+
+^/\.envrc # Envrc for the dotfiles repo
+
+^/stowall # stowall script
+
