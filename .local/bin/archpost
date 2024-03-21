@@ -62,7 +62,7 @@ case $wm in
         esac
 
         yay -Rns xorg-xbacklight
-        localectl --no-convert set-x11-keymap "us,us" pc105 ",dvorak" "compose:ralt"
+        localectl --no-convert set-x11-keymap "us" "" "" "compose:ralt"
 
         if [[ "$touchpad" != "n" ]]; then
             echo 'Section "InputClass"
@@ -87,10 +87,11 @@ case $wm in
             sudo pacman -S --needed nvidia nvidia-utils lib32-nvidia-utils
         fi
 
-        yay -S --needed kdeconnect kitty rofi pavucontrol betterlockscreen autorandr \
+        yay -S --needed kdeconnect kitty pavucontrol betterlockscreen autorandr \
             dunst qt5ct-kde picom python-dbus-next nwg-look gnu-free-fonts ly \
             brave-beta-bin thunar visual-studio-code-bin playerctl tlp pinentry-rofi \
-            rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji
+            rofi-calc xclip xdotool rofi-emoji acpilight noto-fonts noto-fonts-emoji \
+	    rofi-lbonn-wayland
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
         sudo systemctl enable autorandr

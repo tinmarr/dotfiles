@@ -142,9 +142,9 @@
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
 
-(set-frame-parameter nil 'alpha-background 100)
+(set-frame-parameter nil 'alpha-background 80)
 
-(add-to-list 'default-frame-alist '(alpha-background . 100))
+(add-to-list 'default-frame-alist '(alpha-background . 80))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))

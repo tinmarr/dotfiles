@@ -1,0 +1,204 @@
+#+title: Hyperland Config
+#+AUTHOR: Martin Chaperot
+#+PROPERTY: header-args :tangle hyprland.conf 
+#+STARTUP: overview
+
+* Startup
+#+begin_src conf
+exec-once = ~/.config/hypr/bg-rotate.sh
+exec-once = waybar
+exec-once = startup
+#+end_src
+* Monitors
+See https://wiki.hyprland.org/Configuring/Monitors/
+#+begin_src conf
+monitor=DP-1, 1920x1080@60, 0x0, 1
+monitor=HDMI-A-1, 1920x1080@60, 1920x0, 1
+monitor=,highres,auto,1
+#+end_src
+* Variables
+** Config Variables
+#+begin_src conf
+$mainMod = SUPER
+#+end_src
+** Env variables
+Hyprland Restart required to update these
+#+begin_src conf
+env = XCURSOR_SIZE,12
+envd = XCURSOR_SIZE,12 # Passed to systemd
+env = QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that
+#+end_src
+*** Nvidia support
+#+begin_src conf
+env = LIBVA_DRIVER_NAME,nvidia
+env = XDG_SESSION_TYPE,wayland
+env = GBM_BACKEND,nvidia-drm
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+env = WLR_NO_HARDWARE_CURSORS,1
+#+end_src
+*** Forcing wayland
+#+begin_src conf
+env = GDK_BACKEND,wayland,x11
+env = QT_QPA_PLATFORM,wayland;xcb 
+env = SDL_VIDEODRIVER,wayland
+env = CLUTTER_BACKEND=wayland
+#+end_src
+*** XDG
+#+begin_src conf
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+#+end_src
+* Theme
+#+begin_src conf
+source = ~/.config/hypr/dracula.conf
+#+end_src
+* General
+#+begin_src conf
+general {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+    gaps_in = 5
+    gaps_out = 20
+    border_size = 2
+
+    layout = dwindle
+
+    no_cursor_warps = true
+
+    # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+    allow_tearing = false
+}
+#+end_src
+* Decoration
+#+begin_src conf
+decoration {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+    rounding = 25
+
+    blur {
+        enabled = true
+        size = 8
+        passes = 2
+        
+        vibrancy = 0.1696
+    }
+
+    drop_shadow = true
+    shadow_range = 4
+    shadow_render_power = 1
+}
+#+end_src
+* Animations
+#+begin_src conf
+animations {
+    enabled = true
+
+    # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+#+end_src
+* Input
+#+begin_src conf
+input {
+    kb_layout = us
+    kb_variant = 
+    kb_model =
+    kb_options = compose:ralt
+    kb_rules =
+
+    follow_mouse = 2
+
+    touchpad {
+        natural_scroll = false
+    }
+
+    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+}
+#+end_src
+* Misc
+#+begin_src conf
+misc {
+    disable_hyprland_logo = true
+    disable_splash_rendering = true
+}
+#+end_src
+* Layouts
+#+begin_src conf
+dwindle {
+    # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+    pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    preserve_split = true # you probably want this
+}
+
+master {
+    # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+    new_is_master = true
+}
+#+end_src
+* Keybindings
+** Movement
+#+begin_src conf
+bind = $mainMod, h, movefocus, l
+bind = $mainMod, l, movefocus, r
+bind = $mainMod, k, movefocus, u
+bind = $mainMod, j, movefocus, d
+#+end_src
+** Layout Editing
+#+begin_src conf
+#+end_src
+** Workspace Switching
+Switch workspaces with mainMod + [0-9]
+#+begin_src conf
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+#+end_src
+Move active window to a workspace with mainMod + SHIFT + [0-9]
+#+begin_src conf
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+#+end_src
+** System
+#+begin_src conf
+#+end_src
+** Hyprland Management
+#+begin_src conf
+bind = $mainMod, Q, killactive,
+bind = $mainMod SHIFT, Q, exit,
+#+end_src
+** App Start Shortcuts
+#+begin_src conf
+bind = $mainMod, return, exec, kitty 
+bind = $mainMod, E, exec, emacsclient -c 
+bind = $mainMod, R, exec, rofi -show run
+#+end_src
+* Mouse Bindings
+#+begin_src conf
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+#+end_src
