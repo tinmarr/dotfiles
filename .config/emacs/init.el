@@ -282,3 +282,5 @@
   :config
   (company-mode)
 )
+
+(add-hook 'find-file-hook 'recentf-save-list)

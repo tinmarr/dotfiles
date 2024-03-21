@@ -278,7 +278,6 @@ And to have it automatically show with the daemon.
 #+begin_src emacs-lisp
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 #+end_src
-
 ** Org Mode
 #+begin_src emacs-lisp
 (use-package org
@@ -428,4 +427,9 @@ A text completion framework
   :config
   (company-mode)
 )
+#+end_src
+** Save recent files
+Because in PGTK build it emacs will "crash" when the display server leaves, we need to do some stuff by hand
+#+begin_src emacs-lisp
+(add-hook 'find-file-hook 'recentf-save-list)
 #+end_src

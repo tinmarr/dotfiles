@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+
+stow --no-folding -D -d $(dirname $0) -t $(dirname $0)/.. .

@@ -31,4 +31,5 @@ README.org # Config compiler files
 ^/\.envrc # Envrc for the dotfiles repo
 
 ^/stowall # stowall script
+^/unstowall # unstowall script
 
