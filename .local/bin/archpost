@@ -107,7 +107,7 @@ case $wm in
                 yay -S --needed awesome
                 ;;
 	    "h"|"hyprland")
-		yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git
+		yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git xdg-desktop-portal-gtk
 		;;
             *)
                 printf "$mag""Not a valid option. No WM installed.""$reset"
@@ -120,7 +120,7 @@ case $wm in
 	    yay -S --needed rofi-lbonn-wayland grim slurp
 	else
 	    # Xorg only utilities
-	    yay -S --needed rofi betterlockscreen autorandr picom xclip acpilight
+	    yay -S --needed rofi betterlockscreen autorandr picom xclip acpilight 
 
 	    sudo systemctl enable autorandr
 	    sudo systemctl enable autorandr-lid-listener.service
@@ -129,8 +129,9 @@ case $wm in
 	# Common Utilities
         yay -S --needed kdeconnect kitty pavucontrol \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            brave-beta-bin thunar visual-studio-code-bin playerctl tlp pinentry-rofi \
-            rofi-calc  noto-fonts noto-fonts-emoji 
+            brave-beta-bin thunar playerctl tlp pinentry-rofi \
+            rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
+	    flameshot-git
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service

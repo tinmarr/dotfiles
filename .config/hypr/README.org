@@ -7,6 +7,7 @@
 #+begin_src conf
 exec-once = ~/.config/hypr/bg-rotate.sh
 exec-once = waybar
+exec-once = hyprpm reload -n
 exec-once = startup
 #+end_src
 * Monitors
@@ -136,8 +137,9 @@ misc {
 #+begin_src conf
 dwindle {
     # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-    pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-    preserve_split = true # you probably want this
+    pseudotile =  false # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    force_split = 2
+    preserve_split = true 
 }
 #+end_src
 * Keybindings
@@ -174,8 +176,8 @@ bind = $mainMod CONTROL, k, splitratio, -0.1
 #+end_src
 Move workspace to monitor
 #+begin_src conf
-bind = $mainMod CONTROL ALT, l, moveworkspacetomonitor, 0 -1
-bind = $mainMod CONTROL ALT, h, moveworkspacetomonitor, 0 1
+bind = $mainMod CONTROL ALT, l, moveworkspacetomonitor, +0 -1
+bind = $mainMod CONTROL ALT, h, moveworkspacetomonitor, +0 1
 #+end_src
 ** Workspace Switching
 Switch workspaces with mainMod + [0-9]
@@ -225,6 +227,7 @@ bind = $mainMod SHIFT, Q, exit,
 bind = $mainMod, return, exec, kitty 
 bind = $mainMod, E, exec, emacsclient -c 
 bind = $mainMod, R, exec, rofi -show run
+bind = , Print, exec, flameshot gui
 #+end_src
 * Mouse Bindings
 #+begin_src conf
@@ -238,4 +241,17 @@ bindm = $mainMod, mouse:273, resizewindow
 windowrulev2 = float, class:^()$
 windowrulev2 = move onscreen 100% -100%, class:^()$
 windowrulev2 = noinitialfocus, class:^()$
+#+end_src
+** Flameshot better
+#+begin_src conf
+windowrulev2 = float, class:^(flameshot)$
+windowrulev2 = pin, class:^(flameshot)$
+windowrulev2 = move 0 0, class:^(flameshot)$
+#+end_src
+* XDG Desktop Portal
+Needed for xdg-desktop-portal.
+According to: https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580
+#+begin_src conf
+exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once=~/.config/hypr/start-xdph.sh
 #+end_src

@@ -19,6 +19,10 @@
     // Modules configuration
     "hyprland/workspaces": {
     },
+    "hyprland/window": {
+        "max-length": 200,
+	"separate-outputs": true,
+    },
     "keyboard-state": {
         "numlock": false,
         "capslock": true,
