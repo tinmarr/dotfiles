@@ -142,9 +142,9 @@
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
 
-(set-frame-parameter nil 'alpha-background 80)
+(set-frame-parameter nil 'alpha-background 90)
 
-(add-to-list 'default-frame-alist '(alpha-background . 80))
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -191,6 +191,7 @@
   (org-startup-with-inline-images t)
   (org-image-actual-width '(0.5))
   (org-edit-src-content-indentation 0)
+  (org-hide-leading-stars t)
 )
 
 (use-package org-superstar

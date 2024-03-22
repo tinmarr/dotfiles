@@ -216,9 +216,9 @@ As always, I use the dracula theme
 
 ** Transparency 
 #+begin_src emacs-lisp
-(set-frame-parameter nil 'alpha-background 80)
+(set-frame-parameter nil 'alpha-background 90)
 
-(add-to-list 'default-frame-alist '(alpha-background . 80))
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 #+end_src
 ** Other Tweaks
 *** Rainbow Delimiters
@@ -289,6 +289,7 @@ And to have it automatically show with the daemon.
   (org-startup-with-inline-images t)
   (org-image-actual-width '(0.5))
   (org-edit-src-content-indentation 0)
+  (org-hide-leading-stars t)
 )
 #+end_src
 *** Org Superstar

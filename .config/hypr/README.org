@@ -139,11 +139,6 @@ dwindle {
     pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # you probably want this
 }
-
-master {
-    # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-    new_is_master = true
-}
 #+end_src
 * Keybindings
 ** Movement
@@ -152,9 +147,35 @@ bind = $mainMod, h, movefocus, l
 bind = $mainMod, l, movefocus, r
 bind = $mainMod, k, movefocus, u
 bind = $mainMod, j, movefocus, d
+bind = $mainMod ALT, l, focusmonitor, -1
+bind = $mainMod ALT, h, focusmonitor, 1
+bind = $mainMod, u, focusurgentorlast
+bind = ALT, TAB, focuscurrentorlast
 #+end_src
 ** Layout Editing
+Fullscreen + Floating
 #+begin_src conf
+bind = $mainMod SHIFT, f, togglefloating
+bind = $mainMod, f, fullscreen
+#+end_src
+Moving windows
+#+begin_src conf
+bind = $mainMod SHIFT, h, movewindow, l
+bind = $mainMod SHIFT, l, movewindow, r
+bind = $mainMod SHIFT, k, movewindow, u
+bind = $mainMod SHIFT, j, movewindow, d
+#+end_src
+Split Ratio Edit
+#+begin_src conf
+bind = $mainMod CONTROL, l, splitratio, 0.1
+bind = $mainMod CONTROL, h, splitratio, -0.1
+bind = $mainMod CONTROL, j, splitratio, 0.1
+bind = $mainMod CONTROL, k, splitratio, -0.1
+#+end_src
+Move workspace to monitor
+#+begin_src conf
+bind = $mainMod CONTROL ALT, l, moveworkspacetomonitor, 0 -1
+bind = $mainMod CONTROL ALT, h, moveworkspacetomonitor, 0 1
 #+end_src
 ** Workspace Switching
 Switch workspaces with mainMod + [0-9]
@@ -172,19 +193,27 @@ bind = $mainMod, 0, workspace, 10
 #+end_src
 Move active window to a workspace with mainMod + SHIFT + [0-9]
 #+begin_src conf
-bind = $mainMod SHIFT, 1, movetoworkspace, 1
-bind = $mainMod SHIFT, 2, movetoworkspace, 2
-bind = $mainMod SHIFT, 3, movetoworkspace, 3
-bind = $mainMod SHIFT, 4, movetoworkspace, 4
-bind = $mainMod SHIFT, 5, movetoworkspace, 5
-bind = $mainMod SHIFT, 6, movetoworkspace, 6
-bind = $mainMod SHIFT, 7, movetoworkspace, 7
-bind = $mainMod SHIFT, 8, movetoworkspace, 8
-bind = $mainMod SHIFT, 9, movetoworkspace, 9
-bind = $mainMod SHIFT, 0, movetoworkspace, 10
+bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
+bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
+bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
+bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
+bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
+bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
+bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
+bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
+bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
+bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 #+end_src
 ** System
 #+begin_src conf
+bind = , XF86MonBrightnessUp, exec, xbacklight +5
+bind = , XF86MonBrightnessDown, exec, xbacklight -5
+bind = , XF86AudioRaiseVolume, exec, amixer -D default set Master 5%+
+bind = , XF86AudioLowerVolume, exec, amixer -D default set Master 5%-
+bind = , XF86AudioMute, exec, amixer -D default set Master toggle 
+bind = , XF86AudioPlay, exec, playerctl play-pause
+bind = , XF86AudioPrev, exec, playerctl previous
+bind = , XF86AudioNext, exec, playerctl next
 #+end_src
 ** Hyprland Management
 #+begin_src conf
@@ -201,4 +230,12 @@ bind = $mainMod, R, exec, rofi -show run
 #+begin_src conf
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
+#+end_src
+
+* Window Rules
+** Annoying notification windows from chrome
+#+begin_src conf
+windowrulev2 = float, class:^()$
+windowrulev2 = move onscreen 100% -100%, class:^()$
+windowrulev2 = noinitialfocus, class:^()$
 #+end_src
