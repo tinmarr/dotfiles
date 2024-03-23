@@ -7,6 +7,7 @@
 #+begin_src conf
 exec-once = ~/.config/hypr/bg-rotate.sh
 exec-once = waybar
+exec-once = hypridle
 exec-once = startup
 #+end_src
 * Monitors
@@ -218,14 +219,15 @@ bind = , XF86AudioNext, exec, playerctl next
 #+end_src
 ** Hyprland Management
 #+begin_src conf
-bind = $mainMod, Q, killactive,
-bind = $mainMod SHIFT, Q, exit,
+bind = $mainMod, q, killactive
+bind = $mainMod SHIFT, q, exit
+bind = $mainMod SHIFT, w, exec, pidof hyprlock || hyprlock
 #+end_src
 ** App Start Shortcuts
 #+begin_src conf
 bind = $mainMod, return, exec, kitty 
-bind = $mainMod, E, exec, emacsclient -c 
-bind = $mainMod, R, exec, rofi -show run
+bind = $mainMod, e, exec, emacsclient -c 
+bind = $mainMod, r, exec, rofi -show run
 bind = , Print, exec, flameshot gui
 #+end_src
 * Mouse Bindings

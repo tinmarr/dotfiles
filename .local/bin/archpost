@@ -107,7 +107,8 @@ case $wm in
                 yay -S --needed awesome
                 ;;
 	    "h"|"hyprland")
-		yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git xdg-desktop-portal-gtk
+		yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
+		    xdg-desktop-portal-gtk hypridle hyprlock
 		;;
             *)
                 printf "$mag""Not a valid option. No WM installed.""$reset"
