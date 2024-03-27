@@ -130,7 +130,7 @@ case $wm in
 	# Common Utilities
         yay -S --needed kdeconnect kitty pavucontrol \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            brave-beta-bin thunar playerctl tlp pinentry-rofi \
+            brave-beta-bin nautilus playerctl tlp pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
 	    flameshot-git
 
