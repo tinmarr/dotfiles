@@ -14,6 +14,7 @@
         "tray",
 	"keyboard-state",
 	"pulseaudio",
+	"battery",
         "clock"
     ],
     // Modules configuration
@@ -35,6 +36,17 @@
     "tray": {
         // "icon-size": 21,
         "spacing": 10
+    },
+    "battery": {
+	"bat": "BAT0",
+        "format": "{capacity}% {icon}",
+	"format-icons": ["", "", "", "", ""],
+	"full-at": 80,
+	"bat-compatibility": true,
+	"states": {
+	    "warning": 30,
+	    "critical": 15
+	},
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
