@@ -229,22 +229,28 @@
 (setq treesit-language-source-alist
   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
     (python "https://github.com/tree-sitter/tree-sitter-python")
+    (java "https://github.com/tree-sitter/tree-sitter-java")
    ))
 
 (add-hook 'sh-mode-hook 'bash-ts-mode)
 (add-hook 'python-mode-hook 'python-ts-mode)
+(add-hook 'java-mode-hook 'java-ts-mode)
 
 (use-package markdown-mode)
 
 (use-package lsp-mode
-  :hook (python-ts-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)
 
 (use-package lsp-pyright
+  :hook (python-ts-mode . lsp)
   :init
   (setq lsp-pyright-multi-root nil)
+)
+
+(use-package lsp-java
+  :hook (java-ts-mode . lsp)
 )
 
 (use-package ivy

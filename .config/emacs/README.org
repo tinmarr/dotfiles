@@ -340,16 +340,20 @@ Automatically tangles my org files
 * Language Support
 ** Tree Sitter (Syntax Highlighting)
 *** Grammar list
+After setting the source here (and restarting emacs), run ~treesit-install-language-grammar~ for the language in question.
+Then, to avoid having to do this again, copy the ~.so~ file to the corresponding spot in the ~dotfiles~ repo and run ~stowall~.
 #+begin_src emacs-lisp
 (setq treesit-language-source-alist
   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
     (python "https://github.com/tree-sitter/tree-sitter-python")
+    (java "https://github.com/tree-sitter/tree-sitter-java")
    ))
 #+end_src
 *** Enable modes
 #+begin_src emacs-lisp
 (add-hook 'sh-mode-hook 'bash-ts-mode)
 (add-hook 'python-mode-hook 'python-ts-mode)
+(add-hook 'java-mode-hook 'java-ts-mode)
 #+end_src
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
@@ -359,7 +363,6 @@ Automatically tangles my org files
 ** LSP Mode
 #+begin_src emacs-lisp
 (use-package lsp-mode
-  :hook (python-ts-mode . lsp)
   :commands lsp
 )
 (use-package lsp-ui)
@@ -368,8 +371,16 @@ Automatically tangles my org files
 *** Pyright
 #+begin_src emacs-lisp
 (use-package lsp-pyright
+  :hook (python-ts-mode . lsp)
   :init
   (setq lsp-pyright-multi-root nil)
+)
+#+end_src
+** Java
+LSP Java
+#+begin_src emacs-lisp
+(use-package lsp-java
+  :hook (java-ts-mode . lsp)
 )
 #+end_src
 * Quality of Life
