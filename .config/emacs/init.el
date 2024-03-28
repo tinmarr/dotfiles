@@ -230,15 +230,20 @@
   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
     (python "https://github.com/tree-sitter/tree-sitter-python")
     (java "https://github.com/tree-sitter/tree-sitter-java")
+    (css "https://github.com/tree-sitter/tree-sitter-css")
    ))
 
 (add-hook 'sh-mode-hook 'bash-ts-mode)
 (add-hook 'python-mode-hook 'python-ts-mode)
 (add-hook 'java-mode-hook 'java-ts-mode)
+(add-hook 'css-mode-hook 'css-ts-mode)
 
 (use-package markdown-mode)
 
 (use-package lsp-mode
+  :hook (
+    (css-ts-mode . lsp)
+  )
   :commands lsp
 )
 (use-package lsp-ui)
