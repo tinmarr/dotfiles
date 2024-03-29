@@ -16,5 +16,5 @@ while true; do
     for j in $monitors; do
 	hyprctl hyprpaper wallpaper "$j"",""$bg_path""$bg"
     done
-    sleep 15m
+    sleep 10m
 done

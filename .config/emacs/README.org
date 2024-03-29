@@ -150,7 +150,8 @@ As always, I use the dracula theme
 #+end_src
 ** Font
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font-11")
 #+end_src
 *** Ligatures
 #+begin_src emacs-lisp
@@ -348,6 +349,7 @@ Then, to avoid having to do this again, copy the ~.so~ file to the corresponding
     (python "https://github.com/tree-sitter/tree-sitter-python")
     (java "https://github.com/tree-sitter/tree-sitter-java")
     (css "https://github.com/tree-sitter/tree-sitter-css")
+    (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
    ))
 #+end_src
 *** Enable modes
@@ -356,11 +358,21 @@ Then, to avoid having to do this again, copy the ~.so~ file to the corresponding
 (add-hook 'python-mode-hook 'python-ts-mode)
 (add-hook 'java-mode-hook 'java-ts-mode)
 (add-hook 'css-mode-hook 'css-ts-mode)
+(add-hook 'js-mode-hook 'js-ts-mode)
 #+end_src
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
 #+begin_src emacs-lisp
 (use-package markdown-mode)
+#+end_src
+** Web
+#+begin_src emacs-lisp
+(use-package web-mode
+  :hook (
+    (html-mode . web-mode)
+    (mhtml-mode . web-mode)
+  )
+)
 #+end_src
 ** LSP Mode
 #+begin_src emacs-lisp

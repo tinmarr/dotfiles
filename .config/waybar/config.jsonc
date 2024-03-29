@@ -22,7 +22,8 @@
     "hyprland/workspaces": {
     },
     "hyprland/window": {
-        "max-length": 200,
+        "max-length": 100,
+        "min-length": 100,
 	"separate-outputs": true,
     },
     "keyboard-state": {
@@ -30,8 +31,8 @@
         "capslock": true,
         "format": "{name} {icon}",
         "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "locked": "",
+            "unlocked": ""
         }
     },
     "tray": {
@@ -46,22 +47,16 @@
 	"bat": "BAT0",
         "format": "{capacity}% {icon}",
 	"format-icons": ["", "", "", "", ""],
-	"full-at": 80,
 	"bat-compatibility": true,
-	"states": {
-	    "warning": 30,
-	    "critical": 15
-	},
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%a %d %b %H:%M:%S}"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-bluetooth-muted": "{icon} {format_source}",
         "format-icons": {
             "headphone": "",
             "default": ["", "", ""]

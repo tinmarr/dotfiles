@@ -53,7 +53,7 @@ window#waybar {
 }
 
 #window {
-    padding: 0 10px;
+    padding: 0 0;
 }
 
 .modules-left,
@@ -66,6 +66,7 @@ window#waybar {
     padding: 2px 5px;
 }
 
+/*
 #clock {
     background-color: #64727D;
 }
@@ -85,9 +86,10 @@ window#waybar {
         background-color: #f8f8f8;
         color: #000000;
     }
-}
+}*/
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
+/*
 #battery.critical:not(.charging) {
     background-color: #f53c3c;
     color: #f8f8f8;
@@ -278,3 +280,4 @@ label:focus {
 #privacy-item.audio-out {
     background-color: #0069d4;
 }
+*/

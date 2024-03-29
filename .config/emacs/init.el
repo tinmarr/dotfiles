@@ -89,7 +89,8 @@
   (doom-modeline-modal-modern-icon nil)
 )
 
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono" :height 110)
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font-11")
 
 (use-package ligature
   :config
@@ -231,14 +232,23 @@
     (python "https://github.com/tree-sitter/tree-sitter-python")
     (java "https://github.com/tree-sitter/tree-sitter-java")
     (css "https://github.com/tree-sitter/tree-sitter-css")
+    (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
    ))
 
 (add-hook 'sh-mode-hook 'bash-ts-mode)
 (add-hook 'python-mode-hook 'python-ts-mode)
 (add-hook 'java-mode-hook 'java-ts-mode)
 (add-hook 'css-mode-hook 'css-ts-mode)
+(add-hook 'js-mode-hook 'js-ts-mode)
 
 (use-package markdown-mode)
+
+(use-package web-mode
+  :hook (
+    (html-mode . web-mode)
+    (mhtml-mode . web-mode)
+  )
+)
 
 (use-package lsp-mode
   :hook (
