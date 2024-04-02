@@ -61,7 +61,7 @@ alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 update () {
     sudo test
-    (cd ~/dotfiles && git pull && git submodule update --checkout --remote && stowall)
+    (cd ~/dotfiles && unstowall && git pull && git submodule update --checkout --remote && stowall)
     curl "https://archlinux.org/mirrorlist/?country=CA&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /tmp/mirrorlist
     sed -i 's/#//' /tmp/mirrorlist
     sudo mv /tmp/mirrorlist /etc/pacman.d/

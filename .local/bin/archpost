@@ -121,7 +121,7 @@ case $wm in
 	    yay -S --needed rofi-lbonn-wayland grim slurp
 	else
 	    # Xorg only utilities
-	    yay -S --needed rofi betterlockscreen autorandr picom xclip acpilight 
+	    yay -S --needed rofi betterlockscreen autorandr picom xclip 
 
 	    sudo systemctl enable autorandr
 	    sudo systemctl enable autorandr-lid-listener.service
@@ -132,7 +132,7 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             brave-beta-bin nautilus playerctl tlp pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
-	    flameshot-git ttf-jetbrains-mono-nerd
+	    flameshot-git ttf-jetbrains-mono-nerd acpilight 
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
