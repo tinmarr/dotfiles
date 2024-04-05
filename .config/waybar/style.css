@@ -5,8 +5,7 @@
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0);
-    border-bottom: 3px solid rgba(100, 114, 125, 0);
+    background-color: transparent;
     color: #f8f8f8;
     transition-property: background-color;
     transition-duration: .5s;
@@ -18,9 +17,15 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0;
+    padding: 2px 5px;
     margin: 0;
+    border-radius: 10px;
     background-color: transparent;
+    color: rgb(98, 114, 164);
+}
+
+#workspaces button.active {
+    background-color: rgb(68, 71, 90);
     color: #f8f8f8;
 }
 
@@ -63,6 +68,11 @@ window#waybar {
     background: rgba(40, 42, 54, 0.5);
     border-radius: 10px;
     margin: 5px 10px;
+}
+
+
+.modules-center,
+.modules-right {
     padding: 2px 5px;
 }
 

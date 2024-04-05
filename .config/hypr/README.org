@@ -14,7 +14,7 @@ exec-once = startup
 See https://wiki.hyprland.org/Configuring/Monitors/
 #+begin_src conf
 #source = ~/.config/hypr/monitors.conf
-monitor=DP-1, 1920x1080@75, 0x0, 1
+monitor=DP-1, 1920x1080@60, 0x0, 1
 monitor=HDMI-A-1, 1920x1080@60, 1920x0, 1
 monitor=eDP-1, preferred, auto, 1
 monitor=,preferred,auto,1
@@ -133,6 +133,12 @@ input {
 misc {
     disable_hyprland_logo = true
     disable_splash_rendering = true
+    force_default_wallpaper = 0
+    mouse_move_enables_dpms = true
+    key_press_enables_dpms = true
+    animate_mouse_windowdragging = true
+    enable_swallow = true
+    allow_session_lock_restore = true
 }
 #+end_src
 * Layouts
@@ -142,6 +148,13 @@ dwindle {
     pseudotile =  false # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     force_split = 2
     preserve_split = true 
+}
+#+end_src
+* OpenGL
+#+begin_src conf
+opengl {
+    nvidia_anti_flicker = true
+    force_introspection = 0
 }
 #+end_src
 * Keybindings
@@ -239,7 +252,13 @@ bindm = $mainMod, mouse:273, resizewindow
 #+end_src
 
 * Window Rules
-** Annoying notification windows from chrome
+** Open apps to workspaces
+#+begin_src conf
+windowrulev2 = workspace 4 silent, class:Slack
+windowrulev2 = workspace 4 silent, class:WebCord
+windowrulev2 = workspace 10 silent, title:^(Spotify Premium)$
+#+end_src
+** Annoying notification windows from chromium
 #+begin_src conf
 windowrulev2 = float, class:^()$
 windowrulev2 = move onscreen 100% -100%, class:^()$
@@ -250,6 +269,11 @@ windowrulev2 = noinitialfocus, class:^()$
 windowrulev2 = float, class:^(flameshot)$
 windowrulev2 = pin, class:^(flameshot)$
 windowrulev2 = move 0 0, class:^(flameshot)$
+#+end_src
+** File pickers standard size
+#+begin_src conf
+windowrulev2 = size 50% 50%, class:xdg-desktop-portal-gtk 
+windowrulev2 = center, class:xdg-desktop-portal-gtk 
 #+end_src
 * XDG Desktop Portal
 Needed for xdg-desktop-portal.
