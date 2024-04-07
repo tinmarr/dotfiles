@@ -29,6 +29,8 @@ Hyprland Restart required to update these
 #+begin_src conf
 env = XCURSOR_SIZE,12
 envd = XCURSOR_SIZE,12 # Passed to systemd
+env = HYPRCURSOR_THEME,theme_oreo_cursor_hypr
+env = HYPRCURSOR_SIZE,12
 env = QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that
 #+end_src
 *** Nvidia support
