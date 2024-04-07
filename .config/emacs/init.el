@@ -227,19 +227,17 @@
   (neo-theme 'icons 'arrow)
 )
 
-(setq treesit-language-source-alist
-  '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-    (python "https://github.com/tree-sitter/tree-sitter-python")
-    (java "https://github.com/tree-sitter/tree-sitter-java")
-    (css "https://github.com/tree-sitter/tree-sitter-css")
-    (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
-   ))
+(require 'treesit)
+(customize-set-variable 'treesit-font-lock-level 4)
 
-(add-hook 'sh-mode-hook 'bash-ts-mode)
-(add-hook 'python-mode-hook 'python-ts-mode)
-(add-hook 'java-mode-hook 'java-ts-mode)
-(add-hook 'css-mode-hook 'css-ts-mode)
-(add-hook 'js-mode-hook 'js-ts-mode)
+(setq major-mode-remap-alist
+ '((sh-mode . bash-ts-mode)
+   (js-mode . js-ts-mode)
+   (js-json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (python-mode . python-ts-mode)
+  )
+)
 
 (use-package markdown-mode)
 

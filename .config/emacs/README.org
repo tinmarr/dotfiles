@@ -340,25 +340,21 @@ Automatically tangles my org files
 #+end_src
 * Language Support
 ** Tree Sitter (Syntax Highlighting)
-*** Grammar list
-After setting the source here (and restarting emacs), run ~treesit-install-language-grammar~ for the language in question.
-Then, to avoid having to do this again, copy the ~.so~ file to the corresponding spot in the ~dotfiles~ repo and run ~stowall~.
+*** Ensure treesitter
 #+begin_src emacs-lisp
-(setq treesit-language-source-alist
-  '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-    (python "https://github.com/tree-sitter/tree-sitter-python")
-    (java "https://github.com/tree-sitter/tree-sitter-java")
-    (css "https://github.com/tree-sitter/tree-sitter-css")
-    (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
-   ))
+(require 'treesit)
+(customize-set-variable 'treesit-font-lock-level 4)
 #+end_src
 *** Enable modes
 #+begin_src emacs-lisp
-(add-hook 'sh-mode-hook 'bash-ts-mode)
-(add-hook 'python-mode-hook 'python-ts-mode)
-(add-hook 'java-mode-hook 'java-ts-mode)
-(add-hook 'css-mode-hook 'css-ts-mode)
-(add-hook 'js-mode-hook 'js-ts-mode)
+(setq major-mode-remap-alist
+ '((sh-mode . bash-ts-mode)
+   (js-mode . js-ts-mode)
+   (js-json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (python-mode . python-ts-mode)
+  )
+)
 #+end_src
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
