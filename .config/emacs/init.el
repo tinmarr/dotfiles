@@ -159,7 +159,9 @@
 (use-package projectile
   :diminish
   :custom
-  (projectile-git-command "git ls-files -zco") 
+  ;(projectile-git-command "git ls-files -zco") 
+  (projectile-git-command "echo 'temp'") 
+  (projectile-git-fd-args "-H -0 -I -E .git -tf --strip-cwd-prefix -c never")
   :config
   (projectile-mode 1))
 
