@@ -213,6 +213,9 @@ As always, I use the dracula theme
 (setq use-file-dialog nil)   ;; No file dialog
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
+
+;; remove line wrap
+(toggle-truncate-lines 1)
 #+end_src
 
 ** Transparency 
@@ -247,10 +250,6 @@ Displays the color for any hex (i.e. #0000FF)
 #+begin_src emacs-lisp
 (use-package projectile
   :diminish
-  :custom
-  ;(projectile-git-command "git ls-files -zco") 
-  (projectile-git-command "echo 'temp'") 
-  (projectile-git-fd-args "-H -0 -I -E .git -tf --strip-cwd-prefix -c never")
   :config
   (projectile-mode 1))
 #+end_src

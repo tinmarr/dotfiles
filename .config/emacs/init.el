@@ -143,6 +143,9 @@
 (setq use-dialog-box nil)    ;; No dialog box
 (setq pop-up-windows nil)    ;; No popup windows
 
+;; remove line wrap
+(toggle-truncate-lines 1)
+
 (set-frame-parameter nil 'alpha-background 90)
 
 (add-to-list 'default-frame-alist '(alpha-background . 90))
@@ -158,10 +161,6 @@
 
 (use-package projectile
   :diminish
-  :custom
-  ;(projectile-git-command "git ls-files -zco") 
-  (projectile-git-command "echo 'temp'") 
-  (projectile-git-fd-args "-H -0 -I -E .git -tf --strip-cwd-prefix -c never")
   :config
   (projectile-mode 1))
 
