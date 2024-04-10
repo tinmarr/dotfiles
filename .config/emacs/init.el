@@ -144,7 +144,8 @@
 (setq pop-up-windows nil)    ;; No popup windows
 
 ;; remove line wrap
-(toggle-truncate-lines 1)
+(setq-default truncate-lines t)
+;(toggle-truncate-lines 1)
 
 (set-frame-parameter nil 'alpha-background 90)
 
