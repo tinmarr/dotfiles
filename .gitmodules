@@ -1,21 +1,21 @@
-[submodule ".config/awesome/awesome-wm-widgets"]
-	path = .config/awesome/awesome-wm-widgets
+[submodule "dot-config/awesome/awesome-wm-widgets"]
+	path = dot-config/awesome/awesome-wm-widgets
 	url = https://github.com/streetturtle/awesome-wm-widgets.git
-[submodule ".themes/Dracula_Theme"]
-	path = .themes/Dracula_Theme
+[submodule "dot-themes/Dracula_Theme"]
+	path = dot-themes/Dracula_Theme
 	url = https://github.com/dracula/gtk.git
-[submodule ".icons/dracula-icons"]
-	path = .icons/dracula-icons
+[submodule "dot-icons/dracula-icons"]
+	path = dot-icons/dracula-icons
 	url = https://github.com/m4thewz/dracula-icons.git
-[submodule ".zsh/powerlevel10k"]
-	path = .zsh/powerlevel10k
+[submodule "dot-zsh/powerlevel10k"]
+	path = dot-zsh/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-[submodule ".zsh/zsh-autosuggestions"]
-	path = .zsh/zsh-autosuggestions
+[submodule "dot-zsh/zsh-autosuggestions"]
+	path = dot-zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule ".zsh/zsh-history-substring-search"]
-	path = .zsh/zsh-history-substring-search
+[submodule "dot-zsh/zsh-history-substring-search"]
+	path = dot-zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
-[submodule ".zsh/zsh-syntax-highlighting"]
-	path = .zsh/zsh-syntax-highlighting
+[submodule "dot-zsh/zsh-syntax-highlighting"]
+	path = dot-zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
