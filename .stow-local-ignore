@@ -33,3 +33,4 @@ README.org # Config compiler files
 ^/stowall # stowall script
 ^/unstowall # unstowall script
 
+^/showcase\.png
