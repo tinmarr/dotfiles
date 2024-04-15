@@ -100,7 +100,7 @@ Additional keybindings to make evil work better
   (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
   ; Buffer management
-  (leader "b l" 'list-buffers)
+  (leader "b l" 'ibuffer)
   (leader "b i" 'switch-to-buffer)
   (leader "b j" 'next-buffer)
   (leader "b k" 'previous-buffer)
@@ -265,21 +265,22 @@ Displays the color for any hex (i.e. #0000FF)
   :requires (nerd-icons projectile)
   :custom
   (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
-  (dashboard-startup-banner 'logo)
+  (dashboard-startup-banner "~/.config/emacs/logo.webp")
+  (dashboard-image-banner-max-height 250)
   (dashboard-center-content t)
   (dashboard-display-icons-p t)
   (dashboard-icon-type 'nerd-icons) 
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
-  (dashboard-items '((projects . 5)
-                     (bookmarks . 5)
+  (dashboard-projects-backend 'projectile)
+  (dashboard-items '((projects . 10)
                      (recents  . 10)))
   :config
   (dashboard-setup-startup-hook))
 #+end_src
-And to have it automatically show with the daemon.
+Auto open dashboard
 #+begin_src emacs-lisp
-(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 #+end_src
 ** Org Mode
 #+begin_src emacs-lisp
@@ -398,6 +399,7 @@ LSP Java
   :hook (java-ts-mode . lsp)
 )
 #+end_src
+
 * Quality of Life
 ** Ivy/Swiper
 Handles the better autocompletion/search functionality in the minibuffer
@@ -454,9 +456,4 @@ A text completion framework
   :config
   (company-mode)
 )
-#+end_src
-** Save recent files
-Because in PGTK build it emacs will "crash" when the display server leaves, we need to do some stuff by hand
-#+begin_src emacs-lisp
-(add-hook 'find-file-hook 'recentf-save-list)
 #+end_src

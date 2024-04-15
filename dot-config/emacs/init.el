@@ -56,7 +56,7 @@
   (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
   ; Buffer management
-  (leader "b l" 'list-buffers)
+  (leader "b l" 'ibuffer)
   (leader "b i" 'switch-to-buffer)
   (leader "b j" 'next-buffer)
   (leader "b k" 'previous-buffer)
@@ -171,19 +171,20 @@
   :requires (nerd-icons projectile)
   :custom
   (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
-  (dashboard-startup-banner 'logo)
+  (dashboard-startup-banner "~/.config/emacs/logo.webp")
+  (dashboard-image-banner-max-height 250)
   (dashboard-center-content t)
   (dashboard-display-icons-p t)
   (dashboard-icon-type 'nerd-icons) 
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
-  (dashboard-items '((projects . 5)
-                     (bookmarks . 5)
+  (dashboard-projects-backend 'projectile)
+  (dashboard-items '((projects . 10)
                      (recents  . 10)))
   :config
   (dashboard-setup-startup-hook))
 
-(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
 (use-package org
   :diminish org-indent-mode
@@ -304,5 +305,3 @@
   :config
   (company-mode)
 )
-
-(add-hook 'find-file-hook 'recentf-save-list)

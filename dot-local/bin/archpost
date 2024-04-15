@@ -143,8 +143,7 @@ case $wm in
         printf "$mag""The following tools need to be configured manually:
 	    - nwg-look
 	    - qt5ct
-            - brave
-            - visual-studio-code""$reset""\n"
+            - brave""$reset""\n"
         ;;
 esac
 

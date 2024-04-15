@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 QT_QPA_PLATFORM=xcb /usr/lib/kdeconnectd &
 playerctl daemon
-emacs --daemon
+DISPLAY= emacs --daemon
