@@ -93,11 +93,15 @@
   ; LSP binding
   (leader "l d" 'lsp-find-definition)
   (leader "l f" 'lsp-find-references)
+  (leader "l ." 'lsp-execute-code-action)
   (leader "l r" 'lsp-rename)
   (leader "l R" 'lsp-workspace-restart)
 )
 
 (global-set-key [escape] 'keyboard-escape-quit)
+
+(global-set-key (kbd "RET") 'newline)
+(global-set-key (kbd "C-j") 'newline-and-indent)
 
 (use-package which-key
   :ensure t
@@ -372,6 +376,7 @@
  '((sh-mode . bash-ts-mode)
    (js-mode . js-ts-mode)
    (js-json-mode . json-ts-mode)
+   (java-mode . java-ts-mode)
    (css-mode . css-ts-mode)
    (python-mode . python-ts-mode)
   )

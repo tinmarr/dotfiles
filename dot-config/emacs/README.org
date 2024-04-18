@@ -135,6 +135,7 @@ Additional keybindings to make evil work better
   ; LSP binding
   (leader "l d" 'lsp-find-definition)
   (leader "l f" 'lsp-find-references)
+  (leader "l ." 'lsp-execute-code-action)
   (leader "l r" 'lsp-rename)
   (leader "l R" 'lsp-workspace-restart)
 )
@@ -143,6 +144,12 @@ Additional keybindings to make evil work better
 Makes escape quit whatever your doing just like in Vim
 #+begin_src emacs-lisp
 (global-set-key [escape] 'keyboard-escape-quit)
+#+end_src
+** Return is newline (no indent)
+By default, in Emacs 24.3+, these values are switched.
+#+begin_src emacs-lisp
+(global-set-key (kbd "RET") 'newline)
+(global-set-key (kbd "C-j") 'newline-and-indent)
 #+end_src
 ** Which Key
 #+begin_src emacs-lisp
@@ -484,6 +491,7 @@ Automatically tangles my org files
  '((sh-mode . bash-ts-mode)
    (js-mode . js-ts-mode)
    (js-json-mode . json-ts-mode)
+   (java-mode . java-ts-mode)
    (css-mode . css-ts-mode)
    (python-mode . python-ts-mode)
   )
