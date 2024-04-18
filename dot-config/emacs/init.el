@@ -372,15 +372,10 @@
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
 
-(setq major-mode-remap-alist
- '((sh-mode . bash-ts-mode)
-   (js-mode . js-ts-mode)
-   (js-json-mode . json-ts-mode)
-   (java-mode . java-ts-mode)
-   (css-mode . css-ts-mode)
-   (python-mode . python-ts-mode)
-  )
-)
+(use-package treesit-auto
+  :ensure t
+  :config
+  (global-treesit-auto-mode))
 
 (use-package markdown-mode :ensure t)
 

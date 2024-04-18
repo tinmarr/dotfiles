@@ -487,15 +487,10 @@ Automatically tangles my org files
 #+end_src
 *** Enable modes
 #+begin_src emacs-lisp
-(setq major-mode-remap-alist
- '((sh-mode . bash-ts-mode)
-   (js-mode . js-ts-mode)
-   (js-json-mode . json-ts-mode)
-   (java-mode . java-ts-mode)
-   (css-mode . css-ts-mode)
-   (python-mode . python-ts-mode)
-  )
-)
+(use-package treesit-auto
+  :ensure t
+  :config
+  (global-treesit-auto-mode))
 #+end_src
 ** Markdown
 [[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
