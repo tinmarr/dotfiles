@@ -141,6 +141,9 @@ Evil collection adds evil mode bindings to a lot more modes
   (leader "l ." 'lsp-execute-code-action)
   (leader "l r" 'lsp-rename)
   (leader "l R" 'lsp-workspace-restart)
+  (leader "l k" 'lsp-ui-doc-toggle)
+  (leader "l TAB" 'lsp-ui-doc-focus-frame)
+  (leader "l <backtab>" 'lsp-ui-doc-unfocus-frame)
 )
 #+end_src
 ** Escape Binding
@@ -510,7 +513,15 @@ Automatically tangles my org files
   )
   :commands lsp
 )
-(use-package lsp-ui :ensure t)
+
+#+end_src
+** LSP UI
+#+begin_src emacs-lisp
+(use-package lsp-ui
+  :ensure t
+  :custom
+  (lsp-ui-doc-position 'at-point)
+)
 #+end_src
 ** Web
 #+begin_src emacs-lisp

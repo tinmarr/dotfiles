@@ -100,6 +100,9 @@
   (leader "l ." 'lsp-execute-code-action)
   (leader "l r" 'lsp-rename)
   (leader "l R" 'lsp-workspace-restart)
+  (leader "l k" 'lsp-ui-doc-toggle)
+  (leader "l TAB" 'lsp-ui-doc-focus-frame)
+  (leader "l <backtab>" 'lsp-ui-doc-unfocus-frame)
 )
 
 (global-set-key [escape] 'keyboard-escape-quit)
@@ -390,7 +393,12 @@
   )
   :commands lsp
 )
-(use-package lsp-ui :ensure t)
+
+(use-package lsp-ui
+  :ensure t
+  :custom
+  (lsp-ui-doc-position 'at-point)
+)
 
 (use-package web-mode
   :ensure t
