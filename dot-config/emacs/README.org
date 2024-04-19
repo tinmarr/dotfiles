@@ -87,17 +87,20 @@ Configure the Elpaca. We also want to use ~use-package~.
   (evil-want-C-u-scroll t)
   (evil-search-module 'swiper)
   (evil-auto-indent nil)
+  ; follow is required by evil-collection
+  (evil-want-integration t)
   (evil-want-keybinding nil)
   :config
   (evil-mode 1))
 #+end_src
-*** EVIL Collection
-Additional keybindings to make evil work better
+Evil collection adds evil mode bindings to a lot more modes
 #+begin_src emacs-lisp
-(use-package evil-collection 
+(use-package evil-collection
   :ensure t
-  :after evil
-  :config
+  :custom
+  (evil-collection-setup-debugger-keys nil)
+  (evil-collection-want-find-usages-bindings nil)
+  :init
   (evil-collection-init))
 #+end_src
 ** General 

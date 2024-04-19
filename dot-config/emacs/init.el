@@ -53,14 +53,18 @@
   (evil-want-C-u-scroll t)
   (evil-search-module 'swiper)
   (evil-auto-indent nil)
+  ; follow is required by evil-collection
+  (evil-want-integration t)
   (evil-want-keybinding nil)
   :config
   (evil-mode 1))
 
-(use-package evil-collection 
+(use-package evil-collection
   :ensure t
-  :after evil
-  :config
+  :custom
+  (evil-collection-setup-debugger-keys nil)
+  (evil-collection-want-find-usages-bindings nil)
+  :init
   (evil-collection-init))
 
 (use-package general
