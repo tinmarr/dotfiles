@@ -51,18 +51,19 @@
 	"bat-compatibility": true,
     },
     "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "tooltip": false,
         "format": "{:%a %d %b %H:%M:%S}",
 	"interval": 1
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": "{icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
         "format-icons": {
-            "headphone": "",
+            "headphone": " ",
             "default": ["", "", ""]
         },
+	"format-muted": " {icon}",
         "on-click": "pavucontrol"
     }
 }
