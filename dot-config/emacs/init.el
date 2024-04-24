@@ -138,6 +138,8 @@
   (doom-modeline-height 25)
   (doom-modeline-hud t)
   (doom-modeline-modal-modern-icon nil)
+  (doom-modeline-always-show-macro-register t)
+  (doom-modeline-unicode-fallback t)
 )
 
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
@@ -198,7 +200,10 @@
 
 ;; remove line wrap
 (setq-default truncate-lines t)
-;(toggle-truncate-lines 1)
+
+; little bit of margin
+(setq-default left-margin-width 1 right-margin-width 1)
+(set-window-buffer nil (current-buffer))
 
 (set-frame-parameter nil 'alpha-background 90)
 
@@ -226,11 +231,10 @@
   :requires (nerd-icons projectile)
   :hook (dashboard-mode . (lambda () (setq display-line-numbers nil)))
   :custom
-  (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
-  (dashboard-startup-banner "~/.config/emacs/logo.webp")
-  (dashboard-image-banner-max-height 250)
-  (dashboard-center-content t)
+  (dashboard-banner-logo-title nil)
+  (dashboard-startup-banner "~/.config/emacs/logo.txt")
   (dashboard-display-icons-p t)
+  (dashboard-center-content t)
   (dashboard-icon-type 'nerd-icons) 
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
@@ -252,6 +256,7 @@
   (org-image-actual-width '(0.5))
   (org-edit-src-content-indentation 0)
   (org-hide-leading-stars t)
+  (org-return-follows-link t)
 )
 
 (use-package org-superstar
