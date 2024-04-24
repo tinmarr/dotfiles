@@ -2,9 +2,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-#fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
@@ -34,9 +34,6 @@ zstyle :compinstall filename '/home/martin/.zshrc'
 
 fpath=(~/.zsh/completions $fpath)
 
-autoload -Uz compinit
-compinit
-
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
@@ -60,13 +57,27 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(thefuck --alias fk)"
 
+# Init completions
+autoload -Uz compinit
+compinit
 
 # Load Colors
-autoload -U colors && colors
-local lc=$'\e[' rc=m
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
 
-printf "$lc${color[magenta]}$rc""Welcome $(whoami)!$reset_color\n"
+printf "$MAGENTA""Welcome $(whoami)!""$WHITE""\n"
 echo "Today is $(date +%A,\ %B\ %d,\ %Y)"
 echo "The time now is $(date +%Hh%M)"
-
-export QSYS_ROOTDIR="/home/martin/.cache/yay/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"

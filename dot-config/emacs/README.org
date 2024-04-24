@@ -5,26 +5,8 @@
 
 * Usage
 I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
-Other than that, i've set some custom bindings for myself. Here they are below. I also have which-key installed.
-| Keybinding | Map      | Description                     |
-|------------+----------+---------------------------------|
-| SPC i      | org-mode | Edit a latex fragment (preview) |
-| C-o        |          | Search for a file               |
-| SPC RET    |          | Go to dashboard                 |
-| C-e        |          | Open Treemacs                   |
-| C-i        |          | imenu                           |
-|------------+----------+---------------------------------|
-| C-p        |          | Projectile Find File            |
-| C-S-o      |          | Projectile Switch Project       |
-| C-S-f      |          | Projectile Find Text            |
-|------------+----------+---------------------------------|
-| SPC b l    |          | List buffers                    |
-| SPC b s    |          | Switch to buffer                |
-| SPC b j    |          | Next buffer                     |
-| SPC b k    |          | Previous buffer                 |
-| SPC b h    |          | Kill current buffer             |
+Other than that, i've set some custom bindings for myself. All custom bindings are defined here: [[#general]]. I also have which-key to help with discovery.
 
-All custom bindings are defined here: [[#general]]
 I've also defined bindings to make certain interfaces more vim-like (i.e. ivy minibuffer) but those are defined in the corresponding use-package.
 * Package Manager 
 Configure the Elpaca. We also want to use ~use-package~.
@@ -129,6 +111,8 @@ Evil collection adds evil mode bindings to a lot more modes
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
+  ; Quick open vterm
+  (leader "t" 'vterm)
   ; Buffer management
   (leader "b l" 'ibuffer)
   (leader "b i" 'switch-to-buffer)
@@ -256,8 +240,7 @@ As always, I use the dracula theme
 
 ;; Line numbers
 (column-number-mode)
-(setq-default display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
+(setq-default display-line-numbers 'relative)
 
 ;; Disable dialogs/popup windows'
 (setq use-file-dialog nil)   ;; No file dialog
@@ -294,7 +277,6 @@ Displays the color for any hex (i.e. #0000FF)
 #+begin_src emacs-lisp
 ;(diminish 'eldoc-mode)
 #+end_src
-
 * Misc Packages
 ** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
@@ -314,6 +296,7 @@ Displays the color for any hex (i.e. #0000FF)
 (use-package dashboard
   :ensure t
   :requires (nerd-icons projectile)
+  :hook (dashboard-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
   (dashboard-startup-banner "~/.config/emacs/logo.webp")
@@ -357,7 +340,6 @@ Auto open dashboard
   (setq org-superstar-leading-bullet "  ")
   (setq org-superstar-special-todo-items t))
 #+end_src
-
 *** Latex Formating
 #+begin_src emacs-lisp
 (setq org-format-latex-options 
@@ -484,6 +466,15 @@ Automatically tangles my org files
   :after (treemacs magit)
   :ensure t)
 #+end_src
+** VTerm
+#+begin_src emacs-lisp
+(use-package vterm
+  :ensure t
+  :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
+  :custom
+  (vterm-kill-buffer-on-exit t)
+)
+#+end_src
 * Language Support
 ** Tree Sitter (Syntax Highlighting)
 *** Ensure treesitter
@@ -602,7 +593,6 @@ Modern on-the-fly syntax checking extension. [[https://github.com/flycheck/flych
   (global-flycheck-mode)
 )
 #+end_src
-
 ** Company Mode
 A text completion framework
 #+begin_src emacs-lisp

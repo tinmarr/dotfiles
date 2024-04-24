@@ -49,7 +49,8 @@ if [[ "$fresh" != "n" ]]; then
     cd dotfiles
     git submodule init
     git submodule update --remote --checkout
-    stow .
+    ./stowall
+    cd $HOME
     # Setup fonts
     fc-cache -f -v
 
@@ -57,11 +58,10 @@ if [[ "$fresh" != "n" ]]; then
     printf "$mag""Installing Utilities""$reset""\n"
     curl https://pyenv.run | bash
     git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 fi
 
-yay -S --needed neofetch btop ranger man xdg-user-dirs
+yay -S --needed neofetch btop ranger man xdg-user-dirs nvm
 
 case $wm in 
     "n" | "N")

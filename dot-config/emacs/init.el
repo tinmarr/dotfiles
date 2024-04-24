@@ -88,6 +88,8 @@
   (general-define-key :states 'normal "C-p" 'projectile-find-file)
   (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
   (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
+  ; Quick open vterm
+  (leader "t" 'vterm)
   ; Buffer management
   (leader "b l" 'ibuffer)
   (leader "b i" 'switch-to-buffer)
@@ -187,8 +189,7 @@
 
 ;; Line numbers
 (column-number-mode)
-(setq-default display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
+(setq-default display-line-numbers 'relative)
 
 ;; Disable dialogs/popup windows'
 (setq use-file-dialog nil)   ;; No file dialog
@@ -223,6 +224,7 @@
 (use-package dashboard
   :ensure t
   :requires (nerd-icons projectile)
+  :hook (dashboard-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (dashboard-banner-logo-title "Hello Martin. Welcome to Emacs")
   (dashboard-startup-banner "~/.config/emacs/logo.webp")
@@ -375,6 +377,13 @@
 (use-package treemacs-magit
   :after (treemacs magit)
   :ensure t)
+
+(use-package vterm
+  :ensure t
+  :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
+  :custom
+  (vterm-kill-buffer-on-exit t)
+)
 
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
