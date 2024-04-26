@@ -13,6 +13,7 @@
     "modules-right": [
         "tray",
 	"keyboard-state",
+	"hyprland/language",
 	"pulseaudio",
 	"battery",
 	"backlight",
@@ -34,6 +35,9 @@
             "locked": "",
             "unlocked": ""
         }
+    },
+    "hyprland/language": {
+        "format": "{variant}" 
     },
     "tray": {
         "spacing": 10

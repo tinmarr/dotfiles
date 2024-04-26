@@ -49,6 +49,7 @@ window#waybar {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#keyboard-state,
 #mpd {
     padding: 0 10px;
 }
@@ -75,6 +76,7 @@ window#waybar {
 .modules-right {
     padding: 2px 5px;
 }
+
 
 /*
 #clock {

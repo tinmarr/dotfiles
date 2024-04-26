@@ -115,10 +115,10 @@ animations {
 * Input
 #+begin_src conf
 input {
-    kb_layout = us
-    kb_variant = 
+    kb_layout = us,us
+    kb_variant = ,colemak_dh_ortho
     kb_model =
-    kb_options = compose:ralt
+    kb_options = compose:ralt,grp:alt_shift_toggle
     kb_rules =
 
     follow_mouse = 2
