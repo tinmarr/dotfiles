@@ -205,9 +205,9 @@
 (setq-default left-margin-width 1 right-margin-width 1)
 (set-window-buffer nil (current-buffer))
 
-(set-frame-parameter nil 'alpha-background 90)
+(set-frame-parameter nil 'alpha-background 75)
 
-(add-to-list 'default-frame-alist '(alpha-background . 90))
+(add-to-list 'default-frame-alist '(alpha-background . 75))
 
 (use-package rainbow-delimiters
   :ensure t

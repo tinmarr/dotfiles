@@ -258,9 +258,9 @@ As always, I use the dracula theme
 #+end_src
 ** Transparency 
 #+begin_src emacs-lisp
-(set-frame-parameter nil 'alpha-background 90)
+(set-frame-parameter nil 'alpha-background 75)
 
-(add-to-list 'default-frame-alist '(alpha-background . 90))
+(add-to-list 'default-frame-alist '(alpha-background . 75))
 #+end_src
 ** Other Tweaks
 *** Rainbow Delimiters
