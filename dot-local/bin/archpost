@@ -28,7 +28,7 @@ fi
 
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
-     alsa-utils ripgrep eza bat direnv stow fzf zoxide thefuck git-delta
+     alsa-utils ripgrep eza bat direnv stow fzf zoxide thefuck git-delta libvterm
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
