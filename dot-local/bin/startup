@@ -2,3 +2,14 @@
 QT_QPA_PLATFORM=xcb /usr/lib/kdeconnectd &
 playerctl daemon
 DISPLAY= emacs --daemon
+
+#### LOW POWER NOTFIER ####
+bat_file="/sys/class/power_supply/BAT0/capacity"
+while [[ -e "$bat_file" ]]; do
+    if [ "$bat_lvl" -le 15 ]; then
+	notify-send --urgency=CRITICAL "Battery Low" "Level: ${bat_lvl}%"
+	sleep 1200
+    else
+	sleep 120
+    fi
+done
