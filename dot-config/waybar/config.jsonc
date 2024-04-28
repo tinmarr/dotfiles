@@ -12,7 +12,7 @@
     ],
     "modules-right": [
         "tray",
-	"keyboard-state",
+	// "keyboard-state", // Dont need this
 	"hyprland/language",
 	"pulseaudio",
 	"battery",
