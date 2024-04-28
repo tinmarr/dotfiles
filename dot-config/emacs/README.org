@@ -180,6 +180,8 @@ As always, I use the dracula theme
   (doom-modeline-modal-modern-icon nil)
   (doom-modeline-always-show-macro-register t)
   (doom-modeline-unicode-fallback t)
+  (doom-modeline-enable-word-count t)
+  (doom-modeline-github t)
 )
 #+end_src
 ** Font
@@ -218,8 +220,6 @@ As always, I use the dracula theme
 #+begin_src emacs-lisp
 (use-package nerd-icons
   :ensure t
-  :custom 
-  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono")
  )
 #+end_src
 *** All the icons
@@ -240,6 +240,8 @@ As always, I use the dracula theme
 
 (menu-bar-mode -1)
 
+(setq-default vertical-scroll-bar nil)
+
 ;; Line numbers
 (column-number-mode)
 (setq-default display-line-numbers 'relative)
@@ -259,7 +261,6 @@ As always, I use the dracula theme
 ** Transparency 
 #+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 75)
-
 (add-to-list 'default-frame-alist '(alpha-background . 75))
 #+end_src
 ** Other Tweaks
@@ -478,6 +479,19 @@ Automatically tangles my org files
   :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (vterm-kill-buffer-on-exit t)
+)
+#+end_src
+** Evil Anzu
+Anzu is a package that displays the current match count + total count in the mode line
+#+begin_src emacs-lisp
+(use-package evil-anzu
+  :ensure t
+  :after (evil)
+)
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode +1)
 )
 #+end_src
 * Language Support

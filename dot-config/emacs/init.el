@@ -140,6 +140,8 @@
   (doom-modeline-modal-modern-icon nil)
   (doom-modeline-always-show-macro-register t)
   (doom-modeline-unicode-fallback t)
+  (doom-modeline-enable-word-count t)
+  (doom-modeline-github t)
 )
 
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
@@ -171,8 +173,6 @@
 
 (use-package nerd-icons
   :ensure t
-  :custom 
-  (nerd-icons-font-family "JetBrainsMono Nerd Font Mono")
  )
 
 (use-package all-the-icons :ensure t)
@@ -188,6 +188,8 @@
 (tooltip-mode -1)
 
 (menu-bar-mode -1)
+
+(setq-default vertical-scroll-bar nil)
 
 ;; Line numbers
 (column-number-mode)
@@ -206,7 +208,6 @@
 (set-window-buffer nil (current-buffer))
 
 (set-frame-parameter nil 'alpha-background 75)
-
 (add-to-list 'default-frame-alist '(alpha-background . 75))
 
 (use-package rainbow-delimiters
@@ -388,6 +389,16 @@
   :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (vterm-kill-buffer-on-exit t)
+)
+
+(use-package evil-anzu
+  :ensure t
+  :after (evil)
+)
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode +1)
 )
 
 (require 'treesit)
