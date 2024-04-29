@@ -258,30 +258,24 @@ As always, I use the dracula theme
 (setq-default left-margin-width 1 right-margin-width 1)
 (set-window-buffer nil (current-buffer))
 #+end_src
-** Transparency 
+**Transparency 
 #+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 75)
 (add-to-list 'default-frame-alist '(alpha-background . 75))
 #+end_src
-** Other Tweaks
-*** Rainbow Delimiters
+** Rainbow Delimiters
 Makes ~(~, ~[~, and ~{~ rainbow!
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
-
-*** Rainbow Mode
+** Rainbow Mode
 Displays the color for any hex (i.e. #0000FF)
 #+begin_src emacs-lisp
 (use-package rainbow-mode
   :ensure t
   :hook org-mode prog-mode)
-#+end_src
-*** Diminish ElDoc
-#+begin_src emacs-lisp
-;(diminish 'eldoc-mode)
 #+end_src
 * Misc Packages
 ** Projectile
@@ -494,6 +488,40 @@ Anzu is a package that displays the current match count + total count in the mod
   (global-anzu-mode +1)
 )
 #+end_src
+** Golden Ratio
+Ensures windows stay at reasonable sizes
+#+begin_src emacs-lisp
+(use-package golden-ratio
+  :ensure t
+  :custom
+  (golden-ratio-auto-scale t)
+  :config
+  (setq golden-ratio-extra-commands
+    (append golden-ratio-extra-commands
+    '(evil-window-left
+      evil-window-right
+      evil-window-up
+      evil-window-down
+      buf-move-left
+      buf-move-right
+      buf-move-up
+      buf-move-down
+      window-number-select
+      select-window
+      select-window-1
+      select-window-2
+      select-window-3
+      select-window-4
+      select-window-5
+      select-window-6
+      select-window-7
+      select-window-8
+      select-window-9)
+    )
+  )
+  (golden-ratio-mode 1)
+)
+#+end_src
 * Language Support
 ** Tree Sitter (Syntax Highlighting)
 *** Ensure treesitter
@@ -529,8 +557,11 @@ Anzu is a package that displays the current match count + total count in the mod
 #+begin_src emacs-lisp
 (use-package lsp-ui
   :ensure t
+  :hook (lsp-ui-doc-frame-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (lsp-ui-doc-position 'at-point)
+  :config
+  (add-to-list 'lsp-ui-doc-frame-parameters '(alpha-background . 100))
 )
 #+end_src
 ** Web

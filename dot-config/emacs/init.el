@@ -218,8 +218,6 @@
   :ensure t
   :hook org-mode prog-mode)
 
-;(diminish 'eldoc-mode)
-
 (use-package projectile
   :ensure t
   :config
@@ -401,6 +399,37 @@
   (global-anzu-mode +1)
 )
 
+(use-package golden-ratio
+  :ensure t
+  :custom
+  (golden-ratio-auto-scale t)
+  :config
+  (setq golden-ratio-extra-commands
+    (append golden-ratio-extra-commands
+    '(evil-window-left
+      evil-window-right
+      evil-window-up
+      evil-window-down
+      buf-move-left
+      buf-move-right
+      buf-move-up
+      buf-move-down
+      window-number-select
+      select-window
+      select-window-1
+      select-window-2
+      select-window-3
+      select-window-4
+      select-window-5
+      select-window-6
+      select-window-7
+      select-window-8
+      select-window-9)
+    )
+  )
+  (golden-ratio-mode 1)
+)
+
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
 
@@ -421,8 +450,11 @@
 
 (use-package lsp-ui
   :ensure t
+  :hook (lsp-ui-doc-frame-mode . (lambda () (setq display-line-numbers nil)))
   :custom
   (lsp-ui-doc-position 'at-point)
+  :config
+  (add-to-list 'lsp-ui-doc-frame-parameters '(alpha-background . 100))
 )
 
 (use-package web-mode
