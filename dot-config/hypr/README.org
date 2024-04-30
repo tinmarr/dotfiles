@@ -5,8 +5,8 @@
 
 * Startup
 #+begin_src conf
-exec-once = ~/.config/hypr/bg-rotate.sh
 exec-once = waybar
+exec-once = hyprpaper
 exec-once = hypridle
 exec-once = startup
 #+end_src
