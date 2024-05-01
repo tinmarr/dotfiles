@@ -3,6 +3,60 @@
 #+PROPERTY: header-args :tangle init.el
 #+STARTUP: overview
 
+* Table of Contents :toc:
+- [[#usage][Usage]]
+- [[#package-manager][Package Manager]]
+- [[#keyboard][Keyboard]]
+  - [[#evil-mode][EVIL Mode]]
+  - [[#escape-binding][escape binding]]
+  - [[#return-is-newline-no-indent][return is newline (no indent)]]
+  - [[#which-key][Which Key]]
+- [[#ui-tweaks][UI Tweaks]]
+  - [[#language][Language]]
+  - [[#theme][Theme]]
+  - [[#modeline][Modeline]]
+  - [[#font][Font]]
+    - [[#ligatures][Ligatures]]
+  - [[#icons][Icons]]
+    - [[#nerd-fonts-for-emacs][Nerd Fonts for Emacs]]
+    - [[#all-the-icons][All the icons]]
+  - [[#builtin-ui-tweaks][Builtin UI Tweaks]]
+  - [[#rainbow-delimiters][Rainbow Delimiters]]
+  - [[#rainbow-mode][Rainbow Mode]]
+- [[#packages][Packages]]
+  - [[#projectile][Projectile]]
+    - [[#ripgrep-support][Ripgrep support]]
+  - [[#dashboard][Dashboard]]
+  - [[#org-mode][Org Mode]]
+    - [[#org-superstar][Org Superstar]]
+    - [[#latex-formating][Latex Formating]]
+    - [[#auto-image-rendering][Auto image rendering]]
+    - [[#auto-tangleing][Auto Tangleing]]
+    - [[#toc-org][TOC Org]]
+  - [[#treemacs][Treemacs]]
+  - [[#vterm][VTerm]]
+  - [[#evil-anzu][Evil Anzu]]
+  - [[#golden-ratio][Golden Ratio]]
+- [[#language-support][Language Support]]
+  - [[#tree-sitter-syntax-highlighting][Tree Sitter (Syntax Highlighting)]]
+    - [[#ensure-treesitter][Ensure treesitter]]
+    - [[#enable-modes][Enable modes]]
+  - [[#markdown][Markdown]]
+  - [[#lsp-mode][LSP Mode]]
+  - [[#lsp-ui][LSP UI]]
+  - [[#web][Web]]
+  - [[#python][Python]]
+    - [[#pyright][Pyright]]
+  - [[#java][Java]]
+- [[#quality-of-life][Quality of Life]]
+  - [[#ivyswiper][Ivy/Swiper]]
+  - [[#move-backup-files][Move Backup Files]]
+  - [[#move-custom-file][Move Custom File]]
+  - [[#enable-folding][Enable Folding]]
+  - [[#auto-revert][Auto Revert]]
+  - [[#flycheck][Flycheck]]
+  - [[#company-mode][Company Mode]]
+
 * Usage
 I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
 Other than that, i've set some custom bindings for myself. All custom bindings are defined here: [[#general]]. I also have which-key to help with discovery.
@@ -62,22 +116,67 @@ Configure the Elpaca. We also want to use ~use-package~.
 ** EVIL Mode
 #+begin_src emacs-lisp
 (use-package evil
+  :after which-key
   :ensure t
   :custom
   (evil-undo-system 'undo-redo)
   (evil-want-C-d-scroll t)
   (evil-want-C-u-scroll t)
   (evil-search-module 'swiper)
-  (evil-auto-indent nil)
   ; follow is required by evil-collection
   (evil-want-integration t)
   (evil-want-keybinding nil)
+  :init
+  (evil-mode 1)
   :config
-  (evil-mode 1))
+  ; Define leader key
+  (evil-set-leader nil (kbd "SPC"))
+  ; Better vim motions
+  (evil-define-key '(normal visual) 'global
+    (kbd "C-u") (lambda nil :motion (interactive) (evil-scroll-up 0) (evil-scroll-line-to-center nil))
+    (kbd "C-d") (lambda nil :motion (interactive) (evil-scroll-down 0) (evil-scroll-line-to-center nil))
+  )
+  ; QUICK ACTIONS ;
+  (evil-define-key 'normal 'global
+    (kbd "<leader> RET") 'dashboard-open
+    (kbd "<leader> t") 'vterm
+    (kbd "C-o") 'find-file
+    (kbd "C-e") 'treemacs-select-window
+    (kbd "C-i") 'lsp-ui-imenu
+  )
+  ; PROJECTILE ;
+  (evil-define-key 'normal 'global
+    (kbd "C-p") 'projectile-find-file
+    (kbd "C-S-o") 'projectile-switch-project
+    (kbd "C-S-f") 'projectile-ripgrep
+  )
+  ; BUFFER MANAGEMENT ;
+  (which-key-add-key-based-replacements "SPC b" "Buffer Management")
+  (evil-define-key 'normal 'global
+    (kbd "<leader> b l") 'ibuffer
+    (kbd "<leader> b i") 'switch-to-buffer
+    (kbd "<leader> b j") 'next-buffer
+    (kbd "<leader> b k") 'previous-buffer
+    (kbd "<leader> b h") 'kill-current-buffer
+  )
+  ; LSP ; 
+  (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
+  (evil-define-key 'normal 'global
+    (kbd "<leader> l d") 'lsp-find-definition
+    (kbd "<leader> l f") 'lsp-find-references
+    (kbd "<leader> l .") 'lsp-execute-code-action
+    (kbd "<leader> l r") 'lsp-rename
+    (kbd "<leader> l R") 'lsp-workspace-restart
+    (kbd "<leader> l k") 'lsp-ui-doc-toggle
+    (kbd "<leader> l TAB") 'lsp-ui-doc-focus-frame
+    (kbd "<leader> l <backtab>") 'lsp-ui-doc-unfocus-frame
+  )
+)
 #+end_src
-Evil collection adds evil mode bindings to a lot more modes
+evil collection adds evil mode bindings to a lot more modes
 #+begin_src emacs-lisp
 (use-package evil-collection
+  :after evil
   :ensure t
   :custom
   (evil-collection-setup-debugger-keys nil)
@@ -85,57 +184,12 @@ Evil collection adds evil mode bindings to a lot more modes
   :init
   (evil-collection-init))
 #+end_src
-** General 
-:PROPERTIES:
-:CUSTOM_ID: general
-:END:
-#+begin_src emacs-lisp
-(use-package general
-  :ensure t
-  :after evil
-  :config
-  ; Better vim motions
-  (general-define-key :states '(normal visual) "C-u" (general-simulate-key ('evil-scroll-up "z z")))
-  (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
-  ; Prefixes
-  (general-create-definer leader
-    :states '(normal visual)
-    :prefix "SPC")
-  ; Bindings
-  (leader org-mode-map "i" 'org-edit-latex-fragment)
-  (general-define-key :states 'normal "C-o" 'find-file)
-  (leader :states 'normal "RET" 'dashboard-open)
-  (general-define-key :states 'normal "C-e" 'treemacs-select-window)
-  (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
-  ; Projectile
-  (general-define-key :states 'normal "C-p" 'projectile-find-file)
-  (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
-  (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
-  ; Quick open vterm
-  (leader "t" 'vterm)
-  ; Buffer management
-  (leader "b l" 'ibuffer)
-  (leader "b i" 'switch-to-buffer)
-  (leader "b j" 'next-buffer)
-  (leader "b k" 'previous-buffer)
-  (leader "b h" 'kill-current-buffer)
-  ; LSP binding
-  (leader "l d" 'lsp-find-definition)
-  (leader "l f" 'lsp-find-references)
-  (leader "l ." 'lsp-execute-code-action)
-  (leader "l r" 'lsp-rename)
-  (leader "l R" 'lsp-workspace-restart)
-  (leader "l k" 'lsp-ui-doc-toggle)
-  (leader "l TAB" 'lsp-ui-doc-focus-frame)
-  (leader "l <backtab>" 'lsp-ui-doc-unfocus-frame)
-)
-#+end_src
-** Escape Binding
-Makes escape quit whatever your doing just like in Vim
+** escape binding
+makes escape quit whatever your doing just like in Vim
 #+begin_src emacs-lisp
 (global-set-key [escape] 'keyboard-escape-quit)
 #+end_src
-** Return is newline (no indent)
+** return is newline (no indent)
 By default, in Emacs 24.3+, these values are switched.
 #+begin_src emacs-lisp
 (global-set-key (kbd "RET") 'newline)
@@ -147,8 +201,6 @@ By default, in Emacs 24.3+, these values are switched.
   :ensure t
   :config
   (which-key-mode)
-  (which-key-add-key-based-replacements "SPC b" "Buffer Management")
-  (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
 )
 #+end_src
 * UI Tweaks
@@ -277,7 +329,7 @@ Displays the color for any hex (i.e. #0000FF)
   :ensure t
   :hook org-mode prog-mode)
 #+end_src
-* Misc Packages
+* Packages
 ** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
 #+begin_src emacs-lisp
@@ -318,6 +370,7 @@ Auto open dashboard
 ** Org Mode
 #+begin_src emacs-lisp
 (use-package org
+  :after evil
   :ensure t
   :custom
   (org-hide-emphasis-markers t)
@@ -336,7 +389,7 @@ Auto open dashboard
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-
+  (evil-define-key 'normal 'org-mode-map "i" 'org-edit-latex-fragment)
 )
 #+end_src
 *** Org Superstar
@@ -344,6 +397,7 @@ Auto open dashboard
 #+begin_src emacs-lisp 
 (use-package org-superstar
   :ensure t
+  :after org
   :hook (org-mode . (lambda () (org-superstar-mode 1)))
   :config
   (setq org-superstar-leading-bullet "  ")
@@ -376,6 +430,17 @@ Automatically tangles my org files
     (lambda ()
         (add-hook 'after-save-hook #'org-babel-tangle
                 nil 'make-it-local)))
+#+end_src
+*** TOC Org
+Allows for table of contents in org files
+#+begin_src emacs-lisp
+(use-package toc-org
+  :ensure t
+  :after org
+  :hook (org-mode . toc-org-mode)
+  :custom
+  (toc-org-max-depth 3) ; default 2
+)
 #+end_src
 ** Treemacs
 #+begin_src emacs-lisp

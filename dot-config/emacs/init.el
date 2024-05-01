@@ -46,66 +46,71 @@
 (elpaca-wait)
 
 (use-package evil
+  :after which-key
   :ensure t
   :custom
   (evil-undo-system 'undo-redo)
   (evil-want-C-d-scroll t)
   (evil-want-C-u-scroll t)
   (evil-search-module 'swiper)
-  (evil-auto-indent nil)
   ; follow is required by evil-collection
   (evil-want-integration t)
   (evil-want-keybinding nil)
+  :init
+  (evil-mode 1)
   :config
-  (evil-mode 1))
+  ; Define leader key
+  (evil-set-leader nil (kbd "SPC"))
+  ; Better vim motions
+  (evil-define-key '(normal visual) 'global
+    (kbd "C-u") (lambda nil :motion (interactive) (evil-scroll-up 0) (evil-scroll-line-to-center nil))
+    (kbd "C-d") (lambda nil :motion (interactive) (evil-scroll-down 0) (evil-scroll-line-to-center nil))
+  )
+  ; QUICK ACTIONS ;
+  (evil-define-key 'normal 'global
+    (kbd "<leader> RET") 'dashboard-open
+    (kbd "<leader> t") 'vterm
+    (kbd "C-o") 'find-file
+    (kbd "C-e") 'treemacs-select-window
+    (kbd "C-i") 'lsp-ui-imenu
+  )
+  ; PROJECTILE ;
+  (evil-define-key 'normal 'global
+    (kbd "C-p") 'projectile-find-file
+    (kbd "C-S-o") 'projectile-switch-project
+    (kbd "C-S-f") 'projectile-ripgrep
+  )
+  ; BUFFER MANAGEMENT ;
+  (which-key-add-key-based-replacements "SPC b" "Buffer Management")
+  (evil-define-key 'normal 'global
+    (kbd "<leader> b l") 'ibuffer
+    (kbd "<leader> b i") 'switch-to-buffer
+    (kbd "<leader> b j") 'next-buffer
+    (kbd "<leader> b k") 'previous-buffer
+    (kbd "<leader> b h") 'kill-current-buffer
+  )
+  ; LSP ; 
+  (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
+  (evil-define-key 'normal 'global
+    (kbd "<leader> l d") 'lsp-find-definition
+    (kbd "<leader> l f") 'lsp-find-references
+    (kbd "<leader> l .") 'lsp-execute-code-action
+    (kbd "<leader> l r") 'lsp-rename
+    (kbd "<leader> l R") 'lsp-workspace-restart
+    (kbd "<leader> l k") 'lsp-ui-doc-toggle
+    (kbd "<leader> l TAB") 'lsp-ui-doc-focus-frame
+    (kbd "<leader> l <backtab>") 'lsp-ui-doc-unfocus-frame
+  )
+)
 
 (use-package evil-collection
+  :after evil
   :ensure t
   :custom
   (evil-collection-setup-debugger-keys nil)
   (evil-collection-want-find-usages-bindings nil)
   :init
   (evil-collection-init))
-
-(use-package general
-  :ensure t
-  :after evil
-  :config
-  ; Better vim motions
-  (general-define-key :states '(normal visual) "C-u" (general-simulate-key ('evil-scroll-up "z z")))
-  (general-define-key :states '(normal visual) "C-d" (general-simulate-key ('evil-scroll-down "z z")))
-  ; Prefixes
-  (general-create-definer leader
-    :states '(normal visual)
-    :prefix "SPC")
-  ; Bindings
-  (leader org-mode-map "i" 'org-edit-latex-fragment)
-  (general-define-key :states 'normal "C-o" 'find-file)
-  (leader :states 'normal "RET" 'dashboard-open)
-  (general-define-key :states 'normal "C-e" 'treemacs-select-window)
-  (general-define-key :states 'normal "C-i" 'lsp-ui-imenu)
-  ; Projectile
-  (general-define-key :states 'normal "C-p" 'projectile-find-file)
-  (general-define-key :states 'normal "C-S-o" 'projectile-switch-project)
-  (general-define-key :states 'normal "C-S-f" 'projectile-ripgrep)
-  ; Quick open vterm
-  (leader "t" 'vterm)
-  ; Buffer management
-  (leader "b l" 'ibuffer)
-  (leader "b i" 'switch-to-buffer)
-  (leader "b j" 'next-buffer)
-  (leader "b k" 'previous-buffer)
-  (leader "b h" 'kill-current-buffer)
-  ; LSP binding
-  (leader "l d" 'lsp-find-definition)
-  (leader "l f" 'lsp-find-references)
-  (leader "l ." 'lsp-execute-code-action)
-  (leader "l r" 'lsp-rename)
-  (leader "l R" 'lsp-workspace-restart)
-  (leader "l k" 'lsp-ui-doc-toggle)
-  (leader "l TAB" 'lsp-ui-doc-focus-frame)
-  (leader "l <backtab>" 'lsp-ui-doc-unfocus-frame)
-)
 
 (global-set-key [escape] 'keyboard-escape-quit)
 
@@ -116,8 +121,6 @@
   :ensure t
   :config
   (which-key-mode)
-  (which-key-add-key-based-replacements "SPC b" "Buffer Management")
-  (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
 )
 
 (set-locale-environment "en_US.UTF-8")
@@ -246,6 +249,7 @@
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
 (use-package org
+  :after evil
   :ensure t
   :custom
   (org-hide-emphasis-markers t)
@@ -264,11 +268,12 @@
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-
+  (evil-define-key 'normal 'org-mode-map "i" 'org-edit-latex-fragment)
 )
 
 (use-package org-superstar
   :ensure t
+  :after org
   :hook (org-mode . (lambda () (org-superstar-mode 1)))
   :config
   (setq org-superstar-leading-bullet "  ")
@@ -294,6 +299,14 @@
     (lambda ()
         (add-hook 'after-save-hook #'org-babel-tangle
                 nil 'make-it-local)))
+
+(use-package toc-org
+  :ensure t
+  :after org
+  :hook (org-mode . toc-org-mode)
+  :custom
+  (toc-org-max-depth 3) ; default 2
+)
 
 (use-package treemacs
   :ensure t
