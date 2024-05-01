@@ -59,7 +59,7 @@
 
 * Usage
 I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
-Other than that, i've set some custom bindings for myself. All custom bindings are defined here: [[#general]]. I also have which-key to help with discovery.
+Other than that, i've set some custom bindings for myself. I also have which-key to help with discovery.
 
 I've also defined bindings to make certain interfaces more vim-like (i.e. ivy minibuffer) but those are defined in the corresponding use-package.
 * Package Manager 
@@ -389,7 +389,7 @@ Auto open dashboard
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-  (evil-define-key 'normal 'org-mode-map "i" 'org-edit-latex-fragment)
+  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-latex-fragment)
 )
 #+end_src
 *** Org Superstar

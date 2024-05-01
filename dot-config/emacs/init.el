@@ -268,7 +268,7 @@
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-  (evil-define-key 'normal 'org-mode-map "i" 'org-edit-latex-fragment)
+  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-latex-fragment)
 )
 
 (use-package org-superstar
