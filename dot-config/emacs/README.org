@@ -131,10 +131,10 @@ Configure the Elpaca. We also want to use ~use-package~.
   :config
   ; Define leader key
   (evil-set-leader nil (kbd "SPC"))
-  ; Better vim motions
+  ; Better vim keys
   (evil-define-key '(normal visual) 'global
-    (kbd "C-u") (lambda nil :motion (interactive) (evil-scroll-up 0) (evil-scroll-line-to-center nil))
-    (kbd "C-d") (lambda nil :motion (interactive) (evil-scroll-down 0) (evil-scroll-line-to-center nil))
+    (kbd "C-u") (lambda () (interactive) (evil-scroll-up 0) (kbd "zz"))
+    (kbd "C-d") (lambda () (interactive) (evil-scroll-down 0) (kbd "zz"))
   )
   ; QUICK ACTIONS ;
   (evil-define-key 'normal 'global
@@ -143,6 +143,9 @@ Configure the Elpaca. We also want to use ~use-package~.
     (kbd "C-o") 'find-file
     (kbd "C-e") 'treemacs-select-window
     (kbd "C-i") 'lsp-ui-imenu
+    (kbd "<leader> r") (lambda () (interactive)
+                            (load-file "~/.config/emacs/init.el")
+                            (ignore (elpaca-process-queues)))
   )
   ; PROJECTILE ;
   (evil-define-key 'normal 'global
@@ -478,7 +481,7 @@ Allows for table of contents in org files
           treemacs-no-delete-other-windows         t
           treemacs-project-follow-cleanup          nil
           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-position                        'left
+          treemacs-position                        'right
           treemacs-read-string-input               'from-child-frame
           treemacs-recenter-distance               0.1
           treemacs-recenter-after-file-follow      nil
