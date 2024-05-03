@@ -1,6 +1,6 @@
 #+title: Hyperland Config
 #+AUTHOR: Martin Chaperot
-#+PROPERTY: header-args :tangle hyprland.conf 
+#+PROPERTY: header-args :tangle hyprland.conf
 #+STARTUP: overview
 
 * Startup
@@ -44,7 +44,7 @@ env = WLR_NO_HARDWARE_CURSORS,1
 *** Forcing wayland
 #+begin_src conf
 env = GDK_BACKEND,wayland,x11
-env = QT_QPA_PLATFORM,wayland;xcb 
+env = QT_QPA_PLATFORM,wayland;xcb
 env = SDL_VIDEODRIVER,wayland
 env = CLUTTER_BACKEND=wayland
 #+end_src
@@ -86,7 +86,7 @@ decoration {
         enabled = true
         size = 8
         passes = 2
-        
+
         vibrancy = 0.1696
     }
 
@@ -149,7 +149,7 @@ dwindle {
     # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
     pseudotile =  false # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     force_split = 2
-    preserve_split = true 
+    preserve_split = true
 }
 #+end_src
 * OpenGL
@@ -229,7 +229,7 @@ bind = , XF86MonBrightnessUp, exec, xbacklight +5
 bind = , XF86MonBrightnessDown, exec, xbacklight -5
 bind = , XF86AudioRaiseVolume, exec, amixer -D default set Master 5%+
 bind = , XF86AudioLowerVolume, exec, amixer -D default set Master 5%-
-bind = , XF86AudioMute, exec, amixer -D default set Master toggle 
+bind = , XF86AudioMute, exec, amixer -D default set Master toggle
 bind = , XF86AudioPlay, exec, playerctl play-pause
 bind = , XF86AudioPrev, exec, playerctl previous
 bind = , XF86AudioNext, exec, playerctl next
@@ -242,9 +242,9 @@ bind = $mainMod SHIFT, w, exec, pidof hyprlock || hyprlock
 #+end_src
 ** App Start Shortcuts
 #+begin_src conf
-bind = $mainMod, return, exec, kitty 
-bind = $mainMod, e, exec, emacsclient -c 
-bind = $mainMod, r, exec, rofi -show run
+bind = $mainMod, return, exec, kitty
+bind = $mainMod, e, exec, emacsclient -c
+bind = $mainMod, r, exec, rofi -show combi
 bind = , Print, exec, flameshot gui
 #+end_src
 * Mouse Bindings
@@ -274,8 +274,8 @@ windowrulev2 = move 0 0, class:^(flameshot)$
 #+end_src
 ** File pickers standard size
 #+begin_src conf
-windowrulev2 = size 50% 50%, class:xdg-desktop-portal-gtk 
-windowrulev2 = center, class:xdg-desktop-portal-gtk 
+windowrulev2 = size 50% 50%, class:xdg-desktop-portal-gtk
+windowrulev2 = center, class:xdg-desktop-portal-gtk
 #+end_src
 * XDG Desktop Portal
 Needed for xdg-desktop-portal.

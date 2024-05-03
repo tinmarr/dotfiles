@@ -63,8 +63,8 @@
   (evil-set-leader nil (kbd "SPC"))
   ; Better vim keys
   (evil-define-key '(normal visual) 'global
-    (kbd "C-u") (lambda () (interactive) (evil-scroll-up 0) (kbd "zz"))
-    (kbd "C-d") (lambda () (interactive) (evil-scroll-down 0) (kbd "zz"))
+    (kbd "C-u") (lambda () (interactive) (evil-scroll-up 0) (evil-scroll-line-to-center nil))
+    (kbd "C-d") (lambda () (interactive) (evil-scroll-down 0) (evil-scroll-line-to-center nil))
   )
   ; QUICK ACTIONS ;
   (evil-define-key 'normal 'global
@@ -223,6 +223,19 @@
 (use-package rainbow-mode
   :ensure t
   :hook org-mode prog-mode)
+
+(use-package ivy
+  :ensure t
+  :bind (:map ivy-minibuffer-map
+          ("C-l" . ivy-alt-done)
+          ("TAB" . ivy-alt-done)
+          ("C-j" . ivy-next-line)
+          ("C-k" . ivy-previous-line))
+  :config
+  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
+  (ivy-mode 1))
+
+(use-package swiper :ensure t)
 
 (use-package projectile
   :ensure t
@@ -504,19 +517,6 @@
   :hook (java-ts-mode . lsp)
 )
 
-(use-package ivy
-  :ensure t
-  :bind (:map ivy-minibuffer-map
-          ("C-l" . ivy-alt-done)
-          ("TAB" . ivy-alt-done)
-          ("C-j" . ivy-next-line)
-          ("C-k" . ivy-previous-line))
-  :config
-  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
-  (ivy-mode 1))
-
-(use-package swiper :ensure t)
-
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
       backup-by-copying      t  ; Don't de-link hard links
       version-control        t  ; Use version numbers on backups
@@ -541,4 +541,12 @@
   :ensure t
   :config
   (company-mode)
+)
+
+(setq-default indent-tabs-mode nil)
+
+(add-hook 'before-save-hook
+    (lambda ()
+        (whitespace-cleanup)
+    )
 )

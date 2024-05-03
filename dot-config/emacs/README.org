@@ -24,6 +24,7 @@
   - [[#rainbow-delimiters][Rainbow Delimiters]]
   - [[#rainbow-mode][Rainbow Mode]]
 - [[#packages][Packages]]
+  - [[#ivyswiper][Ivy/Swiper]]
   - [[#projectile][Projectile]]
     - [[#ripgrep-support][Ripgrep support]]
   - [[#dashboard][Dashboard]]
@@ -49,13 +50,14 @@
     - [[#pyright][Pyright]]
   - [[#java][Java]]
 - [[#quality-of-life][Quality of Life]]
-  - [[#ivyswiper][Ivy/Swiper]]
   - [[#move-backup-files][Move Backup Files]]
   - [[#move-custom-file][Move Custom File]]
   - [[#enable-folding][Enable Folding]]
   - [[#auto-revert][Auto Revert]]
   - [[#flycheck][Flycheck]]
   - [[#company-mode][Company Mode]]
+  - [[#spaces-over-tabs][Spaces over tabs]]
+  - [[#stuff-on-save][Stuff on save]]
 
 * Usage
 I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
@@ -133,8 +135,8 @@ Configure the Elpaca. We also want to use ~use-package~.
   (evil-set-leader nil (kbd "SPC"))
   ; Better vim keys
   (evil-define-key '(normal visual) 'global
-    (kbd "C-u") (lambda () (interactive) (evil-scroll-up 0) (kbd "zz"))
-    (kbd "C-d") (lambda () (interactive) (evil-scroll-down 0) (kbd "zz"))
+    (kbd "C-u") (lambda () (interactive) (evil-scroll-up 0) (evil-scroll-line-to-center nil))
+    (kbd "C-d") (lambda () (interactive) (evil-scroll-down 0) (evil-scroll-line-to-center nil))
   )
   ; QUICK ACTIONS ;
   (evil-define-key 'normal 'global
@@ -333,6 +335,22 @@ Displays the color for any hex (i.e. #0000FF)
   :hook org-mode prog-mode)
 #+end_src
 * Packages
+** Ivy/Swiper
+Handles the better autocompletion/search functionality in the minibuffer
+#+begin_src emacs-lisp
+(use-package ivy
+  :ensure t
+  :bind (:map ivy-minibuffer-map
+          ("C-l" . ivy-alt-done)
+          ("TAB" . ivy-alt-done)
+          ("C-j" . ivy-next-line)
+          ("C-k" . ivy-previous-line))
+  :config
+  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
+  (ivy-mode 1))
+
+(use-package swiper :ensure t)
+#+end_src
 ** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
 #+begin_src emacs-lisp
@@ -673,22 +691,6 @@ LSP Java
 #+end_src
 
 * Quality of Life
-** Ivy/Swiper
-Handles the better autocompletion/search functionality in the minibuffer
-#+begin_src emacs-lisp
-(use-package ivy
-  :ensure t
-  :bind (:map ivy-minibuffer-map
-          ("C-l" . ivy-alt-done)
-          ("TAB" . ivy-alt-done)
-          ("C-j" . ivy-next-line)
-          ("C-k" . ivy-previous-line))
-  :config
-  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
-  (ivy-mode 1))
-
-(use-package swiper :ensure t)
-#+end_src
 ** Move Backup Files
 #+begin_src emacs-lisp
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
@@ -727,5 +729,22 @@ A text completion framework
   :ensure t
   :config
   (company-mode)
+)
+#+end_src
+
+** Spaces over tabs
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
+
+** Stuff on save
+On save, we want to:
+- Format whitespace
+
+#+begin_src emacs-lisp
+(add-hook 'before-save-hook
+    (lambda ()
+        (whitespace-cleanup)
+    )
 )
 #+end_src

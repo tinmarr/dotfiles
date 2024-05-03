@@ -19,13 +19,14 @@ I've used quite a few things in the past and this repo houses all of configs for
 * *Shell*: ZSH
 * *Themes*: Dracula... on everthing
 
-### Past stacks (no promises on the state of the configs):
+### Past stacks:
+*Note that I do not maintain these since I do not use the*
 
 * *WMs*: QTile, AwesomeWM
 * *Display Server*: X11
 * *Terminal Emulators*: Alacritty
 
-## To get onto new computer 
+## To get onto new computer
 
 Install Arch normally. Then:
 ```shell

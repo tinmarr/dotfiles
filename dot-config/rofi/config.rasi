@@ -1,8 +1,14 @@
 configuration {
-    modes: "window,run,combi";
-    font: "JetBrainsMono Nerd Font Mono 24";
+    modes: "combi";
+    font: "JetBrainsMono Nerd Font Mono 16";
     disable-history: false;
     auto-select: true;
+    combi-display-format: "{text}";
+    window-format: "{t:40} - {c}";
+    kb-row-up: "Control+k";
+    kb-row-down: "Control+j";
+    kb-accept-entry: "Return";
+    kb-remove-to-eol: "";
 }
 
 * {
@@ -18,26 +24,28 @@ configuration {
     drac-pur: #bd93f9;
     drac-red: #ff5555;
     drac-yel: #f1fa8c;
+    trans: #ffffff00;
 
     foreground: @drac-fgd;
-    background-color: @drac-bgd;
     active-background: @drac-pnk;
     urgent-background: @drac-red;
     urgent-foreground: @drac-bgd;
-    
+
     selected-background: @active-background;
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
     separatorcolor: @active-background;
-    bordercolor: #6272a4;
+    bordercolor: @drac-cmt;
 }
 
 #window {
-    background-color: @background-color;
+    background-color: @drac-bgd;
     border:           4;
     border-radius:    45;
     border-color:     @bordercolor;
-    padding:          15;
+    padding:          40;
+    width: 40%;
+    height: 30%;
 }
 #mainbox {
     border:  0;
@@ -64,7 +72,7 @@ configuration {
     padding: 3px ;
 }
 #element.normal.normal {
-    background-color: @background-color;
+    background-color: @trans;
     text-color:       @foreground;
 }
 #element.normal.urgent {
@@ -73,7 +81,7 @@ configuration {
 }
 #element.normal.active {
     background-color: @active-background;
-    text-color:       @background-color;
+    text-color:       @drac-bgd;
 }
 #element.selected.normal {
     background-color: @selected-background;
@@ -85,10 +93,10 @@ configuration {
 }
 #element.selected.active {
     background-color: @selected-active-background;
-    text-color:       @background-color;
+    text-color:       @drac-bgd;
 }
 #element.alternate.normal {
-    background-color: @background-color;
+    background-color: @trans;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
@@ -135,7 +143,7 @@ configuration {
 }
 #textbox-prompt-colon {
     expand:     false;
-    str:        ">";
+    str:        ":";
     margin:     0px 0.3em 0em 0em ;
     text-color: @drac-pur;
 }
