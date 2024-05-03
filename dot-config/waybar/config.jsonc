@@ -6,58 +6,48 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
+        "hyprland/window"
     ],
     "modules-center": [
-        "hyprland/window"
+        "clock"
     ],
     "modules-right": [
         "tray",
-	// "keyboard-state", // Dont need this
-	"hyprland/language",
-	"pulseaudio",
-	"battery",
-	"backlight",
-        "clock"
+        "hyprland/language",
+        "pulseaudio",
+        "battery",
+        "backlight",
     ],
     // Modules configuration
     "hyprland/workspaces": {
     },
     "hyprland/window": {
-        "max-length": 100,
-        "min-length": 100,
-	"separate-outputs": true,
-    },
-    "keyboard-state": {
-        "numlock": false,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
+        "max-length": 20,
+        "min-length": 20,
+        "separate-outputs": true,
     },
     "hyprland/language": {
-        "format": "{variant}" 
+        "format": "{variant}"
     },
     "tray": {
         "spacing": 10
     },
     "backlight": {
-	"device": "intel_backlight",
-	"format": "{percent}% {icon}",
-	"format-icons": ["", ""]
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", ""]
     },
     "battery": {
-	"bat": "BAT0",
+        "bat": "BAT0",
         "format": "{capacity}% {icon}",
-	"format-icons": ["", "", "", "", ""],
-	"format-charging": "{capacity}% {icon}",
-	"bat-compatibility": true,
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": "{capacity}% {icon}",
+        "bat-compatibility": true,
     },
     "clock": {
         "tooltip": false,
         "format": "{:%a %d %b %H:%M:%S}",
-	"interval": 1
+        "interval": 1
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
@@ -67,7 +57,7 @@
             "headphone": " ",
             "default": ["", "", ""]
         },
-	"format-muted": " {icon}",
+        "format-muted": " {icon}",
         "on-click": "pavucontrol"
     }
 }
