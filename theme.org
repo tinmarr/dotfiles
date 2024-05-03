@@ -13,7 +13,8 @@ Green: #50FA7B
 Orange: #FFB86C
 Pink: #FF79C6
 Purple: #BD93F9
-Red: #FF5555
+
+* Red: #FF5555
 Yellow: #F1FA8C
 * Pywal Output
 #01021E
