@@ -60,11 +60,11 @@
   - [[#stuff-on-save][Stuff on save]]
 
 * Usage
-I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere. 
+I use evil mode and evil mode collections. This means that vim like bindings apply almost everywhere.
 Other than that, i've set some custom bindings for myself. I also have which-key to help with discovery.
 
 I've also defined bindings to make certain interfaces more vim-like (i.e. ivy minibuffer) but those are defined in the corresponding use-package.
-* Package Manager 
+* Package Manager
 Configure the Elpaca. We also want to use ~use-package~.
 #+begin_src emacs-lisp
 (defvar elpaca-installer-version 0.7)
@@ -164,7 +164,7 @@ Configure the Elpaca. We also want to use ~use-package~.
     (kbd "<leader> b k") 'previous-buffer
     (kbd "<leader> b h") 'kill-current-buffer
   )
-  ; LSP ; 
+  ; LSP ;
   (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
   (evil-define-key 'normal 'global
     (kbd "<leader> l d") 'lsp-find-definition
@@ -315,7 +315,7 @@ As always, I use the dracula theme (the one from doom-themes looks much better)
 (setq-default left-margin-width 1 right-margin-width 1)
 (set-window-buffer nil (current-buffer))
 #+end_src
-**Transparency 
+**Transparency
 #+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 75)
 (add-to-list 'default-frame-alist '(alpha-background . 75))
@@ -375,7 +375,7 @@ Handles the better autocompletion/search functionality in the minibuffer
   (dashboard-startup-banner "~/.config/emacs/logo.txt")
   (dashboard-display-icons-p t)
   (dashboard-center-content t)
-  (dashboard-icon-type 'nerd-icons) 
+  (dashboard-icon-type 'nerd-icons)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-projects-backend 'projectile)
@@ -415,7 +415,7 @@ Auto open dashboard
 #+end_src
 *** Org Superstar
 ~org-superstar~ handles the nice rendering of bullets in headers and lists
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (use-package org-superstar
   :ensure t
   :after org
@@ -426,13 +426,13 @@ Auto open dashboard
 #+end_src
 *** Latex Formating
 #+begin_src emacs-lisp
-(setq org-format-latex-options 
-  '(:foreground default 
-    :background default 
+(setq org-format-latex-options
+  '(:foreground default
+    :background default
     :scale 3
-    :html-foreground "Black" 
-    :html-background "Transparent" 
-    :html-scale 1.0 
+    :html-foreground "Black"
+    :html-background "Transparent"
+    :html-scale 1.0
     :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
 (add-hook 'org-mode-hook
   (lambda ()
@@ -632,7 +632,7 @@ Ensures windows stay at reasonable sizes
   (global-treesit-auto-mode))
 #+end_src
 ** Markdown
-[[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]] 
+[[https://jblevins.org/projects/markdown-mode][markdown-mode documentation]]
 #+begin_src emacs-lisp
 (use-package markdown-mode :ensure t)
 #+end_src
@@ -670,7 +670,7 @@ Ensures windows stay at reasonable sizes
   )
 )
 #+end_src
-** Python 
+** Python
 *** Pyright
 #+begin_src emacs-lisp
 (use-package lsp-pyright
@@ -705,7 +705,7 @@ LSP Java
 (setq custom-file "~/.config/emacs/emacs-custom.el")
 (ignore-errors (load custom-file))
 #+end_src
-** Enable Folding 
+** Enable Folding
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src

@@ -259,6 +259,7 @@ bindm = $mainMod, mouse:273, resizewindow
 windowrulev2 = workspace 4 silent, class:Slack
 windowrulev2 = workspace 4 silent, class:WebCord
 windowrulev2 = workspace 10 silent, title:^(Spotify Premium)$
+windowrulev2 = workspace 5 silent, class:zoom
 #+end_src
 ** Annoying notification windows from chromium
 #+begin_src conf

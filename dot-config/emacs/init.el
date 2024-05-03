@@ -92,7 +92,7 @@
     (kbd "<leader> b k") 'previous-buffer
     (kbd "<leader> b h") 'kill-current-buffer
   )
-  ; LSP ; 
+  ; LSP ;
   (which-key-add-key-based-replacements "SPC l" "LSP hotkeys")
   (evil-define-key 'normal 'global
     (kbd "<leader> l d") 'lsp-find-definition
@@ -253,7 +253,7 @@
   (dashboard-startup-banner "~/.config/emacs/logo.txt")
   (dashboard-display-icons-p t)
   (dashboard-center-content t)
-  (dashboard-icon-type 'nerd-icons) 
+  (dashboard-icon-type 'nerd-icons)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-projects-backend 'projectile)
@@ -295,13 +295,13 @@
   (setq org-superstar-leading-bullet "  ")
   (setq org-superstar-special-todo-items t))
 
-(setq org-format-latex-options 
-  '(:foreground default 
-    :background default 
+(setq org-format-latex-options
+  '(:foreground default
+    :background default
     :scale 3
-    :html-foreground "Black" 
-    :html-background "Transparent" 
-    :html-scale 1.0 
+    :html-foreground "Black"
+    :html-background "Transparent"
+    :html-scale 1.0
     :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
 (add-hook 'org-mode-hook
   (lambda ()

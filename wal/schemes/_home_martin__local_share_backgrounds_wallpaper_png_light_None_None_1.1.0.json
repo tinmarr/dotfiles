@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/martin/.local/share/backgrounds/wallpaper.png",
+    "alpha": "70",
+    "special": {
+        "background": "#f8f2f9",
+        "foreground": "#01021E",
+        "cursor": "#01021E"
+    },
+    "colors": {
+        "color0": "#f8f2f9",
+        "color1": "#8C227B",
+        "color2": "#245498",
+        "color3": "#46429B",
+        "color4": "#5D55A6",
+        "color5": "#B34DAE",
+        "color6": "#E963D1",
+        "color7": "#01021E",
+        "color8": "#7f6881",
+        "color9": "#8C227B",
+        "color10": "#245498",
+        "color11": "#46429B",
+        "color12": "#5D55A6",
+        "color13": "#B34DAE",
+        "color14": "#E963D1",
+        "color15": "#01021E"
+    }
+}

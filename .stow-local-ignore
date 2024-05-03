@@ -32,5 +32,7 @@ README.org # Config compiler files
 
 ^/stowall # stowall script
 ^/unstowall # unstowall script
+^/colors # colors file
+^/wal/.* # pywal stuff
 
 ^/showcase\.png
