@@ -77,3 +77,9 @@ window#waybar {
 window#waybar.empty #window {
     background: transparent;
 }
+
+/***** CLOCK *****/
+#clock {
+    border-bottom: 2px solid #BD93F9;
+    border-top: 2px solid #BD93F9;
+}

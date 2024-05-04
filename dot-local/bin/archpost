@@ -15,12 +15,12 @@ if [[ "$wm" != "n" ]]; then
     printf "$mag""Which WM? [(a)wesome/(q)tile/(h)yprland] ""$reset"
     read which
     if [[ "$which" == "h" || "$which" == "hyprland" ]]; then
-	wayland=true
+        wayland=true
     else
-	printf "$mag""Touchpad? [Y/n]""$reset"
-	read touchpad
-	printf "$mag""Intel Graphics? [Y/n]""$reset"
-	read intel
+        printf "$mag""Touchpad? [Y/n]""$reset"
+        read touchpad
+        printf "$mag""Intel Graphics? [Y/n]""$reset"
+        read intel
     fi
     printf "$mag""Nvidia Card? [Y/n]""$reset"
     read nvidia
@@ -44,7 +44,7 @@ if [[ "$fresh" != "n" ]]; then
     # Setup dotfiles
     cd $HOME
     printf "$mag""Authenticate gh with a new SSH Key (auth with web browser)""$reset""\n"
-    gh auth login # login with ssh 
+    gh auth login # login with ssh
     gh repo clone tinmarr/dotfiles
     cd dotfiles
     git submodule init
@@ -63,77 +63,77 @@ fi
 
 yay -S --needed neofetch btop ranger man xdg-user-dirs nvm
 
-case $wm in 
+case $wm in
     "n" | "N")
         echo "Skipping WM things"
         ;;
     *)
-	# Prep display server
-	if [[ $wayland = false ]]; then
-	    sudo pacman -S xorg
+        # Prep display server
+        if [[ $wayland = false ]]; then
+            sudo pacman -S xorg
 
-	    yay -Rns xorg-xbacklight
-	    localectl --no-convert set-x11-keymap "us" "" "" "compose:ralt"
+            yay -Rns xorg-xbacklight
+            localectl --no-convert set-x11-keymap "us" "" "" "compose:ralt"
 
-	    if [[ "$touchpad" != "n" ]]; then
-		echo 'Section "InputClass"
-		    Identifier "devname"
-		    Driver "libinput"
-		    MatchIsTouchpad "on"
-		    Option "Tapping" "on"
-		    Option "ClickMethod" "clickfinger"
-		    Option "NaturalScrolling" "true"
-		EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
-	    fi 
+            if [[ "$touchpad" != "n" ]]; then
+                echo 'Section "InputClass"
+                    Identifier "devname"
+                    Driver "libinput"
+                    MatchIsTouchpad "on"
+                    Option "Tapping" "on"
+                    Option "ClickMethod" "clickfinger"
+                    Option "NaturalScrolling" "true"
+                EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
+            fi
 
-	    if [[ "$intel" != "n" ]]; then
-		echo 'Section "Device"
-		    Identifier "Intel Graphics"
-		    Driver "intel"
-		    Option "TearFree" "true"
-		EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
-	    fi
+            if [[ "$intel" != "n" ]]; then
+                echo 'Section "Device"
+                    Identifier "Intel Graphics"
+                    Driver "intel"
+                    Option "TearFree" "true"
+                EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
+            fi
 
-	    if [[ "$nvidia" != "n" ]]; then
-		sudo pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils
-	    fi
-	fi
+            if [[ "$nvidia" != "n" ]]; then
+                sudo pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils
+            fi
+        fi
 
-	# Install WM
-        case "$which" in 
+        # Install WM
+        case "$which" in
             "q"|"qtile")
-                yay -S --needed qtile qtile-extras python-psutil python-dbus-next 
+                yay -S --needed qtile qtile-extras python-psutil python-dbus-next
                 ;;
             "a"|"awesome")
                 yay -S --needed awesome
                 ;;
-	    "h"|"hyprland")
-		yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
-		    xdg-desktop-portal-gtk hypridle hyprlock
-		;;
+            "h"|"hyprland")
+                yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
+                    xdg-desktop-portal-gtk hypridle hyprlock
+                ;;
             *)
                 printf "$mag""Not a valid option. No WM installed.""$reset"
                 ;;
         esac
 
-	# Install additional programs/utilities
-	if [[ $wayland = true ]]; then
-	    # Wayland only utilities
-	    yay -S --needed rofi-lbonn-wayland grim slurp
-	else
-	    # Xorg only utilities
-	    yay -S --needed rofi betterlockscreen autorandr picom xclip 
+        # Install additional programs/utilities
+        if [[ $wayland = true ]]; then
+            # Wayland only utilities
+            yay -S --needed rofi-lbonn-wayland grim slurp
+        else
+            # Xorg only utilities
+            yay -S --needed rofi betterlockscreen autorandr picom xclip
 
-	    sudo systemctl enable autorandr
-	    sudo systemctl enable autorandr-lid-listener.service
-	fi
+            sudo systemctl enable autorandr
+            sudo systemctl enable autorandr-lid-listener.service
+        fi
 
-	# Common Utilities
+        # Common Utilities
         yay -S --needed kdeconnect kitty pavucontrol \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            brave-beta-bin nautilus playerctl tlp pinentry-rofi \
+            firefox nautilus playerctl tlp pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
-	    flameshot-git ttf-jetbrains-mono-nerd acpilight 
+            flameshot-git ttf-jetbrains-mono-nerd acpilight
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
@@ -142,9 +142,9 @@ case $wm in
 
         sudo systemctl enable tlp
         printf "$mag""The following tools need to be configured manually:
-	    - nwg-look
-	    - qt5ct
-            - brave""$reset""\n"
+            - nwg-look
+            - qt5ct
+            - firefox""$reset""\n"
         ;;
 esac
 
