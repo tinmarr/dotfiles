@@ -12,11 +12,11 @@
         "clock"
     ],
     "modules-right": [
-        "tray",
         "hyprland/language",
-        "pulseaudio",
+        "tray",
         "battery",
         "backlight",
+        "pulseaudio",
     ],
     // Modules configuration
     "hyprland/workspaces": {

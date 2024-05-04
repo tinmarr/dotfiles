@@ -1,10 +1,10 @@
 configuration {
     modes: "combi";
-    font: "JetBrainsMono Nerd Font Mono 16";
+    font: "JetBrainsMono Nerd Font Mono 14";
     disable-history: false;
     auto-select: true;
     combi-display-format: "{text}";
-    window-format: "{t:40} - {c}";
+    window-format: "{t:20} - {c}";
     kb-row-up: "Control+k";
     kb-row-down: "Control+j";
     kb-accept-entry: "Return";
@@ -24,10 +24,10 @@ configuration {
     drac-pur: #bd93f9;
     drac-red: #ff5555;
     drac-yel: #f1fa8c;
-    trans: #ffffff00;
 
     foreground: @drac-fgd;
-    active-background: @drac-pnk;
+    background-color: @drac-bgd;
+    active-background: @drac-cur;
     urgent-background: @drac-red;
     urgent-foreground: @drac-bgd;
 
@@ -35,17 +35,17 @@ configuration {
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
     separatorcolor: @active-background;
-    bordercolor: @drac-cmt;
+    bordercolor: @drac-pur;
 }
 
 #window {
-    background-color: @drac-bgd;
-    border:           4;
-    border-radius:    45;
+    background-color: @background-color;
+    border:           3;
+    border-radius:    50;
     border-color:     @bordercolor;
-    padding:          40;
-    width: 40%;
-    height: 30%;
+    padding:          15;
+    width: 25%;
+    height: 50%;
 }
 #mainbox {
     border:  0;
@@ -69,10 +69,11 @@ configuration {
 }
 #element {
     border:  0;
+    border-radius: 10px;
     padding: 3px ;
 }
 #element.normal.normal {
-    background-color: @trans;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.urgent {
@@ -80,8 +81,7 @@ configuration {
     text-color:       @urgent-foreground;
 }
 #element.normal.active {
-    background-color: @active-background;
-    text-color:       @drac-bgd;
+    text-color:       @background-color;
 }
 #element.selected.normal {
     background-color: @selected-background;
@@ -93,10 +93,10 @@ configuration {
 }
 #element.selected.active {
     background-color: @selected-active-background;
-    text-color:       @drac-bgd;
+    text-color:       @background-color;
 }
 #element.alternate.normal {
-    background-color: @trans;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
@@ -124,7 +124,11 @@ configuration {
 #inputbar {
     spacing:    0;
     text-color: @foreground;
-    padding:    1px ;
+    padding:    5px 10px;
+    border-radius: 50;
+    margin: 0 2% 10px;
+    children:   [ textbox-prompt-colon,entry ];
+    background-color: @drac-cur;
 }
 #case-indicator {
     spacing:    0;
@@ -132,19 +136,18 @@ configuration {
 }
 #entry {
     spacing:    0;
+    background-color: @drac-cur;
     text-color: @drac-cya;
 }
 #prompt {
     spacing:    0;
     text-color: @drac-grn;
 }
-#inputbar {
-    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
-}
 #textbox-prompt-colon {
     expand:     false;
-    str:        ":";
+    str:        "";
     margin:     0px 0.3em 0em 0em ;
+    background-color: @drac-cur;
     text-color: @drac-pur;
 }
 element-text, element-icon {

@@ -80,7 +80,7 @@ general {
 decoration {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-    rounding = 25
+    rounding = 15
 
     blur {
         enabled = true
