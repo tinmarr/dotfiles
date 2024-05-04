@@ -629,6 +629,7 @@ Ensures windows stay at reasonable sizes
 (use-package treesit-auto
   :ensure t
   :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 #+end_src
 ** Markdown
@@ -668,6 +669,8 @@ Ensures windows stay at reasonable sizes
     (mhtml-mode . web-mode)
     (web-mode . lsp)
   )
+  :init
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 )
 #+end_src
 ** Python

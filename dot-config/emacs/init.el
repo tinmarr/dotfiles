@@ -474,6 +474,7 @@
 (use-package treesit-auto
   :ensure t
   :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
 (use-package markdown-mode :ensure t)
@@ -502,6 +503,8 @@
     (mhtml-mode . web-mode)
     (web-mode . lsp)
   )
+  :init
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 )
 
 (use-package lsp-pyright
