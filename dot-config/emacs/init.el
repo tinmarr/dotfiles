@@ -59,6 +59,8 @@
   :init
   (evil-mode 1)
   :config
+  ; Unbind RET
+  (define-key evil-motion-state-map (kbd "RET") nil)
   ; Define leader key
   (evil-set-leader nil (kbd "SPC"))
   ; Better vim keys
@@ -147,7 +149,6 @@
   (doom-modeline-always-show-macro-register t)
   (doom-modeline-unicode-fallback t)
   (doom-modeline-enable-word-count t)
-  (doom-modeline-github t)
 )
 
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-11"))
@@ -224,18 +225,34 @@
   :ensure t
   :hook org-mode prog-mode)
 
-(use-package ivy
+(use-package vertico
   :ensure t
-  :bind (:map ivy-minibuffer-map
-          ("C-l" . ivy-alt-done)
-          ("TAB" . ivy-alt-done)
-          ("C-j" . ivy-next-line)
-          ("C-k" . ivy-previous-line))
-  :config
-  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
-  (ivy-mode 1))
+  :bind (:map vertico-map
+          ("C-j" . vertico-next)
+          ("C-k" . vertico-previous)
+          ; These are backwards... interesting
+          ("C-d" . vertico-scroll-up)
+          ("C-u" . vertico-scroll-down)
+        )
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
 
-(use-package swiper :ensure t)
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic emacs22))
+)
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
 
 (use-package projectile
   :ensure t
@@ -284,7 +301,7 @@
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-latex-fragment)
+  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-special)
 )
 
 (use-package org-superstar
@@ -468,6 +485,18 @@
   (golden-ratio-mode 1)
 )
 
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode)
+)
+
+(use-package company
+  :ensure t
+  :config
+  (company-mode)
+)
+
 (require 'treesit)
 (customize-set-variable 'treesit-font-lock-level 4)
 
@@ -483,6 +512,7 @@
   :ensure t
   :hook (
     (css-ts-mode . lsp)
+    (typescript-ts-mode . lsp)
   )
   :commands lsp
 )
@@ -507,13 +537,38 @@
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 )
 
+(defun vue-on-save ()
+  "Run a CLI command on .vue files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.vue\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/vue-cli-service" "lint" (shell-quote-argument buffer-file-name))))
+
+(add-hook 'after-save-hook 'vue-on-save)
+
 (use-package lsp-pyright
   :ensure t
   :hook
-  (python-ts-mode . (lambda () (lsp) ));(flycheck-add-next-checker 'lsp 'python-pylint)))
+  (python-ts-mode . (lambda () (lsp)))
   :init
   (setq lsp-pyright-multi-root nil)
 )
+
+(use-package pyenv-mode
+  :ensure t
+  :config
+  (setq exec-path (append exec-path '("~/.pyenv/bin")))
+  (pyenv-mode)
+)
+
+(defun python-on-save ()
+  "Run a CLI command on .vue files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.py\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process-shell-command "python-on-save" "*python-on-save*" (concat ". ~/.local/bin/lazy-pyenv; isort -l 240 " buffer-file-name "; black " buffer-file-name))))
+
+(add-hook 'after-save-hook 'python-on-save)
 
 (use-package lsp-java
   :ensure t
@@ -533,18 +588,6 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (global-auto-revert-mode)
-
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode)
-)
-
-(use-package company
-  :ensure t
-  :config
-  (company-mode)
-)
 
 (setq-default indent-tabs-mode nil)
 

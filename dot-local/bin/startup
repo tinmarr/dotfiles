@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 QT_QPA_PLATFORM=xcb /usr/lib/kdeconnectd &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 playerctl daemon
 DISPLAY= emacs --daemon
+
+if command -v kanshi; then
+    kanshi &
+fi
 
 #### LOW POWER NOTFIER ####
 bat_file="/sys/class/power_supply/BAT0/capacity"
 while [[ -e "$bat_file" ]]; do
+    bat_lvl="$(cat $bat_file)"
     if [ "$bat_lvl" -le 15 ]; then
-	notify-send --urgency=CRITICAL "Battery Low" "Level: ${bat_lvl}%"
-	sleep 1200
+        notify-send --urgency=CRITICAL "Battery Low" "Level: ${bat_lvl}%"
+        sleep 120 # 2 mins
     else
-	sleep 120
+        sleep 1200 # 20 mins
     fi
 done

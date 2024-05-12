@@ -28,7 +28,8 @@ fi
 
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
-     alsa-utils ripgrep eza bat direnv stow fzf zoxide thefuck git-delta libvterm
+     alsa-utils ripgrep eza bat direnv stow fzf zoxide thefuck git-delta libvterm \
+     python-setuptools
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
@@ -133,7 +134,7 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             firefox nautilus playerctl tlp pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
-            flameshot-git ttf-jetbrains-mono-nerd acpilight
+            flameshot-git ttf-jetbrains-mono-nerd acpilight polkit-gnome
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service

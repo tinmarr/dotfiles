@@ -21,10 +21,15 @@
     - [[#nerd-fonts-for-emacs][Nerd Fonts for Emacs]]
     - [[#all-the-icons][All the icons]]
   - [[#builtin-ui-tweaks][Builtin UI Tweaks]]
+  - [[#transparency][Transparency]]
   - [[#rainbow-delimiters][Rainbow Delimiters]]
   - [[#rainbow-mode][Rainbow Mode]]
+- [[#minibuffer-improvements][Minibuffer Improvements]]
+  - [[#vertico][Vertico]]
+  - [[#orderless-completition][Orderless Completition]]
+  - [[#save-history-across-emacs-sessions][Save history across emacs sessions]]
+  - [[#marginalia][Marginalia]]
 - [[#packages][Packages]]
-  - [[#ivyswiper][Ivy/Swiper]]
   - [[#projectile][Projectile]]
     - [[#ripgrep-support][Ripgrep support]]
   - [[#dashboard][Dashboard]]
@@ -38,6 +43,8 @@
   - [[#vterm][VTerm]]
   - [[#evil-anzu][Evil Anzu]]
   - [[#golden-ratio][Golden Ratio]]
+  - [[#flycheck][Flycheck]]
+  - [[#company-mode][Company Mode]]
 - [[#language-support][Language Support]]
   - [[#tree-sitter-syntax-highlighting][Tree Sitter (Syntax Highlighting)]]
     - [[#ensure-treesitter][Ensure treesitter]]
@@ -46,16 +53,17 @@
   - [[#lsp-mode][LSP Mode]]
   - [[#lsp-ui][LSP UI]]
   - [[#web][Web]]
+  - [[#vue][Vue]]
   - [[#python][Python]]
     - [[#pyright][Pyright]]
+    - [[#pyenv-mode][Pyenv Mode]]
+    - [[#on-save][On save]]
   - [[#java][Java]]
 - [[#quality-of-life][Quality of Life]]
   - [[#move-backup-files][Move Backup Files]]
   - [[#move-custom-file][Move Custom File]]
   - [[#enable-folding][Enable Folding]]
   - [[#auto-revert][Auto Revert]]
-  - [[#flycheck][Flycheck]]
-  - [[#company-mode][Company Mode]]
   - [[#spaces-over-tabs][Spaces over tabs]]
   - [[#stuff-on-save][Stuff on save]]
 
@@ -131,6 +139,8 @@ Configure the Elpaca. We also want to use ~use-package~.
   :init
   (evil-mode 1)
   :config
+  ; Unbind RET
+  (define-key evil-motion-state-map (kbd "RET") nil)
   ; Define leader key
   (evil-set-leader nil (kbd "SPC"))
   ; Better vim keys
@@ -238,7 +248,6 @@ As always, I use the dracula theme (the one from doom-themes looks much better)
   (doom-modeline-always-show-macro-register t)
   (doom-modeline-unicode-fallback t)
   (doom-modeline-enable-word-count t)
-  (doom-modeline-github t)
 )
 #+end_src
 ** Font
@@ -315,7 +324,7 @@ As always, I use the dracula theme (the one from doom-themes looks much better)
 (setq-default left-margin-width 1 right-margin-width 1)
 (set-window-buffer nil (current-buffer))
 #+end_src
-**Transparency
+** Transparency
 #+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 75)
 (add-to-list 'default-frame-alist '(alpha-background . 75))
@@ -334,23 +343,47 @@ Displays the color for any hex (i.e. #0000FF)
   :ensure t
   :hook org-mode prog-mode)
 #+end_src
-* Packages
-** Ivy/Swiper
-Handles the better autocompletion/search functionality in the minibuffer
+* Minibuffer Improvements
+Various improvements to the minibuffer
+** Vertico
 #+begin_src emacs-lisp
-(use-package ivy
+(use-package vertico
   :ensure t
-  :bind (:map ivy-minibuffer-map
-          ("C-l" . ivy-alt-done)
-          ("TAB" . ivy-alt-done)
-          ("C-j" . ivy-next-line)
-          ("C-k" . ivy-previous-line))
-  :config
-  (setq ivy-switch-buffer-map nil) ; Remove default kill buffer binding
-  (ivy-mode 1))
-
-(use-package swiper :ensure t)
+  :bind (:map vertico-map
+          ("C-j" . vertico-next)
+          ("C-k" . vertico-previous)
+          ; These are backwards... interesting
+          ("C-d" . vertico-scroll-up)
+          ("C-u" . vertico-scroll-down)
+        )
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
 #+end_src
+** Orderless Completition
+#+begin_src emacs-lisp
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic emacs22))
+)
+#+end_src
+** Save history across emacs sessions
+#+begin_src emacs-lisp
+(use-package savehist
+  :init
+  (savehist-mode))
+#+end_src
+** Marginalia
+Tooltips to the right of options in the minibuffer
+#+begin_src emacs-lisp
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
+#+end_src
+* Packages
 ** Projectile
 [[https://github.com/bbatsov/projectile][Projectile Github]]
 #+begin_src emacs-lisp
@@ -410,7 +443,7 @@ Auto open dashboard
     '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
     '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
   )
-  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-latex-fragment)
+  (evil-define-key 'normal 'org-mode-map (kbd "<leader> i") 'org-edit-special)
 )
 #+end_src
 *** Org Superstar
@@ -617,6 +650,24 @@ Ensures windows stay at reasonable sizes
   (golden-ratio-mode 1)
 )
 #+end_src
+** Flycheck
+Modern on-the-fly syntax checking extension. [[https://github.com/flycheck/flycheck][Github]]
+#+begin_src emacs-lisp
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode)
+)
+#+end_src
+** Company Mode
+A text completion framework
+#+begin_src emacs-lisp
+(use-package company
+  :ensure t
+  :config
+  (company-mode)
+)
+#+end_src
 * Language Support
 ** Tree Sitter (Syntax Highlighting)
 *** Ensure treesitter
@@ -644,10 +695,10 @@ Ensures windows stay at reasonable sizes
   :ensure t
   :hook (
     (css-ts-mode . lsp)
+    (typescript-ts-mode . lsp)
   )
   :commands lsp
 )
-
 #+end_src
 ** LSP UI
 #+begin_src emacs-lisp
@@ -673,16 +724,47 @@ Ensures windows stay at reasonable sizes
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 )
 #+end_src
+** Vue
+#+begin_src emacs-lisp
+(defun vue-on-save ()
+  "Run a CLI command on .vue files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.vue\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/vue-cli-service" "lint" (shell-quote-argument buffer-file-name))))
+
+(add-hook 'after-save-hook 'vue-on-save)
+#+end_src
 ** Python
 *** Pyright
 #+begin_src emacs-lisp
 (use-package lsp-pyright
   :ensure t
   :hook
-  (python-ts-mode . (lambda () (lsp) ));(flycheck-add-next-checker 'lsp 'python-pylint)))
+  (python-ts-mode . (lambda () (lsp)))
   :init
   (setq lsp-pyright-multi-root nil)
 )
+#+end_src
+*** Pyenv Mode
+#+begin_src emacs-lisp
+(use-package pyenv-mode
+  :ensure t
+  :config
+  (setq exec-path (append exec-path '("~/.pyenv/bin")))
+  (pyenv-mode)
+)
+#+end_src
+*** On save
+#+begin_src emacs-lisp
+(defun python-on-save ()
+  "Run a CLI command on .vue files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.py\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process-shell-command "python-on-save" "*python-on-save*" (concat ". ~/.local/bin/lazy-pyenv; isort -l 240 " buffer-file-name "; black " buffer-file-name))))
+
+(add-hook 'after-save-hook 'python-on-save)
 #+end_src
 ** Java
 LSP Java
@@ -694,6 +776,8 @@ LSP Java
 #+end_src
 
 * Quality of Life
+This is where I make quality of life tweaks to emacs without adding packages!
+Pure vanilla Emacs here!
 ** Move Backup Files
 #+begin_src emacs-lisp
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
@@ -716,30 +800,10 @@ LSP Java
 #+begin_src emacs-lisp
 (global-auto-revert-mode)
 #+end_src
-** Flycheck
-Modern on-the-fly syntax checking extension. [[https://github.com/flycheck/flycheck][Github]]
-#+begin_src emacs-lisp
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode)
-)
-#+end_src
-** Company Mode
-A text completion framework
-#+begin_src emacs-lisp
-(use-package company
-  :ensure t
-  :config
-  (company-mode)
-)
-#+end_src
-
 ** Spaces over tabs
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+end_src
-
 ** Stuff on save
 On save, we want to:
 - Format whitespace

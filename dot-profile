@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # lazy load nvm
 if [[ -e ~/.nvm ]]
-then 
+then
     NODE_GLOBALS=(node nvm yarn)
 
     _load_nvm() {
-	source /usr/share/nvm/init-nvm.sh # Require nvm to be installed via AUR
+        source /usr/share/nvm/init-nvm.sh # Require nvm to be installed via AUR
     }
 
     for cmd in "${NODE_GLOBALS[@]}"; do
-	eval "function ${cmd}(){ unset -f ${NODE_GLOBALS[*]} 2> /dev/null; echo 'loading nvm'; _load_nvm; unset -f _load_nvm; ${cmd} \$@; }"
+        eval "function ${cmd}(){ unset -f ${NODE_GLOBALS[*]} 2> /dev/null; echo 'loading nvm'; _load_nvm; unset -f _load_nvm; ${cmd} \$@; }"
     done
 
     unset cmd NODE_GLOBALS
@@ -17,26 +17,28 @@ fi
 
 # lazy load pyenv
 if [[ -e ~/.pyenv ]]
-then 
+then
     PYENV_GLOBALS=(pyenv python pip)
 
     _load_pyenv() {
-	source ~/.local/bin/lazy-pyenv
+        source ~/.local/bin/lazy-pyenv
     }
 
     for cmd in "${PYENV_GLOBALS[@]}"; do
-	eval "function ${cmd}(){ unset -f ${PYENV_GLOBALS[*]} 2> /dev/null; echo 'loading pyenv'; _load_pyenv; unset -f _load_pyenv; ${cmd} \$@; }"
+        eval "function ${cmd}(){ unset -f ${PYENV_GLOBALS[*]} 2> /dev/null; echo 'loading pyenv'; _load_pyenv; unset -f _load_pyenv; ${cmd} \$@; }"
     done
 
     unset cmd pyenv_GLOBALS
 fi
 
-alias pgadmin="pyenv activate pgadmin && pgadmin4"
-          
+
 # Helpful functions / Aliases
 alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
-
+pgadmin () {
+    pyenv activate pgadmin
+    pgadmin4
+}
 
 # Better ls
 alias ls="exa --icons --group-directories-first"
@@ -45,19 +47,16 @@ alias la="ls -a"
 alias ll="ls -l --git --git-ignore"
 alias lla="ls -l -a --git"
 
-# Better cat
-alias cat="bat"
-export MANROFFOPT="-c" 
+# Use bat in manpages
+export MANROFFOPT="-c"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Quick Emacs in Terminal
 alias e="emacsclient -nw"
-
-# Better grep
-alias grep="rg"
-
-# Ranger follow
-alias lr=". ranger"
+# Quick Ranger
+alias r="ranger"
+# Quick History
+alias h="history 0"
 
 # Kitty SSH
 alias s="kitten ssh"
@@ -72,7 +71,7 @@ update () {
     sudo mv /tmp/mirrorlist /etc/pacman.d/
     yay -Syyu --answerclean A --answerdiff N --removemake --noconfirm
     if command -v pyenv &> /dev/null; then
-	pyenv update
+        pyenv update
     fi
     if command -v rustup &> /dev/null; then
         rustup update
