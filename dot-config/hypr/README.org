@@ -13,9 +13,12 @@ exec-once = startup
 * Monitors
 See https://wiki.hyprland.org/Configuring/Monitors/
 #+begin_src conf
+# Home config
 monitor=DP-1, 1920x1080@60, 0x0, 1
 monitor=HDMI-A-1, 1920x1080@60, 1920x0, 1
+# Laptop
 monitor=eDP-1, preferred, auto, 1
+# All other screens
 monitor=,preferred,auto,1
 #+end_src
 * Variables
@@ -242,9 +245,18 @@ bind = $mainMod SHIFT, w, exec, pidof hyprlock || hyprlock
 #+begin_src conf
 bind = $mainMod, return, exec, kitty
 bind = $mainMod, e, exec, emacsclient -c
-bind = $mainMod, r, exec, rofi -show combi
+bind = $mainMod, r, exec, pkill rofi || rofi -show combi
 bind = $mainMod, c, exec, emacsclient -c -e "(calc)"
-bind = , Print, exec, flameshot gui
+bind = , Print, exec, pkill flameshot || flameshot gui
+# mod shift r submap (run submap)
+bind = $mainMod SHIFT, r, submap, run
+submap = run
+
+bind = , b, exec, firefox
+
+bind = , catchall, submap, reset
+
+submap = reset
 #+end_src
 * Mouse Bindings
 #+begin_src conf
