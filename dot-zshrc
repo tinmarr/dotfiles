@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# Powershell prompt
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -10,10 +11,12 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
 . ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 
-setopt histignorealldups sharehistory
-setopt autocd
+# ZSH Shell options
+# https://zsh.sourceforge.io/Doc/Release/Options.html
 unsetopt beep
-unsetopt completealiases
+setopt correct
+setopt correct
+setopt histignorealldups sharehistory
 
 # Enable vi mode
 bindkey -v
@@ -48,10 +51,12 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^K' history-substring-search-up
 bindkey '^J' history-substring-search-down
-bindkey -M vicmd '^K' history-substring-search-up
-bindkey -M vicmd '^J' history-substring-search-down
 
-. ~/.profile
+# Standard Terminal Variables
+export LANG=en_US.UTF-8
+export EDITOR="emacs -nw"
+export GPG_TTY=$TTY
+
 
 # Load various shell utilities
 eval "$(direnv hook zsh)"
@@ -59,7 +64,79 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(thefuck --alias fk)"
 
-# Init completions
+# lazy load pyenv
+if [[ -e ~/.pyenv ]]
+then
+    PYENV_GLOBALS=(pyenv python pip)
+
+    _load_pyenv() {
+        source ~/.local/bin/lazy-pyenv
+    }
+
+    for cmd in "${PYENV_GLOBALS[@]}"; do
+        eval "function ${cmd}(){ unset -f ${PYENV_GLOBALS[*]} 2> /dev/null; echo 'loading pyenv'; _load_pyenv; unset -f _load_pyenv; ${cmd} \$@; }"
+    done
+
+    unset cmd pyenv_GLOBALS
+fi
+
+# Use bat in manpages
+export MANROFFOPT="-c"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+#### Quick aliases ####
+alias ls="exa --icons --group-directories-first"
+alias l="ls --git-ignore"
+alias la="ls -a"
+alias ll="ls -l --git --git-ignore"
+alias lla="ls -l -a --git"
+alias e="emacsclient -nw"
+alias r="ranger"
+alias h="history 0"
+alias s="kitten ssh"
+
+#### Macros ####
+pgadmin () {
+    pyenv activate pgadmin
+    pgadmin4
+}
+alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
+tzupdate () {
+    # Function because the curl is evaluated as an alias
+    timedatectl set-timezone $(curl https://ipapi.co/timezone)
+}
+alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
+gitc () {
+    git add .
+    git commit -m $1
+    git push
+}
+alias gits="(git fetch &>/dev/null &) && git status"
+alias gitl="git log --compact-summary"
+
+#### Update System ####
+update () {
+    sudo test
+    curl "https://archlinux.org/mirrorlist/?country=CA&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /tmp/mirrorlist
+    sed -i 's/#//' /tmp/mirrorlist
+    sudo mv /tmp/mirrorlist /etc/pacman.d/
+    yay -Syyu --answerclean A --answerdiff N --removemake --noconfirm
+    if command -v pyenv &> /dev/null; then
+        pyenv update
+    fi
+    if command -v rustup &> /dev/null; then
+        rustup update
+    fi
+    cd ~/dotfiles
+    unstowall
+    git pull
+    stowall
+    cd ~
+    exec $SHELL
+}
+
+# init completions
 autoload -Uz compinit
 compinit
 
