@@ -29,7 +29,7 @@ fi
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide git-delta libvterm \
-     python-setuptools
+     python-setuptools fastfetch btop ranger
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
@@ -61,8 +61,6 @@ if [[ "$fresh" != "n" ]]; then
     git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
     git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 fi
-
-yay -S --needed neofetch btop ranger
 
 case $wm in
     "n" | "N")

@@ -170,9 +170,3 @@ update () {
     cd ~
     exec $SHELL
 }
-
-# init completions
-autoload -Uz compinit
-compinit
-
-zinit cdreplay -q
