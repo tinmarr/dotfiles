@@ -132,7 +132,8 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             firefox nautilus playerctl tlp pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
-            flameshot-git ttf-jetbrains-mono-nerd acpilight polkit-gnome
+            flameshot-git ttf-jetbrains-mono-nerd acpilight polkit-gnome \
+            dracula-gtk-theme dracula-icons-git
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service

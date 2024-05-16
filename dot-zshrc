@@ -96,6 +96,7 @@ export GPG_TTY=$TTY
 # Load various shell utilities
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
+alias cd="z" # old habits die hard
 
 # lazy load pyenv
 if [[ -e ~/.pyenv ]]
