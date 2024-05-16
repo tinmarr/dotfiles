@@ -7,15 +7,3 @@
 [submodule "dot-icons/dracula-icons"]
 	path = dot-icons/dracula-icons
 	url = https://github.com/m4thewz/dracula-icons.git
-[submodule "dot-zsh/powerlevel10k"]
-	path = dot-zsh/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "dot-zsh/zsh-autosuggestions"]
-	path = dot-zsh/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "dot-zsh/zsh-history-substring-search"]
-	path = dot-zsh/zsh-history-substring-search
-	url = https://github.com/zsh-users/zsh-history-substring-search.git
-[submodule "dot-zsh/zsh-syntax-highlighting"]
-	path = dot-zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
