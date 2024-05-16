@@ -16,7 +16,8 @@ fi
 unsetopt beep
 setopt correct
 setopt correct
-setopt histignorealldups sharehistory
+setopt share_history append_history hist_ignore_space
+setopt hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
 
 # Enable vi mode
 bindkey -v
@@ -31,6 +32,7 @@ bindkey "^[[3~" delete-char
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
+HISTDUP=erase
 
 # append completions to fpath
 # Use modern completion system
@@ -39,7 +41,11 @@ zstyle :compinstall filename '/home/martin/.zshrc'
 fpath=(~/.zsh/completions $fpath)
 
 zstyle ':completion:*' menu select
+# Case insensitive completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+# Colors in completions
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 
 # Plugins
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

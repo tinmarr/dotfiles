@@ -10,9 +10,11 @@ fi
 
 #### LOW POWER NOTFIER ####
 bat_file="/sys/class/power_supply/BAT0/capacity"
+status_file="/sys/class/power_supply/BAT0/status"
 while [[ -e "$bat_file" ]]; do
     bat_lvl="$(cat $bat_file)"
-    if [ "$bat_lvl" -le 15 ]; then
+    status="$(cat $status_file)"
+    if [[ "$bat_lvl" -le 15 && "$status" == "Charging" ]]; then
         notify-send --urgency=CRITICAL "Battery Low" "Level: ${bat_lvl}%"
         sleep 120 # 2 mins
     else
