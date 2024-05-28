@@ -459,6 +459,8 @@
 (use-package company
   :ensure t
   :config
+  (setq company-minimum-prefix-length 1)
+  (push 'company-yassnippet company-backends)
   (company-mode)
 )
 
@@ -500,6 +502,7 @@
   )
   :init
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+  (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)
 )
 
 (defun vue-on-save ()
@@ -550,7 +553,7 @@
 (setq custom-file "~/.config/emacs/emacs-custom.el")
 (ignore-errors (load custom-file))
 
-(add-hook 'prog-mode-hook 'hs-minor-mode)
+(add-hook 'prog-mode-hook 'outline-minor-mode)
 
 (global-auto-revert-mode)
 

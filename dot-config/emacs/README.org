@@ -626,6 +626,8 @@ A text completion framework
 (use-package company
   :ensure t
   :config
+  (setq company-minimum-prefix-length 1)
+  (push 'company-yassnippet company-backends)
   (company-mode)
 )
 #+end_src
@@ -683,6 +685,7 @@ A text completion framework
   )
   :init
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+  (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)
 )
 #+end_src
 ** Vue
@@ -755,7 +758,7 @@ Pure vanilla Emacs here!
 #+end_src
 ** Enable Folding
 #+begin_src emacs-lisp
-(add-hook 'prog-mode-hook 'hs-minor-mode)
+(add-hook 'prog-mode-hook 'outline-minor-mode)
 #+end_src
 ** Auto Revert
 #+begin_src emacs-lisp
