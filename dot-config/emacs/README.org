@@ -58,6 +58,7 @@
     - [[#pyenv-mode][Pyenv Mode]]
     - [[#on-save][On save]]
   - [[#java][Java]]
+  - [[#haskell][Haskell]]
 - [[#quality-of-life][Quality of Life]]
   - [[#move-backup-files][Move Backup Files]]
   - [[#move-custom-file][Move Custom File]]
@@ -627,7 +628,7 @@ A text completion framework
   :ensure t
   :config
   (setq company-minimum-prefix-length 1)
-  (push 'company-yassnippet company-backends)
+  (push 'company-yasnippet company-backends)
   (company-mode)
 )
 #+end_src
@@ -739,6 +740,12 @@ LSP Java
 )
 #+end_src
 
+** Haskell
+#+begin_src emacs-lisp
+(use-package haskell-mode
+  :ensure t
+)
+#+end_src
 * Quality of Life
 This is where I make quality of life tweaks to emacs without adding packages!
 Pure vanilla Emacs here!

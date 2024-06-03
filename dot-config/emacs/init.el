@@ -460,7 +460,7 @@
   :ensure t
   :config
   (setq company-minimum-prefix-length 1)
-  (push 'company-yassnippet company-backends)
+  (push 'company-yasnippet company-backends)
   (company-mode)
 )
 
@@ -541,6 +541,10 @@
 (use-package lsp-java
   :ensure t
   :hook (java-ts-mode . lsp)
+)
+
+(use-package haskell-mode
+  :ensure t
 )
 
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
