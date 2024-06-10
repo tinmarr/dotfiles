@@ -1,14 +1,7 @@
 #!/usr/bin/env zsh
-# Powershell prompt
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
+# Load prompt
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/theme.json)"
 
 # Plugin Manager (zinit)
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -16,14 +9,18 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" # zinit isn't installed, install it
 source "${ZINIT_HOME}/zinit.zsh"
 
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 # Install plugins
-zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit wait lucid light-mode for \
       atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
       atinit"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting \
       zsh-users/zsh-history-substring-search \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
-      Aloxaf/fzf-tab
+      Aloxaf/fzf-tab \
+      atload'eval "$(pyenv init -)"' atload'eval "$(pyenv virtualenv-init -)"' "$PYENV_ROOT"
 
 # Install snippets
 zinit ice wait lucid; zinit snippet OMZP::sudo
@@ -97,22 +94,6 @@ export GPG_TTY=$TTY
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 alias cd="z" # old habits die hard
-
-# lazy load pyenv
-if [[ -e ~/.pyenv ]]
-then
-    PYENV_GLOBALS=(pyenv python pip)
-
-    _load_pyenv() {
-        source ~/.local/bin/lazy-pyenv
-    }
-
-    for cmd in "${PYENV_GLOBALS[@]}"; do
-        eval "function ${cmd}(){ unset -f ${PYENV_GLOBALS[*]} 2> /dev/null; echo 'loading pyenv'; _load_pyenv; unset -f _load_pyenv; ${cmd} \$@; }"
-    done
-
-    unset cmd pyenv_GLOBALS
-fi
 
 # Use bat in manpages
 export MANROFFOPT="-c"

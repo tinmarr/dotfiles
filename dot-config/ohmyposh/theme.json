@@ -1,0 +1,72 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "blocks": [
+    {
+      "type": "rprompt",
+      "segments": [
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "cyan",
+          "template": "  {{.Venv}} {{ .Full }} "
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "os",
+          "style": "plain",
+          "template": "{{.Icon}} "
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "blue",
+          "template": "{{ if not .Writable }} {{else}}{{ if matchP \"^~$\" .Path}} {{else}} {{end}}{{end}}{{ .Path }} ",
+          "properties": {
+            "style": "powerlevel"
+          }
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "green",
+          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
+          "properties": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "branch_icon": " "
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "red",
+          "foreground_templates": [
+            "{{ if eq .Code 0 }}green{{ end }}"
+          ],
+          "template": "❯ "
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "transient_prompt": {
+    "foreground": "red",
+    "foreground_templates": [
+      "{{ if eq .Code 0 }}green{{ end }}"
+    ],
+    "template": "❯ "
+  }
+}
