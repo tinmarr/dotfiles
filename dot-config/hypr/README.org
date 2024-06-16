@@ -71,8 +71,6 @@ general {
 
     layout = dwindle
 
-    no_cursor_warps = true
-
     # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
     allow_tearing = false
 }
@@ -158,6 +156,14 @@ dwindle {
 opengl {
     nvidia_anti_flicker = true
     force_introspection = 0
+}
+#+end_src
+* Cursor
+#+begin_src conf
+cursor {
+    no_warps = true
+    no_hardware_cursors = true
+    hide_on_touch = true
 }
 #+end_src
 * Keybindings
