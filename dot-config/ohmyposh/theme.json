@@ -9,7 +9,7 @@
           "type": "session",
           "style": "plain",
           "foreground": "green",
-          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }}"
+          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }} "
         },
         {
           "type": "python",
