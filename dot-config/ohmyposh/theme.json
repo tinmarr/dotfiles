@@ -6,10 +6,27 @@
       "type": "rprompt",
       "segments": [
         {
+          "type": "session",
+          "style": "plain",
+          "foreground": "green",
+          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }}"
+        },
+        {
           "type": "python",
           "style": "plain",
           "foreground": "cyan",
-          "template": "  {{.Venv}} {{ .Full }} "
+          "template": " {{.Venv}} {{ .Full }} "
+        },
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "lightMagenta",
+          "template": "{{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 500,
+            "style": "austin",
+            "always_enabled": false
+          }
         }
       ]
     },
