@@ -21,7 +21,7 @@
           "type": "executiontime",
           "style": "plain",
           "foreground": "lightMagenta",
-          "template": "{{ .FormattedMs }} ",
+          "template": "󰥔 {{ .FormattedMs }} ",
           "properties": {
             "threshold": 500,
             "style": "austin",

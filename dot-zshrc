@@ -9,12 +9,11 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" # zinit isn't installed, install it
 source "${ZINIT_HOME}/zinit.zsh"
 
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Install plugins
-zinit wait lucid light-mode for \
+zinit wait"" lucid light-mode for \
       atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
       atinit"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting \
       zsh-users/zsh-history-substring-search \
