@@ -17,9 +17,9 @@ See https://wiki.hyprland.org/Configuring/Monitors/
 monitor=DP-1, 1920x1080@60, 0x0, 1
 monitor=HDMI-A-1, 1920x1080@60, 1920x0, 1
 # Laptop
-monitor=eDP-1, preferred, auto, 1, bitdepth, 10
+monitor=eDP-1, preferred, auto, 1
 # All other screens
-monitor=,preferred,auto,1, bitdepth, 10
+monitor=,preferred,auto,1
 #+end_src
 * Variables
 ** Config Variables
@@ -186,10 +186,10 @@ bind = $mainMod, f, fullscreen
 #+end_src
 Moving windows
 #+begin_src conf
-bind = $mainMod SHIFT, h, movewindow, l
-bind = $mainMod SHIFT, l, movewindow, r
-bind = $mainMod SHIFT, k, movewindow, u
-bind = $mainMod SHIFT, j, movewindow, d
+bind = $mainMod SHIFT, h, swapwindow, l
+bind = $mainMod SHIFT, l, swapwindow, r
+bind = $mainMod SHIFT, k, swapwindow, u
+bind = $mainMod SHIFT, j, swapwindow, d
 #+end_src
 Split Ratio Edit
 #+begin_src conf
