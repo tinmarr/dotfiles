@@ -29,10 +29,10 @@ $mainMod = SUPER
 ** Env variables
 Hyprland Restart required to update these
 #+begin_src conf
-env = XCURSOR_SIZE,12
-envd = XCURSOR_SIZE,12 # Passed to systemd
+env = XCURSOR_SIZE,10
+envd = XCURSOR_SIZE,10 # Passed to systemd
 env = HYPRCURSOR_THEME,theme_oreo_cursor_hypr
-env = HYPRCURSOR_SIZE,12
+env = HYPRCURSOR_SIZE,10
 env = QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that
 #+end_src
 *** Nvidia support
@@ -41,7 +41,6 @@ env = LIBVA_DRIVER_NAME,nvidia
 env = XDG_SESSION_TYPE,wayland
 env = GBM_BACKEND,nvidia-drm
 env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-env = WLR_NO_HARDWARE_CURSORS,1
 #+end_src
 *** Forcing wayland
 #+begin_src conf
@@ -130,6 +129,15 @@ input {
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 }
 #+end_src
+* Gestures
+#+begin_src conf
+gestures {
+    workspace_swipe = true
+    workspace_swipe_cancel_ratio = 0
+    workspace_swipe_min_speed_to_force = 0
+    workspace_swipe_direction_lock_threshold = 1000
+}
+#+end_src
 * Misc
 #+begin_src conf
 misc {
@@ -158,11 +166,16 @@ opengl {
     force_introspection = 0
 }
 #+end_src
+* Render
+#+begin_src conf
+render {
+    direct_scanout = true
+}
+#+end_src
 * Cursor
 #+begin_src conf
 cursor {
     no_warps = true
-    no_hardware_cursors = true
     hide_on_touch = true
 }
 #+end_src
@@ -279,7 +292,6 @@ bindl=,switch:Lid Switch, exec, ~/.config/hypr/switch.sh
 windowrulev2 = workspace 4 silent, class:Slack
 windowrulev2 = workspace 4 silent, class:WebCord
 windowrulev2 = workspace 10 silent, title:^(Spotify Premium)$
-windowrulev2 = workspace 5 silent, class:zoom
 #+end_src
 ** Annoying notification windows from chromium
 #+begin_src conf

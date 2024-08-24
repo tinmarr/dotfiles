@@ -52,7 +52,7 @@
   - [[#lsp-mode][LSP Mode]]
   - [[#lsp-ui][LSP UI]]
   - [[#web][Web]]
-  - [[#vue][Vue]]
+  - [[#vuetsjs][Vue/TS/JS]]
   - [[#python][Python]]
     - [[#pyright][Pyright]]
     - [[#pyenv-mode][Pyenv Mode]]
@@ -689,14 +689,14 @@ A text completion framework
   (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)
 )
 #+end_src
-** Vue
+** Vue/TS/JS
 #+begin_src emacs-lisp
 (defun vue-on-save ()
   "Run a CLI command on .vue files before saving, in the file's directory."
   (interactive)
-  (when (string-match-p "\\.vue\\'" buffer-file-name)
+  (when (or (string-match-p "\\.vue" buffer-file-name) (string-match-p "\\.ts" buffer-file-name) (string-match-p "\\.js" buffer-file-name))
     (cd (projectile-project-root))
-    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/vue-cli-service" "lint" (shell-quote-argument buffer-file-name))))
+    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/eslint" (shell-quote-argument buffer-file-name) "--fix")))
 
 (add-hook 'after-save-hook 'vue-on-save)
 #+end_src

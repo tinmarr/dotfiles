@@ -508,9 +508,9 @@
 (defun vue-on-save ()
   "Run a CLI command on .vue files before saving, in the file's directory."
   (interactive)
-  (when (string-match-p "\\.vue\\'" buffer-file-name)
+  (when (or (string-match-p "\\.vue" buffer-file-name) (string-match-p "\\.ts" buffer-file-name) (string-match-p "\\.js" buffer-file-name))
     (cd (projectile-project-root))
-    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/vue-cli-service" "lint" (shell-quote-argument buffer-file-name))))
+    (start-process "vue-on-save" "*vue-on-save*" "node" "./node_modules/.bin/eslint" (shell-quote-argument buffer-file-name) "--fix")))
 
 (add-hook 'after-save-hook 'vue-on-save)
 
