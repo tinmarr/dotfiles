@@ -30,7 +30,7 @@ I've used quite a few things in the past and this repo houses all of configs for
 
 Install Arch normally. Then:
 ```shell
-curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/.local/bin/archpost" > archpost && \
+curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/dot-local/bin/archpost" > archpost && \
 ./archpost && \
 rm archpost
 ```
