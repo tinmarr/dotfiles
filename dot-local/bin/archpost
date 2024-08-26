@@ -135,7 +135,7 @@ case $wm in
         # Common Utilities
         yay -S --needed kdeconnect kitty pavucontrol \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            firefox nautilus playerctl tlp pinentry-rofi \
+            firefox nautilus playerctl pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
             flameshot-git ttf-jetbrains-mono-nerd acpilight polkit-gnome \
             dracula-gtk-theme dracula-icons-git
@@ -143,9 +143,6 @@ case $wm in
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
 
-        sudo cp ~/.config/tlp.conf /etc
-
-        sudo systemctl enable tlp
         printf "$mag""The following tools need to be configured manually:
             - nwg-look
             - emacs (just open it)
