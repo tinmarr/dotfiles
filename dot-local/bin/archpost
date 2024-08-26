@@ -26,10 +26,13 @@ if [[ "$wm" != "n" ]]; then
     read nvidia
 fi
 
+# System upgrade
+sudo pacman -Syu
+
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide git-delta libvterm \
-     python-setuptools fastfetch btop ranger
+     python-setuptools fastfetch btop ranger vim
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland

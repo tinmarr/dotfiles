@@ -169,7 +169,7 @@ opengl {
 * Render
 #+begin_src conf
 render {
-    direct_scanout = true
+#    direct_scanout = true
 }
 #+end_src
 * Cursor
