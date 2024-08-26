@@ -113,7 +113,7 @@ case $wm in
                 ;;
             "h"|"hyprland")
                 yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
-                    xdg-desktop-portal-gtk hypridle hyprlock
+                    xdg-desktop-portal-gtk hypridle hyprlock waybar
                 ;;
             *)
                 printf "$mag""Not a valid option. No WM installed.""$reset"
@@ -148,8 +148,9 @@ case $wm in
         sudo systemctl enable tlp
         printf "$mag""The following tools need to be configured manually:
             - nwg-look
-            - qt5ct
-            - firefox""$reset""\n"
+            - emacs (just open it)
+            - firefox
+            - GPG key""$reset""\n"
         ;;
 esac
 
