@@ -1,29 +1,30 @@
 [core]
-	editor = emacsclient -nw 
+        editor = emacsclient -nw
 [user]
-	name = Martin Chaperot
-	email = martin.chapino@gmail.com
-	signingkey = 15B87AFCCED88630 
+        name = Martin Chaperot
+        email = martin.chapino@gmail.com
+        # signingkey = 15B87AFCCED88630
+        signingkey = 4D9A41B6AAAF68F6
 [fetch]
-	prune = true
+        prune = true
 [commit]
-	gpgsign = true
+        gpgsign = true
 [gpg]
-	program = /usr/bin/gpg
+        program = /usr/bin/gpg
 [push]
-	autoSetupRemote = true
+        autoSetupRemote = true
 [pull]
-	rebase = false
+        rebase = false
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+        helper =
+        helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+        helper =
+        helper = !/usr/bin/gh auth git-credential
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
 [init]
-	defaultBranch = main
+        defaultBranch = main
