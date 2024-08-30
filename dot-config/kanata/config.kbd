@@ -1,0 +1,10 @@
+;; -*- mode: lisp -*-
+(defcfg
+    linux-dev-names-exclude ("Nasp Quark LP")
+)
+(defsrc
+    caps
+)
+(deflayer base
+    esc
+)

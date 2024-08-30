@@ -32,7 +32,7 @@ sudo pacman -Syu
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide git-delta libvterm \
-     python-setuptools fastfetch btop ranger vim
+     python-setuptools fastfetch btop ranger vim man-db
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
@@ -137,8 +137,8 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             firefox nautilus playerctl pinentry-rofi \
             rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
-            flameshot-git ttf-jetbrains-mono-nerd acpilight polkit-gnome \
-            dracula-gtk-theme dracula-icons-git
+            flameshot-git ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
+            dracula-gtk-theme dracula-icons-git kanata-bin
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
