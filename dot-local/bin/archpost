@@ -123,7 +123,7 @@ case $wm in
         # Install additional programs/utilities
         if [[ $wayland = true ]]; then
             # Wayland only utilities
-            yay -S --needed rofi-lbonn-wayland grim slurp
+            yay -S --needed rofi-wayland grim slurp
         else
             # Xorg only utilities
             yay -S --needed rofi betterlockscreen autorandr picom xclip
