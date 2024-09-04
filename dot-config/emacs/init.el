@@ -239,6 +239,11 @@
   :ensure t
   :init
   (setq completion-styles '(orderless basic emacs22))
+  ; Doesn't need to be here but since I'm doing completion stuff here anyways...
+  (setq orderless-smart-case nil)
+  (setq completion-ignore-case t)
+  (setq read-file-name-completion-ignore-case t)
+  (setq read-buffer-completion-ignore-case t)
 )
 
 (use-package savehist
