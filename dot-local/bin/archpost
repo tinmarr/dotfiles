@@ -126,17 +126,16 @@ case $wm in
             yay -S --needed rofi-wayland grim slurp
         else
             # Xorg only utilities
-            yay -S --needed rofi betterlockscreen autorandr picom xclip
+            yay -S --needed rofi betterlockscreen autorandr picom xclip rofi-calc
 
             sudo systemctl enable autorandr
             sudo systemctl enable autorandr-lid-listener.service
         fi
 
         # Common Utilities
-        yay -S --needed kdeconnect kitty pavucontrol \
+        yay -S --needed kdeconnect kitty pavucontrol qalculate-gtk \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            firefox nautilus playerctl pinentry-rofi \
-            rofi-calc  noto-fonts noto-fonts-emoji python-pillow \
+            firefox nautilus playerctl noto-fonts-emoji python-pillow \
             flameshot-git ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             dracula-gtk-theme dracula-icons-git kanata-bin
 

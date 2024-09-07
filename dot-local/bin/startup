@@ -4,13 +4,9 @@ QT_QPA_PLATFORM=xcb /usr/lib/kdeconnectd &
 playerctl daemon
 DISPLAY= emacs --daemon
 
-if command -v kanshi; then
-    kanshi &
-fi
-
 #### LOW POWER NOTFIER ####
-bat_file="/sys/class/power_supply/BAT0/capacity"
-status_file="/sys/class/power_supply/BAT0/status"
+bat_file="/sys/class/power_supply/BAT1/capacity"
+status_file="/sys/class/power_supply/BAT1/status"
 while [[ -e "$bat_file" ]]; do
     bat_lvl="$(cat $bat_file)"
     status="$(cat $status_file)"
