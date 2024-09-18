@@ -316,7 +316,7 @@
 (setq org-format-latex-options
   '(:foreground default
     :background "Transparent"
-    :scale 1
+    :scale 0.75
     :html-foreground "Black"
     :html-background "Transparent"
     :html-scale 1.0
@@ -324,6 +324,14 @@
 (add-hook 'org-mode-hook
   (lambda ()
       (add-hook 'after-save-hook 'org-latex-preview nil 'make-local)))
+
+(use-package auctex :ensure t)
+(use-package cdlatex
+  :after org auctex
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+)
 
 (add-hook 'org-mode-hook
   (lambda ()

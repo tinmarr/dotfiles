@@ -36,6 +36,7 @@
   - [[#org-mode][Org Mode]]
     - [[#org-superstar][Org Superstar]]
     - [[#latex-formating][Latex Formating]]
+    - [[#speedy-latex][Speedy Latex]]
     - [[#auto-image-rendering][Auto image rendering]]
     - [[#auto-tangleing][Auto Tangleing]]
     - [[#toc-org][TOC Org]]
@@ -463,7 +464,7 @@ Auto open dashboard
 (setq org-format-latex-options
   '(:foreground default
     :background "Transparent"
-    :scale 1
+    :scale 0.75
     :html-foreground "Black"
     :html-background "Transparent"
     :html-scale 1.0
@@ -471,6 +472,16 @@ Auto open dashboard
 (add-hook 'org-mode-hook
   (lambda ()
       (add-hook 'after-save-hook 'org-latex-preview nil 'make-local)))
+#+end_src
+*** Speedy Latex
+#+begin_src emacs-lisp
+(use-package auctex :ensure t)
+(use-package cdlatex
+  :after org auctex
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+)
 #+end_src
 *** Auto image rendering
 #+begin_src emacs-lisp
