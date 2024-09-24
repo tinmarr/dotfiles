@@ -173,6 +173,12 @@ render {
 #    direct_scanout = true
 }
 #+end_src
+* Xwayland
+#+begin_src conf
+xwayland {
+    force_zero_scaling = true
+}
+#+end_src
 * Cursor
 #+begin_src conf
 cursor {
