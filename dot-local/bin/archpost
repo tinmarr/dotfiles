@@ -135,7 +135,7 @@ case $wm in
         # Common Utilities
         yay -S --needed kdeconnect kitty pavucontrol qalculate-gtk \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
-            firefox nautilus playerctl noto-fonts-emoji python-pillow \
+            zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
             flameshot-git ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             dracula-gtk-theme dracula-icons-git kanata-bin
 
