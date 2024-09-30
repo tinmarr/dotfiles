@@ -85,7 +85,7 @@ bindkey '^J' history-substring-search-down
 
 # Standard Terminal Variables
 export LANG=en_US.UTF-8
-export EDITOR="emacs -nw"
+export EDITOR="emacsclient -nw"
 export GPG_TTY=$TTY
 
 
