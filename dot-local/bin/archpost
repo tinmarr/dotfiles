@@ -32,7 +32,7 @@ sudo pacman -Syu
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide git-delta libvterm \
-     python-setuptools fastfetch btop ranger vim man-db
+     python-setuptools fastfetch btop ranger vim man-db tmux 
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
@@ -65,7 +65,7 @@ if [[ "$fresh" != "n" ]]; then
     git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 fi
 
-yay -S oh-my-posh
+yay -S oh-my-posh tmux-plugin-manager
 
 case $wm in
     "n" | "N")
