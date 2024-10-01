@@ -139,16 +139,27 @@ gestures {
     workspace_swipe_direction_lock_threshold = 1000
 }
 #+end_src
+* Group
+#+begin_src conf
+group {
+    groupbar {
+        height = 4
+        render_titles = false
+    }
+}
+#+end_src
 * Misc
 #+begin_src conf
 misc {
     disable_hyprland_logo = true
     disable_splash_rendering = true
     force_default_wallpaper = 0
+    vrr = 1
     mouse_move_enables_dpms = true
     key_press_enables_dpms = true
     enable_swallow = true
     allow_session_lock_restore = true
+    font_family = JetBrainsMonoNerdFont
 }
 #+end_src
 * Layouts
@@ -201,7 +212,6 @@ bind = $mainMod, k, movefocus, u
 bind = $mainMod, j, movefocus, d
 bind = $mainMod ALT, l, focusmonitor, -1
 bind = $mainMod ALT, h, focusmonitor, 1
-bind = $mainMod, u, focusurgentorlast
 bind = ALT, TAB, focuscurrentorlast
 #+end_src
 ** Layout Editing
@@ -212,10 +222,10 @@ bind = $mainMod, f, fullscreen
 #+end_src
 Moving windows
 #+begin_src conf
-bind = $mainMod SHIFT, h, swapwindow, l
-bind = $mainMod SHIFT, l, swapwindow, r
-bind = $mainMod SHIFT, k, swapwindow, u
-bind = $mainMod SHIFT, j, swapwindow, d
+bind = $mainMod SHIFT, h, movewindoworgroup, l
+bind = $mainMod SHIFT, l, movewindoworgroup, r
+bind = $mainMod SHIFT, k, movewindoworgroup, u
+bind = $mainMod SHIFT, j, movewindoworgroup, d
 #+end_src
 Split Ratio Edit
 #+begin_src conf
@@ -228,6 +238,11 @@ Move workspace to monitor
 #+begin_src conf
 bind = $mainMod CONTROL ALT, l, moveworkspacetomonitor, +0 -1
 bind = $mainMod CONTROL ALT, h, moveworkspacetomonitor, +0 1
+#+end_src
+** Groups
+#+begin_src conf
+bind = $mainMod, g, togglegroup
+bind = $mainMod, TAB, changegroupactive
 #+end_src
 ** Workspace Switching
 Switch workspaces with mainMod + [0-9]
