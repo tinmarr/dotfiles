@@ -160,23 +160,23 @@ dwindle {
     preserve_split = true
 }
 #+end_src
+* Xwayland
+#+begin_src conf
+xwayland {
+    force_zero_scaling = true
+}
+#+end_src
 * OpenGL
 #+begin_src conf
 opengl {
     nvidia_anti_flicker = true
-    force_introspection = 0
+    force_introspection = 2
 }
 #+end_src
 * Render
 #+begin_src conf
 render {
-#    direct_scanout = true
-}
-#+end_src
-* Xwayland
-#+begin_src conf
-xwayland {
-    force_zero_scaling = true
+    direct_scanout = true
 }
 #+end_src
 * Cursor
