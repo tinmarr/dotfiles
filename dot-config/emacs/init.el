@@ -210,6 +210,9 @@
 ;; remove line wrap
 (setq-default truncate-lines t)
 
+;; tab width
+(setq-default tab-width 4)
+
 (set-frame-parameter nil 'alpha-background 75)
 (add-to-list 'default-frame-alist '(alpha-background . 75))
 
@@ -543,7 +546,7 @@
 )
 
 (defun python-on-save ()
-  "Run a CLI command on .vue files before saving, in the file's directory."
+  "Run a CLI command on .py files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.py\\'" buffer-file-name)
     (cd (projectile-project-root))
@@ -559,6 +562,22 @@
 (use-package haskell-mode
   :ensure t
 )
+
+(setq lsp-go-analyses '((shadow . t)
+                        (simplifycompositelit . :json-false)))
+
+(add-hook 'go-ts-mode-hook 'lsp)
+
+(setq-default go-ts-mode-indent-offset 4)
+
+(defun go-on-save ()
+  "Run a CLI command on .go files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.go\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process-shell-command "go-on-save" "*go-on-save*" "go fmt .")))
+
+(add-hook 'after-save-hook 'go-on-save)
 
 (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
       backup-by-copying      t  ; Don't de-link hard links

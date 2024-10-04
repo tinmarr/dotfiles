@@ -151,3 +151,8 @@ update () {
     cd ~
     exec $SHELL
 }
+
+#### Quick Scripts ####
+clone () {
+    gh repo clone $(gh repo list --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
+}

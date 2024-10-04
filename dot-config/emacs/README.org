@@ -60,6 +60,8 @@
     - [[#on-save][On save]]
   - [[#java][Java]]
   - [[#haskell][Haskell]]
+  - [[#go][Go]]
+    - [[#on-save-1][On save]]
 - [[#quality-of-life][Quality of Life]]
   - [[#move-backup-files][Move Backup Files]]
   - [[#move-custom-file][Move Custom File]]
@@ -320,6 +322,9 @@ As always, I use the dracula theme (the one from doom-themes looks much better)
 
 ;; remove line wrap
 (setq-default truncate-lines t)
+
+;; tab width
+(setq-default tab-width 4)
 #+end_src
 ** Transparency
 #+begin_src emacs-lisp
@@ -739,7 +744,7 @@ A text completion framework
 *** On save
 #+begin_src emacs-lisp
 (defun python-on-save ()
-  "Run a CLI command on .vue files before saving, in the file's directory."
+  "Run a CLI command on .py files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.py\\'" buffer-file-name)
     (cd (projectile-project-root))
@@ -761,6 +766,26 @@ LSP Java
 (use-package haskell-mode
   :ensure t
 )
+#+end_src
+** Go
+#+begin_src emacs-lisp
+(setq lsp-go-analyses '((shadow . t)
+                        (simplifycompositelit . :json-false)))
+
+(add-hook 'go-ts-mode-hook 'lsp)
+
+(setq-default go-ts-mode-indent-offset 4)
+#+end_src
+*** On save
+#+begin_src emacs-lisp
+(defun go-on-save ()
+  "Run a CLI command on .go files before saving, in the file's directory."
+  (interactive)
+  (when (string-match-p "\\.go\\'" buffer-file-name)
+    (cd (projectile-project-root))
+    (start-process-shell-command "go-on-save" "*go-on-save*" "go fmt .")))
+
+(add-hook 'after-save-hook 'go-on-save)
 #+end_src
 * Quality of Life
 This is where I make quality of life tweaks to emacs without adding packages!
