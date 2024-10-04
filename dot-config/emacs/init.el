@@ -213,8 +213,8 @@
 ;; tab width
 (setq-default tab-width 4)
 
-(set-frame-parameter nil 'alpha-background 75)
-(add-to-list 'default-frame-alist '(alpha-background . 75))
+;(set-frame-parameter nil 'alpha-background 75)
+;(add-to-list 'default-frame-alist '(alpha-background . 75))
 
 (use-package rainbow-delimiters
   :ensure t
