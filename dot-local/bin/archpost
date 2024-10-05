@@ -31,8 +31,8 @@ sudo pacman -Syu
 
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
-     alsa-utils ripgrep eza bat direnv stow fzf zoxide git-delta libvterm \
-     python-setuptools fastfetch btop ranger vim man-db tmux 
+     alsa-utils ripgrep eza bat direnv stow fzf zoxide libvterm \
+     python-setuptools fastfetch btop ranger vim man-db tmux
 
 if [[ $wayland = true ]]; then
     sudo pacman -S --needed emacs-wayland
@@ -137,7 +137,7 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
             flameshot-git ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
-            dracula-gtk-theme dracula-icons-git kanata-bin
+            dracula-gtk-theme dracula-icons-git
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
@@ -145,7 +145,7 @@ case $wm in
         printf "$mag""The following tools need to be configured manually:
             - nwg-look
             - emacs (just open it)
-            - firefox
+            - zen-browser
             - GPG key""$reset""\n"
         ;;
 esac
