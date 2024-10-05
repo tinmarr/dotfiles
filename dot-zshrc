@@ -135,15 +135,16 @@ update () {
     curl "https://archlinux.org/mirrorlist/?country=CA&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /tmp/mirrorlist
     sed -i 's/#//' /tmp/mirrorlist
     sudo mv /tmp/mirrorlist /etc/pacman.d/
-    yay -Syyu --answerclean N --answerdiff N --removemake --noconfirm
+    (yay -Syyu --answerclean N --answerdiff N --removemake --noconfirm &> /tmp/update.log) &
     if command -v pyenv &> /dev/null; then
-        pyenv update
+        (pyenv update &> /tmp/pyupdate.log) &
     fi
     if command -v rustup &> /dev/null; then
-        rustup update
+        (rustup update &> /tmp/rustupdate.log) &
     fi
-    zinit self-update
-    zinit update --parallel
+    (zinit self-update &> /dev/null) &
+    (zinit update --parallel &> /dev/null) &
+    wait
     cd ~/dotfiles
     unstowall
     git pull
