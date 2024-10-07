@@ -397,6 +397,7 @@ Tooltips to the right of options in the minibuffer
 (use-package projectile
   :ensure t
   :config
+
   (projectile-mode 1))
 #+end_src
 *** Ripgrep support
