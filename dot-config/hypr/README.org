@@ -192,8 +192,11 @@ render {
 * Cursor
 #+begin_src conf
 cursor {
+    no_hardware_cursors = true
     no_warps = true
+    hide_on_key_press = true
     hide_on_touch = true
+    allow_dumb_copy = true
 }
 #+end_src
 * Debug
