@@ -157,3 +157,11 @@ update () {
 clone () {
     gh repo clone $(gh repo list --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
 }
+
+virt-cam-reset() {
+    echo "Make sure to turn off any virtual cameras before continuing"
+    echo "Press any key to continue:"
+    read
+    sudo modprobe -r v4l2loopback
+    sudo modprobe v4l2loopback
+}

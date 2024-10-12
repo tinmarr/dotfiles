@@ -41,7 +41,6 @@
     - [[#auto-tangleing][Auto Tangleing]]
     - [[#toc-org][TOC Org]]
   - [[#treemacs][Treemacs]]
-  - [[#vterm][VTerm]]
   - [[#evil-anzu][Evil Anzu]]
   - [[#flycheck][Flycheck]]
   - [[#company-mode][Company Mode]]
@@ -161,11 +160,12 @@ Configure the Elpaca. We also want to use ~use-package~.
     (kbd "<leader> r") (lambda () (interactive)
                             (load-file "~/.config/emacs/init.el")
                             (ignore (elpaca-process-queues)))
+    (kbd "<leader> c") 'comment-line
   )
   ; PROJECTILE ;
   (evil-define-key 'normal 'global
     (kbd "C-p") 'projectile-find-file
-    (kbd "C-S-o") 'projectile-switch-project
+    (kbd "C-S-p") 'projectile-switch-project
     (kbd "C-S-f") 'projectile-ripgrep
   )
   ; BUFFER MANAGEMENT ;
@@ -612,15 +612,6 @@ Allows for table of contents in org files
   :after (treemacs magit)
   :ensure t)
 #+end_src
-** VTerm
-#+begin_src emacs-lisp
-(use-package vterm
-  :ensure t
-  :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
-  :custom
-  (vterm-kill-buffer-on-exit t)
-)
-#+end_src
 ** Evil Anzu
 Anzu is a package that displays the current match count + total count in the mode line
 #+begin_src emacs-lisp
@@ -748,7 +739,7 @@ A text completion framework
   "Run a CLI command on .py files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.py\\'" buffer-file-name)
-    (cd (projectile-project-root))
+    (cd (file-name-directory buffer-file-name))
     (start-process-shell-command "python-on-save" "*python-on-save*" (concat ". ~/.local/bin/lazy-pyenv; isort -l 240 " buffer-file-name "; black " buffer-file-name))))
 
 (add-hook 'after-save-hook 'python-on-save)
@@ -783,7 +774,7 @@ LSP Java
   "Run a CLI command on .go files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.go\\'" buffer-file-name)
-    (cd (projectile-project-root))
+    (cd (file-name-directory buffer-file-name))
     (start-process-shell-command "go-on-save" "*go-on-save*" "go fmt .")))
 
 (add-hook 'after-save-hook 'go-on-save)

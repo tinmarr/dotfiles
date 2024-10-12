@@ -31,7 +31,7 @@ sudo pacman -Syu
 
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
-     alsa-utils ripgrep eza bat direnv stow fzf zoxide libvterm \
+     alsa-utils ripgrep eza bat direnv stow fzf zoxide \
      python-setuptools fastfetch btop ranger vim man-db tmux
 
 if [[ $wayland = true ]]; then

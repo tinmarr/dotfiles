@@ -78,11 +78,12 @@
     (kbd "<leader> r") (lambda () (interactive)
                             (load-file "~/.config/emacs/init.el")
                             (ignore (elpaca-process-queues)))
+    (kbd "<leader> c") 'comment-line
   )
   ; PROJECTILE ;
   (evil-define-key 'normal 'global
     (kbd "C-p") 'projectile-find-file
-    (kbd "C-S-o") 'projectile-switch-project
+    (kbd "C-S-p") 'projectile-switch-project
     (kbd "C-S-f") 'projectile-ripgrep
   )
   ; BUFFER MANAGEMENT ;
@@ -450,13 +451,6 @@
   :after (treemacs magit)
   :ensure t)
 
-(use-package vterm
-  :ensure t
-  :hook (vterm-mode . (lambda () (setq display-line-numbers nil)))
-  :custom
-  (vterm-kill-buffer-on-exit t)
-)
-
 (use-package evil-anzu
   :ensure t
   :after (evil)
@@ -550,7 +544,7 @@
   "Run a CLI command on .py files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.py\\'" buffer-file-name)
-    (cd (projectile-project-root))
+    (cd (file-name-directory buffer-file-name))
     (start-process-shell-command "python-on-save" "*python-on-save*" (concat ". ~/.local/bin/lazy-pyenv; isort -l 240 " buffer-file-name "; black " buffer-file-name))))
 
 (add-hook 'after-save-hook 'python-on-save)
@@ -575,7 +569,7 @@
   "Run a CLI command on .go files before saving, in the file's directory."
   (interactive)
   (when (string-match-p "\\.go\\'" buffer-file-name)
-    (cd (projectile-project-root))
+    (cd (file-name-directory buffer-file-name))
     (start-process-shell-command "go-on-save" "*go-on-save*" "go fmt .")))
 
 (add-hook 'after-save-hook 'go-on-save)
