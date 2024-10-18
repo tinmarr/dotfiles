@@ -1,6 +1,6 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+jf not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
@@ -22,8 +22,21 @@ require("lazy").setup({
 			'nvim-telescope/telescope.nvim', 
 			tag = '0.1.8',
 			dependencies = {'nvim-lua/plenary.nvim'},
+			opts = {
+				defaults = {
+					mappings = {
+						i = {
+							["<C-j>"] = "move_selection_next",
+							["<C-k>"] = "move_selection_previous",
+							["<esc>"] = "close",
+						}
+					}
+				}
+			},
 			keys = {
-				{"<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find file"}
+				{"<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file"},
+				{"<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Project-wide search"},
+				{"<leader>bl", "<cmd>Telescope buffers<cr>", desc = "Project-wide search"},
 			},
 		},
 		{"nvim-treesitter/nvim-treesitter"},
