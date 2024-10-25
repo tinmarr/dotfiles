@@ -4,7 +4,7 @@ return {
 	ft = { "lua", "go" },
 	config = function()
 		require("nvim-treesitter.configs").setup {
-			ensure_installed = { "lua", "go" },
+			ensure_installed = { "lua" },
 			auto_install = true,
 			sync_install = false,
 			ignore_install = { "org" },

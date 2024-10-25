@@ -32,13 +32,13 @@ sudo pacman -Syu
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide \
-     python-setuptools fastfetch btop ranger vim man-db tmux
+     python-setuptools fastfetch btop ranger vim man-db tmux neovim
 
-if [[ $wayland = true ]]; then
-    sudo pacman -S --needed emacs-wayland
-else
-    sudo pacman -S --needed emacs
-fi
+# if [[ $wayland = true ]]; then
+#     sudo pacman -S --needed emacs-wayland
+# else
+#     sudo pacman -S --needed emacs
+# fi
 
 if [[ "$fresh" != "n" ]]; then
     # Configure user
@@ -144,7 +144,6 @@ case $wm in
 
         printf "$mag""The following tools need to be configured manually:
             - nwg-look
-            - emacs (just open it)
             - zen-browser
             - GPG key""$reset""\n"
         ;;
