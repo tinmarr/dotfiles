@@ -1,5 +1,5 @@
 return {
-	"https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+	"HiPhish/rainbow-delimiters.nvim",
 	config = function(_, _)
 		require("rainbow-delimiters.setup").setup {
 			highlight = {
