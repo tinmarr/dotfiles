@@ -155,6 +155,11 @@ update () {
 }
 
 #### Quick Scripts ####
+zv () {
+    z $1
+    v
+}
+
 clone () {
     gh repo clone $(gh repo list --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
 }
