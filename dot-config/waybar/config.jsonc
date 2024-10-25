@@ -12,22 +12,24 @@
         "clock"
     ],
     "modules-right": [
-        "hyprland/language",
         "tray",
+        "custom/dunst",
         "battery",
         "backlight",
         "pulseaudio",
     ],
     // Modules configuration
+    "custom/dunst": {
+        "exec": "~/.config/waybar/dunst.sh",
+        "on-click": "dunstctl set-paused toggle",
+        "restart-interval": 1,
+    },
     "hyprland/workspaces": {
     },
     "hyprland/window": {
         "max-length": 20,
         "min-length": 20,
         "separate-outputs": true,
-    },
-    "hyprland/language": {
-        "format": "{variant}"
     },
     "tray": {
         "spacing": 10

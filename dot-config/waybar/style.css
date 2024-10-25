@@ -12,6 +12,7 @@ window#waybar {
     padding: 0;
 }
 
+#custom-dunst,
 #clock,
 #battery,
 #cpu,
@@ -37,6 +38,11 @@ window#waybar {
     padding: 5px 10px;
     background: #282A36;
     border-radius: 10px;
+}
+
+
+#custom-dunst {
+    font-size: 14px;
 }
 
 .modules-left,
