@@ -123,10 +123,10 @@ case $wm in
         # Install additional programs/utilities
         if [[ $wayland = true ]]; then
             # Wayland only utilities
-            yay -S --needed rofi-wayland grim slurp
+            yay -S --needed rofi-wayland grim slurp swappy wl-clipboard
         else
             # Xorg only utilities
-            yay -S --needed rofi betterlockscreen autorandr picom xclip rofi-calc
+            yay -S --needed rofi betterlockscreen autorandr picom xclip rofi-calc flameshot-git
 
             sudo systemctl enable autorandr
             sudo systemctl enable autorandr-lid-listener.service
@@ -136,7 +136,7 @@ case $wm in
         yay -S --needed kdeconnect kitty pavucontrol qalculate-gtk \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
-            flameshot-git ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
+            ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             dracula-gtk-theme dracula-icons-git
 
         sudo systemctl enable ly
