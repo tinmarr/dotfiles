@@ -3,7 +3,7 @@ return {
     build = ":TSUpdate",
     config = function()
         require("nvim-treesitter.configs").setup {
-            ensure_installed = { "lua", "hyprlang" },
+            ensure_installed = { "lua", "hyprlang", "latex" },
             auto_install = true,
             sync_install = false,
             ignore_install = { "org" },
