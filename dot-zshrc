@@ -109,6 +109,7 @@ alias v="nvim"
 alias r="ranger"
 alias h="history 0"
 alias s="kitten ssh"
+alias lg="lazygit"
 
 #### Macros ####
 pgadmin () {
