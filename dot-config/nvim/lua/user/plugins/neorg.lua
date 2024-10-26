@@ -32,7 +32,10 @@ return {
                     engine = "nvim-cmp",
                 }
             },
+            ["core.integrations.image"] = {},
             ["core.latex.renderer"] = {},
+            ["core.export"] = {},
+            ["core.export.markdown"] = {},
         },
     },
     config = function(_, opts)
