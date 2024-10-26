@@ -6,7 +6,7 @@ return {
             ensure_installed = { "lua", "hyprlang", "latex" },
             auto_install = true,
             sync_install = false,
-            ignore_install = { "org" },
+            ignore_install = {},
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = false

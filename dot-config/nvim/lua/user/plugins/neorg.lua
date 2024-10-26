@@ -1,9 +1,12 @@
 return {
     "nvim-neorg/neorg",
-    lazy = false,
+    ft = { "norg" },
     version = "*",
     dependencies = {
         "3rd/image.nvim",
+    },
+    keys = {
+        { "<leader>an", "<cmd>Neorg workspace notes<cr>", desc = "Open notes" },
     },
     opts = {
         load = {
@@ -16,6 +19,18 @@ return {
                     },
                     default_workspace = "notes",
                 },
+            },
+            ["core.tangle"] = {
+                config = {
+                    tangle_on_write = true,
+                    report_on_empty = false,
+                },
+            },
+            ["core.completion"] = {
+                config = {
+                    name = "neorg",
+                    engine = "nvim-cmp",
+                }
             },
             ["core.latex.renderer"] = {},
         },
