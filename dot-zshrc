@@ -104,11 +104,11 @@ alias l="ls --git-ignore"
 alias la="ls -a"
 alias ll="ls -l --git --git-ignore"
 alias lla="ls -l -a --git"
-alias e="emacsclient -nw"
 alias v="nvim"
 alias h="history 0"
 alias s="kitten ssh"
 alias lg="lazygit"
+alias icat="kitten icat"
 
 #### Macros ####
 pgadmin () {
