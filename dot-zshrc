@@ -85,7 +85,7 @@ bindkey '^J' history-substring-search-down
 
 # Standard Terminal Variables
 export LANG=en_US.UTF-8
-export EDITOR="emacsclient -nw"
+export EDITOR="nvim"
 export GPG_TTY=$TTY
 
 
@@ -100,11 +100,12 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 #### Quick aliases ####
 alias ls="eza --icons --group-directories-first"
-alias l="ls --git-ignore"
+alias l="ls"
 alias la="ls -a"
-alias ll="ls -l --git --git-ignore"
+alias ll="ls -l --git"
 alias lla="ls -l -a --git"
 alias v="nvim"
+alias t="tmux"
 alias h="history 0"
 alias s="kitten ssh"
 alias lg="lazygit"
@@ -160,9 +161,19 @@ zv () {
     v .
 }
 
-zf () {
+zt () {
+    z $1
+    t $(basename $PWD)
+}
+
+zfv () {
     cd $HOME/$(cd $HOME && fd . -t directory | fzf)
     v .
+}
+
+zft () {
+    cd $HOME/$(cd $HOME && fd . -t directory | fzf)
+    t $(basename $PWD)
 }
 
 clone () {
