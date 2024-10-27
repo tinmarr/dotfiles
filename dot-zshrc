@@ -163,7 +163,7 @@ zv () {
 
 zt () {
     z $1
-    t $(basename $PWD)
+    t new -s $(basename $PWD)
 }
 
 zfv () {
@@ -173,7 +173,7 @@ zfv () {
 
 zft () {
     cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    t $(basename $PWD)
+    t new -s $(basename $PWD)
 }
 
 clone () {

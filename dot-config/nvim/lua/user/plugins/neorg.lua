@@ -11,7 +11,13 @@ return {
     opts = {
         load = {
             ["core.defaults"] = {},
-            ["core.concealer"] = {},
+            ["core.concealer"] = {
+                config = {
+                    icons = {
+                        code_block = false,
+                    },
+                },
+            },
             ["core.dirman"] = {
                 config = {
                     workspaces = {
