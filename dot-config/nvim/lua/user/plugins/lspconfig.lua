@@ -14,15 +14,17 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua" },
+        ft = { "go", "lua", "yaml" },
         dependencies = {
             "williamboman/mason.nvim",
-            "hrsh7th/cmp-nvim-lsp"
+            "hrsh7th/cmp-nvim-lsp",
+            "williamboman/mason-lspconfig.nvim",
         },
         opts = {
             servers = {
                 lua_ls = {},
                 gopls = {},
+                yamlls = {},
             },
         },
         config = function(_, opts)
@@ -44,9 +46,9 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
         },
-        ft = { "lua", "go" },
+        lazy = true,
         opts = {
-            ensure_installed = { "lua_ls", "gopls" }
+            ensure_installed = { "lua_ls", "gopls", "yamlls" }
         }
     },
     {
