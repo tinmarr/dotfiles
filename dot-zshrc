@@ -161,7 +161,7 @@ zv () {
 }
 
 zf () {
-    cd $HOME/$(fd --full-path $HOME -t directory | fzf)
+    cd $HOME/$(cd $HOME && fd . -t directory | fzf)
     v .
 }
 
