@@ -1,3 +1,14 @@
+local function attempt_telescope()
+    local ok, _ = pcall(
+    ---@diagnostic disable-next-line: param-type-mismatch
+        vim.cmd,
+        "Telescope git_files show_untracked_true"
+    )
+    if not ok then
+        vim.cmd("Telescope find_files")
+    end
+end
+
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -19,7 +30,7 @@ return {
             }
         },
         keys = {
-            { "<C-p>",      "<cmd>Telescope git_files show_untracked=true<cr>",                               desc = "Find git file" },
+            { "<C-p>",      attempt_telescope,                                                                desc = "Find file (best strat)" },
             { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                  desc = "Find file" },
             { "<leader>fh", "<cmd>Telescope find_files hidden=true no_ignore=true no_ignore_parent=true<cr>", desc = "Find hidden file" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>",                                                   desc = "Grep through working dir" },
