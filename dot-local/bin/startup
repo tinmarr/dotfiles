@@ -3,7 +3,7 @@ QT_QPA_PLATFORM=xcb setsid -f /usr/bin/kdeconnectd
 setsid -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 setsid -f kdeconnect-indicator
 playerctl daemon
-DISPLAY= emacs --daemon
+tmux new -s "gen" -d
 
 #### LOW POWER NOTFIER ####
 bat_file="/sys/class/power_supply/BAT1/capacity"

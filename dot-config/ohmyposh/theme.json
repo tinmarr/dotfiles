@@ -1,89 +1,104 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-  "version": 2,
+  "transient_prompt": {
+    "template": "❯ ",
+    "foreground": "red",
+    "foreground_templates": [
+      "{{ if eq .Code 0 }}green{{ end }}"
+    ]
+  },
   "blocks": [
     {
       "type": "rprompt",
       "segments": [
         {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }} ",
+          "foreground": "green",
           "type": "session",
-          "style": "plain",
-          "foreground": "green",
-          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }} "
+          "style": "plain"
         },
         {
-          "type": "python",
-          "style": "plain",
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "\ue235 {{.Venv}} {{ .Full }} ",
           "foreground": "cyan",
-          "template": " {{.Venv}} {{ .Full }} "
+          "type": "python",
+          "style": "plain"
         },
         {
-          "type": "executiontime",
-          "style": "plain",
-          "foreground": "lightMagenta",
-          "template": "󰥔 {{ .FormattedMs }} ",
           "properties": {
-            "threshold": 500,
+            "always_enabled": false,
+            "cache_duration": "none",
             "style": "austin",
-            "always_enabled": false
-          }
+            "threshold": 500
+          },
+          "template": "\udb82\udd54 {{ .FormattedMs }} ",
+          "foreground": "lightMagenta",
+          "type": "executiontime",
+          "style": "plain"
         }
       ]
     },
     {
       "type": "prompt",
       "alignment": "left",
-      "newline": true,
       "segments": [
         {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{.Icon}} ",
           "type": "os",
-          "style": "plain",
-          "template": "{{.Icon}} "
+          "style": "plain"
         },
         {
-          "type": "path",
-          "style": "plain",
-          "foreground": "blue",
-          "template": "{{ if not .Writable }} {{else}}{{ if matchP \"^~$\" .Path}} {{else}} {{end}}{{end}}{{ .Path }} ",
           "properties": {
+            "cache_duration": "none",
             "style": "powerlevel"
-          }
+          },
+          "template": "{{ if not .Writable }}\uf023 {{else}}{{ if matchP \"^~$\" .Path}}\uf015 {{else}}\uf07c {{end}}{{end}}{{ .Path }} ",
+          "foreground": "blue",
+          "type": "path",
+          "style": "plain"
         },
         {
-          "type": "git",
-          "style": "plain",
-          "foreground": "green",
-          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
           "properties": {
+            "branch_icon": "\uf126 ",
+            "cache_duration": "none",
             "fetch_status": true,
-            "fetch_upstream_icon": true,
-            "branch_icon": " "
-          }
+            "fetch_upstream_icon": true
+          },
+          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }}",
+          "foreground": "green",
+          "type": "git",
+          "style": "plain"
         }
-      ]
+      ],
+      "newline": true
     },
     {
       "type": "prompt",
       "alignment": "left",
       "segments": [
         {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "❯ ",
+          "foreground": "red",
           "type": "text",
           "style": "plain",
-          "foreground": "red",
           "foreground_templates": [
             "{{ if eq .Code 0 }}green{{ end }}"
-          ],
-          "template": "❯ "
+          ]
         }
       ],
       "newline": true
     }
   ],
-  "transient_prompt": {
-    "foreground": "red",
-    "foreground_templates": [
-      "{{ if eq .Code 0 }}green{{ end }}"
-    ],
-    "template": "❯ "
-  }
+  "version": 3
 }
