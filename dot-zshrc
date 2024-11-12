@@ -14,7 +14,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Install plugins
 zinit wait"" lucid light-mode for \
-      atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
+      atload"_zsh_autosuggest_start; unalias zi" zsh-users/zsh-autosuggestions \
       atinit"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting \
       zsh-users/zsh-history-substring-search \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
@@ -161,22 +161,34 @@ update () {
 #### Quick Scripts ####
 zv () {
     z $1
-    v .
+    v $(fzf)
 }
 
 zt () {
-    z $1
-    t new -s $(basename $PWD)
+    work_dir=$(zoxide query $1)
+    sesh_name=$(basename $work_dir)
+    t new -s $sesh_name -c $work_dir -d
+    if [[ -z "$TMUX" ]]; then
+        t a -t $sesh_name
+    else
+        t switchc -t $sesh_name
+    fi
 }
 
 zfv () {
     cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    v .
+    v $(fzf)
 }
 
 zft () {
-    cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    t new -s $(basename $PWD)
+    work_dir=$(cd $HOME && fd . -t directory | fzf)
+    sesh_name=$(basename $work_dir)
+    t new -s $sesh_name -c $work_dir -d 
+    if [[ -z "$TMUX" ]]; then
+        t a -t $sesh_name
+    else
+        t switchc -t $sesh_name
+    fi
 }
 
 clone () {
