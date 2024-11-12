@@ -112,6 +112,9 @@ alias lg="lazygit"
 alias icat="kitten icat"
 
 #### Macros ####
+vf () {
+    v $(fzf)
+}
 pgadmin () {
     pyenv activate pgadmin
     pgadmin4
