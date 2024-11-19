@@ -5,14 +5,13 @@ return {
         "nvim-tree/nvim-web-devicons"
     },
     event = "VeryLazy",
-    init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
-    end,
+    ---@class wk.Opts
     opts = {
+        preset = "helix",
         icons = {
             mappings = false
-        }
+        },
+        delay = 500,
     },
     config = function(_, opts)
         local wk = require("which-key")
@@ -21,6 +20,7 @@ return {
             { "<leader>b", group = "buffer" },
             { "<leader>f", group = "telescope" },
             { "<leader>l", group = "lsp" },
+            { "<leader>d", group = "debugger" },
             { "<leader>c", group = "comment" },
             { "<leader>a", group = "apps" },
             { "<leader>t", group = "table mode" },
