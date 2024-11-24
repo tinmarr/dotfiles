@@ -10,7 +10,8 @@ return {
             ignore_install = {},
             highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = false
+                additional_vim_regex_highlighting = false,
+                disable = { "latex" },
             },
             indent = {
                 enable = true
