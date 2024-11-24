@@ -151,9 +151,8 @@ update () {
     zinit update --parallel 
 
     cd ~/dotfiles
-    unstowall
     git pull
-    stowall
+    unstowall && stowall
     cd ~
     exec $SHELL
 }
