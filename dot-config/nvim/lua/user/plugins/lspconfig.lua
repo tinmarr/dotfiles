@@ -14,7 +14,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml", "vue", "ts" },
+        ft = { "go", "lua", "yaml", "vue", "ts", "json" },
         dependencies = {
             "williamboman/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -34,6 +34,7 @@ return {
                         "vue",
                     },
                 },
+                jsonls = {},
             },
         },
         config = function(_, opts)
@@ -75,7 +76,7 @@ return {
         },
         lazy = true,
         opts = {
-            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls" }
+            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls" }
         }
     },
     {
