@@ -14,7 +14,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml" },
+        ft = { "go", "lua", "yaml", "vue", "ts" },
         dependencies = {
             "williamboman/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -25,6 +25,15 @@ return {
                 lua_ls = {},
                 gopls = {},
                 yamlls = {},
+                volar = {},
+                ts_ls = {
+                    init_options = {}, -- defined at runtime
+                    filetypes = {
+                        "javascript",
+                        "typescript",
+                        "vue",
+                    },
+                },
             },
         },
         config = function(_, opts)
@@ -33,10 +42,28 @@ return {
 
 
             for name, conf in pairs(opts.servers) do
+                if name == "ts_ls" then
+                    local mason_registry = require('mason-registry')
+                    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+                        '/node_modules/@vue/language-server'
+
+                    conf.init_options = {
+                        plugins = {
+                            {
+                                name = "@vue/typescript-plugin",
+                                location = vue_language_server_path,
+                                languages = { "vue" },
+                            }
+                        }
+                    }
+                end
+
                 lspconfig[name].setup {
                     capabilities = capabilities,
-                    settings = conf.settings,
                     on_attach = on_attach,
+                    settings = conf.settings,
+                    init_options = conf.init_options,
+                    filetypes = conf.filetypes,
                 }
             end
         end
@@ -48,7 +75,7 @@ return {
         },
         lazy = true,
         opts = {
-            ensure_installed = { "lua_ls", "gopls", "yamlls" }
+            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls" }
         }
     },
     {
