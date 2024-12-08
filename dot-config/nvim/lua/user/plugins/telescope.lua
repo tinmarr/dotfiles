@@ -2,7 +2,7 @@ local function attempt_telescope()
     local ok, _ = pcall(
     ---@diagnostic disable-next-line: param-type-mismatch
         vim.cmd,
-        "Telescope git_files show_untracked_true"
+        "Telescope git_files"
     )
     if not ok then
         vim.cmd("Telescope find_files")
