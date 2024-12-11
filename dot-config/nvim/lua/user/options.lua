@@ -20,5 +20,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = "bufcheck",
     pattern = "*",
-    callback = function() vim.cmd("%s/\\s\\+$//ge|norm!``") end
+    callback = function()
+        vim.cmd("exe 'normal ms'")
+        vim.cmd("%s/\\s\\+$//ge")
+        vim.cmd("exe 'normal `s'")
+    end
 })
