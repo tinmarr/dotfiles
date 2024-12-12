@@ -26,3 +26,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.cmd("exe 'normal `s'")
     end
 })
+
+-- correctly highlight .envrc files
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.envrc",
+    callback = function()
+        vim.cmd("set filetype=bash")
+    end
+})
