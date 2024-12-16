@@ -7,6 +7,18 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 
+vim.api.nvim_create_augroup("onstart", { clear = true })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = "onstart",
+    callback = function()
+        if require("lazy.status").has_updates then
+            require("lazy").update({ show = false, })
+        end
+    end
+})
+
+
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
 
 -- highlight yanks
