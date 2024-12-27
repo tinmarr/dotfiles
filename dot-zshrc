@@ -148,14 +148,14 @@ update () {
         pyenv update
     fi
     if command -v rustup &> /dev/null; then
-        rustup update 
+        rustup update
     fi
-    zinit self-update 
-    zinit update --parallel 
+    zinit self-update
+    zinit update --parallel
 
     cd ~/dotfiles
     git pull
-    unstowall && stowall
+    ./unstowall && ./stowall
     cd ~
     exec $SHELL
 }
@@ -185,7 +185,7 @@ zfv () {
 zft () {
     work_dir=$(cd $HOME && fd . -t directory | fzf)
     sesh_name=$(basename $work_dir)
-    t new -s $sesh_name -c $work_dir -d 
+    t new -s $sesh_name -c $work_dir -d
     if [[ -z "$TMUX" ]]; then
         t a -t $sesh_name
     else
