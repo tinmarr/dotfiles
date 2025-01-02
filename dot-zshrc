@@ -110,9 +110,8 @@ alias lla="ls -l -a --git"
 alias v="nvim"
 alias t="tmux"
 alias h="history 0"
-alias s="kitten ssh"
+alias s="ssh"
 alias lg="lazygit"
-alias icat="kitten icat"
 
 #### Macros ####
 vf () {
