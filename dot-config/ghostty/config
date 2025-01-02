@@ -12,7 +12,6 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = true
 
-window-decoration = false
 window-theme = ghostty
 
 resize-overlay = never
@@ -22,6 +21,8 @@ confirm-close-surface = false
 shell-integration-features = true
 
 gtk-single-instance = true
+gtk-titlebar = false
+gtk-adwaita = false
 
 # Remove alt+number bindings (used in tmux)
 keybind = alt+one=unbind
