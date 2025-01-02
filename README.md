@@ -13,9 +13,8 @@ I've used quite a few things in the past and this repo houses all of configs for
 
 * *OS*: Arch Linux
 * *WM*: Hyprland
-* *Display Server*: Wayland
-* *Text editor/IDE*: GNU Emacs
-* *Terminal Emulator*: Kitty
+* *Text editor/IDE*: Neovim
+* *Terminal Emulator*: Ghostty
 * *Shell*: ZSH
 * *Themes*: Dracula... on everthing
 
@@ -23,8 +22,8 @@ I've used quite a few things in the past and this repo houses all of configs for
 *Note that I do not maintain these since I do not use the*
 
 * *WMs*: QTile, AwesomeWM
-* *Display Server*: X11
-* *Terminal Emulators*: Alacritty
+* *Text editor/IDE*: GNU Emacs
+* *Terminal Emulators*: Alacritty, Kitty
 
 ## To get onto new computer
 

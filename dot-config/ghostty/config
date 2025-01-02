@@ -1,0 +1,35 @@
+# vim: set filetype=config :
+
+font-family = JetBrainsMono Nerd Font
+
+theme = Dracula
+
+background-opacity = 0.75
+
+minimum-contrast = 1.5
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+
+window-decoration = false
+window-theme = ghostty
+
+resize-overlay = never
+
+confirm-close-surface = false
+
+shell-integration-features = true
+
+gtk-single-instance = true
+
+# Remove alt+number bindings (used in tmux)
+keybind = alt+one=unbind
+keybind = alt+two=unbind
+keybind = alt+three=unbind
+keybind = alt+four=unbind
+keybind = alt+five=unbind
+keybind = alt+six=unbind
+keybind = alt+seven=unbind
+keybind = alt+eight=unbind
+keybind = alt+nine=unbind

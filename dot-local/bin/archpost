@@ -133,7 +133,7 @@ case $wm in
         fi
 
         # Common Utilities
-        yay -S --needed kdeconnect kitty pavucontrol qalculate-gtk \
+        yay -S --needed kdeconnect ghostty pavucontrol qalculate-gtk \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
