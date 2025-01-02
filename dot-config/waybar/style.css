@@ -37,7 +37,7 @@ window#waybar {
     margin-left: 5px;
     padding: 5px 10px;
     background: #282A36;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 
@@ -50,8 +50,8 @@ window#waybar {
 .modules-right {
     margin-top: 5px;
     margin-bottom: 0;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 /***** WORKSPACE *****/

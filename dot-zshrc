@@ -109,8 +109,8 @@ alias ll="ls -l --git"
 alias lla="ls -l -a --git"
 alias v="nvim"
 alias t="tmux"
-alias h="history 0"
 alias s="ssh"
+alias h="history 0"
 alias lg="lazygit"
 
 #### Macros ####
