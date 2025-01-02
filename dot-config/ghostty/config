@@ -6,7 +6,7 @@ theme = Dracula
 
 background-opacity = 0.75
 
-minimum-contrast = 1.5
+minimum-contrast = 1
 
 window-padding-x = 0
 window-padding-y = 0
