@@ -6,6 +6,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
+vim.opt.conceallevel = 2
 
 vim.api.nvim_create_augroup("onstart", { clear = true })
 
