@@ -154,7 +154,7 @@ update () {
 
     cd ~/dotfiles
     git pull
-    ./unstowall && ./stowall
+    ./restowall
     cd ~
     exec $SHELL
 }
