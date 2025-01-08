@@ -115,7 +115,7 @@ alias lg="lazygit"
 
 #### Macros ####
 vf () {
-    v $(fzf)
+    v "$(fzf)"
 }
 pgadmin () {
     pyenv activate pgadmin
@@ -162,7 +162,7 @@ update () {
 #### Quick Scripts ####
 zv () {
     z $1
-    v $(fzf)
+    vf
 }
 
 zt () {
@@ -178,7 +178,7 @@ zt () {
 
 zfv () {
     cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    v $(fzf)
+    vf
 }
 
 zft () {
