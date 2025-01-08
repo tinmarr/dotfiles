@@ -15,6 +15,11 @@ return {
                 name = "notes",
                 path = "~/notes"
             }
-        }
+        },
+        completion = {
+            min_chars = 1
+        },
+        mappings = {},
+        disable_frontmatter = true,
     }
 }
