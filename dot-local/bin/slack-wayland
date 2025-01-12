@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer -use-gl=egl
+slack -use-gl=egl
