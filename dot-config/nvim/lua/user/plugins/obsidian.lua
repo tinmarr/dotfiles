@@ -10,7 +10,8 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     keys = {
-        { "<leader>op", "<cmd>ObsidianQuickSwitch<cr>", desc = "ObsidianQuickSwitch" },
+        { "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", desc = "ObsidianQuickSwitch" },
+        { "<leader>og", "<cmd>ObsidianSearch<cr>",      desc = "ObsidianSearch" },
         { "<leader>oo", "<cmd>ObsidianOpen<cr>",        desc = "Open obsidian" },
         { "<leader>op", "<cmd>ObsidianPasteImg<cr>",    desc = "Paste image" },
         { "<leader>ox", "<cmd>ObsidianFollowLink<cr>",  desc = "Follow link" },
