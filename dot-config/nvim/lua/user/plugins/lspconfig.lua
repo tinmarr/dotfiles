@@ -14,7 +14,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml", "vue", "ts", "json" },
+        ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp" },
         dependencies = {
             "williamboman/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -35,6 +35,7 @@ return {
                     },
                 },
                 jsonls = {},
+                clangd = {},
             },
         },
         config = function(_, opts)

@@ -10,6 +10,26 @@ return {
             { "<leader>do", "<cmd>lua require('dap').step_over()<cr>",         desc = "Step over" },
             { "<leader>du", "<cmd>lua require('dap').step_out()<cr>",          desc = "Step out" },
         },
+        config = function(_, _)
+            local dap = require("dap")
+            dap.adapters.gdb = {
+                type = "executable",
+                command = "gdb",
+                args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+            }
+            dap.configurations.c = {
+                {
+                    name = "Launch",
+                    type = "gdb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = false,
+                },
+            }
+        end
     },
     {
         "rcarriga/nvim-dap-ui",
