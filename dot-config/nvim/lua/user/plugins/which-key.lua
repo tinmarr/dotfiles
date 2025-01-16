@@ -24,6 +24,7 @@ return {
             { "<leader>c", group = "comment" },
             { "<leader>a", group = "apps" },
             { "<leader>t", group = "table mode" },
+            { "<leader>o", group = "obsidian" },
         })
     end,
 }

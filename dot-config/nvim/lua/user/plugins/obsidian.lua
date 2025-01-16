@@ -9,6 +9,12 @@ return {
         "nvim-telescope/telescope.nvim",
         "nvim-treesitter/nvim-treesitter",
     },
+    keys = {
+        { "<leader>op", "<cmd>ObsidianQuickSwitch<cr>", desc = "ObsidianQuickSwitch" },
+        { "<leader>oo", "<cmd>ObsidianOpen<cr>",        desc = "Open obsidian" },
+        { "<leader>op", "<cmd>ObsidianPasteImg<cr>",    desc = "Paste image" },
+        { "<leader>ox", "<cmd>ObsidianFollowLink<cr>",  desc = "Follow link" },
+    },
     opts = {
         workspaces = {
             {
