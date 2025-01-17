@@ -2,7 +2,7 @@
 
 font-family = JetBrainsMono Nerd Font
 
-theme = Dracula
+theme = catppuccin-mocha
 
 background-opacity = 0.75
 
