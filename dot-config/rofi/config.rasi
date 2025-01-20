@@ -1,5 +1,5 @@
 configuration {
-    modes: "combi";
+    modes: "run";
     font: "JetBrainsMono Nerd Font Mono 14";
     disable-history: false;
     auto-select: true;
@@ -12,40 +12,36 @@ configuration {
 }
 
 * {
-    /* Dracula theme colour palette */
-    drac-bgd: #282a36;
-    drac-cur: #44475a;
-    drac-fgd: #f8f8f2;
-    drac-cmt: #6272a4;
-    drac-cya: #8be9fd;
-    drac-grn: #50fa7b;
-    drac-ora: #ffb86c;
-    drac-pnk: #ff79c6;
-    drac-pur: #bd93f9;
-    drac-red: #ff5555;
-    drac-yel: #f1fa8c;
+    base: #1e1e2e;
+    mantle: #181825;
+    surface0: #313244;
+    surface1: #45475a;
+    text: #cdd6f4;
+    sapphire: #74c7ec;
+    green: #a6e3a1;
+    mauve: #cba6f7;
+    red: #f38ba8;
 
-    foreground: @drac-fgd;
-    background-color: @drac-bgd;
-    active-background: @drac-cur;
-    urgent-background: @drac-red;
-    urgent-foreground: @drac-bgd;
+    foreground: @text;
+    background-color: @base;
+    active-background: @surface1;
+    urgent-background: @red;
+    urgent-foreground: @text;
 
-    selected-background: @active-background;
+    selected-background: @surface0;
     selected-urgent-background: @urgent-background;
-    selected-active-background: @active-background;
+    selected-active-background: @surface0;
     separatorcolor: @active-background;
-    bordercolor: @drac-pur;
+    bordercolor: @mauve;
 }
 
 #window {
     background-color: @background-color;
-    border:           3;
-    border-radius:    50;
+    border:           2;
+    border-radius:    10;
     border-color:     @bordercolor;
     padding:          15;
-    width: 25%;
-    height: 50%;
+    width: 30%;
 }
 #mainbox {
     border:  0;
@@ -60,7 +56,8 @@ configuration {
     text-color: @foreground;
 }
 #listview {
-    fixed-height: 0;
+    fixed-height: true;
+    lines: 3;
     border:       0px;
     border-color: @bordercolor;
     spacing:      2px ;
@@ -81,7 +78,7 @@ configuration {
     text-color:       @urgent-foreground;
 }
 #element.normal.active {
-    text-color:       @background-color;
+    text-color:       @foreground;
 }
 #element.selected.normal {
     background-color: @selected-background;
@@ -93,7 +90,7 @@ configuration {
 }
 #element.selected.active {
     background-color: @selected-active-background;
-    text-color:       @background-color;
+    text-color:       @text;
 }
 #element.alternate.normal {
     background-color: @background-color;
@@ -128,7 +125,7 @@ configuration {
     border-radius: 50;
     margin: 0 2% 10px;
     children:   [ textbox-prompt-colon,entry ];
-    background-color: @drac-cur;
+    background-color: @surface0;
 }
 #case-indicator {
     spacing:    0;
@@ -136,19 +133,19 @@ configuration {
 }
 #entry {
     spacing:    0;
-    background-color: @drac-cur;
-    text-color: @drac-cya;
+    background-color: @surface0;
+    text-color: @sapphire;
 }
 #prompt {
     spacing:    0;
-    text-color: @drac-grn;
+    text-color: @green;
 }
 #textbox-prompt-colon {
     expand:     false;
     str:        "";
     margin:     0px 0.3em 0em 0em ;
-    background-color: @drac-cur;
-    text-color: @drac-pur;
+    background-color: @surface0;
+    text-color: @mauve;
 }
 element-text, element-icon {
     background-color: inherit;
