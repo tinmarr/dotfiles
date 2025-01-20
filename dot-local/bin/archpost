@@ -136,8 +136,7 @@ case $wm in
         yay -S --needed kdeconnect ghostty pavucontrol qalculate-gtk \
             dunst qt5ct-kde nwg-look gnu-free-fonts ly obsidian \
             zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
-            ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
-            dracula-gtk-theme dracula-icons-git
+            ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
