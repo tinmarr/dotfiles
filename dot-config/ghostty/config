@@ -4,7 +4,7 @@ font-family = JetBrainsMono Nerd Font
 
 theme = catppuccin-mocha
 
-background-opacity = 0.75
+background-opacity = 1
 
 minimum-contrast = 1
 

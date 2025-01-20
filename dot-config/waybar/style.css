@@ -1,3 +1,5 @@
+@import "catppuccin-mocha.css";
+
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, JetBrainsMono Nerd Font Mono;
@@ -6,41 +8,65 @@
 
 window#waybar {
     background-color: transparent;
-    color: #BD93F9;
+    color: @text;
     transition-property: background-color;
     transition-duration: .5s;
     padding: 0;
 }
 
-#custom-dunst,
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#keyboard-state,
-#window,
-#workspaces,
-#mpd {
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background: #282A36;
-    border-radius: 5px;
+/***** Pills *****/
+
+#clock {
+    border-radius: 32px;
 }
 
+#pulseaudio {
+    border-radius: 0 32px 32px 0;
+    margin-right: 5px;
+}
 
+#battery {
+    border-radius: 32px 0 0 32px;
+    margin-left: 5px;
+}
+
+#custom-dunst {
+    border-radius: 50%;
+}
+
+#workspaces, #tray {
+    border-radius: 32px;
+}
+
+#workspaces,
+#clock,
+#tray,
+#custom-dunst,
+#battery,
+#backlight,
+#pulseaudio {
+    padding: 0px 10px;
+    background: @surface0;
+}
+
+/***** Colors *****/
+#pulseaudio {
+    color: @yellow;
+}
+
+#backlight {
+    color: @sky;
+}
+
+#battery {
+    color: @green;
+}
+
+#clock {
+    color: @pink;
+}
+
+/***** Layout *****/
 #custom-dunst {
     font-size: 14px;
 }
@@ -50,7 +76,7 @@ window#waybar {
 .modules-right {
     margin-top: 5px;
     margin-bottom: 0;
-    margin-left: 5px;
+    margin-left: 10px;
     margin-right: 5px;
 }
 
@@ -64,28 +90,21 @@ window#waybar {
     margin: 0;
     border-radius: 10px;
     background-color: transparent;
-    color: #6272A4;
+    color: @text;
 }
 
 #workspaces button.active {
-    color: #BD93F9;
-    border-bottom: 2px solid #BD93F9;
-    border-top: 2px solid #BD93F9;
+    color: @mauve;
+    border-bottom: 2px solid @mauve;
+    border-top: 2px solid @mauve;
 }
 
 #workspaces button.urgent {
-    border-bottom: 2px solid #FF5555;
-    border-top: 2px solid #FF5555;
+    border-bottom: 2px solid @red;
+    border-top: 2px solid @red;
 }
 
-
-/***** WINDOW *****/
-window#waybar.empty #window {
-    background: transparent;
-}
-
-/***** CLOCK *****/
-#clock {
-    border-bottom: 2px solid #BD93F9;
-    border-top: 2px solid #BD93F9;
+/***** TRAY *****/
+#tray > .passive {
+    color: @overlay2
 }

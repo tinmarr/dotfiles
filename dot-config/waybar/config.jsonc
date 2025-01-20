@@ -6,17 +6,16 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/window"
     ],
     "modules-center": [
-        "clock"
+        "clock",
     ],
     "modules-right": [
         "tray",
-        "custom/dunst",
         "battery",
         "backlight",
         "pulseaudio",
+        "custom/dunst",
     ],
     // Modules configuration
     "custom/dunst": {
@@ -32,7 +31,8 @@
         "separate-outputs": true,
     },
     "tray": {
-        "spacing": 10
+        "spacing": 10,
+        "show-passive-items": true,
     },
     "backlight": {
         "device": "intel_backlight",
