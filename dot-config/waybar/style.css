@@ -86,17 +86,16 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0px 5px;
+    padding: 0px 2px;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 32px;
     background-color: transparent;
     color: @text;
 }
 
 #workspaces button.active {
-    color: @mauve;
-    border-bottom: 2px solid @mauve;
-    border-top: 2px solid @mauve;
+    color: @base;
+    background-color: @mauve;
 }
 
 #workspaces button.urgent {
