@@ -99,8 +99,7 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    border-bottom: 2px solid @red;
-    border-top: 2px solid @red;
+    background-color: @red;
 }
 
 /***** TRAY *****/
