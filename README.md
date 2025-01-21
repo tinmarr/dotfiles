@@ -16,7 +16,7 @@ I've used quite a few things in the past and this repo houses all of configs for
 * *Text editor/IDE*: Neovim
 * *Terminal Emulator*: Ghostty
 * *Shell*: ZSH
-* *Themes*: Dracula... on everthing
+* *Themes*: Catppuccin
 
 ### Past stacks:
 *Note that I do not maintain these since I do not use the*
@@ -24,6 +24,7 @@ I've used quite a few things in the past and this repo houses all of configs for
 * *WMs*: QTile, AwesomeWM
 * *Text editor/IDE*: GNU Emacs
 * *Terminal Emulators*: Alacritty, Kitty
+* *Themes*: Dracula
 
 ## To get onto new computer
 

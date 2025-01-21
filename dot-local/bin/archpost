@@ -32,8 +32,13 @@ sudo pacman -Syu
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
      alsa-utils ripgrep eza bat direnv stow fzf zoxide fd yazi \
-     python-setuptools fastfetch btop man-db tmux neovim lazygit tree-sitter-cli
+     python-setuptools fastfetch btop tmux neovim lazygit tree-sitter-cli \
+     man-db man-pages
 
+# Manpage setup
+sudo mandb
+
+# Emacs install (switched to neovim)
 # if [[ $wayland = true ]]; then
 #     sudo pacman -S --needed emacs-wayland
 # else
