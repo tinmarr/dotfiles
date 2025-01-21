@@ -12,7 +12,6 @@ return {
             desc = "Format buffer",
         },
     },
-    -- This will provide type hinting with LuaLS
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
