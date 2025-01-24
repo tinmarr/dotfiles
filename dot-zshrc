@@ -197,7 +197,7 @@ zft () {
 }
 
 clone () {
-    gh repo clone $(gh repo list --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
+    gh repo clone $(gh repo list $1 --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
 }
 
 virt-cam-reset() {
