@@ -31,7 +31,7 @@ sudo pacman -Syu
 
 # Dotfile requirements
 sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh acpi \
-     alsa-utils ripgrep eza bat direnv stow fzf zoxide fd yazi \
+     alsa-utils ripgrep eza bat direnv stow fzf zoxide fd yazi 7zip \
      python-setuptools fastfetch btop tmux neovim lazygit tree-sitter-cli \
      man-db man-pages
 
