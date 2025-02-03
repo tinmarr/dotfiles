@@ -142,7 +142,7 @@ case $wm in
             dunst qt5ct-kde nwg-look gnu-free-fonts ly obsidian \
             zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
-            orchis-theme papirus-icon-theme bluetui
+            orchis-theme papirus-icon-theme bluetui blueman
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
