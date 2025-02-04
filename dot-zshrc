@@ -116,7 +116,15 @@ alias lg="lazygit"
 #### Macros ####
 n () {
     cd ~/notes
-    v refile.md
+    if [[ -z "$TMUX" ]]; then
+        t new -A -s notes "$SHELL -c 'nvim refile.md'; exec $SHELL"
+    else
+        if [[ $(tmux display-message -p '#S') == "notes" ]]; then
+            nvim refile.md
+        else
+            t switchc -t notes
+        fi
+    fi
 }
 vf () {
     v "$(fzf)"
