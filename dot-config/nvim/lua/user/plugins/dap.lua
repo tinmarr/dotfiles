@@ -27,6 +27,7 @@ return {
                     end,
                     cwd = "${workspaceFolder}",
                     stopAtBeginningOfMainSubprogram = false,
+                    continueOnFork = true,
                 },
             }
         end

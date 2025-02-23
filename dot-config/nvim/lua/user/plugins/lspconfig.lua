@@ -2,6 +2,7 @@ local on_attach = function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { unpack(opts), desc = "See symbol definition" })
+    vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { unpack(opts), desc = "See symbol implementation" })
     vim.keymap.set("n", "<leader>lf", vim.lsp.buf.references, { unpack(opts), desc = "See symbol references" })
     vim.keymap.set("n", "<leader>lk", vim.lsp.buf.hover, { unpack(opts), desc = "See symbol hover dialog" })
     vim.keymap.set("n", "<leader>l.", vim.lsp.buf.code_action, { unpack(opts), desc = "Execute code actions" })

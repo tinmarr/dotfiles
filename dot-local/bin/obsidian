@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-/usr/bin/obisidan --use-gl=egl
+/usr/bin/obsidian --use-gl=egl
