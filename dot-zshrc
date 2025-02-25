@@ -127,7 +127,12 @@ n () {
     fi
 }
 vf () {
-    v "$(fzf)"
+    file="$(fzf)"
+    if [[ $file == "" ]]; then
+        v
+    else
+        v $file
+    fi
 }
 pgadmin () {
     pyenv activate pgadmin
