@@ -1,10 +1,8 @@
 return {
     "stevearc/oil.nvim",
-    lazy = false,
     ---@module "oil"
     ---@type oil.SetupOpts
     opts = {
-        default_file_explorer = true,
         keymaps = {
             ["g?"] = "actions.show_help",
             ["<CR>"] = "actions.select",
@@ -21,5 +19,8 @@ return {
     },
     keys = {
         { "<leader>r", "<cmd>Oil<cr>", desc = "Open oil" },
+    },
+    cmd = {
+        "Oil"
     },
 }
