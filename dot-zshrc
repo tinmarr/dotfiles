@@ -179,9 +179,12 @@ update () {
 #### Quick Scripts ####
 zv () {
     z $1
+    v
+}
+zvf() {
+    z $1
     vf
 }
-
 zt () {
     work_dir=$(zoxide query $1)
     sesh_name=$(basename $work_dir)
@@ -192,12 +195,10 @@ zt () {
         t switchc -t $sesh_name
     fi
 }
-
 zfv () {
     cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    vf
+    v
 }
-
 zft () {
     work_dir=$(cd $HOME && fd . -t directory | fzf)
     sesh_name=$(basename $work_dir)

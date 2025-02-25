@@ -5,6 +5,7 @@ return {
     keys = {
         { "<leader>an", function() Snacks.notifier.show_history() end, desc = "Show notification history" }
     },
+    ---@type snacks.Config
     opts = {
         bigfile = {},
         dashboard = {
@@ -20,6 +21,14 @@ return {
             },
             sections = {
                 { section = "header" },
+                {
+                    align = "center",
+                    padding = 1,
+                    height = 1,
+                    text = {
+                        vim.fn.getcwd()
+                    }
+                },
                 { section = "keys", gap = 1, padding = 2 },
                 { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 2 },
                 { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
