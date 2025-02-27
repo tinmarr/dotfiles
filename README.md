@@ -19,7 +19,9 @@ I've used quite a few things in the past and this repo houses all of configs for
 * *Themes*: Catppuccin
 
 ### Past stacks:
-*Note that I do not maintain these since I do not use the*
+*Note that I do not maintain these since I do not use them.*
+
+You can see the configuration for these in [this repo](https://github.com/tinmarr/dotfiles-archive)
 
 * *WMs*: QTile, AwesomeWM
 * *Text editor/IDE*: GNU Emacs
