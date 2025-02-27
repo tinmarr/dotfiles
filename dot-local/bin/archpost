@@ -9,19 +9,8 @@ read fresh
 
 printf "$mag""Install WM? [Y/n] ""$reset"
 read wm
-wayland=false
 
 if [[ "$wm" != "n" ]]; then
-    printf "$mag""Which WM? [(a)wesome/(q)tile/(h)yprland] ""$reset"
-    read which
-    if [[ "$which" == "h" || "$which" == "hyprland" ]]; then
-        wayland=true
-    else
-        printf "$mag""Touchpad? [Y/n]""$reset"
-        read touchpad
-        printf "$mag""Intel Graphics? [Y/n]""$reset"
-        read intel
-    fi
     printf "$mag""Nvidia Card? [Y/n]""$reset"
     read nvidia
 fi
@@ -38,13 +27,6 @@ sudo pacman -S --needed base-devel openssl zlib tk git github-cli zsh openssh ac
 # Manpage setup
 sudo mandb
 
-# Emacs install (switched to neovim)
-# if [[ $wayland = true ]]; then
-#     sudo pacman -S --needed emacs-wayland
-# else
-#     sudo pacman -S --needed emacs
-# fi
-
 if [[ "$fresh" != "n" ]]; then
     # Configure user
     chsh -s /bin/zsh
@@ -56,12 +38,8 @@ if [[ "$fresh" != "n" ]]; then
     gh auth login # login with ssh
     gh repo clone tinmarr/dotfiles
     cd dotfiles
-    git submodule init
-    git submodule update --remote --checkout
     ./stowall
     cd $HOME
-    # Setup fonts
-    fc-cache -f -v
 
     # Install utilities
     printf "$mag""Installing Utilities""$reset""\n"
@@ -77,70 +55,15 @@ case $wm in
         echo "Skipping WM things"
         ;;
     *)
-        # Prep display server
-        if [[ $wayland = false ]]; then
-            sudo pacman -S xorg
-
-            yay -Rns xorg-xbacklight
-            localectl --no-convert set-x11-keymap "us" "" "" "compose:ralt"
-
-            if [[ "$touchpad" != "n" ]]; then
-                echo 'Section "InputClass"
-                    Identifier "devname"
-                    Driver "libinput"
-                    MatchIsTouchpad "on"
-                    Option "Tapping" "on"
-                    Option "ClickMethod" "clickfinger"
-                    Option "NaturalScrolling" "true"
-                EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf > /dev/null
-            fi
-
-            if [[ "$intel" != "n" ]]; then
-                echo 'Section "Device"
-                    Identifier "Intel Graphics"
-                    Driver "intel"
-                    Option "TearFree" "true"
-                EndSection' | sudo tee /etc/X11/xorg.conf.d/20-intel.conf > /dev/null
-            fi
-
-            if [[ "$nvidia" != "n" ]]; then
-                sudo pacman -S --needed nvidia nvidia-utils lib32-nvidia-utils
-            fi
+        if [[ "$nvidia" != "n" ]]; then
+            sudo pacman -S --needed nvidia nvidia-utils lib32-nvidia-utils
         fi
 
-        # Install WM
-        case "$which" in
-            "q"|"qtile")
-                yay -S --needed qtile qtile-extras python-psutil python-dbus-next
-                ;;
-            "a"|"awesome")
-                yay -S --needed awesome
-                ;;
-            "h"|"hyprland")
-                yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
-                    xdg-desktop-portal-gtk hypridle hyprlock waybar
-                ;;
-            *)
-                printf "$mag""Not a valid option. No WM installed.""$reset"
-                ;;
-        esac
-
-        # Install additional programs/utilities
-        if [[ $wayland = true ]]; then
-            # Wayland only utilities
-            yay -S --needed rofi-wayland grim slurp swappy wl-clipboard
-        else
-            # Xorg only utilities
-            yay -S --needed rofi betterlockscreen autorandr picom xclip rofi-calc flameshot-git
-
-            sudo systemctl enable autorandr
-            sudo systemctl enable autorandr-lid-listener.service
-        fi
-
-        # Common Utilities
-        yay -S --needed kdeconnect ghostty pavucontrol qalculate-gtk \
-            dunst qt5ct-kde nwg-look gnu-free-fonts ly obsidian \
-            zen-browser-avx2-bin nautilus playerctl noto-fonts-emoji python-pillow \
+        yay -S --needed hyprland hyprpaper xdg-desktop-portal-hyprland-git \
+            xdg-desktop-portal-gtk hypridle hyprlock waybar rofi-wayland \
+            grim slurp swappy wl-clipboard kdeconnect ghostty pavucontrol \
+            qalculate-gtk dunst qt5ct-kde nwg-look gnu-free-fonts ly obsidian \
+            zen-browser-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             orchis-theme papirus-icon-theme bluetui blueman
 
