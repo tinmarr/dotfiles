@@ -1,11 +1,13 @@
 return {
     "folke/snacks.nvim",
-    priority = 1000,
     lazy = false,
-    keys = {
-        { "<leader>an", function() Snacks.notifier.show_history() end, desc = "Show notification history" }
+    dependencies = {
+        "echasnovski/mini.icons",
     },
-    ---@type snacks.Config
+    keys = {
+        { "<leader>an", function() Snacks.notifier.show_history() end, desc = "Show notification history" },
+    },
+    ---@class snacks.Config
     opts = {
         bigfile = {},
         dashboard = {
@@ -45,7 +47,10 @@ return {
                 char = "▏",
             }
         },
+        input = {},
         notifier = {},
+        quickfile = {},
+        scope = {},
         statuscolumn = {},
     },
 }

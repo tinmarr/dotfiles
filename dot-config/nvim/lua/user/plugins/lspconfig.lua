@@ -23,7 +23,23 @@ return {
         },
         opts = {
             servers = {
-                lua_ls = {},
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            runtime = {
+                                version = "LuaJIT",
+                                path = vim.split(package.path, ";")
+                            },
+                            diagnostics = {
+                                globals = { "vim", "Snacks", "MiniFiles" }
+                            },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("", true),
+                                checkThirdParty = false,
+                            }
+                        }
+                    }
+                },
                 gopls = {},
                 yamlls = {},
                 volar = {},
@@ -82,14 +98,13 @@ return {
         }
     },
     {
-        -- Plugin to configure lua lsp to be good for nvim config
-        "folke/lazydev.nvim",
-        ft = "lua",
-        config = true,
-    },
-    {
         "williamboman/mason.nvim",
         cmd = "Mason",
-        config = true
+        opts = {}
     },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {}
+    }
 }

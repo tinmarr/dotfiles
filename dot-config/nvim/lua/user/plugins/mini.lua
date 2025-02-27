@@ -36,7 +36,7 @@ return {
     },
     {
         "echasnovski/mini.comment",
-        event = "VeryLazy",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             mappings = {
                 comment = "<leader>c",
@@ -49,7 +49,7 @@ return {
     {
         "echasnovski/mini.pairs",
         event = "InsertEnter",
-        config = true,
+        opts = {},
     },
     {
         "echasnovski/mini.splitjoin",
@@ -59,5 +59,20 @@ return {
                 toggle = "gs"
             }
         }
+    },
+    {
+        "echasnovski/mini.icons",
+        config = function(_, opts)
+            require("mini.icons").setup(opts)
+            MiniIcons.mock_nvim_web_devicons()
+        end
+    },
+    {
+        "echasnovski/mini.files",
+        dependencies = { "echasnovski/mini.icons" },
+        keys = {
+            { "<leader>r", function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, desc = "Open mini files" }
+        },
+        opts = {},
     }
 }

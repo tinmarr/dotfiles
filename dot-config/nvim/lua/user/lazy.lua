@@ -20,13 +20,18 @@ require("lazy").setup({
     spec = {
         { import = "user.plugins" },
     },
+    defaults = {
+        lazy = true,
+        version = nil,
+        cond = nil,
+    },
     install = {
-        colorscheme = { "dracula" }
+        colorscheme = { "catpuccin-mocha" }
     },
     -- automatically check for plugin updates
     checker = {
         enabled = true,
         notify = false,
     },
-    change_detection = { enabled = false },
+    change_detection = { enabled = true },
 })

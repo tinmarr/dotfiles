@@ -2,7 +2,6 @@ return {
     "folke/which-key.nvim",
     dependencies = {
         "echasnovski/mini.icons",
-        "nvim-tree/nvim-web-devicons"
     },
     event = "VeryLazy",
     ---@class wk.Opts
@@ -25,6 +24,7 @@ return {
             { "<leader>a", group = "apps" },
             { "<leader>t", group = "table mode" },
             { "<leader>o", group = "obsidian" },
+            { "<leader>s", group = "surround" },
         })
     end,
 }

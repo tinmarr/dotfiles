@@ -117,10 +117,10 @@ alias lg="lazygit"
 n () {
     cd ~/notes
     if [[ -z "$TMUX" ]]; then
-        t new -A -s notes "$SHELL -c 'nvim refile.md'; exec $SHELL"
+        t new -A -s notes "$SHELL -c 'nvim'; exec $SHELL"
     else
         if [[ $(tmux display-message -p '#S') == "notes" ]]; then
-            nvim refile.md
+            nvim
         else
             t switchc -t notes
         fi

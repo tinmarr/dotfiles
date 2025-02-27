@@ -1,11 +1,17 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin/nvim" },
+    dependencies = { "catppuccin/nvim" },
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
         options = {
             theme = "catppuccin",
             component_separators = "",
-            section_separators = { left = '', right = '' }
+            section_separators = { left = '', right = '' },
+            disabled_filetypes = {
+                statusline = {
+                    "snacks_dashboard"
+                }
+            }
         }
-    },
+    }
 }
