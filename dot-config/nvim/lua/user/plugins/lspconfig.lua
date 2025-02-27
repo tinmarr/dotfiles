@@ -34,7 +34,6 @@ return {
                                 globals = { "vim", "Snacks", "MiniFiles" }
                             },
                             workspace = {
-                                library = vim.api.nvim_get_runtime_file("", true),
                                 checkThirdParty = false,
                             }
                         }
@@ -91,6 +90,9 @@ return {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
             "williamboman/mason.nvim",
+        },
+        keys = {
+            { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
         },
         lazy = true,
         opts = {

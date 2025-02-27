@@ -8,7 +8,12 @@ return {
     opts = {
         preset = "helix",
         icons = {
-            mappings = false
+            -- mappings = false
+        },
+        plugins = {
+            operators = false,
+            motions = false,
+            text_objects = false,
         },
         delay = 500,
     },
