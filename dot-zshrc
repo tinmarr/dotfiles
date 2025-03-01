@@ -156,16 +156,10 @@ alias gitl="git log --compact-summary"
 #### Update System ####
 update () {
     sudo test
-    curl "https://archlinux.org/mirrorlist/?country=CA&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" > /tmp/mirrorlist
-    sed -i 's/#//' /tmp/mirrorlist
-    sudo mv /tmp/mirrorlist /etc/pacman.d/
+    echo "Finding best mirrors..."
+    sudo reflector -c CA --score 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+    echo "Done. Starting update."
     yay -Syyu --answerclean N --answerdiff N --removemake --noconfirm
-    if command -v pyenv &> /dev/null; then
-        pyenv update
-    fi
-    if command -v rustup &> /dev/null; then
-        rustup update
-    fi
     zinit self-update
     zinit update --parallel
 
@@ -173,7 +167,13 @@ update () {
     git pull
     ./restowall
     cd ~
-    exec $SHELL
+
+    yay
+    echo "Orphans:"
+    yay -Qdt
+    echo "If there are orphans, remove with:"
+    echo "    yay -Qdtq | sudo pacman -Rns -"
+    echo "Not done automatically because this could break stuff"
 }
 
 #### Quick Scripts ####
