@@ -15,7 +15,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp" },
+        ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp", "python" },
         dependencies = {
             "williamboman/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -52,6 +52,7 @@ return {
                 },
                 jsonls = {},
                 clangd = {},
+                pyright = {},
             },
         },
         config = function(_, opts)
@@ -96,7 +97,7 @@ return {
         },
         lazy = true,
         opts = {
-            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls" }
+            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls", "pyright" }
         }
     },
     {

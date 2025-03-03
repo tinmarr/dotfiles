@@ -1,3 +1,4 @@
+-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 return {
     {
         "mfussenegger/nvim-dap",
@@ -40,6 +41,7 @@ return {
         },
         opts = {},
     },
+    -- DAP configuration packages
     {
         "leoluz/nvim-dap-go",
         ft = { "go" },
@@ -47,5 +49,15 @@ return {
             "mfussenegger/nvim-dap",
         },
         opts = {},
-    }
+    },
+    {
+        "mfussenegger/nvim-dap-python",
+        ft = { "python" },
+        dependencies = {
+            "mfussenegger/nvim-dap",
+        },
+        config = function(_, _)
+            require("dap-python").setup("python")
+        end
+    },
 }
