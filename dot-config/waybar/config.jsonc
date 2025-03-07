@@ -5,44 +5,57 @@
     "spacing": 0, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
+        "hyprland/workspaces"
     ],
     "modules-center": [
-        "clock",
+        "clock"
     ],
     "modules-right": [
         "tray",
         "battery",
         "backlight",
         "pulseaudio",
-        "custom/dunst",
+        "custom/dunst"
     ],
     // Modules configuration
     "custom/dunst": {
         "exec": "~/.config/waybar/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
-        "restart-interval": 1,
+        "restart-interval": 1
     },
-    "hyprland/workspaces": {
-    },
+    "hyprland/workspaces": {},
     "hyprland/window": {
         "max-length": 20,
         "min-length": 20,
-        "separate-outputs": true,
+        "separate-outputs": true
     },
     "tray": {
         "spacing": 10,
-        "show-passive-items": true,
+        "show-passive-items": true
     },
     "backlight": {
         "format": "{percent}% {icon}",
-        "format-icons": ["󰃚","󰃛","󰃜","󰃝","󰃞","󰃟","󰃠"]
+        "format-icons": [
+            "󰃚",
+            "󰃛",
+            "󰃜",
+            "󰃝",
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ]
     },
     "battery": {
         "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
         "format-charging": "{capacity}% {icon}",
-        "bat-compatibility": true,
+        "bat-compatibility": true
     },
     "clock": {
         "tooltip": false,
@@ -55,7 +68,11 @@
         "format-bluetooth-muted": " {icon}",
         "format-icons": {
             "headphone": " ",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "format-muted": " {icon}",
         "on-click": "pavucontrol"

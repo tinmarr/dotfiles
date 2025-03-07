@@ -20,6 +20,11 @@ window#waybar {
 }
 
 #pulseaudio {
+    border-radius: 32px 32px 32px 32px;
+    margin-right: 5px;
+}
+
+#backlight {
     border-radius: 0 32px 32px 0;
     margin-right: 5px;
 }
@@ -27,10 +32,6 @@ window#waybar {
 #battery {
     border-radius: 32px 0 0 32px;
     margin-left: 5px;
-}
-
-#custom-dunst {
-    border-radius: 50%;
 }
 
 #workspaces, #tray {
@@ -46,6 +47,12 @@ window#waybar {
 #pulseaudio {
     padding: 0px 10px;
     background: @surface0;
+}
+
+#custom-dunst {
+    border-radius: 32px;
+    padding-right: 11px;
+    padding-left: 7px;
 }
 
 /***** Colors *****/
