@@ -1,9 +1,14 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    build = ":TSUpdate",
-    config = function()
-        require("nvim-treesitter.configs").setup {
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {}
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPost", "BufNewFile" },
+        build = ":TSUpdate",
+        opts = {
             ensure_installed = { "lua", "hyprlang", "latex" },
             auto_install = true,
             sync_install = false,
@@ -17,10 +22,13 @@ return {
                 enable = true
             },
             modules = {} -- doesn't do anything... for lsp
-        }
+        },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
 
-        vim.filetype.add({
-            pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-        })
-    end,
+            vim.filetype.add({
+                pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+            })
+        end,
+    }
 }
