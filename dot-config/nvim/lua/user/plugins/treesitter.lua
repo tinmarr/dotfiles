@@ -1,10 +1,5 @@
 return {
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {}
-    },
-    {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPost", "BufNewFile" },
         build = ":TSUpdate",
@@ -30,5 +25,10 @@ return {
                 pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
             })
         end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {}
     }
 }
