@@ -30,6 +30,7 @@ return {
             { "<leader>t", group = "table mode" },
             { "<leader>o", group = "obsidian" },
             { "<leader>s", group = "surround" },
+            { "<leader>h", group = "harpoon" },
         })
     end,
 }
