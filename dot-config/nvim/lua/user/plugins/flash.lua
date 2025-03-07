@@ -7,8 +7,10 @@ return {
         search = {
             mode = "fuzzy",
         },
-        jump = {
-            autojump = true,
+        modes = {
+            char = {
+                enabled = false,
+            }
         },
     },
 }
