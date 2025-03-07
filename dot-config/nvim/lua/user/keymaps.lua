@@ -22,3 +22,5 @@ vim.keymap.set("n", "<M-s>", "<C-w>s")
 vim.keymap.set("n", "<M-c>", "<C-w>c")
 vim.keymap.set("n", "<M-o>", "<C-w>o")
 vim.keymap.set("n", "<M-=>", "<C-w>=")
+
+vim.keymap.set("i", "<C-h>", "<C-w>")

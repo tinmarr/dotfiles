@@ -51,6 +51,9 @@ return {
         notifier = {},
         quickfile = {},
         scope = {},
-        statuscolumn = {},
+        statuscolumn = {
+            left = { "sign" },         -- priority of signs on the left (high to low)
+            right = { "fold", "git" }, -- priority of signs on the right (high to low)
+        },
     },
 }
