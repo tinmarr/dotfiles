@@ -5,34 +5,60 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-path",
+        "saadparwaiz1/cmp_luasnip",
+        "L3MON4D3/LuaSnip",
     },
     opts = function()
+        local luasnip = require("luasnip")
         local cmp = require("cmp")
+
+        local backwards = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.abort()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { "i", "s" })
+        local advance = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                if luasnip.expandable() then
+                    luasnip.expand()
+                else
+                    cmp.confirm({
+                        select = true,
+                    })
+                end
+            elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { "i", "s" })
+
         return {
             mapping = {
-                ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-j>"] = cmp.mapping.select_next_item(),
+                ["<C-k>"] = cmp.mapping.select_prev_item(),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-h>"] = cmp.mapping.abort(),
-                ["<Tab>"] = function(fallback)
-                    -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-                    if cmp.visible() then
-                        local entry = cmp.get_selected_entry()
-                        if not entry then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                        end
-                        cmp.confirm()
-                    else
-                        fallback()
-                    end
+                ["<C-l>"] = advance,
+                ["<C-h>"] = backwards,
+                ["<Tab>"] = advance,
+                ["<S-Tab>"] = backwards,
+            },
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body)
                 end,
             },
-            sources = cmp.config.sources({
+            sources = {
                 { name = "nvim_lsp" },
-                { name = "buffer" },
+                { name = "luasnip" },
                 { name = "path" },
-                { name = "lazydev", group_index = 0 },
-            })
+                { name = "lazydev" },
+                { name = "buffer" },
+            }
         }
     end,
 }
