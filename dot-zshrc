@@ -153,12 +153,19 @@ gitc () {
 alias gits="(git fetch &>/dev/null &) && git status"
 alias gitl="git log --compact-summary"
 
-#### Update System ####
-update () {
+#### Check mirrors ####
+mirrors () {
     sudo test
     echo "Finding best mirrors..."
     sudo reflector -c CA --score 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
-    echo "Done. Starting update."
+    echo "Done"
+}
+
+#### Update System ####
+update () {
+    sudo test
+    mirrors
+    echo "Starting update."
     yay -Syyu --answerclean N --answerdiff N --removemake --noconfirm
     zinit self-update
     zinit update --parallel
