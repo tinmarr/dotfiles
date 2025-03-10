@@ -5,16 +5,20 @@
     "spacing": 0, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
+        "custom/icon",
         "hyprland/workspaces"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
+        "hyprland/submap",
         "tray",
+        "power-profiles-daemon",
         "battery",
         "backlight",
         "pulseaudio",
+        // "custom/updates", // TODO: Fix
         "custom/dunst"
     ],
     // Modules configuration
@@ -22,6 +26,15 @@
         "exec": "~/.config/waybar/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
         "restart-interval": 1
+    },
+    "custom/updates": {
+        "exec": "~/.config/waybar/updates.sh",
+        "format": "{text} 󰚰",
+        "interval": 3600,
+        "restart-interval": 1
+    },
+    "custom/icon" : {
+        "format": ""
     },
     "hyprland/workspaces": {},
     "hyprland/window": {
@@ -44,6 +57,17 @@
             "󰃟",
             "󰃠"
         ]
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
     },
     "battery": {
         "format": "{capacity}% {icon}",
