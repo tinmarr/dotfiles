@@ -92,10 +92,6 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
         },
-        keys = {
-            { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
-        },
-        lazy = true,
         opts = {
             ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls", "pyright" }
         }
@@ -103,6 +99,9 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
+        keys = {
+            { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
+        },
         opts = {}
     },
     {
