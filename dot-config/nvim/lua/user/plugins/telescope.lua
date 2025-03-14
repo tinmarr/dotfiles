@@ -36,6 +36,7 @@ return {
                 }
             }
         },
+        cmd = "Telescope",
         keys = {
             { "<C-p>",      attempt_telescope,                                                                desc = "Find file (best strat)" },
             { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                  desc = "Find file" },
