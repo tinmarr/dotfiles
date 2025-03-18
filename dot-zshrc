@@ -114,18 +114,6 @@ alias h="history 0"
 alias lg="lazygit"
 
 #### Macros ####
-n () {
-    cd ~/notes
-    if [[ -z "$TMUX" ]]; then
-        t new -A -s notes "$SHELL -c 'nvim'; exec $SHELL"
-    else
-        if [[ $(tmux display-message -p '#S') == "notes" ]]; then
-            nvim
-        else
-            t switchc -t notes
-        fi
-    fi
-}
 vf () {
     file="$(fzf)"
     if [[ $file == "" ]]; then
@@ -154,7 +142,7 @@ alias gits="(git fetch &>/dev/null &) && git status"
 alias gitl="git log --compact-summary"
 
 # https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-function y() {
+y () {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -175,8 +163,10 @@ mirrors () {
 update () {
     sudo test
     mirrors
-    echo "Starting update."
-    yay -Syyu --answerclean N --answerdiff N --removemake --noconfirm
+    yay -Syy
+    yay -Qu > $HOME/.cache/updated-packages.txt
+    echo "Starting update:"
+    yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
     zinit self-update
     zinit update --parallel
 
@@ -191,47 +181,39 @@ update () {
     echo "If there are orphans, remove with:"
     echo "    yay -Qdtq | sudo pacman -Rns -"
     echo "Not done automatically because this could break stuff"
+    echo "$(cat $HOME/.cache/updated-packages.txt | wc -l) packages updated"
+    echo "Updated packages stored in ~/.cache/updated-packages.txt"
 }
 
 #### Quick Scripts ####
 zv () {
-    z $1
-    v
-}
-zvf() {
-    z $1
-    vf
-}
-zt () {
-    work_dir=$(zoxide query $1)
-    sesh_name=$(basename $work_dir)
-    t new -s $sesh_name -c $work_dir -d
-    if [[ -z "$TMUX" ]]; then
-        t a -t $sesh_name
-    else
-        t switchc -t $sesh_name
+    t new -s $1 -d
+    if [[ $? -eq 0 ]]; then
+        printf "creating new tmux session"
+        sleep "0.5s"
+        t send-keys -c $1 "z $1" Enter
+        t send-keys -c $1 "v" Enter
     fi
+    t a -t $1
 }
-zfv () {
-    cd $HOME/$(cd $HOME && fd . -t directory | fzf)
-    v
-}
-zft () {
-    work_dir=$(cd $HOME && fd . -t directory | fzf)
-    sesh_name=$(basename $work_dir)
-    t new -s $sesh_name -c $work_dir -d
-    if [[ -z "$TMUX" ]]; then
-        t a -t $sesh_name
-    else
-        t switchc -t $sesh_name
+pv () {
+    proj=$(fd . coding -td -d 2 --base-directory $HOME | fzf)
+    sesh=$(basename $proj)
+    t new -s $sesh -d
+    if [[ $? -eq 0 ]]; then
+        printf "creating new tmux session"
+        sleep "0.5s"
+        t send-keys -c $sesh "cd $HOME/$proj" Enter
+        t send-keys -c $sesh "v" Enter
     fi
+    t a -t $sesh
 }
 
 clone () {
     gh repo clone $(gh repo list $1 --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
 }
 
-virt-cam-reset() {
+virt-cam-reset () {
     echo "Make sure to turn off any virtual cameras before continuing"
     echo "Press any key to continue:"
     read
