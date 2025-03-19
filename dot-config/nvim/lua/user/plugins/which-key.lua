@@ -21,17 +21,18 @@ return {
         local wk = require("which-key")
         wk.setup(opts)
         wk.add({
-            { "<leader>b", group = "buffer" },
-            { "<leader>f", group = "telescope" },
-            { "<leader>l", group = "lsp" },
-            { "<leader>d", group = "debugger" },
-            { "<leader>c", group = "comment" },
             { "<leader>a", group = "apps" },
+            { "<leader>b", group = "buffer" },
+            { "<leader>c", group = "comment" },
+            { "<leader>d", group = "debugger" },
+            { "<leader>f", group = "telescope" },
+            { "<leader>h", group = "harpoon" },
+            { "<leader>l", group = "lsp" },
             { "<leader>n", group = "notifications" },
-            { "<leader>t", group = "trouble" },
             { "<leader>o", group = "obsidian" },
             { "<leader>s", group = "surround" },
-            { "<leader>h", group = "harpoon" },
+            { "<leader>t", group = "trouble" },
+            { "<leader>v", group = "diffview" },
         })
     end,
 }
