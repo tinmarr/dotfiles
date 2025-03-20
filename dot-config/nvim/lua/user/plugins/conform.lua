@@ -12,11 +12,14 @@ return {
             desc = "Format buffer",
         },
     },
+    dependencies = {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
         -- Set up format-on-save
-        format_on_save = { timeout_ms = 500 },
+        format_after_save = { async = true, timeout_ms = 500 },
         formatters_by_ft = {
             go = { lsp_format = "first" },
             javascript = { "prettier" },
