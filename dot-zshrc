@@ -187,15 +187,23 @@ update () {
 
 #### Quick Scripts ####
 zv () {
-    t new -s $1 -d
+    dest=$(zoxide query $1)
+    sesh=$(basename $dest)
+    t new -s $sesh -d
     if [[ $? -eq 0 ]]; then
         printf "creating new tmux session"
         sleep "0.5s"
-        t send-keys -c $1 "z $1" Enter
-        t send-keys -c $1 "v" Enter
+        t send-keys -t $sesh "z $1" Enter
+        t send-keys -t $sesh "v" Enter
     fi
-    t a -t $1
+
+    if [[ -z $TMUX ]]; then
+        t a -t $sesh
+    else
+        t switchc -t $sesh
+    fi
 }
+
 pv () {
     proj=$(fd . coding -td -d 2 --base-directory $HOME | fzf)
     sesh=$(basename $proj)
@@ -203,10 +211,15 @@ pv () {
     if [[ $? -eq 0 ]]; then
         printf "creating new tmux session"
         sleep "0.5s"
-        t send-keys -c $sesh "cd $HOME/$proj" Enter
-        t send-keys -c $sesh "v" Enter
+        t send-keys -t $sesh "cd $HOME/$proj" Enter
+        t send-keys -t $sesh "v" Enter
     fi
-    t a -t $sesh
+
+    if [[ -z $TMUX ]]; then
+        t a -t $sesh
+    else
+        t switchc -t $sesh
+    fi
 }
 
 clone () {
