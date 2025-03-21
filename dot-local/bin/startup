@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-QT_QPA_PLATFORM=xcb setsid uwsm app -- /usr/bin/kdeconnectd
-setsid uwsm app -- kdeconnect-indicator
-setsid uwsm app -- blueman-applet
-setsid uwsm app -- playerctld daemon
+QT_QPA_PLATFORM=xcb setsid uwsm-app -- /usr/bin/kdeconnectd
+setsid uwsm-app -- kdeconnect-indicator
+setsid uwsm-app -- blueman-applet
+setsid uwsm-app -- playerctld daemon
 
 #### LOW POWER NOTFIER ####
 bat_file="/sys/class/power_supply/BAT1/capacity"
