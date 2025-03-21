@@ -65,10 +65,12 @@ case $wm in
             rofi-calc qalculate-gtk dunst qt5ct-kde nwg-look gnu-free-fonts ly \
             zen-browser-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
-            orchis-theme papirus-icon-theme bluetui blueman obsidian rofi-emoji
+            orchis-theme papirus-icon-theme bluetui blueman obsidian rofi-emoji uwsm
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
+
+        systemctl --user enable waybar.service hypridle.service hyprpaper.service
 
         printf "$mag""The following tools need to be configured manually:
             - nwg-look

@@ -9,6 +9,7 @@ configuration {
     kb-row-down: "Control+j";
     kb-accept-entry: "Return";
     kb-remove-to-eol: "";
+    run-command: "uwsm app -- {cmd}";
 }
 
 * {
