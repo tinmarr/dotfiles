@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-/usr/bin/slack -use-gl=egl
+/usr/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=egl

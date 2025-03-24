@@ -66,7 +66,7 @@ case $wm in
             zen-browser-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             orchis-theme papirus-icon-theme bluetui blueman obsidian rofi-emoji \
-            uwsm qt6ct-kde breeze5
+            uwsm qt6ct-kde breeze5 gnome-keyring
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service

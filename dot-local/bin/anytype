@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/anytype --enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=egl
