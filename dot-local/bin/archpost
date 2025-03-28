@@ -66,12 +66,12 @@ case $wm in
             zen-browser-bin nautilus playerctl noto-fonts-emoji python-pillow \
             ttf-jetbrains-mono-nerd ttf-ms-fonts acpilight polkit-gnome \
             orchis-theme papirus-icon-theme bluetui blueman obsidian rofi-emoji \
-            uwsm qt6ct-kde breeze5 gnome-keyring
+            uwsm qt6ct-kde breeze5 gnome-keyring hyprsunset
 
         sudo systemctl enable ly
         sudo systemctl disable getty@tty2.service
 
-        systemctl --user enable waybar.service hypridle.service hyprpaper.service
+        systemctl --user enable waybar.service hypridle.service hyprpaper.service hyprsunset.service
 
         printf "$mag""The following tools need to be configured manually:
             - nwg-look
