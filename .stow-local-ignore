@@ -26,14 +26,8 @@ _darcs
 .+\.org # Org Files
 README.org # Config compiler files
 
-^/\.local/bin/archpost # archpost install
+^/install
 
 ^/\.envrc # Envrc for the dotfiles repo
-
-^/stowall # stowall script
-^/unstowall # unstowall script
-^/restowall # restowall script
-^/theme.org # theme def
-^/wal.* # pywal stuff
 
 ^/showcase\.png

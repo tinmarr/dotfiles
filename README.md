@@ -32,7 +32,7 @@ You can see the configuration for these in [this repo](https://github.com/tinmar
 
 Install Arch normally. Then:
 ```shell
-curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/dot-local/bin/archpost" > archpost && chmod +x archpost && \
+curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/install/archpost" > archpost && chmod +x archpost && \
 ./archpost && \
 rm archpost
 ```

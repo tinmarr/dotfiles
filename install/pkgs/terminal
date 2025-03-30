@@ -1,0 +1,29 @@
+# zshrc
+oh-my-posh-bin
+ripgrep
+eza
+bat
+direnv
+fzf
+zoxide
+yazi
+reflector
+
+# yazi optional deps (also just good)
+jq
+7zip
+fd
+
+# tmux
+tmux
+tmux-plugin-manager
+
+# neovim
+neovim
+lazygit
+tree-sitter-cli
+
+# good utils
+fastfetch
+btop
+bluetui

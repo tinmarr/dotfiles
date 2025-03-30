@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+mag="\e[35m"
+green="\e[32m"
+reset="\e[m"
+
+printf "$mag""Install WM? [Y/n] ""$reset"
+read wm
+
+if [[ "$wm" != "n" ]]; then
+    printf "$mag""Nvidia Card? [Y/n]""$reset"
+    read nvidia
+fi
+
+# System upgrade
+sudo pacman -Syu
+
+# Archpost requirements
+sudo pacman -S --needed \
+    base-devel \
+    man-db man-pages texinfo \
+    git github-cli openssh \
+    zsh \
+    stow
+
+
+# Manpage setup
+sudo mandb
+
+# Configure user
+chsh -s /bin/zsh
+sudo usermod -aG video,input,wheel $USER
+
+# Setup dotfiles
+cd $HOME
+printf "$mag""Authenticate gh with a new SSH Key (auth with web browser)""$reset""\n"
+gh auth login # login with ssh
+gh repo clone tinmarr/dotfiles
+cd dotfiles
+./stowall
+cd $HOME
+
+# Install utilities
+printf "$mag""Installing Utilities""$reset""\n"
+curl https://pyenv.run | bash
+git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
+
+cat ~/dotfiles/install/pkgs/terminal | sed "/#.*/d;/^$/d" | yay -S --needed -
+
+case $wm in
+    "n" | "N")
+        echo "Skipping WM things"
+        ;;
+    *)
+        to_install=""
+
+        if [[ "$nvidia" != "n" ]]; then
+            to_install="$(cat ~/dotfiles/install/pkgs/nvidia | sed "/#.*/d;/^$/d")"
+        fi
+
+        install_list=$(cat ~/dotfiles/install/pkgs/{hyprland,fonts,ricing,utils,apps})
+        to_install="$to_install\n$(echo $install_list | sed "/#.*/d;/^$/d")"
+
+        echo $to_install | yay -S --needed -
+
+        sudo systemctl enable ly
+        sudo systemctl disable getty@tty2.service
+
+        systemctl --user enable waybar.service hypridle.service hyprpaper.service hyprsunset.service
+
+        printf "$mag""The following tools need to be configured manually:
+            - nwg-look
+            - zen-browser
+            - GPG key""$reset""\n"
+        ;;
+esac
+
+printf "$green""Setup Complete!""$reset""\n"

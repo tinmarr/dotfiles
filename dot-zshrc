@@ -122,10 +122,6 @@ vf () {
         v $file
     fi
 }
-pgadmin () {
-    pyenv activate pgadmin
-    pgadmin4
-}
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
 tzupdate () {
