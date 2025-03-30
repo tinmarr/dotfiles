@@ -9,6 +9,8 @@ vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 2
 
+vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
+
 vim.api.nvim_create_user_command("W", "write", { nargs = "*", range = true, bang = true, complete = "file" })
 
 vim.api.nvim_create_augroup("onstart", { clear = true })

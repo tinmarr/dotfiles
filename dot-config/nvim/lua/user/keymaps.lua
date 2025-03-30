@@ -24,3 +24,7 @@ vim.keymap.set("n", "<M-o>", "<C-w>o")
 vim.keymap.set("n", "<M-=>", "<C-w>=")
 
 vim.keymap.set("i", "<C-h>", "<C-w>")
+
+vim.keymap.set("n", "<leader>/", function()
+    vim.fn.setreg("/", vim.fn.rand())
+end)
