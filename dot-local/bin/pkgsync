@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo test
+cat ~/dotfiles/install/pkgs/* | sed "/#.*/d;/^$/d" | yay -S --needed --noconfirm -
