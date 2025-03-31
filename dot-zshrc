@@ -112,6 +112,7 @@ alias t="tmux"
 alias s="ssh"
 alias h="history 0"
 alias lg="lazygit"
+alias ms="sudo test && metapac sync && metapac clean"
 
 #### Macros ####
 vf () {

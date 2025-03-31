@@ -1,0 +1,23 @@
+arch = [
+    # essentials
+    "ghostty",
+    "nautilus",
+
+    # daily drivers
+    "zen-browser-bin",
+    "obsidian",
+    "slack-desktop",
+    "spotify-launcher",
+
+    # misc
+    "zoom",
+    "anytype-bin",
+
+    # misc utilities
+    "qalculate-gtk",
+    "gimp",
+    "vlc",
+    "xournalpp",
+    "zathura",
+    "zathura-pdf-poppler",
+]

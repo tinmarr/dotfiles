@@ -1,0 +1,53 @@
+arch = [
+    # display manager
+    "ly",
+
+    # hypr-suite
+    "hyprland",
+    "hyprpaper",
+    "hypridle",
+    "hyprlock",
+    "hyprsunset",
+    "uwsm",
+
+    # waybar
+    "waybar",
+    "kdeconnect",
+    "pavucontrol",
+    "blueman",
+
+    # screensharing
+    "xdg-desktop-portal-hyprland",
+    "xdg-desktop-portal-gtk",
+
+    # required utilities
+    "rofi-wayland",
+    "rofi-calc",
+    "rofi-emoji",
+    "grim",
+    "slurp",
+    "swappy",
+    "wl-clipboard",
+    "wtype",
+    "acpilight",
+    "playerctl",
+    "dunst",
+
+    # optional deps
+    "cpio",
+    "xorg-xwayland",
+
+    # fonts
+    "ttf-jetbrains-mono-nerd",
+    "gnu-free-fonts",
+    "noto-fonts-emoji",
+    "ttf-ms-fonts",
+
+    # themeing
+    "nwg-look",
+    "papirus-icon-theme",
+    "qt6ct-kde",
+    "breeze",
+    "catppuccin-gtk-theme-mocha",
+    "grub-customizer",
+]

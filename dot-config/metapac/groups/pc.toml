@@ -1,0 +1,11 @@
+arch = [
+    "sunshine-bin",
+    "v4l2loopback-dkms",
+    "intel-ucode",
+
+    # nvidia
+    "nvidia-open-dkms",
+    "nvidia-utils",
+    "lib32-nvidia-utils",
+    "libva-nvidia-driver",
+]

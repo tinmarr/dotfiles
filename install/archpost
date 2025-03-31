@@ -4,18 +4,10 @@ mag="\e[35m"
 green="\e[32m"
 reset="\e[m"
 
-printf "$mag""Install WM? [Y/n] ""$reset"
-read wm
-
-if [[ "$wm" != "n" ]]; then
-    printf "$mag""Nvidia Card? [Y/n]""$reset"
-    read nvidia
-fi
-
 # System upgrade
 sudo pacman -Syu
 
-# Archpost requirements
+# Arch post-install requirements
 sudo pacman -S --needed \
     base-devel \
     man-db man-pages texinfo \
@@ -45,35 +37,27 @@ printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
 git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
+git clone https://aur.archlinux.org/metapac-bin.git && cd metapac-bin && makepkg -si && cd .. && rm -rf metapac-bin
 
-cat ~/dotfiles/install/pkgs/terminal | sed "/#.*/d;/^$/d" | yay -S --needed -
+sudo test
+yes | metapac sync
 
-case $wm in
-    "n" | "N")
-        echo "Skipping WM things"
-        ;;
-    *)
-        to_install=""
+if [[ $(yay -Q ly) ]]; then
+    sudo systemctl enable ly
+    sudo systemctl disable getty@tty2.service
+fi
 
-        if [[ "$nvidia" != "n" ]]; then
-            to_install="$(cat ~/dotfiles/install/pkgs/nvidia | sed "/#.*/d;/^$/d")"
-        fi
+if [[ $(yay -Q hyprland) ]]; then
+    systemctl --user enable waybar.service hypridle.service hyprpaper.service hyprsunset.service
+fi
 
-        install_list=$(cat ~/dotfiles/install/pkgs/{hyprland,fonts,ricing,utils,apps})
-        to_install="$to_install\n$(echo $install_list | sed "/#.*/d;/^$/d")"
+printf "$mag""metapac was run for $HOST.$reset\n"
+printf "If it was configured yet, metapac should be configured then rerun (services won't be automatic either).\n"
 
-        echo $to_install | yay -S --needed -
-
-        sudo systemctl enable ly
-        sudo systemctl disable getty@tty2.service
-
-        systemctl --user enable waybar.service hypridle.service hyprpaper.service hyprsunset.service
-
-        printf "$mag""The following tools need to be configured manually:
-            - nwg-look
-            - zen-browser
-            - GPG key""$reset""\n"
-        ;;
-esac
+printf "$mag""The following tools (in installed) need to be configured manually:
+    - nwg-look
+    - qt6ct
+    - zen-browser
+    - GPG key""$reset""\n"
 
 printf "$green""Setup Complete!""$reset""\n"

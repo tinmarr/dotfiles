@@ -1,0 +1,62 @@
+arch = [
+    # zshrc
+    "oh-my-posh-bin",
+    "ripgrep",
+    "eza",
+    "bat",
+    "direnv",
+    "fzf",
+    "zoxide",
+    "yazi",
+    "reflector",
+
+    # yazi optional deps (also just good)
+    "jq",
+    "7zip",
+    "fd",
+    "imagemagick",
+
+    # tmux
+    "tmux",
+    "tmux-plugin-manager",
+
+    # neovim
+    "neovim",
+    "lazygit",
+    "tree-sitter-cli",
+
+    # good utils
+    "fastfetch",
+    "btop",
+    "bluetui",
+    "stress",
+    "syncthing",
+    "termdown",
+    "tree",
+    "ufw",
+    "unzip",
+    "zip",
+    "wget",
+
+    # languages
+    "clang",
+    "go",
+    "typescript",
+
+    # tooling
+    "cmake",
+    "inetutils",
+    "bind", # dig, etc
+    "postman-bin",
+    "sshfs",
+    "stow",
+    "valgrind",
+
+    # docker
+    "docker",
+    "docker-buildx",
+    "docker-compose",
+
+    # deps
+    "python-dbus-next",
+]

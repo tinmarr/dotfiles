@@ -1,0 +1,14 @@
+arch = [
+    # gaming
+    "steam",
+    "gamescope",
+    "gamemode",
+    "lib32-gamemode",
+    "proton-ge-custom-bin",
+    "protontricks",
+    "mangohud",
+    "libxnvctrl",
+
+    # misc
+    "obs-studio",
+]
