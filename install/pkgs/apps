@@ -1,5 +1,11 @@
+# essentials
 ghostty
-qalculate-gtk
-zen-browser-bin
 nautilus
+
+# daily drivers
+zen-browser-bin
 obsidian
+slack-desktop
+
+# misc utilities
+qalculate-gtk
