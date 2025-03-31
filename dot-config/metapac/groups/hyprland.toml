@@ -42,6 +42,7 @@ arch = [
     "gnu-free-fonts",
     "noto-fonts-emoji",
     "ttf-ms-fonts",
+    "inter-font",
 
     # themeing
     "nwg-look",
