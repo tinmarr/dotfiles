@@ -41,5 +41,5 @@ hostname_groups_enabled = true
 # Default: None
 [hostname_groups]
 martinpc = ["base", "default", "terminal", "hyprland", "fun", "latex", "pc"]
-# martin-fw = [""]
+martinfw = ["base", "default", "terminal", "hyprland", "fun", "latex", "fw"]
 # martin-server = [""]

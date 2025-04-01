@@ -26,6 +26,7 @@ arch = [
     "tree-sitter-cli",
 
     # good utils
+    "github-cli",
     "fastfetch",
     "btop",
     "bluetui",
@@ -33,7 +34,6 @@ arch = [
     "syncthing",
     "termdown",
     "tree",
-    "ufw",
     "unzip",
     "zip",
     "wget",

@@ -1,7 +1,6 @@
 arch = [
     "sunshine-bin",
     "v4l2loopback-dkms",
-    "intel-ucode",
 
     # nvidia
     "nvidia-open-dkms",
