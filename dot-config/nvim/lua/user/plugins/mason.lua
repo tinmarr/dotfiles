@@ -13,7 +13,7 @@ return {
             "williamboman/mason.nvim",
         },
         opts = {
-            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls", "pyright" }
+            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls", "pyright", "taplo" }
         }
     },
     {
