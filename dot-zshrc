@@ -169,7 +169,7 @@ update () {
 
     cd ~/dotfiles
     git pull
-    ./restowall
+    restowall
     cd ~
 
     yay
