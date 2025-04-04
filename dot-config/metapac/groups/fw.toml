@@ -1,4 +1,7 @@
 arch = [
+    # amd
+    "amd-ucode",
+
     # hardware control
     "acpi",
     "fw-ectool-git",
