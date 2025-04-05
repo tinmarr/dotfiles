@@ -1,4 +1,12 @@
 arch = [
+    # pipewire
+    "pipewire",
+    "pipewire-alsa",
+    "pipewire-jack",
+    "pipewire-pulse",
+    "gst-plugin-pipewire",
+    "lib32-pipewire",
+
     # essentials
     "ghostty",
     "nautilus",
@@ -14,6 +22,7 @@ arch = [
     "anytype-bin",
 
     # misc utilities
+    "postman-bin",
     "qalculate-gtk",
     "gimp",
     "vlc",

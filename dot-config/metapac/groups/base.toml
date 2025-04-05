@@ -8,14 +8,6 @@ arch = [
     "linux-firmware",
     "linux-headers",
 
-    # pipewire
-    "pipewire",
-    "pipewire-alsa",
-    "pipewire-jack",
-    "pipewire-pulse",
-    "gst-plugin-pipewire",
-    "lib32-pipewire",
-
     # docs
     "man-db",
     "man-pages",
@@ -27,8 +19,4 @@ arch = [
     "metapac-bin",
     "networkmanager",
     "openssh",
-
-    # misc
-    "polkit-gnome",
 ]
-

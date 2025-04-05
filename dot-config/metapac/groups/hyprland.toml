@@ -36,6 +36,7 @@ arch = [
     # optional deps
     "cpio",
     "xorg-xwayland",
+    "polkit-gnome",
 
     # fonts
     "ttf-jetbrains-mono-nerd",

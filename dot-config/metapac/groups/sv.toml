@@ -1,0 +1,17 @@
+arch = [
+    # hardware
+    "intel-ucode",
+    "libva-intel-driver",
+
+    # basic support
+    "ghostty-terminfo",
+    "fcron",
+    "nginx",
+    "rclone",
+    "ufw",
+    "wireguard-tools",
+
+    # functionality
+    "lazydocker-bin",
+    "smartmontools",
+]

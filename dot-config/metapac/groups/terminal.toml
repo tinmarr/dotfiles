@@ -46,8 +46,7 @@ arch = [
     # tooling
     "cmake",
     "inetutils",
-    "bind", # dig, etc
-    "postman-bin",
+    "bind",      # dig, etc
     "sshfs",
     "stow",
     "valgrind",
