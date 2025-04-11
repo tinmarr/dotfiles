@@ -10,4 +10,9 @@ arch = [
 
     # intel
     "intel-ucode",
+
+    "clion",
+    "clion-jre",
+    "clion-cmake",
+    "gdb",
 ]
