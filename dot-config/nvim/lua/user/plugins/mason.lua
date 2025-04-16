@@ -25,7 +25,8 @@ return {
         opts = {
             ensure_installed = {
                 "isort",
-                "black"
+                "black",
+                "prettier",
             },
             auto_update = true
         },

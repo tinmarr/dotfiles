@@ -1,14 +1,19 @@
 -- Vim options documented here: https://neovim.io/doc/user/quickref.html#option-list
-vim.opt.tabstop = 4
 vim.opt.expandtab = true
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 vim.opt.linebreak = true
 vim.opt.wrap = false
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 2
+
+vim.opt.textwidth = 80
+vim.opt.colorcolumn = "+1,120"
 
 vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
 

@@ -28,6 +28,7 @@ return {
             json = { "jq" },
             c = { lsp_format = "never" },
             python = { "black", "isort", stop_after_first = false },
+            markdown = { "prettier" },
         },
         default_format_opts = {
             lsp_format = "fallback",
