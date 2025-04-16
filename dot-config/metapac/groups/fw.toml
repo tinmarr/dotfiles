@@ -1,6 +1,9 @@
 arch = [
     # amd
     "amd-ucode",
+    "mesa",
+    "lib32-mesa",
+    "vulkan-radeon",
 
     # hardware control
     "acpi",
