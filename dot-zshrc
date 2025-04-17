@@ -95,7 +95,6 @@ export GPG_TTY=$TTY
 # Load various shell utilities
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
-alias cd="z" # old habits die hard
 
 # Use bat in manpages
 export MANROFFOPT="-c"
@@ -183,15 +182,19 @@ update () {
 }
 
 #### Quick Scripts ####
-zv () {
-    dest=$(zoxide query $1)
-    sesh=$(basename $dest)
+_tmux_project_create_or_switch () {
+    sesh=$1
+    dest=$2
+
     t new -s $sesh -d
     if [[ $? -eq 0 ]]; then
         printf "creating new tmux session"
         sleep "0.5s"
-        t send-keys -t $sesh "z $1" Enter
+        t renamew -t $sesh nvim
+        t send-keys -t $sesh "cd $dest" Enter
         t send-keys -t $sesh "v" Enter
+
+        t neww -t $sesh -n run -d
     fi
 
     if [[ -z $TMUX ]]; then
@@ -201,22 +204,34 @@ zv () {
     fi
 }
 
+zv () {
+    if [[ -z $1 ]]; then
+        return 1
+    fi
+    dest=$(zoxide query $1)
+    sesh=$(basename $dest)
+
+    _tmux_project_create_or_switch $sesh $dest
+}
+
+zf () {
+    dest=$(zoxide query -i)
+    if [[ -z $dest ]]; then
+        return 1
+    fi
+    sesh=$(basename $dest)
+
+    _tmux_project_create_or_switch $sesh $dest
+}
+
 pv () {
     proj=$(fd . coding -td -d 2 --base-directory $HOME | fzf)
+    if [[ -z $proj ]]; then
+        return 1
+    fi
     sesh=$(basename $proj)
-    t new -s $sesh -d
-    if [[ $? -eq 0 ]]; then
-        printf "creating new tmux session"
-        sleep "0.5s"
-        t send-keys -t $sesh "cd $HOME/$proj" Enter
-        t send-keys -t $sesh "v" Enter
-    fi
 
-    if [[ -z $TMUX ]]; then
-        t a -t $sesh
-    else
-        t switchc -t $sesh
-    fi
+    _tmux_project_create_or_switch $proj $dest
 }
 
 clone () {
