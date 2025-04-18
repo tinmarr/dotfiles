@@ -10,12 +10,4 @@ arch = [
 
     # intel
     "intel-ucode",
-
-    # bluetooth adapter
-    "rtl8821cu-morrownr-dkms-git",
-
-    "clion",
-    "clion-jre",
-    "clion-cmake",
-    "gdb",
 ]
