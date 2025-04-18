@@ -5,16 +5,15 @@ return {
         keys = {
             { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
         },
-        opts = {}
+        opts = {},
     },
     {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
             "williamboman/mason.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
-        opts = {
-            ensure_installed = { "lua_ls", "gopls", "yamlls", "volar", "ts_ls", "jsonls", "pyright", "taplo" }
-        }
+        opts = {}
     },
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -24,15 +23,23 @@ return {
         },
         opts = {
             ensure_installed = {
+                -- lsps
+                "lua_ls",
+                "gopls",
+                "yamlls",
+                "volar",
+                "ts_ls",
+                "jsonls",
+                "pyright",
+                "taplo",
+                -- debuggers
+                -- linters
+                -- formatters
                 "isort",
                 "black",
                 "prettier",
             },
             auto_update = true
         },
-        config = function(_, opts)
-            require("mason-tool-installer").setup(opts)
-            vim.cmd("MasonToolsUpdate")
-        end
     }
 }
