@@ -45,6 +45,7 @@ arch = [
 
     # tooling
     "cmake",
+    "gdb",
     "inetutils",
     "bind",      # dig, etc
     "sshfs",

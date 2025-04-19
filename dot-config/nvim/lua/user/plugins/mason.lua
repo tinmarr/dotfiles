@@ -33,6 +33,7 @@ return {
                 "pyright",
                 "taplo",
                 -- debuggers
+                "delve",
                 -- linters
                 -- formatters
                 "isort",
