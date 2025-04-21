@@ -38,8 +38,9 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<C-p>",      attempt_telescope,                                                                desc = "Find file (best strat)" },
-            { "<leader>ff", "<cmd>Telescope find_files<cr>",                                                  desc = "Find file" },
+            { "<C-k>",      attempt_telescope,                                                                desc = "Find file (best strat)" },
+            { "<leader>ff", attempt_telescope,                                                                desc = "Find file (best strat)" },
+            { "<leader>fF", "<cmd>Telescope find_files<cr>",                                                  desc = "Find file" },
             { "<leader>fh", "<cmd>Telescope find_files hidden=true no_ignore=true no_ignore_parent=true<cr>", desc = "Find hidden file" },
             { "<leader>fg", "<cmd>Telescope live_grep<cr>",                                                   desc = "Grep through working dir" },
             { "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                                   desc = "Fuzzy find buffer" },
