@@ -14,4 +14,5 @@ arch = [
     # functionality
     "lazydocker-bin",
     "smartmontools",
+    "gnu-netcat",
 ]
