@@ -1,6 +1,7 @@
-;; -*- mode: lisp -*-
+;; vim: filetype=lisp
+
 (defcfg
-    linux-dev-names-exclude ("Nasp Quark LP")
+    linux-dev-names-exclude ("Nasp Quark LP" "Cradio Keyboard")
 )
 (defsrc
     caps
