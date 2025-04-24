@@ -191,10 +191,10 @@ _tmux_project_create_or_switch () {
         printf "creating new tmux session"
         sleep "0.5s"
         t renamew -t $sesh nvim
-        t send-keys -t $sesh "cd $dest" Enter
-        t send-keys -t $sesh "v" Enter
+        t send-keys -t $sesh "cd $dest" Enter "clear; v" Enter
 
         t neww -t $sesh -n run -d
+        t send-keys -t "$sesh"":run" "cd $dest" Enter "clear" Enter
     fi
 
     if [[ -z $TMUX ]]; then
@@ -229,9 +229,10 @@ pv () {
     if [[ -z $proj ]]; then
         return 1
     fi
+    dest=$HOME/$proj
     sesh=$(basename $proj)
 
-    _tmux_project_create_or_switch $proj $dest
+    _tmux_project_create_or_switch $sesh $dest
 }
 
 clone () {
