@@ -8,6 +8,10 @@ vim.keymap.set("n", "<leader>al", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
 
+vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p", { desc = "Paste from clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>d", "\"+d", { desc = "Delete to clipboard" })
+
 vim.keymap.set("n", "<leader>bk", "<cmd>b#<cr>", { desc = "Goto last accessed buffer" })
 vim.keymap.set("n", "<leader>bh", vim.cmd.bprevious, { desc = "Goto previous buffer" })
 vim.keymap.set("n", "<leader>bl", vim.cmd.bnext, { desc = "Goto previous buffer" })
@@ -27,4 +31,4 @@ vim.keymap.set("i", "<C-h>", "<C-w>")
 
 vim.keymap.set("n", "<leader>/", function()
     vim.fn.setreg("/", vim.fn.rand())
-end)
+end, { desc = "Clear search register" })
