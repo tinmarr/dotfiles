@@ -58,7 +58,36 @@ return {
                 { name = "path" },
                 { name = "lazydev" },
                 { name = "buffer" },
-            }
+            },
+            window = {
+                completion = {
+                    border = "rounded",
+                    scrollbar = false,
+                    winhighlight = "",
+                },
+                documentation = {
+                    border = "rounded",
+                    winhighlight = "",
+                },
+            },
         }
     end,
+    config = function(_, opts)
+        local cmp = require("cmp")
+        cmp.setup(opts)
+        cmp.setup.cmdline({ '/', '?' }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
+            }
+        })
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                { name = 'cmdline' }
+            }),
+        })
+    end
 }

@@ -5,9 +5,11 @@ return {
         "MunifTanjim/nui.nvim",
     },
     opts = {
-        -- add any options here
+        popupmenu = {
+            enabled = false,
+        },
         messages = {
-            enabled = false
+            enabled = false,
         },
         notify = {
             enabled = false
@@ -15,7 +17,26 @@ return {
         lsp = {
             progress = {
                 enabled = false,
-            }
+            },
+            documentation = {
+                enabled = true,
+                opts = {
+                    border = {
+                        style = "rounded",
+                        padding = { 0, 1 },
+                    },
+                    position = {
+                        row = 2,
+                        col = 0,
+                    },
+                    win_options = {
+                        winhighlight = {
+                            Normal = "",
+                        }
+                    },
+                    scrollbar = false,
+                },
+            },
         }
     },
 }

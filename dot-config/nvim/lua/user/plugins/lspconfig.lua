@@ -1,14 +1,19 @@
 local on_attach = function(_, bufnr)
-    local opts = { buffer = bufnr, remap = false }
+    local map = function(mode, l, r, opts)
+        opts = opts or {}
+        opts.silent = true
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+    end
 
-    vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { unpack(opts), desc = "See symbol definition" })
-    vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { unpack(opts), desc = "See symbol implementation" })
-    vim.keymap.set("n", "<leader>lf", vim.lsp.buf.references, { unpack(opts), desc = "See symbol references" })
-    vim.keymap.set("n", "<leader>lk", vim.lsp.buf.hover, { unpack(opts), desc = "See symbol hover dialog" })
-    vim.keymap.set("n", "<leader>l.", vim.lsp.buf.code_action, { unpack(opts), desc = "Execute code actions" })
-    vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { unpack(opts), desc = "Rename a symbol" })
+    map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "See symbol definition" })
+    map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "See symbol implementation" })
+    map("n", "<leader>lf", vim.lsp.buf.references, { desc = "See symbol references" })
+    map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Execute code actions" })
+    map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename a symbol" })
+    map("n", "<leader>lk", vim.diagnostic.open_float, { desc = "Open floating diagnostics" })
 
-    vim.keymap.set("n", "<leader>lR", "<cmd>LspRestart<cr>")
+    map("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
 end
 
 
@@ -57,9 +62,15 @@ return {
             },
         },
         config = function(_, opts)
-            local lspconfig = require("lspconfig");
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+            local border = "rounded"
+
+            vim.diagnostic.config({
+                float = {
+                    border = border,
+                }
+            })
 
             for name, conf in pairs(opts.servers) do
                 if name == "ts_ls" then
@@ -78,13 +89,16 @@ return {
                     }
                 end
 
-                lspconfig[name].setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = conf.settings,
-                    init_options = conf.init_options,
-                    filetypes = conf.filetypes,
-                }
+                vim.lsp.enable(name)
+                vim.lsp.config(name,
+                    {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = conf.settings,
+                        init_options = conf.init_options,
+                        filetypes = conf.filetypes,
+                    }
+                )
             end
         end
     },
