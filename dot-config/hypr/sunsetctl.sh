@@ -11,7 +11,7 @@ end_time=0700
 sleep_time="1h"
 
 while true; do
-    current_time=$(date +%H%M)
+    current_time=$(date +%-H%M)
 
     if [[ "$current_time" -lt "$scan_time" && "$current_time" -gt "$end_time" ]]; then
         echo "reset"
