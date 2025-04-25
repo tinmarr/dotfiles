@@ -10,6 +10,7 @@ arch = [
     "rclone",
     "ufw",
     "wireguard-tools",
+    "vim",              # sometimes neovim slow
 
     # functionality
     "lazydocker-bin",
