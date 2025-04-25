@@ -20,7 +20,7 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp", "python", "toml" },
+        ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp", "python", "toml", "typst" },
         dependencies = {
             "williamboman/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -46,7 +46,7 @@ return {
                 },
                 gopls = {},
                 yamlls = {},
-                volar = {},
+                volar = {},            -- vue
                 ts_ls = {
                     init_options = {}, -- defined at runtime
                     filetypes = {
@@ -58,7 +58,14 @@ return {
                 jsonls = {},
                 clangd = {},
                 pyright = {},
-                taplo = {},
+                taplo = {},  -- toml
+                tinymist = { -- typst
+                    settings = {
+                        formatterMode = "typstyle",
+                        exportPdf = "onSave",
+                        semanticTokens = "enable",
+                    }
+                },
             },
         },
         config = function(_, opts)

@@ -53,7 +53,7 @@ return {
             vim.fn["mkdp#util#install"]()
         end,
         keys = {
-            { "<localleader>r", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" }
+            { "<localleader>pm", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" }
         },
     }
 }

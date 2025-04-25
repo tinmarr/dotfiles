@@ -32,6 +32,7 @@ return {
                 "jsonls",
                 "pyright",
                 "taplo",
+                "tinymist",
                 -- debuggers
                 "delve",
                 -- linters
@@ -42,5 +43,10 @@ return {
             },
             auto_update = true
         },
-    }
+        config = function(_, opts)
+            require("mason-tool-installer").setup(opts)
+            vim.cmd("MasonToolsUpdate")
+            vim.cmd("MasonToolsClean")
+        end
+    },
 }
