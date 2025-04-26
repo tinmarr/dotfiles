@@ -11,6 +11,10 @@ arch = [
     # intel
     "intel-ucode",
 
+    # csl dd support
+    "hid-fanatecff-dkms",
+    "oversteer",
+
     # temp
     "openscad",
 ]
