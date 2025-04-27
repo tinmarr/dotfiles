@@ -45,7 +45,7 @@ return {
         },
         config = function(_, opts)
             require("mason-tool-installer").setup(opts)
-            vim.cmd("MasonToolsUpdate")
+            vim.cmd("MasonToolsInstall")
             vim.cmd("MasonToolsClean")
         end
     },
