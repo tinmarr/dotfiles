@@ -2,7 +2,7 @@
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
-vim.opt.linebreak = true
+vim.opt.linebreak = false
 vim.opt.wrap = false
 
 vim.opt.number = true
