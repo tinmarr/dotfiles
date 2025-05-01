@@ -12,8 +12,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 2
 
-vim.opt.textwidth = 80
-vim.opt.colorcolumn = "+1,120"
+vim.opt.colorcolumn = "80,120"
 
 vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
 
