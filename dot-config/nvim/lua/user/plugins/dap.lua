@@ -2,6 +2,14 @@
 return {
     {
         "mfussenegger/nvim-dap",
+        dependencies = {
+            -- {
+            --     "theHamsta/nvim-dap-virtual-text",
+            --     opts = {},
+            -- },
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
         keys = {
             { "<leader>dd", "<cmd>lua require('dap').continue()<cr>",          desc = "Continue or start debugging" },
             { "<leader>dr", "<cmd>lua require('dap').restart()<cr>",           desc = "Restart debugging session" },
@@ -31,6 +39,13 @@ return {
                     continueOnFork = true,
                 },
             }
+
+            vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+            local vscode = require("dap.ext.vscode")
+            local json = require("plenary.json")
+            vscode.json_decode = function(str)
+                return vim.json.decode(json.json_strip_comments(str))
+            end
         end
     },
     {

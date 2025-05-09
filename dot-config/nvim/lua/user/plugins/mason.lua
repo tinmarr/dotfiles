@@ -27,12 +27,13 @@ return {
                 "lua_ls",
                 "gopls",
                 "yamlls",
-                "volar",
                 "ts_ls",
                 "jsonls",
                 "pyright",
                 "taplo",
                 "tinymist",
+                "eslint",
+                "golangci_lint_ls",
                 -- debuggers
                 "delve",
                 -- linters
@@ -40,6 +41,7 @@ return {
                 "isort",
                 "black",
                 "prettier",
+                "gofumpt",
             },
             auto_update = true
         },

@@ -46,9 +46,7 @@ return {
                 },
                 gopls = {},
                 yamlls = {},
-                volar = {},            -- vue
                 ts_ls = {
-                    init_options = {}, -- defined at runtime
                     filetypes = {
                         "javascript",
                         "typescript",
@@ -66,6 +64,12 @@ return {
                         semanticTokens = "enable",
                     }
                 },
+                eslint = {},
+                golangci_lint_ls = {
+                    init_options = {
+                        command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
+                    }
+                },
             },
         },
         config = function(_, opts)
@@ -80,22 +84,6 @@ return {
             })
 
             for name, conf in pairs(opts.servers) do
-                if name == "ts_ls" then
-                    local mason_registry = require('mason-registry')
-                    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-                        '/node_modules/@vue/language-server'
-
-                    conf.init_options = {
-                        plugins = {
-                            {
-                                name = "@vue/typescript-plugin",
-                                location = vue_language_server_path,
-                                languages = { "vue" },
-                            }
-                        }
-                    }
-                end
-
                 vim.lsp.enable(name)
                 vim.lsp.config(name,
                     {

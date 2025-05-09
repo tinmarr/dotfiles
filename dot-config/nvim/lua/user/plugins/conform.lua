@@ -21,7 +21,7 @@ return {
         -- Set up format-on-save
         format_after_save = { async = true, timeout_ms = 500 },
         formatters_by_ft = {
-            go = { lsp_format = "first" },
+            go = { "gofumpt", lsp_format = "first" },
             javascript = { "prettier" },
             typescript = { "prettier" },
             vue = { "prettier" },
