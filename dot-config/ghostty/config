@@ -21,6 +21,8 @@ confirm-close-surface = false
 
 shell-integration-features = true
 
+macos-option-as-alt = true
+
 gtk-single-instance = true
 gtk-titlebar = false
 gtk-adwaita = false
@@ -36,5 +38,6 @@ keybind = alt+seven=unbind
 keybind = alt+eight=unbind
 keybind = alt+nine=unbind
 
-# Remove ctrl+enter full screen (managed by wm)
+# Remove full screen (managed by wm)
 keybind = ctrl+enter=unbind
+keybind = super+enter=unbind
