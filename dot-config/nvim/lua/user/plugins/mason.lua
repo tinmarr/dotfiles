@@ -37,6 +37,7 @@ return {
                 -- debuggers
                 "delve",
                 -- linters
+                "golangci-lint",
                 -- formatters
                 "isort",
                 "black",

@@ -65,11 +65,7 @@ return {
                     }
                 },
                 eslint = {},
-                golangci_lint_ls = {
-                    init_options = {
-                        command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1" },
-                    }
-                },
+                golangci_lint_ls = {},
             },
         },
         config = function(_, opts)

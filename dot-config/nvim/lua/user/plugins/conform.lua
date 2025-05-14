@@ -25,7 +25,7 @@ return {
             javascript = { "prettier" },
             typescript = { "prettier" },
             vue = { "prettier" },
-            json = { "jq" },
+            json = { "prettier" },
             c = { lsp_format = "never" },
             python = { "black", "isort", stop_after_first = false },
             markdown = { "prettier" },

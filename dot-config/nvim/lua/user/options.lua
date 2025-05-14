@@ -14,7 +14,7 @@ vim.opt.conceallevel = 2
 
 vim.opt.colorcolumn = "80,120"
 
-vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
+vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
 
 vim.api.nvim_create_user_command("W", "write", { nargs = "*", range = true, bang = true, complete = "file" })
 

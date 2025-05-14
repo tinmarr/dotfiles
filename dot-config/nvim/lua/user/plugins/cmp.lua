@@ -24,7 +24,7 @@ return {
         local advance = cmp.mapping(function(fallback)
             if cmp.visible() then
                 if luasnip.expandable() then
-                    luasnip.expand()
+                    luasnip.expand({})
                 else
                     cmp.confirm({
                         select = true,
@@ -52,13 +52,15 @@ return {
                     luasnip.lsp_expand(args.body)
                 end,
             },
-            sources = {
-                { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "path" },
-                { name = "lazydev" },
-                { name = "buffer" },
-            },
+            sources = cmp.config.sources({
+                    { name = "luasnip" },
+                    { name = "nvim_lsp" },
+                    { name = "path" },
+                    { name = "lazydev" },
+                },
+                {
+                    { name = "buffer" },
+                }),
             window = {
                 completion = {
                     border = "rounded",
@@ -70,6 +72,7 @@ return {
                     winhighlight = "",
                 },
             },
+            preselect = cmp.PreselectMode.None,
         }
     end,
     config = function(_, opts)
