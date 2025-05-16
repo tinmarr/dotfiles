@@ -1,16 +1,16 @@
 return {
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         cmd = "Mason",
         keys = {
-            { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
+            { "<leader>am", "<cmd>execute 'MasonToolsInstall' | Mason<cr>", desc = "Open Mason" }
         },
         opts = {},
     },
     {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
         opts = {}
@@ -18,8 +18,12 @@ return {
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
+        },
+        cmd = {
+            "MasonToolsInstall",
+            "MasonToolsClean",
         },
         opts = {
             ensure_installed = {
@@ -36,6 +40,7 @@ return {
                 "golangci_lint_ls",
                 -- debuggers
                 "delve",
+                "js-debug-adapter",
                 -- linters
                 "golangci-lint",
                 -- formatters

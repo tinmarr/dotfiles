@@ -3,10 +3,6 @@ return {
     {
         "mfussenegger/nvim-dap",
         dependencies = {
-            -- {
-            --     "theHamsta/nvim-dap-virtual-text",
-            --     opts = {},
-            -- },
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             "nvim-telescope/telescope.nvim",
         },
@@ -39,6 +35,27 @@ return {
                     continueOnFork = true,
                 },
             }
+
+            dap.adapters["pwa-node"] = {
+                type = "server",
+                host = "localhost",
+                port = "${port}",
+                executable = {
+                    command = "node",
+                    args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+                }
+            }
+            dap.adapters["node"] = function(cb, config)
+                if config.type == "node" then
+                    config.type = "pwa-node"
+                end
+                local nativeAdapter = dap.adapters["pwa-node"]
+                if type(nativeAdapter) == "function" then
+                    nativeAdapter(cb, config)
+                else
+                    cb(nativeAdapter)
+                end
+            end
 
             vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
             local vscode = require("dap.ext.vscode")

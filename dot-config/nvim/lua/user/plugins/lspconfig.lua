@@ -22,9 +22,9 @@ return {
         "neovim/nvim-lspconfig",
         ft = { "go", "lua", "yaml", "vue", "ts", "json", "c", "cpp", "python", "toml", "typst" },
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason-lspconfig.nvim",
         },
         opts = {
             servers = {
