@@ -60,6 +60,7 @@ return {
             vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
             local vscode = require("dap.ext.vscode")
             local json = require("plenary.json")
+            ---@diagnostic disable-next-line: duplicate-set-field
             vscode.json_decode = function(str)
                 return vim.json.decode(json.json_strip_comments(str))
             end
