@@ -37,6 +37,7 @@ arch = [
     "unzip",
     "zip",
     "wget",
+    "rsync",
 
     # languages
     "clang",
