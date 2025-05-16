@@ -25,6 +25,7 @@ return {
             "mason-org/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "mason-org/mason-lspconfig.nvim",
+            "nvim-telescope/telescope.nvim",
         },
         opts = {
             servers = {
