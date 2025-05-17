@@ -24,9 +24,9 @@ zinit wait"" lucid light-mode for \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
       Aloxaf/fzf-tab \
       atload'eval "$(pyenv init -)"' atload'eval "$(pyenv virtualenv-init -)"' "$PYENV_ROOT" \
-      atload'[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' "$NVM_DIR"
 
-[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
+[[ -e $NVM_DIR ]] && [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
+[[ -e $NVM_DIR ]] && [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
 
 # Install snippets
 zinit ice wait lucid; zinit snippet OMZP::sudo
@@ -94,7 +94,6 @@ bindkey '^J' history-substring-search-down
 export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export GPG_TTY=$TTY
-
 
 # Load various shell utilities
 eval "$(fzf --zsh)"
