@@ -212,6 +212,13 @@ zv () {
         return 1
     fi
     dest=$(zoxide query $1)
+    if [[ $? -eq 1 ]]; then
+        dest="$(pwd)/$1"
+    fi
+    if ! [[ -d $dest ]]; then
+        echo "bad dir: $dest"
+        return 1
+    fi
     sesh=$(basename $dest)
 
     _tmux_project_create_or_switch $sesh $dest
