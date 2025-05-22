@@ -15,7 +15,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", "\"+d", { desc = "Delete to clipboard"
 vim.keymap.set("n", "<leader>bk", "<cmd>b#<cr>", { desc = "Goto last accessed buffer" })
 vim.keymap.set("n", "<leader>bh", vim.cmd.bprevious, { desc = "Goto previous buffer" })
 vim.keymap.set("n", "<leader>bl", vim.cmd.bnext, { desc = "Goto previous buffer" })
-vim.keymap.set("n", "<leader>bc", vim.cmd.bdelete, { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>bc", vim.cmd.bdelete, { desc = "Delete buffer" })
 
 vim.keymap.set("n", "<M-S-l>", "5<C-w>>")
 vim.keymap.set("n", "<M-S-h>", "5<C-w><")
