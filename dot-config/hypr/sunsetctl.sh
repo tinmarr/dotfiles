@@ -3,10 +3,10 @@
 max_temp=6500
 min_temp=2500
 
-scan_time=1730 # time we start checking for gradient
-start_time=1800 # time we start gradient
-full_time=2000 # time we end gradient
-end_time=0700
+scan_time=1900 # time we start checking for gradient
+start_time=2000 # time we start gradient
+full_time=2200 # time we end gradient
+end_time=0500
 
 sleep_time="1h"
 
