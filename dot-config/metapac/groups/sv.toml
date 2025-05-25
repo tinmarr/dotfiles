@@ -16,4 +16,5 @@ arch = [
     "lazydocker-bin",
     "smartmontools",
     "gnu-netcat",
+    "ffmpeg",
 ]
