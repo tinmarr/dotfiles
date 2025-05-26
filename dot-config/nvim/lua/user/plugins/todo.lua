@@ -4,5 +4,7 @@ return {
     keys = {
         { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "List todos in telescope" }
     },
+    cmd = "TodoTelescope",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {}
 }
