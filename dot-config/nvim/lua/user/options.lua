@@ -14,6 +14,11 @@ vim.opt.conceallevel = 2
 
 vim.opt.colorcolumn = "80,120"
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevelstart = 99
+vim.opt.foldlevel = 99
+
 vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
 vim.lsp.set_log_level("OFF")
 

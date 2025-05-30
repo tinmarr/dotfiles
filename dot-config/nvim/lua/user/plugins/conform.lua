@@ -22,6 +22,7 @@ return {
         format_after_save = { async = true, timeout_ms = 500 },
         formatters_by_ft = {
             go = { "gofumpt", lsp_format = "first" },
+            yaml = { "prettier" },
             javascript = { "prettier" },
             typescript = { "prettier" },
             vue = { "prettier" },
