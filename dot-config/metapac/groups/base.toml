@@ -16,7 +16,7 @@ arch = [
     # required shell stuff
     "zsh",
     "yay",
-    "metapac-bin",
+    "metapac",
     "networkmanager",
     "openssh",
 ]
