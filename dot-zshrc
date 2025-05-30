@@ -17,15 +17,13 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # Install plugins
-zinit wait"" lucid light-mode for \
+zinit wait lucid light-mode for \
       atload"_zsh_autosuggest_start; unalias zi" zsh-users/zsh-autosuggestions \
       atinit"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
       Aloxaf/fzf-tab \
       atload'eval "$(pyenv init -)"' "$PYENV_ROOT" \
-
-[[ -e $NVM_DIR ]] && [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
-[[ -e $NVM_DIR ]] && [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
+      atload'[[ -e $NVM_DIR ]] && [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh" && [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion' "$XDG_CACHE_HOME"
 
 # Install snippets
 zinit ice wait lucid; zinit snippet OMZP::sudo
