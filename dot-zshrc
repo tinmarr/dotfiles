@@ -183,7 +183,6 @@ _tmux_project_create_or_switch () {
     t new -s $sesh -d
     if [[ $? -eq 0 ]]; then
         printf "creating new tmux session"
-        # sleep "0.5s"
         t renamew -t $sesh nvim
         t send-keys -t $sesh "cd $dest" Enter "clear; v" Enter
 
@@ -247,5 +246,3 @@ virt-cam-reset () {
     sudo modprobe -r v4l2loopback
     sudo modprobe v4l2loopback
 }
-
-# eval "$(starship init zsh)"
