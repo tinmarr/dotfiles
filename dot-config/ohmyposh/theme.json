@@ -3,9 +3,7 @@
   "transient_prompt": {
     "template": "❯ ",
     "foreground": "red",
-    "foreground_templates": [
-      "{{ if eq .Code 0 }}green{{ end }}"
-    ]
+    "foreground_templates": ["{{ if eq .Code 0 }}green{{ end }}"]
   },
   "blocks": [
     {
@@ -22,7 +20,8 @@
         },
         {
           "properties": {
-            "cache_duration": "none"
+            "cache_duration": "none",
+            "display_mode": "files"
           },
           "template": "\ue235 {{.Venv}} {{ .Full }} ",
           "foreground": "cyan",
@@ -92,9 +91,7 @@
           "foreground": "red",
           "type": "text",
           "style": "plain",
-          "foreground_templates": [
-            "{{ if eq .Code 0 }}green{{ end }}"
-          ]
+          "foreground_templates": ["{{ if eq .Code 0 }}green{{ end }}"]
         }
       ],
       "newline": true

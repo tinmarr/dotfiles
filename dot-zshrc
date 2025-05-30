@@ -20,10 +20,9 @@ export PATH="$GOPATH/bin:$PATH"
 zinit wait"" lucid light-mode for \
       atload"_zsh_autosuggest_start; unalias zi" zsh-users/zsh-autosuggestions \
       atinit"zicompinit; zicdreplay" zsh-users/zsh-syntax-highlighting \
-      zsh-users/zsh-history-substring-search \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
       Aloxaf/fzf-tab \
-      atload'eval "$(pyenv init -)"' atload'eval "$(pyenv virtualenv-init -)"' "$PYENV_ROOT" \
+      atload'eval "$(pyenv init -)"' "$PYENV_ROOT" \
 
 [[ -e $NVM_DIR ]] && [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
 [[ -e $NVM_DIR ]] && [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
@@ -84,11 +83,8 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-# setup history subsearch
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^K' history-substring-search-up
-bindkey '^J' history-substring-search-down
+bindkey '^K' up-line-or-history
+bindkey '^J' down-line-or-history
 
 # Standard Terminal Variables
 export LANG=en_US.UTF-8
@@ -192,7 +188,7 @@ _tmux_project_create_or_switch () {
     t new -s $sesh -d
     if [[ $? -eq 0 ]]; then
         printf "creating new tmux session"
-        sleep "0.5s"
+        # sleep "0.5s"
         t renamew -t $sesh nvim
         t send-keys -t $sesh "cd $dest" Enter "clear; v" Enter
 
@@ -256,3 +252,5 @@ virt-cam-reset () {
     sudo modprobe -r v4l2loopback
     sudo modprobe v4l2loopback
 }
+
+# eval "$(starship init zsh)"
