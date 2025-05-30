@@ -10,7 +10,6 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 export PYENV_ROOT="$HOME/.pyenv"
-export NVM_DIR="$HOME/.nvm"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 export GOPATH="$HOME/go"
@@ -23,7 +22,6 @@ zinit wait lucid light-mode for \
       blockf atpull'zinit creinstall -q .' zsh-users/zsh-completions \
       Aloxaf/fzf-tab \
       atload'eval "$(pyenv init -)"' "$PYENV_ROOT" \
-      atload'[[ -e $NVM_DIR ]] && [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh" && [[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion' "$XDG_CACHE_HOME"
 
 # Install snippets
 zinit ice wait lucid; zinit snippet OMZP::sudo
