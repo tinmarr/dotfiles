@@ -1,9 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "transient_prompt": {
-    "template": "❯ ",
-    "foreground": "red",
-    "foreground_templates": ["{{ if eq .Code 0 }}green{{ end }}"]
+    "template": "<blue>{{ .Segments.Path.Path }}</> ❯ ",
+    "foreground": "green"
   },
   "blocks": [
     {
