@@ -19,7 +19,6 @@ arch = [
 
     # misc
     "zoom",
-    "notion-app-electron",
 
     # misc utilities
     "postman-bin",
