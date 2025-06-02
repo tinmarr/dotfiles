@@ -30,10 +30,21 @@ return {
                     i = {
                         ["<C-j>"] = "move_selection_next",
                         ["<C-k>"] = "move_selection_previous",
-                        ["<C-u>"] = "results_scrolling_up",
-                        ["<C-d>"] = "results_scrolling_down",
                         ["<esc>"] = "close",
                     }
+                },
+                layout_strategy = "horizontal",
+                layout_config = {
+                    horizontal = {
+                        prompt_position = "top",
+                        height = 0.75,
+                    }
+                },
+                sorting_strategy = "ascending",
+            },
+            extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_cursor()
                 }
             }
         },
