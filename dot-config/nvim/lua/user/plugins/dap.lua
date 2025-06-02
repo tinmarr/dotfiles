@@ -3,7 +3,7 @@ return {
     {
         "mfussenegger/nvim-dap",
         dependencies = {
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            "mason-org/mason.nvim",
             "nvim-telescope/telescope.nvim",
         },
         keys = {

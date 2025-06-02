@@ -13,7 +13,7 @@ return {
         },
     },
     dependencies = {
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "mason-org/mason.nvim",
     },
     ---@module "conform"
     ---@type conform.setupOpts
