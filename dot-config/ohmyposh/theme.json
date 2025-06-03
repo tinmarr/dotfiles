@@ -1,22 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "transient_prompt": {
-    "template": "<blue>{{ .Segments.Path.Path }}</> ❯ ",
+    "template": "<blue>{{ .Segments.Path.Path }}</><magenta>{{ if .Segments.Session.SSHSession }} {{ .HostName }}{{ end }}</> ❯ ",
     "foreground": "green"
   },
   "blocks": [
     {
       "type": "rprompt",
       "segments": [
-        {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }} ",
-          "foreground": "green",
-          "type": "session",
-          "style": "plain"
-        },
         {
           "properties": {
             "cache_duration": "none",
@@ -61,6 +52,15 @@
           "template": "{{ if not .Writable }}\uf023 {{else}}{{ if matchP \"^~$\" .Path}}\uf015 {{else}}\uf07c {{end}}{{end}}{{ .Path }} ",
           "foreground": "blue",
           "type": "path",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{ if .SSHSession }}{{ .UserName }}@{{ .HostName }}{{ end }} ",
+          "foreground": "magenta",
+          "type": "session",
           "style": "plain"
         },
         {
