@@ -1,11 +1,18 @@
-# vim: set filetype=config :
+# vim: set filetype=confini :
 
 font-family = JetBrainsMono Nerd Font
 
 theme = catppuccin-mocha
 
-background-opacity = 1
+background-opacity = 0.95
+background-blur = true
+
+title = "ghostty"
+
 cursor-text = black
+cursor-color = #b4befe
+
+mouse-hide-while-typing = true
 
 minimum-contrast = 1
 
@@ -22,6 +29,8 @@ confirm-close-surface = false
 shell-integration-features = true
 
 macos-option-as-alt = true
+macos-titlebar-style = hidden
+auto-update = false
 
 gtk-single-instance = true
 gtk-titlebar = false
