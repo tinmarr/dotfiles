@@ -30,7 +30,7 @@ shell-integration-features = true
 
 macos-option-as-alt = true
 macos-titlebar-style = hidden
-auto-update = false
+auto-update = off
 
 gtk-single-instance = true
 gtk-titlebar = false
