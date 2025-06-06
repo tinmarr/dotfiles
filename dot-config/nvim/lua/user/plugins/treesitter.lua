@@ -24,6 +24,8 @@ return {
             vim.filetype.add({
                 pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
             })
+
+            vim.api.nvim_set_hl(0, "@markup.italic", { italic = true, fg = "#a6e3a1" })
         end,
     },
     {

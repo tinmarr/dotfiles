@@ -8,7 +8,8 @@ return {
     opts = {
         flavour = "mocha",
         integrations = {
-            which_key = true
+            which_key = true,
+            render_markdown = true,
         }
     },
     config = function(_, opts)

@@ -42,6 +42,31 @@ return {
         ---@type render.md.UserConfig
         opts = {
             render_modes = true,
+            sign = {
+                enabled = false,
+            },
+            heading = {
+                position = "inline",
+                sign = false,
+                backgrounds = {},
+                icons = { "󰲠 ", "󰲢 ", "󰲤 ", "󰲦 ", "󰲨 ", "󰲪 " },
+            },
+            checkbox = {
+                custom = {
+                    todo = { raw = "[ ]", rendered = "󰄱 ", highlight = "RenderMarkdownUnchecked" },
+                    in_progress = { raw = "[/]", rendered = "󰡖 ", highlight = "RenderMarkdownTodo" },
+                    cancelled = { raw = "[-]", rendered = "󰅗 ", highlight = "RenderMarkdownError" },
+                    rescheduled = { raw = "[>]", rendered = "󱄵 ", highlight = "RenderMarkdownInfo" },
+                    scheduled = { raw = "[<]", rendered = "󰃮 ", highlight = "RenderMarkdownHint" },
+                    important = { raw = "[!]", rendered = "󰀧 ", highlight = "RenderMarkdownWarn" },
+                    question = { raw = "[?]", rendered = "󰋗 ", highlight = "RenderMarkdownH2" },
+                    star = { raw = "[*]", rendered = "󰓎 ", highlight = "RenderMarkdownWarn" },
+                },
+            },
+            code = {
+                border = "thick",
+                left_pad = 1,
+            }
         },
     },
     {

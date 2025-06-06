@@ -59,6 +59,7 @@ return {
                     { name = "lazydev" },
                 },
                 {
+                    { name = "render-markdown" },
                     { name = "buffer" },
                 }),
             window = {
