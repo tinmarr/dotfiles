@@ -10,6 +10,10 @@ configuration {
     kb-accept-entry: "Return";
     kb-remove-to-eol: "";
     run-command: "uwsm-app -- {cmd}";
+
+    run {
+        display-name: "";
+    }
 }
 
 * {
@@ -124,7 +128,7 @@ configuration {
     text-color: @foreground;
     padding:    0px;
     margin: 0px 0px 5px;
-    children:   [ textbox-prompt-colon,entry ];
+    children:   [ prompt,entry ];
     background-color: @base;
 }
 #case-indicator {
@@ -138,14 +142,9 @@ configuration {
 }
 #prompt {
     spacing:    0;
-    text-color: @green;
-}
-#textbox-prompt-colon {
-    expand:     false;
-    str:        "";
-    margin:     0px 0.3em 0em 0em ;
     background-color: @base;
     text-color: @mauve;
+    margin:     0px 0.3em 0em 0em ;
 }
 element-text, element-icon {
     background-color: inherit;

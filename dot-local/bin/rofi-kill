@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+process=$(ps -U $(whoami) -o comm | tail -n +1 | sort | uniq | rofi -dmenu -p "kill")
+
+if [[ -z $process ]]; then
+    exit 0
+fi
+
+notify-send "Killing $process..."
+pkill $process
+
