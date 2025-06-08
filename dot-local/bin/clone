@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+gh repo clone $(gh repo list $1 --json nameWithOwner --jq '.[].nameWithOwner' | fzf)

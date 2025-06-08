@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+sudo test
+echo "Finding best mirrors..."
+sudo reflector -c CA --score 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+echo "Done"

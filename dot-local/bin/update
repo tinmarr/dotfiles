@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+sudo test
+mirrors
+yay -Syy
+yay -Qu > $HOME/.cache/updated-packages.txt
+echo "Starting update:"
+yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
+zinit self-update
+zinit update --parallel
+
+cd ~/dotfiles
+git pull
+restowall
+cd ~
+
+yay
+echo "Orphans:"
+yay -Qdt
+echo "If there are orphans, remove with:"
+echo "    yay -Qdtq | sudo pacman -Rns -"
+echo "Not done automatically because this could break stuff"
+echo "$(cat $HOME/.cache/updated-packages.txt | wc -l) packages updated"
+echo "Updated packages stored in ~/.cache/updated-packages.txt"
+

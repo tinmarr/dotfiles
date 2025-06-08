@@ -42,6 +42,7 @@ setopt correct
 setopt correct
 setopt share_history append_history hist_ignore_space
 setopt hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
+setopt auto_cd
 
 # Enable vi mode
 bindkey -v
@@ -108,28 +109,12 @@ alias lg="lazygit"
 alias ms="sudo test; metapac sync && metapac clean"
 
 #### Macros ####
-vf () {
-    file="$(fzf)"
-    if [[ $file == "" ]]; then
-        v
-    else
-        v $file
-    fi
-}
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias pipunall="pip freeze | grep -v '^-e' | xargs pip uninstall -y"
 tzupdate () {
     # Function because the curl is evaluated as an alias
     timedatectl set-timezone $(curl https://ipapi.co/timezone)
 }
-alias gitrmbranches="git branch --list| grep -v \* | xargs git branch -D"
-gitc () {
-    git add .
-    git commit -m $1
-    git push
-}
-alias gits="(git fetch &>/dev/null &) && git status"
-alias gitl="git log --compact-summary"
 
 # https://yazi-rs.github.io/docs/quick-start#shell-wrapper
 y () {
@@ -141,41 +126,7 @@ y () {
 	rm -f -- "$tmp"
 }
 
-#### Check mirrors ####
-mirrors () {
-    sudo test
-    echo "Finding best mirrors..."
-    sudo reflector -c CA --score 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
-    echo "Done"
-}
-
-#### Update System ####
-update () {
-    sudo test
-    mirrors
-    yay -Syy
-    yay -Qu > $HOME/.cache/updated-packages.txt
-    echo "Starting update:"
-    yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
-    zinit self-update
-    zinit update --parallel
-
-    cd ~/dotfiles
-    git pull
-    restowall
-    cd ~
-
-    yay
-    echo "Orphans:"
-    yay -Qdt
-    echo "If there are orphans, remove with:"
-    echo "    yay -Qdtq | sudo pacman -Rns -"
-    echo "Not done automatically because this could break stuff"
-    echo "$(cat $HOME/.cache/updated-packages.txt | wc -l) packages updated"
-    echo "Updated packages stored in ~/.cache/updated-packages.txt"
-}
-
-#### Quick Scripts ####
+#### Tmux Scripts ####
 _tmux_project_create_or_switch () {
     sesh=$1
     dest=$2
@@ -233,16 +184,4 @@ pv () {
     sesh=$(basename $proj)
 
     _tmux_project_create_or_switch $sesh $dest
-}
-
-clone () {
-    gh repo clone $(gh repo list $1 --json nameWithOwner --jq '.[].nameWithOwner' | fzf)
-}
-
-virt-cam-reset () {
-    echo "Make sure to turn off any virtual cameras before continuing"
-    echo "Press any key to continue:"
-    read
-    sudo modprobe -r v4l2loopback
-    sudo modprobe v4l2loopback
 }
