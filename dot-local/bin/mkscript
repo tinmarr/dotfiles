@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+bin_dir="$HOME/dotfiles/dot-local/bin"
+
+if [[ -z $1 ]]; then
+    read -p "Script name: " name
+else
+    name=$1
+fi
+
+if [[ -z $name ]]; then
+    printf "No name provided\n"
+    exit 1
+fi
+
+filename="$bin_dir/$name"
+
+if [[ -e $filename ]]; then
+    printf "Script '$filename' already exists\n"
+    exit 1
+fi
+
+touch "$filename"
+printf "#!/usr/bin/env bash\n\n\n" > $filename
+chmod +x "$filename"
+bash -c "$HOME/dotfiles/install/restowall"
+nvim "$filename"
