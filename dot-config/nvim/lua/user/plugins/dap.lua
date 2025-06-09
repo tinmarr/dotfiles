@@ -82,6 +82,18 @@ return {
             "mfussenegger/nvim-dap",
         },
         opts = {},
+        config = function(_, opts)
+            opts["dap_configurations"] = {
+                {
+                    type = "go",
+                    name = "Debug main.go (Build Flags)",
+                    request = "launch",
+                    program = "main.go",
+                    args = require("dap-go").get_arguments,
+                },
+            }
+            require("dap-go").setup(opts)
+        end
     },
     {
         "mfussenegger/nvim-dap-python",
