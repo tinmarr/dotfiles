@@ -28,4 +28,5 @@ arch = [
     "xournalpp",
     "zathura",
     "zathura-pdf-poppler",
+    "typst",
 ]
