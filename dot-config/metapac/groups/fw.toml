@@ -4,6 +4,7 @@ arch = [
     "mesa",
     "lib32-mesa",
     "vulkan-radeon",
+    "rocm-smi-lib",  # for btop gpu output
 
     # hardware control
     "acpi",
