@@ -31,3 +31,6 @@ README.org # Config compiler files
 ^/\.envrc # Envrc for the dotfiles repo
 
 ^/showcase\.png
+
+# root
+^/root
