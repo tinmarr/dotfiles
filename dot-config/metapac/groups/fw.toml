@@ -8,7 +8,7 @@ arch = [
 
     # hardware control
     "acpi",
-    "fw-ectool-git",
+    "framework-system",
     "fwupd",
     "iw",
     "power-profiles-daemon",
