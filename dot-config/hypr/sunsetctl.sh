@@ -13,7 +13,11 @@ sleep_time="1h"
 while true; do
     current_time=$(date +%-H%M)
 
-    if [[ "$current_time" -lt "$scan_time" && "$current_time" -gt "$end_time" ]]; then
+    if [[ "$current_time" -gt 0 && "$current_time" -lt "$end_time" ]]; then
+        echo "temps set to $min_temp"
+        hyprctl -i 0 hyprsunset temperature $min_temp
+        sleep_time=1h
+    elif [[ "$current_time" -lt "$scan_time" && "$current_time" -gt "$end_time" ]]; then
         echo "reset"
         hyprctl -i 0 hyprsunset identity
         sleep_time=1h
