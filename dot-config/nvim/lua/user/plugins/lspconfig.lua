@@ -82,7 +82,6 @@ return {
             })
 
             for name, conf in pairs(opts.servers) do
-                vim.lsp.enable(name)
                 vim.lsp.config(name,
                     {
                         capabilities = capabilities,
@@ -92,6 +91,7 @@ return {
                         filetypes = conf.filetypes,
                     }
                 )
+                vim.lsp.enable(name)
             end
         end
     },

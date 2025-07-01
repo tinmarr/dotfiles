@@ -8,6 +8,7 @@ return {
         },
         keys = {
             { "<leader>dd", "<cmd>lua require('dap').continue()<cr>",          desc = "Continue or start debugging" },
+            { "<leader>dl", "<cmd>lua require('dap').run_last()<cr>",          desc = "Continue or start debugging" },
             { "<leader>dr", "<cmd>lua require('dap').restart()<cr>",           desc = "Restart debugging session" },
             { "<leader>dq", "<cmd>lua require('dap').terminate()<cr>",         desc = "Terminate debugging session" },
             { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle breakpoint" },
@@ -72,7 +73,11 @@ return {
         keys = {
             { "<leader>dt", "<cmd>lua require('dapui').toggle()<cr>", desc = "Toggle UI" },
         },
-        opts = {},
+        opts = {
+            render = {
+                max_type_length = 0,
+            },
+        },
     },
     -- DAP configuration packages
     {
@@ -81,12 +86,16 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap",
         },
+        keys = {
+            { "<leader>dgt", "<cmd>lua require('dap-go').debug_test()<cr>",      desc = "Debug current test" },
+            { "<leader>dgl", "<cmd>lua require('dap-go').debug_last_test()<cr>", desc = "Debug last test" }
+        },
         opts = {},
         config = function(_, opts)
             opts["dap_configurations"] = {
                 {
                     type = "go",
-                    name = "Debug main.go (Build Flags)",
+                    name = "Debug main.go (with args)",
                     request = "launch",
                     program = "main.go",
                     args = require("dap-go").get_arguments,
