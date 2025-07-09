@@ -4,7 +4,7 @@ font-family = JetBrainsMono Nerd Font
 
 theme = catppuccin-mocha
 
-background-opacity = 0.95
+background-opacity = 0.85
 background-blur = true
 
 title = "ghostty"
@@ -34,7 +34,6 @@ auto-update = off
 
 gtk-single-instance = true
 gtk-titlebar = false
-gtk-adwaita = false
 
 # Remove alt+number bindings (used in tmux)
 keybind = alt+one=unbind
