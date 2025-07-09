@@ -31,6 +31,9 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         event = { "BufReadPost", "BufNewFile" },
-        opts = {}
+        opts = {
+            multiwindow = true,
+            max_lines = 4,
+        }
     }
 }
