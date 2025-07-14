@@ -6,10 +6,10 @@
 # | macOS    | $HOME/Library/Application Support/metapac/config.toml | /Users/Alice/Library/Application Support/metapac/config.toml |
 # | Windows  | {FOLDERID_RoamingAppData}\metapac\config.toml         | C:\Users\Alice\AppData\Roaming\metapac\config.toml           |
 
-# Backends to disable from all metapac behavior. See the README.md for
+# Backends to enable from all metapac behavior. See the README.md for
 # the list of backend names
 # Default: []
-disabled_backends = []
+enabled_backends = ["arch"]
 
 # Since pacman, paru, pikaur and yay all operate on the same package database
 # they are mutually exclusive and so you must pick which one you want
