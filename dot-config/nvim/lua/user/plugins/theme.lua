@@ -7,6 +7,7 @@ return {
     ---@type CatppuccinOptions
     opts = {
         flavour = "mocha",
+        transparent_background = true,
         integrations = {
             which_key = true,
             render_markdown = true,
