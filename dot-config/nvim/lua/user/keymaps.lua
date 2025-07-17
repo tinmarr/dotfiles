@@ -7,6 +7,8 @@ vim.keymap.set("n", "<leader>al", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
+vim.keymap.set("n", "n", "nzz", { noremap = true })
+vim.keymap.set("n", "N", "Nzz", { noremap = true })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p", { desc = "Paste from clipboard" })
@@ -30,5 +32,10 @@ vim.keymap.set("n", "<M-=>", "<C-w>=")
 vim.keymap.set("i", "<C-h>", "<C-w>")
 
 vim.keymap.set("n", "<leader>/", function()
-    vim.fn.setreg("/", vim.fn.rand())
-end, { desc = "Clear search register" })
+    ---@diagnostic disable-next-line: undefined-field
+    if vim.opt.hlsearch._value then
+        vim.opt.hlsearch = false
+    else
+        vim.opt.hlsearch = true
+    end
+end, { desc = "Toggle search highlight" })

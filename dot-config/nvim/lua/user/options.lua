@@ -1,25 +1,39 @@
--- Vim options documented here: https://neovim.io/doc/user/quickref.html#option-list
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 0
-vim.opt.linebreak = false
-vim.opt.wrap = false
+-- Neovim options documented here: https://neovim.io/doc/user/quickref.html#option-list
 
+-- tabbing
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 0
+vim.opt.tabstop = 4
+vim.opt.smartindent = true
+
+-- sidebar
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 
+-- behavior
+vim.opt.linebreak = false
+vim.opt.mouse = "a"
+vim.opt.scrolloff = 5
+vim.opt.autoread = true
+vim.opt.smartcase = true
+
+-- look
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 2
-
+vim.opt.wrap = false
 vim.opt.colorcolumn = "80,120"
+vim.opt.cursorline = true
 
+-- folding
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
 
-vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
+-- language
+vim.g.is_posix = 1
+
 vim.lsp.set_log_level("OFF")
 
 vim.api.nvim_create_user_command("W", "write", { nargs = "*", range = true, bang = true, complete = "file" })
