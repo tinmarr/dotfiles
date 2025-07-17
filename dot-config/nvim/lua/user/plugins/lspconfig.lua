@@ -12,15 +12,22 @@ local on_attach = function(_, bufnr)
     map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Execute code actions" })
     map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename a symbol" })
     map("n", "<leader>lk", vim.diagnostic.open_float, { desc = "Open floating diagnostics" })
+    map("n", "<leader>lx", vim.diagnostic.setloclist, { desc = "Open buffer diagnostics" })
+    map("n", "<leader>lX", vim.diagnostic.setqflist, { desc = "Open all diagnostics" })
 
     map("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
 end
 
 local border = "rounded"
 
-vim.diagnostic.config({
+vim.diagnostic.onfig({
+    virtual_text = true,
     float = {
         border = border,
+    },
+    loclist = {
+        open = true,
+        severity = { min = vim.diagnostic.severity.WARN },
     }
 })
 
