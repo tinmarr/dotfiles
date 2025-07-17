@@ -16,6 +16,17 @@ local on_attach = function(_, bufnr)
     map("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
 end
 
+local border = "rounded"
+
+vim.diagnostic.config({
+    float = {
+        border = border,
+    }
+})
+
+vim.lsp.config("*", {
+    on_attach = on_attach,
+})
 
 return {
     {
@@ -73,19 +84,10 @@ return {
         config = function(_, opts)
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local border = "rounded"
-
-            vim.diagnostic.config({
-                float = {
-                    border = border,
-                }
-            })
-
             for name, conf in pairs(opts.servers) do
                 vim.lsp.config(name,
                     {
                         capabilities = capabilities,
-                        on_attach = on_attach,
                         settings = conf.settings,
                         init_options = conf.init_options,
                         filetypes = conf.filetypes,
