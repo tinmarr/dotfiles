@@ -14,8 +14,6 @@ cursor-color = #b4befe
 
 mouse-hide-while-typing = true
 
-minimum-contrast = 1
-
 window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = true

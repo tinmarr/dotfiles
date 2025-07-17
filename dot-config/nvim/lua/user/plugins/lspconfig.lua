@@ -20,7 +20,7 @@ end
 
 local border = "rounded"
 
-vim.diagnostic.onfig({
+vim.diagnostic.config({
     virtual_text = true,
     float = {
         border = border,
