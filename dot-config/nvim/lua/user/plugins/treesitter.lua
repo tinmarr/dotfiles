@@ -4,7 +4,7 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         build = ":TSUpdate",
         opts = {
-            ensure_installed = { "lua", "hyprlang", "latex" },
+            ensure_installed = { "hyprlang" },
             auto_install = true,
             sync_install = false,
             ignore_install = {},

@@ -1,23 +1,3 @@
-local on_attach = function(_, bufnr)
-    local map = function(mode, l, r, opts)
-        opts = opts or {}
-        opts.silent = true
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-    end
-
-    map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "See symbol definition" })
-    map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "See symbol implementation" })
-    map("n", "<leader>lf", vim.lsp.buf.references, { desc = "See symbol references" })
-    map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Execute code actions" })
-    map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename a symbol" })
-    map("n", "<leader>lk", vim.diagnostic.open_float, { desc = "Open floating diagnostics" })
-    map("n", "<leader>lx", vim.diagnostic.setloclist, { desc = "Open buffer diagnostics" })
-    map("n", "<leader>lX", vim.diagnostic.setqflist, { desc = "Open all diagnostics" })
-
-    map("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
-end
-
 local border = "rounded"
 
 vim.diagnostic.config({
@@ -29,10 +9,6 @@ vim.diagnostic.config({
         open = true,
         severity = { min = vim.diagnostic.severity.WARN },
     }
-})
-
-vim.lsp.config("*", {
-    on_attach = on_attach,
 })
 
 return {
@@ -83,7 +59,13 @@ return {
                         semanticTokens = "enable",
                     }
                 },
-                eslint = {},
+                eslint = {
+                    settings = {
+                        completion = {
+                            enable = false,
+                        },
+                    },
+                },
                 golangci_lint_ls = {},
                 bashls = {},
             },
