@@ -1,17 +1,11 @@
+vim.api.nvim_create_user_command("ConformFormat", function()
+    require("conform").format({ async = true, lsp_fallback = true })
+end, {})
+
 return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
-    keys = {
-        {
-            "<leader>ls",
-            function()
-                require("conform").format({ async = true, lsp_fallback = true })
-            end,
-            mode = "",
-            desc = "Format buffer",
-        },
-    },
     dependencies = {
         "mason-org/mason.nvim",
     },

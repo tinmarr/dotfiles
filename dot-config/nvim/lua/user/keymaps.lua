@@ -32,6 +32,12 @@ vim.keymap.set("n", "<M-c>", "<C-w>c")
 vim.keymap.set("n", "<M-o>", "<C-w>o")
 vim.keymap.set("n", "<M-=>", "<C-w>=")
 
+-- tabs
+vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
+vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Next tab" })
+vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+vim.keymap.set("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "Add tab" })
+
 -- lsp
 vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "See symbol definition" })
 vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { desc = "See symbol implementation" })

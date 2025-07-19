@@ -26,6 +26,7 @@ return {
             { "<leader>c",      group = "comment" },
             { "<leader>d",      group = "debugger" },
             { "<leader>f",      group = "telescope" },
+            { "<leader>g",      group = "git" },
             { "<leader>h",      group = "harpoon" },
             { "<leader>l",      group = "lsp" },
             { "<leader>n",      group = "notifications" },
