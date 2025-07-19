@@ -24,7 +24,7 @@ arch = [
     "postman-bin",
     "qalculate-gtk",
     "gimp",
-    "vlc",
+    "mpv",
     "xournalpp",
     "zathura",
     "zathura-pdf-poppler",
