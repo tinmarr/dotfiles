@@ -17,4 +17,5 @@ arch = [
     "smartmontools",
     "gnu-netcat",
     "ffmpeg",
+    "dma",
 ]
