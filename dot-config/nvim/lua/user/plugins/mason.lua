@@ -7,7 +7,6 @@ local lsps = {
     "pyright",
     "taplo",
     "tinymist",
-    "eslint",
     "golangci_lint_ls",
     "bashls",
 }

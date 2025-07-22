@@ -38,18 +38,6 @@ vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Next tab" })
 vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 vim.keymap.set("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "Add tab" })
 
--- lsp
-vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "See symbol definition" })
-vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, { desc = "See symbol implementation" })
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.references, { desc = "See symbol references" })
-vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Execute code actions" })
-vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename a symbol" })
-vim.keymap.set("n", "<leader>lk", vim.diagnostic.open_float, { desc = "Open floating diagnostics" })
-vim.keymap.set("n", "<leader>lx", vim.diagnostic.setloclist, { desc = "Open buffer diagnostics" })
-vim.keymap.set("n", "<leader>lX", vim.diagnostic.setqflist, { desc = "Open all diagnostics" })
-vim.keymap.set("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
-
-
 vim.keymap.set("i", "<C-h>", "<C-w>")
 
 vim.keymap.set("n", "<leader>/", function()
