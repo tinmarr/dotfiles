@@ -7,6 +7,7 @@ arch = [
     "ghostty-terminfo",
     "fcron",
     "nginx",
+    "nginx-mod-stream",
     "rclone",
     "ufw",
     "wireguard-tools",
@@ -17,5 +18,7 @@ arch = [
     "smartmontools",
     "gnu-netcat",
     "ffmpeg",
-    "dma",
+    "exim",
+    "s-nail",
+    "powertop",
 ]
