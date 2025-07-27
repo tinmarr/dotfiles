@@ -6,13 +6,24 @@ yay -Syy
 yay -Qu > $HOME/.cache/updated-packages.txt
 echo "Starting update:"
 yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
-zinit self-update
-zinit update --parallel
+
+ZINIT="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+if [[ -e $ZINIT ]]; then
+    zsh -c "
+        source "$ZINIT" && \
+        zinit self-update && \
+        zinit update --parallel
+    "
+fi
 
 cd ~/dotfiles
 git pull
 restowall
 cd ~
+
+if [[ -e /usr/bin/hyprpm ]]; then
+    hyprpm update
+fi
 
 yay
 echo "Orphans:"
