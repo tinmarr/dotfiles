@@ -18,7 +18,7 @@ fi
 
 cd ~/dotfiles
 git pull
-restowall
+./install/restowall
 cd ~
 
 if [[ -e /usr/bin/hyprpm ]]; then
