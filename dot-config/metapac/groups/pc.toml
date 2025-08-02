@@ -15,6 +15,9 @@ arch = [
     "hid-fanatecff-dkms",
     "oversteer",
 
-    # temp
-    "openscad",
+    # virtmanger
+    "qemu-full",
+    "dnsmasq",
+    "libvirt",
+    "virt-manager",
 ]
