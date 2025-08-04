@@ -17,6 +17,7 @@ vim.opt.mouse = "a"
 vim.opt.scrolloff = 5
 vim.opt.autoread = true
 vim.opt.smartcase = true
+vim.opt.ignorecase = true
 
 -- look
 vim.opt.termguicolors = true
