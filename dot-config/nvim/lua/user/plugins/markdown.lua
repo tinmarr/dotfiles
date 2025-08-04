@@ -52,6 +52,9 @@ return {
                 icons = { "󰲠 ", "󰲢 ", "󰲤 ", "󰲦 ", "󰲨 ", "󰲪 " },
             },
             checkbox = {
+                checked = {
+                    scope_highlight = "@markup.strikethrough"
+                },
                 custom = {
                     todo = { raw = "[ ]", rendered = "󰄱 ", highlight = "RenderMarkdownUnchecked" },
                     in_progress = { raw = "[/]", rendered = "󰡖 ", highlight = "RenderMarkdownTodo" },
