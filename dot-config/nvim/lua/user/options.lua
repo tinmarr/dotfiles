@@ -25,6 +25,8 @@ vim.opt.conceallevel = 2
 vim.opt.wrap = false
 vim.opt.colorcolumn = "80,120"
 vim.opt.cursorline = true
+vim.opt.winborder = "rounded"
+vim.opt.winblend = 0
 
 -- folding
 vim.opt.foldmethod = "expr"
