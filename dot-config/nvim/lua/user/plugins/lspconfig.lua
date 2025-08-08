@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 return {
     {
         "neovim/nvim-lspconfig",
-        ft = { "go", "lua", "yaml", "vue", "typescript", "json", "c", "cpp", "python", "toml", "typst", "sh", "bash" },
+        ft = { "go", "lua", "yaml", "vue", "typescript", "json", "c", "cpp", "python", "toml", "typst", "sh", "bash", "markdown" },
         dependencies = {
             "mason-org/mason.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -95,6 +95,7 @@ return {
                 },
                 golangci_lint_ls = {},
                 bashls = {},
+                marksman = {},
             },
         },
         config = function(_, opts)

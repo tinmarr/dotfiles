@@ -9,6 +9,7 @@ local lsps = {
     "tinymist",
     "golangci_lint_ls",
     "bashls",
+    "marksman",
 }
 local pkgs = {
     -- debuggers

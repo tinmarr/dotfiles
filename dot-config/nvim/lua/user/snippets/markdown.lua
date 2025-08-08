@@ -5,11 +5,9 @@
 -- local i = ls.insert_node
 
 return {
-    s("iferr", {
-        t({ "if " }),
-        i(1, "err"),
-        t({ " != nil {", "\t" }),
-        i(2),
-        t({ "", "}" })
+    s("- new task", {
+        t({ "- [ ] _" }),
+        i(1),
+        t({ ":_ " }),
     })
 }
