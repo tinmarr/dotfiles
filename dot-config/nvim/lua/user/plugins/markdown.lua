@@ -39,6 +39,12 @@ return {
             code = {
                 border = "thick",
                 left_pad = 1,
+            },
+            custom_handlers = {
+                markdown = {
+                    extends = true,
+                    parse = require("md_date_handler").parse,
+                }
             }
         },
     },
