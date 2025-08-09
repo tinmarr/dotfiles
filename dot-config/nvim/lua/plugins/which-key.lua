@@ -32,8 +32,7 @@ return {
             { "<leader>n",      group = "notifications" },
             { "<leader>o",      group = "obsidian" },
             { "<leader>s",      group = "surround" },
-            { "<leader>t",      group = "trouble" },
-            { "<leader>v",      group = "diffview" },
+            { "<leader>t",      group = "tab" },
 
             { "<localleader>p", group = "preview" },
         })
