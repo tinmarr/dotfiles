@@ -11,7 +11,7 @@ end_time=0500
 sleep_time="1h"
 
 while true; do
-    raw=$(date +%-H%M)
+    raw=$(date +%-H%M | sed "s/^0*//g")
     # maps the 60 minutes to a value between 0-100
     current_time=$(python -c "print(int(($raw // 100) * 100 + ($raw % 100)/60 * 100))")
 
