@@ -20,6 +20,7 @@ vim.keymap.set("n", "<leader>bk", "<cmd>b#<cr>", { desc = "Goto last accessed bu
 vim.keymap.set("n", "<leader>bh", vim.cmd.bprevious, { desc = "Goto previous buffer" })
 vim.keymap.set("n", "<leader>bl", vim.cmd.bnext, { desc = "Goto previous buffer" })
 vim.keymap.set("n", "<leader>bd", vim.cmd.bdelete, { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bc", ":CleanOldBuffers<cr>", { desc = "Clean old buffers" })
 
 -- window management
 vim.keymap.set("n", "<M-S-l>", "5<C-w>>")
@@ -37,6 +38,32 @@ vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
 vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "Next tab" })
 vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 vim.keymap.set("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "Add tab" })
+
+-- markdown tasks
+vim.keymap.set("n", "<leader>mc", function()
+    local ls = require("luasnip")
+    local bufnr = 0
+    local last = vim.api.nvim_buf_line_count(bufnr)
+
+    -- insert a new line at EOF containing the trigger "fn"
+    vim.api.nvim_buf_set_lines(bufnr, last, last, true, { "- new task" })
+
+    -- move cursor right after the "fn" we just inserted
+    -- (vim.win_set_cursor uses 1-based row, 0-based col)
+    vim.api.nvim_win_set_cursor(0, { last + 1, 0 })
+
+    -- enter insert mode, then schedule the expansion so it runs after mode change
+    vim.cmd("startinsert!")
+    vim.schedule(function()
+        if ls.expand_or_jumpable() then
+            ls.expand_or_jump()
+        end
+    end)
+end, { desc = "Create task" })
+vim.keymap.set("n", "<leader>mx", "03lrxf(xf)x", { desc = "Complete task" })
+
+-- file preview
+vim.keymap.set("n", "<leader>lp", "<cmd>TogglePreviewFile<cr>", { desc = "Toggle preview current file" })
 
 vim.keymap.set("i", "<C-h>", "<C-w>")
 

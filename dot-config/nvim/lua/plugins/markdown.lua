@@ -56,8 +56,5 @@ return {
             require("lazy").load({ plugins = { "markdown-preview.nvim" } })
             vim.fn["mkdp#util#install"]()
         end,
-        keys = {
-            { "<localleader>pm", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" }
-        },
     }
 }

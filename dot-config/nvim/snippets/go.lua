@@ -5,11 +5,13 @@
 -- local i = ls.insert_node
 
 return {
-    s("iferr", {
-        t({ "if " }),
-        i(1, "err"),
-        t({ " != nil {", "\t" }),
-        i(2),
-        t({ "", "}" })
-    })
+    s("iferr", fmta([[
+    if <> != nil {
+   	\t<>
+    }
+    ]], {
+        i(1, "err"), i(2)
+    }, {
+        indent_string = [[\t]]
+    }))
 }

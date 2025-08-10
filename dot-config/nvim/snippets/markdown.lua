@@ -5,9 +5,5 @@
 -- local i = ls.insert_node
 
 return {
-    s("- new task", {
-        t({ "- [ ] _" }),
-        i(1),
-        t({ ":_ " }),
-    })
+    s("- new task", fmt("- [ ] _{tag}:_ ({date}) ", { tag = i(1, "tag"), date = i(2, "yyyy-mm-dd") }))
 }

@@ -35,6 +35,7 @@ return {
             { "<leader>t",      group = "tab" },
 
             { "<localleader>p", group = "preview" },
+            { "<localleader>m", group = "markdown tasks" }
         })
     end,
 }

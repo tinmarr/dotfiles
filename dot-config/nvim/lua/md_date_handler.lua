@@ -89,9 +89,9 @@ function M.parse(ctx)
                     opts = {
                         virt_text = { label },
                         virt_text_pos = "inline",
-                        hl_mode = "replace",
+                        hl_mode = "combine",
                         end_col = end_col,
-                        conceal = " ",
+                        conceal = "",
                     },
                 })
             end
