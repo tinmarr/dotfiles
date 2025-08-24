@@ -9,7 +9,6 @@ arch = [
     # hardware control
     "acpi",
     "framework-system",
-    "fwupd",
     "iw",
     "power-profiles-daemon",
     "fprintd",
