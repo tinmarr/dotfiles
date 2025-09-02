@@ -38,6 +38,7 @@ arch = [
     "zip",
     "wget",
     "rsync",
+    "arduino-cli",
 
     # languages
     "clang",
@@ -52,6 +53,7 @@ arch = [
     "sshfs",
     "stow",
     "valgrind",
+    "just",
 
     # docker
     "docker",

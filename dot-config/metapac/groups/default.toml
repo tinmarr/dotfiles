@@ -29,4 +29,5 @@ arch = [
     "zathura",
     "zathura-pdf-poppler",
     "typst",
+    "postgresql",
 ]
