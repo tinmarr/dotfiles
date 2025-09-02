@@ -85,7 +85,13 @@ return {
                 { section = "startup" },
             },
         },
-        image = {},
+        image = {
+            doc = {
+                inline = false,
+                max_width = 10,
+                max_height = 10,
+            }
+        },
         indent = {
             indent = {
                 char = "▏",

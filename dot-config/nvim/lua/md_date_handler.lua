@@ -1,11 +1,11 @@
 -- lua/render_md_date_handler.lua
 local M = {}
 
-local iso_pat = "%(%d%d%d%d%-%d%d%-%d%d%)"
+local iso_pat = ":_ %(%d%d%d%d%-%d%d%-%d%d%)"
 
 
 local function parse_iso_date(iso)
-    local y, m, d = iso:match("^%((%d%d%d%d)%-(%d%d)%-(%d%d)%)")
+    local y, m, d = iso:match("^:_ %((%d%d%d%d)%-(%d%d)%-(%d%d)%)")
     if not y then return nil end
     return os.time({
         year = tonumber(y, 10),
@@ -19,11 +19,11 @@ local function day_label_from_diff(diff)
     if diff == 0 then
         label = { "today", "CatppucinPeach" }
     elseif diff == 1 then
-        label = { "tomorrow", "CatppucinYellow" }
+        label = { "tomorrow", "CatppucinPeach" }
     elseif diff == -1 then
         label = { "yesterday", "CatppucinRed" }
     elseif diff > 0 then
-        label = { string.format("in %d days", diff), "CatppucinGreen" }
+        label = { string.format("in %d days", diff), diff <= 3 and "CatppucinYellow" or "CatppucinGreen" }
     else
         label = { string.format("%d days ago", -diff), "CatppucinRed" }
     end
@@ -80,8 +80,8 @@ function M.parse(ctx)
             local label = label_for_iso(iso)
             if label then
                 local start_row = srow + row_offset
-                local start_col = (row_offset == 0) and (scol + s - 1) or (s - 1)
-                local end_col = start_col + iso_len
+                local start_col = (row_offset == 0) and (scol + s + 2) or (s + 2)
+                local end_col = start_col + iso_len - 3
                 table.insert(marks, {
                     conceal = true,
                     start_row = start_row,

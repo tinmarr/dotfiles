@@ -60,7 +60,33 @@ vim.keymap.set("n", "<leader>mc", function()
         end
     end)
 end, { desc = "Create task" })
-vim.keymap.set("n", "<leader>mx", "03lrxf(xf)x", { desc = "Complete task" })
+vim.keymap.set("n", "<leader>mx", function()
+    local bufnr = 0
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+
+    vim.api.nvim_win_set_cursor(0, { row, 3 })
+    vim.cmd("norm rx")
+    vim.api.nvim_win_set_cursor(0, { row, 12 })
+    local date = os.date("%Y-%m-%d")
+    vim.cmd("norm i " .. date)
+
+    local line = vim.api.nvim_buf_get_lines(bufnr, row - 1, row, false)[1]
+    local new_line = vim.fn.substitute(line, "(\\(\\d\\d\\d\\d-\\d\\d-\\d\\d\\)) ", "", "")
+
+    local dest_path = os.getenv("HOME") .. "/notes/done.md"
+    local f, err = io.open(dest_path, "a")
+    if not f then
+        vim.notify("Failed to open " .. dest_path .. ": " .. tostring(err),
+            vim.log.levels.ERROR)
+        return
+    end
+    f:write(new_line .. "\n")
+    f:close()
+
+    vim.api.nvim_buf_set_lines(0, row - 1, row, false, {})
+
+    vim.cmd("w")
+end, { desc = "Complete task" })
 
 -- file preview
 vim.keymap.set("n", "<leader>lp", "<cmd>TogglePreviewFile<cr>", { desc = "Toggle preview current file" })
