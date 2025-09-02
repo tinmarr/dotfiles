@@ -3,6 +3,20 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<leader>al", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+vim.keymap.set("n", "<leader>as", function()
+    vim.cmd("se spell!")
+    if vim.opt.spell._value then
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.notify("enabled spell check", "info", {
+            id = "spell_status"
+        })
+    else
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.notify("disabled spell check", "info", {
+            id = "spell_status"
+        })
+    end
+end, { desc = "Toggle spelling" })
 
 -- auto center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })

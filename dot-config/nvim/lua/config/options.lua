@@ -18,6 +18,7 @@ vim.opt.scrolloff = 5
 vim.opt.autoread = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
+vim.opt.spelllang = "en,fr"
 
 -- look
 vim.opt.termguicolors = true
