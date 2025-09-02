@@ -21,4 +21,5 @@ arch = [
     "exim",
     "s-nail",
     "powertop",
+    "ncdu",
 ]
