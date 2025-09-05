@@ -3,6 +3,11 @@ vim.api.nvim_set_hl(0, "RenderMarkdownCheckboxChecked", {
     strikethrough = true,
 })
 
+vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", {
+    fg = vim.api.nvim_get_hl(0, { name = "CatppucinPeach" }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "CatppucinCrust" }).bg,
+})
+
 return {
     {
         "MeanderingProgrammer/render-markdown.nvim",

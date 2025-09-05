@@ -32,6 +32,8 @@ return {
                 CatppucinSapphire = { fg = colors.sapphire },
                 CatppucinBlue = { fg = colors.blue },
                 CatppucinLavender = { fg = colors.lavender },
+                CatppucinMantle = { bg = colors.mantle },
+                CatppucinCrust = { bg = colors.crust },
             }
         end,
     },
