@@ -18,7 +18,7 @@
         "battery",
         "backlight",
         "pulseaudio",
-        // "custom/updates", // TODO: Fix
+        "custom/network",
         "custom/dunst"
     ],
     // Modules configuration
@@ -27,13 +27,11 @@
         "on-click": "dunstctl set-paused toggle",
         "restart-interval": 1
     },
-    "custom/updates": {
-        "exec": "~/.config/waybar/updates.sh",
-        "format": "{text} 󰚰",
-        "interval": 3600,
+    "custom/network": {
+        "exec": "~/.config/waybar/network.sh",
         "restart-interval": 1
     },
-    "custom/icon" : {
+    "custom/icon": {
         "format": ""
     },
     "hyprland/workspaces": {},
