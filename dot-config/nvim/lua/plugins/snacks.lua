@@ -87,12 +87,13 @@ return {
         },
         image = {
             doc = {
-                inline = false,
+                inline = true,
                 max_width = 80,
                 max_height = 40,
                 conceal = true,
             },
             convert = {
+                notify = false,
                 magick = {
                     default = { "{src}[0]", "-scale", "1920x1080>" },             -- default for raster images
                     vector = { "-density", 192, "{src}[0]", "-scale", "50x50>" }, -- used by vector images like svg
@@ -101,10 +102,8 @@ return {
                 },
             },
             math = {
-                latex = {
-                    font_size = "Large",
-                },
-            }
+                enabled = false,
+            },
         },
         indent = {
             indent = {
