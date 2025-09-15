@@ -2,7 +2,7 @@
 set -euo pipefail
 
 readonly CONNECTING=''
-readonly CONNECTED=''
+readonly CONNECTED=''
 readonly DISCONNECT=''
 readonly AIRPLANE=''
 
