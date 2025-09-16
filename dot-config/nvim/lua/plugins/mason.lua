@@ -10,6 +10,8 @@ local lsps = {
     "golangci_lint_ls",
     "bashls",
     "marksman",
+    "arduino_language_server",
+    "clangd",
 }
 local pkgs = {
     -- debuggers
