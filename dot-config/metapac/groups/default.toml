@@ -30,4 +30,7 @@ arch = [
     "zathura-pdf-poppler",
     "typst",
     "postgresql",
+    "jupyterlab",
+    "patchelf",
+    "arduino-cli",
 ]

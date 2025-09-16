@@ -38,7 +38,6 @@ arch = [
     "zip",
     "wget",
     "rsync",
-    "arduino-cli",
 
     # languages
     "clang",

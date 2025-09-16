@@ -23,7 +23,7 @@ arch = [
     "xdg-desktop-portal-gtk",
 
     # required utilities
-    "rofi-wayland",
+    "rofi",
     "rofi-calc",
     "rofi-emoji",
     "grim",
