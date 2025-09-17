@@ -15,7 +15,7 @@ local surroundOpts = {
 
 return {
     {
-        "echasnovski/mini.surround",
+        "nvim-mini/mini.surround",
         keys = function(_, keys)
             -- Populate the keys based on the user's options
             local mappings = {
@@ -35,7 +35,7 @@ return {
         opts = surroundOpts,
     },
     {
-        "echasnovski/mini.comment",
+        "nvim-mini/mini.comment",
         event = { "BufReadPost", "BufNewFile" },
         opts = {
             mappings = {
@@ -47,12 +47,19 @@ return {
         },
     },
     {
-        "echasnovski/mini.pairs",
+        "nvim-mini/mini.pairs",
         event = "InsertEnter",
-        opts = {},
+        opts = {
+            mappings = {
+                ['$'] = { action = 'closeopen', pair = '$$', neigh_pattern = '[^%a\\].' },
+
+                ['«'] = { action = 'open', pair = '«»', neigh_pattern = '[^\\].' },
+                ['»'] = { action = 'close', pair = '«»', neigh_pattern = '[^\\].' },
+            }
+        },
     },
     {
-        "echasnovski/mini.splitjoin",
+        "nvim-mini/mini.splitjoin",
         keys = { "gs", desc = "Toggle split join", mode = { "n", "v" } },
         opts = {
             mappings = {
@@ -61,15 +68,15 @@ return {
         }
     },
     {
-        "echasnovski/mini.icons",
+        "nvim-mini/mini.icons",
         config = function(_, opts)
             require("mini.icons").setup(opts)
             MiniIcons.mock_nvim_web_devicons()
         end
     },
     {
-        "echasnovski/mini.files",
-        dependencies = { "echasnovski/mini.icons" },
+        "nvim-mini/mini.files",
+        dependencies = { "nvim-mini/mini.icons" },
         keys = {
             { "<leader>r", function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end, desc = "Open mini files" }
         },

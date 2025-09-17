@@ -41,6 +41,9 @@ return {
                     star = { raw = "[*]", rendered = "󰓎 ", highlight = "RenderMarkdownWarn" },
                 },
             },
+            pipe_table = {
+                preset = "round"
+            },
             code = {
                 border = "thick",
                 left_pad = 1,
@@ -54,12 +57,26 @@ return {
         },
     },
     {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle" },
+        "fmorroni/peek.nvim",
+        branch = "callouts",
+        -- original repo
+        -- "toppair/peek.nvim",
+        build = vim.fn.stdpath("data") .. "/mason/bin/deno task --quiet build:fast",
         ft = { "markdown" },
-        build = function()
-            require("lazy").load({ plugins = { "markdown-preview.nvim" } })
-            vim.fn["mkdp#util#install"]()
+        opts = {
+            auto_load = false,
+            app = "zen-browser",
+        },
+        config = function(_, opts)
+            require("peek").setup(opts)
+            vim.api.nvim_create_user_command("PeekToggle", function()
+                local p = require("peek")
+                if p.is_open() then
+                    p.close()
+                else
+                    p.open()
+                end
+            end, {})
         end,
-    }
+    },
 }

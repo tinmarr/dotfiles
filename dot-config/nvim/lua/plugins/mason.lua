@@ -24,6 +24,8 @@ local pkgs = {
     "black",
     "prettier",
     "gofumpt",
+    -- build
+    "deno",
 }
 local function ensure_installed()
     local registry = require("mason-registry")
