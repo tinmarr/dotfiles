@@ -2,27 +2,29 @@
 # Inspiration:
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-SUB_DIRS=(~/coding)
-EXACT_DIRS=(~/notes)
+SUB_DIRS=(coding)
+EXACT_DIRS=(notes dotfiles)
 
-FIND_DIRS=$(find $SEARCH_DIRS -mindepth 1 -maxdepth 1 -type d)
+FIND_DIRS=$(fd . $SUB_DIRS -t d -d 1 -u --base-directory $HOME)
 
-selected=$(echo "$FIND_DIRS\n$EXACT_DIRS" | fzf)
+selected=$(printf "$(printf "%s\n" "${EXACT_DIRS[@]}")\n$FIND_DIRS" | fzf --height 40% --tmux center --layout reverse --border)
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
+selected="$HOME/"$selected
+name=$(basename "$selected" | tr . _)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+if [[ -z $(pgrep tmux) ]] || ! tmux has-session -t=$name 2> /dev/null; then
+    tmux new-session -ds $name -c $selected
+    tmux renamew -t $name nvim
+    tmux send-keys -t $name "v" Enter
+fi
+
+if [[ -z $TMUX ]]; then
+    tmux attach-session -t $name
     exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
-fi
-
-tmux switch-client -t $selected_name
+tmux switch-client -t $name
