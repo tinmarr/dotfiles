@@ -2,7 +2,7 @@
 
 font-family = JetBrainsMono Nerd Font
 
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 background-opacity = 0.85
 background-blur = true
@@ -26,11 +26,15 @@ confirm-close-surface = false
 
 shell-integration-features = true
 
+quick-terminal-position = top
+quick-terminal-size = 35%,50%
+
+quit-after-last-window-closed = false
+
 macos-option-as-alt = true
 macos-titlebar-style = hidden
 auto-update = off
 
-gtk-single-instance = true
 gtk-titlebar = false
 
 # Remove alt+number bindings (used in tmux)
@@ -43,6 +47,7 @@ keybind = alt+six=unbind
 keybind = alt+seven=unbind
 keybind = alt+eight=unbind
 keybind = alt+nine=unbind
+keybind = global:shift+super+enter=toggle_quick_terminal
 
 # Remove full screen (managed by wm)
 keybind = ctrl+enter=unbind
