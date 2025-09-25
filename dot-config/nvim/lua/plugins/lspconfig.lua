@@ -89,8 +89,12 @@ return {
                 tinymist = { -- typst
                     settings = {
                         formatterMode = "typstyle",
-                        exportPdf = "onSave",
+                        formatterPrintWidth = 80,
+                        formatterProseWrap = true,
                         semanticTokens = "enable",
+                        lint = {
+                            enabled = true,
+                        }
                     }
                 },
                 golangci_lint_ls = {},
