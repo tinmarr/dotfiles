@@ -14,6 +14,7 @@
     "modules-right": [
         "hyprland/submap",
         "tray",
+        "custom/level",
         "power-profiles-daemon",
         "battery",
         "backlight",
@@ -30,6 +31,10 @@
     "custom/network": {
         "exec": "~/.config/waybar/network.sh",
         "restart-interval": 1
+    },
+    "custom/level": {
+        "exec": "~/.local/bin/level",
+        "interval": 900 // 15 mins
     },
     "custom/icon": {
         "format": ""
