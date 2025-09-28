@@ -4,11 +4,30 @@ max_temp=6500
 min_temp=2500
 
 scan_time=1900 # time we start checking for gradient
-start_time=2000 # time we start gradient
-full_time=2200 # time we end gradient
+start_time=1900 # time we start gradient
+full_time=2100 # time we end gradient
 end_time=0500
 
 sleep_time="1h"
+
+set_time() {
+    loc_info=$(curl -s https://ipinfo.io)
+    loc=$(echo $loc_info | jq -r .loc)
+    lat=${loc%,*}
+    lng=${loc#*,}
+    tzid=$(echo $loc_info | jq -r .timezone)
+
+    sun_info=$(curl -s "https://api.sunrise-sunset.org/json?lat=$lat&lng=$lng&tzid=$tzid" | jq .results)
+    sunset=$(echo $sun_info | jq -r .sunset)
+    sunrise=$(echo $sun_info | jq -r .sunrise)
+
+    start_time=$(date -d "$sunset" "+%H%M")
+    full_time=$(python -c "print($start_time + 200)")
+
+    end_time=$(date -d "$sunrise" "+%H%M")
+}
+
+set_time
 
 while true; do
     raw=$(date +%-H%M | sed "s/^0*//g")
