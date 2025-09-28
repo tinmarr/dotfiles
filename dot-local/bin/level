@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Check `bluetoothctl gatt.list-attributes` to find paths for `Battery Level`
+
+HCI=hci0
+MAC_ADDR=F4_70_72_46_2B_96
+L_KB_PATH=service0010/char0011
+R_KB_PATH=service0015/char0016
+
+L_KB_HEX=$(gdbus call --system --dest org.bluez --object-path /org/bluez/$HCI/dev_$MAC_ADDR/$L_KB_PATH --method org.bluez.GattCharacteristic1.ReadValue "{}"  2> /dev/null | sed -E 's/.*0x([0-9a-fA-F]+).*/\1/') || "";
+R_KB_HEX=$(gdbus call --system --dest org.bluez --object-path /org/bluez/$HCI/dev_$MAC_ADDR/$R_KB_PATH --method org.bluez.GattCharacteristic1.ReadValue "{}"  2> /dev/null | sed -E 's/.*0x([0-9a-fA-F]+).*/\1/') || "";
+
+if [[ -z $L_KB_HEX ]] || [[ -z $R_KB_HEX ]]; then
+    echo ""
+else
+    echo "$((16#$L_KB_HEX))% $((16#$R_KB_HEX))%"
+fi
