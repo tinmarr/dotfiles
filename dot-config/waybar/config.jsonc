@@ -34,7 +34,9 @@
     },
     "custom/level": {
         "exec": "~/.local/bin/level",
-        "interval": 900 // 15 mins
+        "interval": 300, // 5 mins
+        "format": "{}  ",
+        "hide-empty-text": true
     },
     "custom/icon": {
         "format": ""
