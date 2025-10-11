@@ -2,6 +2,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- swap colon and semicolon for commands
+vim.keymap.set({ "n", "v" }, ";", ":")
+vim.keymap.set({ "n", "v" }, ":", ";")
+
 vim.keymap.set("n", "<leader>al", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 vim.keymap.set("n", "<leader>as", function()
     vim.cmd("se spell!")
