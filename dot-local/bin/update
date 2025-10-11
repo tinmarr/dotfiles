@@ -21,10 +21,6 @@ git pull
 ./install/restowall
 cd ~
 
-if [[ -e /usr/bin/hyprpm ]]; then
-    hyprpm update
-fi
-
 yay
 echo "Orphans:"
 yay -Qdt
