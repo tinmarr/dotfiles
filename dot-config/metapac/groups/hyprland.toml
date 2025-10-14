@@ -31,7 +31,7 @@ arch = [
     "swappy",
     "wl-clipboard",
     "wtype",
-    "acpilight",
+    "brightnessctl",
     "playerctl",
     "dunst",
 
