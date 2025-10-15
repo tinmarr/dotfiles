@@ -33,4 +33,10 @@ arch = [
     "jupyterlab",
     "patchelf",
     "arduino-cli",
+
+    # virtmanger
+    "qemu-full",
+    "dnsmasq",
+    "libvirt",
+    "virt-manager",
 ]
