@@ -21,7 +21,7 @@ arch = [
     "zoom",
 
     # misc utilities
-    "postman-bin",
+    "bruno-bin",
     "qalculate-gtk",
     "gimp",
     "mpv",

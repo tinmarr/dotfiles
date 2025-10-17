@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/bruno --enable-features=UseOzonePlatform --ozone-platform=wayland
