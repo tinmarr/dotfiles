@@ -19,6 +19,7 @@ arch = [
 
     # misc
     "zoom",
+    "helium-browser-bin",
 
     # misc utilities
     "bruno-bin",

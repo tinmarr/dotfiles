@@ -14,10 +14,4 @@ arch = [
     # csl dd support
     "hid-fanatecff-dkms",
     "oversteer",
-
-    # virtmanger
-    "qemu-full",
-    "dnsmasq",
-    "libvirt",
-    "virt-manager",
 ]
