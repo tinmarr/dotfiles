@@ -24,6 +24,7 @@ local pkgs = {
     "black",
     "prettier",
     "gofumpt",
+    "clang-format",
     -- build
     "deno",
 }

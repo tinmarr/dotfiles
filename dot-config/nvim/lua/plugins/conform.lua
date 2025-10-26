@@ -24,6 +24,7 @@ return {
             c = { lsp_format = "never" },
             python = { "black", "isort", stop_after_first = false },
             markdown = { "prettier" },
+            arduino = { "clang-format" },
         },
         default_format_opts = {
             lsp_format = "fallback",
