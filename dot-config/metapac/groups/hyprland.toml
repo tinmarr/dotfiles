@@ -2,6 +2,9 @@ arch = [
     # display manager
     "ly",
 
+    # input
+    "ibus",
+
     # hypr-suite
     "hyprland",
     "hyprpaper",
