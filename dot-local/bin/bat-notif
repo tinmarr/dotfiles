@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
-QT_QPA_PLATFORM=xcb setsid uwsm-app -- /usr/bin/kdeconnectd
-setsid uwsm-app -- kdeconnect-indicator
-setsid uwsm-app -- blueman-applet
-setsid uwsm-app -- playerctld daemon
-setsid uwsm-app -- ibus-daemon -rxRd
 
-#### LOW POWER NOTFIER ####
 bat_file="/sys/class/power_supply/BAT1/capacity"
 status_file="/sys/class/power_supply/BAT1/status"
 while [[ -e "$bat_file" ]]; do
