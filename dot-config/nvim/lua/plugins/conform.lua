@@ -25,6 +25,7 @@ return {
             python = { "black", "isort", stop_after_first = false },
             markdown = { "prettier" },
             arduino = { "clang-format" },
+            typst = { "typstyle" },
         },
         default_format_opts = {
             lsp_format = "fallback",
