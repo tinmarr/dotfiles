@@ -104,6 +104,6 @@
             ]
         },
         "format-muted": " {icon}",
-        "on-click": "pavucontrol"
+        "on-click": "pkill pavucontrol || pavucontrol"
     }
 }
