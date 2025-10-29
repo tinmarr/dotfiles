@@ -6,6 +6,8 @@ arch = [
     "pipewire-pulse",
     "gst-plugin-pipewire",
     "lib32-pipewire",
+    "alsa-utils",
+    "alsa-tools",
 
     # essentials
     "ghostty",

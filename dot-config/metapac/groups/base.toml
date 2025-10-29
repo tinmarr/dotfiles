@@ -22,4 +22,5 @@ arch = [
 
     # low level control (platform independent)
     "fwupd",
+    "dmidecode",
 ]
