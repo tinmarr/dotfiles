@@ -1,6 +1,6 @@
 configuration {
-    modes: "run,calc,emoji";
-    font: "JetBrainsMono Nerd Font Mono 12";
+    modes: "drun,run,calc,emoji";
+    font: "JetBrainsMono Nerd Font Propo 12";
     disable-history: false;
     auto-select: true;
     combi-display-format: "{text}";
@@ -13,6 +13,21 @@ configuration {
 
     run {
         display-name: "";
+    }
+
+    drun {
+        display-name: "";
+    }
+
+    calc {
+        display-name: "󰃬";
+        reuse-result: true;
+        terse: true;
+        automatic-save-to-history: true;
+    }
+
+    emoji {
+        display-name: "󰞅";
     }
 }
 

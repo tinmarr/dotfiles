@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-/usr/bin/obsidian ---enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=egl
-
