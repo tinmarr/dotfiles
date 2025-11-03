@@ -3,7 +3,6 @@
 max_temp=6500
 min_temp=2500
 
-scan_time=1900 # time we start checking for gradient
 start_time=1900 # time we start gradient
 full_time=2100 # time we end gradient
 end_time=0500
@@ -27,39 +26,52 @@ set_time() {
     end_time=$(date -d "$sunrise" "+%H%M")
 }
 
+# Calculate minutes until target time, handling midnight wrap
+minutes_until() {
+    local target=$1 current=$2
+    if (( target > current )); then
+        echo $((target - current))
+    else
+        echo $((2400 - current + target))
+    fi
+}
+
+# Format minutes as sleep duration
+format_sleep() {
+    local mins=$1
+    local hours=$((mins / 60))
+    local remaining=$((mins % 60))
+    [[ $hours -gt 0 ]] && echo "${hours}h ${remaining}m" || echo "${remaining}m"
+}
+
 set_time
 
 while true; do
-    raw=$(date +%-H%M | sed "s/^0*//g")
-    # maps the 60 minutes to a value between 0-100
-    current_time=$(python -c "print(int(($raw // 100) * 100 + ($raw % 100)/60 * 100))")
+    current_time=$(date +%-H%M | sed "s/^0*//g")
 
-    if [[ "$current_time" -gt 0 && "$current_time" -lt "$end_time" ]]; then
-        echo "temps set to $min_temp"
-        hyprctl -i 0 hyprsunset temperature $min_temp
-        sleep_time=1h
-    elif [[ "$current_time" -lt "$scan_time" && "$current_time" -gt "$end_time" ]]; then
-        echo "reset"
-        hyprctl -i 0 hyprsunset identity
-        sleep_time=1h
-    elif [[ "$current_time" -lt "$start_time" ]]; then
-        sleep_time=10m
-    elif [[ "$current_time" -ge "$start_time" && "$current_time" -le "$full_time" ]]; then
-        lerp_t=$(python -c "print(($current_time - $start_time) / ($full_time - $start_time))" )
-        temp_value=$(python -c "print($max_temp + ($min_temp - $max_temp) * $lerp_t)" )
-
-        echo "temps set to $temp_value"
-        hyprctl -i 0 hyprsunset temperature $temp_value
-        sleep_time=5m
+    # During gradient transition (sunset to full darkness)
+    if [[ "$current_time" -ge "$start_time" && "$current_time" -le "$full_time" ]]; then
+        lerp_t=$(python -c "print(($current_time - $start_time) / ($full_time - $start_time))")
+        temp_value=$(python -c "print($max_temp + ($min_temp - $max_temp) * $lerp_t)")
+        echo "Gradient: $temp_value K"
+        hyprctl -i 0 hyprsunset temperature "$temp_value"
+        sleep 10m
+    # During night (full darkness)
+    elif [[ "$current_time" -gt "$full_time" || "$current_time" -lt "$end_time" ]]; then
+        mins=$(minutes_until "$end_time" "$current_time")
+        formatted=$(format_sleep "$mins")
+        echo "Night: $min_temp K. Sleeping for $formatted"
+        hyprctl -i 0 hyprsunset temperature "$min_temp"
+        sleep $formatted
+    # Before sunset
     else
-        echo "temps set to $min_temp"
-        hyprctl -i 0 hyprsunset temperature $min_temp
-        sleep_time=1h
+        mins=$(format_sleep $(minutes_until "$start_time" "$current_time"))
+        echo "Day: waiting $mins for sunset"
+        hyprctl -i 0 hyprsunset identity
+        sleep $mins
     fi
 
-    if [[ -z "$1" ]]; then
-        sleep $sleep_time
-    else
+    if [[ -n "$1" ]]; then
         exit 0
     fi
 done

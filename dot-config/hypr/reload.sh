@@ -2,5 +2,5 @@
 
 hyprctl reload
 systemctl restart --user waybar
-pkill -f sunsetctl.sh
-setsid -f uwsm app -- ~/.config/hypr/sunsetctl.sh
+pkill -g $(pgrep -f sunsetctl.sh) -TERM
+setsid -f uwsm app -u sunsetctl.scope -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh
