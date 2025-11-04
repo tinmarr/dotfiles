@@ -31,7 +31,4 @@ return {
             lsp_format = "fallback",
         }
     },
-    init = function()
-        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
 }
