@@ -4,7 +4,7 @@ font-family = JetBrainsMono Nerd Font
 
 theme = Catppuccin Mocha
 
-background-opacity = 0.85
+background-opacity = 0.8
 background-blur = true
 
 title = "ghostty"
