@@ -19,6 +19,7 @@ arch = [
     "kdeconnect",
     "pavucontrol",
     "bluez-utils",
+    "dualsensectl-git",
 
     # screensharing
     "xdg-desktop-portal-hyprland",
