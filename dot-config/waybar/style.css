@@ -75,10 +75,6 @@ window#waybar {
     margin-right: 5px;
 }
 
-#custom-network {
-    padding-left: 0;
-}
-
 /***** Colors *****/
 #custom-network {
     color: @sapphire;
@@ -100,7 +96,7 @@ window#waybar {
     color: @peach;
 }
 
-#custom-level {
+#custom-level, #custom-dualsense {
     color: @lavender;
 }
 

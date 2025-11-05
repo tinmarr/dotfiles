@@ -18,7 +18,6 @@ arch = [
     "waybar",
     "kdeconnect",
     "pavucontrol",
-    "blueman",
     "bluez-utils",
 
     # screensharing
@@ -37,6 +36,7 @@ arch = [
     "brightnessctl",
     "playerctl",
     "dunst",
+    "blueman",
 
     # optional deps
     "cpio",
