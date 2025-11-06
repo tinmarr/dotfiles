@@ -25,7 +25,7 @@ window#waybar {
 #battery,
 #backlight,
 #pulseaudio,
-#custom-network,
+#network,
 #custom-dunst {
     padding: 0px 5px;
     background: @base;
@@ -46,7 +46,7 @@ window#waybar {
     border-left: 1px solid @mauve;
 }
 
-#custom-network {
+#network {
     border-radius: 0 32px 32px 0;
     margin-right: 5px;
     padding-right: 10px;
@@ -91,7 +91,7 @@ window#waybar {
 }
 
 /***** Colors *****/
-#custom-network {
+#network {
     color: @sapphire;
 }
 

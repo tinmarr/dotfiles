@@ -20,17 +20,13 @@
         "battery",
         "backlight",
         "pulseaudio",
-        "custom/network",
+        "network",
         "custom/dunst"
     ],
     // Modules configuration
     "custom/dunst": {
         "exec": "~/.config/waybar/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
-        "restart-interval": 1
-    },
-    "custom/network": {
-        "exec": "~/.config/waybar/network.sh",
         "restart-interval": 1
     },
     "custom/level": {
@@ -112,5 +108,13 @@
         },
         "format-muted": " {icon}",
         "on-click": "pkill pavucontrol || pavucontrol"
+    },
+    "network": {
+        "format-ethernet": "",
+        "format-wifi": "",
+        "format-linked": "",
+        "format-disconnected": "",
+        "format-disabled": "",
+        "tooltip": false
     }
 }
