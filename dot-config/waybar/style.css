@@ -4,6 +4,7 @@
     font-family: JetBrainsMono Nerd Font Propo;
     font-size: 11px;
     padding: 0;
+    background: transparent;
 }
 
 window#waybar {
@@ -71,7 +72,7 @@ window#waybar {
     border: 1px solid @mauve;
 }
 
-#tray, #custom-dualsense, #custom-level {
+#tray, #custom-dualsense, #custom-level, #submap {
     margin-left: 5px;
     padding: 0 10px;
 }
