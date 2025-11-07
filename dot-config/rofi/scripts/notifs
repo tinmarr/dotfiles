@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [[ -n $ROFI_INFO ]]; then
+    dunstctl history-pop $ROFI_INFO
+    exit
+fi
+
+echo -en "\0markup-rows\x1ftrue\n"
+
+ids=( $(dunstctl history | jq ".data[0].[].id.data" | sed -e "s/\\\n/ /g" -e "s/\"//g") )
+mapfile -t messages <<< "$(dunstctl history | jq ".data[0].[].message.data" | sed -e "s/\\\n/ /g" -e "s/\"//g")"
+
+
+for i in $(seq 0 ${#messages[@]}); do
+    echo -en "${messages[$i]}\0info\x1f${ids[$i]}\n"
+done

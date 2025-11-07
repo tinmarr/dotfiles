@@ -1,5 +1,5 @@
 configuration {
-    modes: "drun,run,calc,emoji";
+    modes: "drun,run,calc,emoji,notifs";
     font: "JetBrainsMono Nerd Font Propo 12";
     disable-history: false;
     auto-select: true;
@@ -28,6 +28,11 @@ configuration {
 
     emoji {
         display-name: "󰞅";
+    }
+
+    notifs {
+        display-name: "";
+        disable-history: true;
     }
 }
 
