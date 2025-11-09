@@ -22,4 +22,5 @@ arch = [
     "s-nail",
     "powertop",
     "ncdu",
+    "iotop",
 ]
