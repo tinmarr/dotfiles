@@ -6,20 +6,24 @@
     // Choose the order of the modules
     "modules-left": [
         "custom/icon",
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "custom/updates",
+        "hyprland/submap"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
-        "hyprland/submap",
         "tray",
         "custom/dualsense",
         "custom/level",
+        // laptop
         "power-profiles-daemon",
         "battery",
         "backlight",
+        // general
         "pulseaudio",
+        "bluetooth",
         "network",
         "custom/dunst"
     ],
@@ -27,22 +31,36 @@
     "custom/dunst": {
         "exec": "~/.config/waybar/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
-        "restart-interval": 1
+        "restart-interval": 1,
+        "tooltip": false
     },
     "custom/level": {
         "exec": "~/.local/bin/level",
         "interval": 300, // 5 mins
         "format": "{} ",
-        "hide-empty-text": true
+        "hide-empty-text": true,
+        "tooltip": false
     },
     "custom/dualsense": {
         "exec": "~/.config/waybar/dualsense.sh",
         "interval": 300,
         "format": "{}",
-        "on-click": "dualsensectl power-off && killall -SIGUSR2 waybar"
+        "on-click": "dualsensectl power-off && killall -SIGUSR2 waybar",
+        "tooltip": false
     },
     "custom/icon": {
-        "format": ""
+        "format": "",
+        "tooltip": false
+    },
+    "custom/updates": {
+        "format": "{}{icon}",
+        "return-type": "json",
+        "format-icons": {
+            "has-updates": " ",
+            "updated": ""
+        },
+        "exec-if": "which waybar-module-pacman-updates",
+        "exec": "waybar-module-pacman-updates --interval-seconds 60 --network-interval-seconds 300 --no-zero-output"
     },
     "hyprland/workspaces": {},
     "hyprland/window": {
@@ -109,12 +127,20 @@
         "format-muted": " {icon}",
         "on-click": "pkill pavucontrol || pavucontrol"
     },
+    "bluetooth": {
+        "format": "",
+        "format-off": "󰂲",
+        "format-on": "󰂯",
+        "format-connected": "󰂱",
+        "on-click": "ghostty --title='-float-' -e /usr/bin/bluetui"
+    },
     "network": {
         "format-ethernet": "",
         "format-wifi": "",
         "format-linked": "",
         "format-disconnected": "",
         "format-disabled": "",
-        "tooltip": false
+        "tooltip": false,
+        "on-click": "ghostty --title='-float-' -e /usr/bin/impala"
     }
 }

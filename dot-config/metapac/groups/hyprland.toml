@@ -20,6 +20,7 @@ arch = [
     "pavucontrol",
     "bluez-utils",
     "dualsensectl-git",
+    "waybar-module-pacman-updates-git",
 
     # screensharing
     "xdg-desktop-portal-hyprland",
@@ -37,7 +38,6 @@ arch = [
     "brightnessctl",
     "playerctl",
     "dunst",
-    "blueman",
 
     # optional deps
     "cpio",

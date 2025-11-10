@@ -14,86 +14,63 @@ window#waybar {
     transition-duration: .5s;
 }
 
-/***** Pills *****/
-#custom-icon,
-#workspaces,
-#clock,
-#submap,
-#tray,
-#custom-dualsense,
-#custom-level,
-#power-profiles-daemon,
-#battery,
-#backlight,
-#pulseaudio,
-#network,
-#custom-dunst {
+/***** PILLS *****/
+.module {
     padding: 0px 5px;
     background: @base;
     border-top: 1px solid @mauve;
     border-bottom: 1px solid @mauve;
 }
 
+/* Solo pills */
+#custom-icon,
+#workspaces,
+#custom-updates,
+#clock,
+#submap,
+#tray,
+#custom-dualsense,
+#custom-level,
+#custom-dunst {
+    border-radius: 32px;
+    border: 1px solid @mauve;
+    margin-left: 5px;
+    padding: 0 10px;
+}
+
+/* Right edge */
+#power-profiles-daemon, #pulseaudio {
+    border-radius: 32px 0 0 32px;
+    margin-left: 5px;
+    padding-left: 10px;
+    border-left: 1px solid @mauve;
+}
+
+/* Left edge*/
+#network, #backlight {
+    border-radius: 0 32px 32px 0;
+    padding-right: 10px;
+    border-right: 1px solid @mauve;
+}
+
+/* Fine tuning */
 #clock {
-    border-radius: 32px;
-    border: 1px solid @mauve;
-    padding: 0 10px;
-}
-
-#pulseaudio {
-    border-radius: 32px 0 0 32px;
-    margin-left: 5px;
-    padding-left: 10px;
-    border-left: 1px solid @mauve;
-}
-
-#network {
-    border-radius: 0 32px 32px 0;
-    margin-right: 5px;
-    padding-right: 10px;
-    border-right: 1px solid @mauve;
-}
-
-#backlight {
-    border-radius: 0 32px 32px 0;
-    border-right: 1px solid @mauve;
-    padding-right: 10px;
-}
-
-#power-profiles-daemon {
-    border-radius: 32px 0 0 32px;
-    margin-left: 5px;
-    padding-left: 10px;
-    border-left: 1px solid @mauve;
-}
-
-#workspaces, #tray, #submap, #custom-dualsense, #custom-level {
-    border-radius: 32px;
-    border: 1px solid @mauve;
-}
-
-#tray, #custom-dualsense, #custom-level, #submap {
-    margin-left: 5px;
-    padding: 0 10px;
+    margin: 0;
 }
 
 #custom-icon {
-    border-radius: 32px;
     padding: 0 6px;
-    margin-right: 5px;
-    border: 1px solid @mauve;
+    margin: 0;
 }
 
 #custom-dunst {
     font-size: 14px;
-    border-radius: 32px;
     padding: 0 6px;
-    border: 1px solid @mauve;
 }
 
-/***** Colors *****/
+/***** LABEL LOOK *****/
 #network {
-    color: @sapphire;
+    color: @maroon;
 }
 
 #pulseaudio {
@@ -108,12 +85,21 @@ window#waybar {
     color: @green;
 }
 
-#power-profiles-daemon {
+#bluetooth {
+    color: @teal;
+    font-size: 14px;
+}
+
+#power-profiles-daemon, #custom-updates {
     color: @peach;
 }
 
 #custom-level, #custom-dualsense {
     color: @lavender;
+}
+
+#custom-icon {
+    color: @sapphire;
 }
 
 #clock {
@@ -127,7 +113,7 @@ window#waybar {
     margin-top: 5px;
     margin-bottom: 0;
     margin-left: 10px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 /***** WORKSPACE *****/
@@ -140,7 +126,7 @@ window#waybar {
     margin: 0;
     border-radius: 32px;
     background-color: transparent;
-    color: @text;
+    color: @mauve;
 }
 
 #workspaces button.active {
@@ -150,6 +136,17 @@ window#waybar {
 
 #workspaces button.urgent {
     background-color: @red;
+}
+
+/***** TOOLTIP *****/
+tooltip {
+	background: @crust;
+	border: 1px solid @lavender;
+}
+
+tooltip label {
+	margin: 3px 6px;
+	color: @lavender;
 }
 
 /***** TRAY *****/

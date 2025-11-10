@@ -38,6 +38,7 @@ arch = [
     "zip",
     "wget",
     "rsync",
+    "impala",
 
     # languages
     "clang",

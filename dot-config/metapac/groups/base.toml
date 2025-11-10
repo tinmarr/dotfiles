@@ -17,8 +17,10 @@ arch = [
     "zsh",
     "yay",
     "metapac",
-    "networkmanager",
+
+    # connectivity
     "openssh",
+    "iwd",
 
     # low level control (platform independent)
     "fwupd",
