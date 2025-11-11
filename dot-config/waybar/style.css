@@ -138,14 +138,26 @@ window#waybar {
     background-color: @red;
 }
 
-/***** TOOLTIP *****/
-tooltip {
+/***** POPUPS *****/
+tooltip, menu {
 	background: @crust;
 	border: 1px solid @lavender;
+    border-radius: 5px;
 }
 
 tooltip label {
 	margin: 3px 6px;
+	color: @lavender;
+}
+
+menu {
+    padding: 3px 0;
+}
+
+menuitem {
+    background: @mantle;
+    margin: 0 1px;
+    padding: 1px 0;
 	color: @lavender;
 }
 
