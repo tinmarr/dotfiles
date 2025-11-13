@@ -29,7 +29,6 @@ arch = [
     "github-cli",
     "fastfetch",
     "btop",
-    "bluetui",
     "stress",
     "syncthing",
     "termdown",

@@ -17,7 +17,8 @@ arch = [
     # waybar
     "waybar",
     "kdeconnect",
-    "pavucontrol",
+    "wiremix",
+    "bluetui",
     "bluez-utils",
     "dualsensectl-git",
     "waybar-module-pacman-updates-git",
@@ -48,6 +49,7 @@ arch = [
     "ttf-jetbrains-mono-nerd",
     "gnu-free-fonts",
     "noto-fonts-emoji",
+    "noto-fonts-cjk",
     "ttf-ms-fonts",
     "inter-font",
 

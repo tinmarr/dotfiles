@@ -14,4 +14,7 @@ arch = [
     # csl dd support
     "hid-fanatecff-dkms",
     "oversteer",
+
+    # ksp
+    "ckan-bin",
 ]

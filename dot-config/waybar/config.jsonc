@@ -125,7 +125,7 @@
             ]
         },
         "format-muted": " {icon}",
-        "on-click": "pkill pavucontrol || pavucontrol"
+        "on-click": "ghostty --title='-float-' -e /usr/bin/wiremix"
     },
     "bluetooth": {
         "format": "",
