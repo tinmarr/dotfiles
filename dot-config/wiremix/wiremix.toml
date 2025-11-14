@@ -1,4 +1,4 @@
-fps = 0
+fps = 120
 mouse = true
 peaks = "auto"
 char_set = "default"
