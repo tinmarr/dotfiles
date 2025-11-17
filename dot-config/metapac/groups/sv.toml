@@ -24,4 +24,5 @@ arch = [
     "ncdu",
     "iotop",
     "powerstat",
+    "pigz",
 ]
