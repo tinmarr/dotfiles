@@ -25,7 +25,6 @@ arch = [
     "vesktop-bin",
 
     # misc utilities
-    "bruno-bin",
     "qalculate-gtk",
     "gimp",
     "mpv",

@@ -7,6 +7,7 @@ arch = [
     "linux",
     "linux-firmware",
     "linux-headers",
+    "pacman-contrib",
 
     # docs
     "man-db",
