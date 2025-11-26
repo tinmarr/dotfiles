@@ -62,4 +62,6 @@ arch = [
     "breeze",
     "catppuccin-gtk-theme-mocha",
     "grub-customizer",
+    "spicetify-cli",
+    "spicetify-marketplace-bin",
 ]
