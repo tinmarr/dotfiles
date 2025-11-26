@@ -20,39 +20,20 @@ arch = [
     "tmux",
     "tmux-plugin-manager",
 
-    # neovim
-    "neovim",
-    "lazygit",
-    "tree-sitter-cli",
-
     # good utils
+    "vim",
     "github-cli",
     "fastfetch",
     "btop",
     "stress",
     "syncthing",
-    "termdown",
     "tree",
     "unzip",
     "zip",
     "wget",
     "rsync",
-    "impala",
-
-    # languages
-    "clang",
-    "go",
-    "typescript",
-
-    # tooling
-    "cmake",
-    "gdb",
-    "inetutils",
-    "bind",      # dig, etc
-    "sshfs",
+    "bind",       # dig, etc
     "stow",
-    "valgrind",
-    "just",
 
     # docker
     "docker",

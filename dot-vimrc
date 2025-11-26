@@ -1,0 +1,26 @@
+set rnu nu
+
+" sensible.vim
+set nocompatible
+set backspace=indent,eol,start
+set smarttab
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+set incsearch
+set laststatus=2
+set ruler
+set wildmenu
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=2
+set display+=lastline
+set display+=truncate
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set formatoptions+=j
+set autoread
+set history=1000
+set tabpagemax=50
+filetype plugin indent on
+syntax enable
+let g:is_posix = 1

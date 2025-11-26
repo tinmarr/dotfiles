@@ -1,0 +1,18 @@
+arch = [
+    # neovim
+    "neovim",
+    "lazygit",
+    "tree-sitter-cli",
+
+    # languages
+    "clang",
+    "go",
+    "typescript",
+
+    # tooling
+    "cmake",
+    "gdb",
+    "opencode-bin",
+    "valgrind",
+    "just",
+]

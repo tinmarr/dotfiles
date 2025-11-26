@@ -19,6 +19,7 @@ arch = [
     "kdeconnect",
     "wiremix",
     "bluetui",
+    "impala",
     "bluez-utils",
     "dualsensectl-git",
     "waybar-module-pacman-updates-git",
@@ -56,6 +57,7 @@ arch = [
     # themeing
     "nwg-look",
     "papirus-icon-theme",
+    "papirus-folders",
     "qt6ct-kde",
     "breeze",
     "catppuccin-gtk-theme-mocha",

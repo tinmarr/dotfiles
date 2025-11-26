@@ -28,6 +28,24 @@ package_manager = "yay"
 # paths starting without a / are relative to the groups folder
 # Default: None
 [hostname_groups]
-martinpc = ["base", "default", "terminal", "hyprland", "fun", "latex", "pc"]
-martinfw = ["base", "default", "terminal", "hyprland", "fun", "latex", "fw"]
+martinpc = [
+    "base",
+    "default",
+    "terminal",
+    "dev",
+    "hyprland",
+    "fun",
+    "latex",
+    "pc",
+]
+martinfw = [
+    "base",
+    "default",
+    "terminal",
+    "dev",
+    "hyprland",
+    "fun",
+    "latex",
+    "fw",
+]
 martinsv = ["base", "terminal", "sv"]
