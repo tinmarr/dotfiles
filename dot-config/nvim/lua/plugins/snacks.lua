@@ -38,26 +38,6 @@ return {
                 { section = "startup" },
             },
         },
-        image = {
-            doc = {
-                inline = true,
-                max_width = 80,
-                max_height = 40,
-                conceal = true,
-            },
-            convert = {
-                notify = false,
-                magick = {
-                    default = { "{src}[0]", "-scale", "1920x1080>" },             -- default for raster images
-                    vector = { "-density", 192, "{src}[0]", "-scale", "50x50>" }, -- used by vector images like svg
-                    math = { "-density", 192, "{src}[0]", "-trim" },
-                    pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
-                },
-            },
-            math = {
-                enabled = false,
-            },
-        },
         indent = {
             indent = {
                 char = "▏",

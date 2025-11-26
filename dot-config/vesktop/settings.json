@@ -3,5 +3,11 @@
     "minimizeToTray": true,
     "arRPC": true,
     "tray": true,
-    "clickTrayToShowHide": true
+    "clickTrayToShowHide": true,
+    "spellCheckLanguages": [
+        "en-US",
+        "en",
+        "fr",
+        "fr-FR"
+    ]
 }
