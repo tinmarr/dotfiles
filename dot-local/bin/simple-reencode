@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+if [[ $1 == "-h" || -z $1 ]]; then
+    echo "simple-reencode input output [-amd | -intel | -nvidia]"
+    exit
+fi
+
+if [[ ! -e $1 ]]; then
+    echo "'$1' is not a valid input file"
+    echo "simple-reencode input output [-amd | -intel | -nvidia]"
+    exit
+elif [[ -z $2 ]]; then
+    echo "'$2' is not a valid output file"
+    echo "simple-reencode input output [-amd | -intel | -nvidia]"
+    exit
+fi
+
+encoder="hevc_nvenc"
+decoder="auto"
+if [[ $3 == "-amd" ]]; then
+    encoder="hevc_amf"
+elif [[ $3 == "-intel" ]]; then
+    encoder="libx265"
+    decoder="none"
+fi
+
+
+ffmpeg -hwaccel $decoder -i "$1" -c:v $encoder -preset slow -rc vbr -crf 23 -c:a aac -b:a 192k -map 0:v:0 -map 0:a:0 "$2"
+
+notify-send -a "simple-reencode" "encoding finished" 2>/dev/null
