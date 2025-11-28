@@ -27,4 +27,4 @@ fi
 
 ffmpeg -hwaccel $decoder -i "$1" -c:v $encoder -preset slow -rc vbr -crf 23 -c:a aac -b:a 192k -map 0:v:0 -map 0:a:0 "$2"
 
-notify-send -a "simple-reencode" "encoding finished" 2>/dev/null
+notify-send -u critical -a "simple-reencode" "encoding finished" 2>/dev/null
