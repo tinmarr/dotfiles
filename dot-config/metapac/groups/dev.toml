@@ -15,4 +15,5 @@ arch = [
     "opencode-bin",
     "valgrind",
     "just",
+    "pnpm",
 ]
