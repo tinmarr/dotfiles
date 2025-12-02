@@ -20,7 +20,6 @@ arch = [
     "spotify-launcher",
 
     # misc
-    "zoom",
     "helium-browser-bin",
     "vesktop-bin",
 
