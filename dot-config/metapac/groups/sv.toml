@@ -9,6 +9,7 @@ arch = [
     "nginx",
     "nginx-mod-stream",
     "rclone",
+    "restic",
     "ufw",
     "wireguard-tools",
 
