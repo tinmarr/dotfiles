@@ -35,6 +35,8 @@ macos-option-as-alt = true
 macos-titlebar-style = hidden
 auto-update = off
 
+window-inherit-working-directory = false
+
 gtk-titlebar = false
 
 # Remove alt+number bindings (used in tmux)
