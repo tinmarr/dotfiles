@@ -7,7 +7,6 @@ arch = [
 
     # hypr-suite
     "hyprland",
-    "hyprpaper",
     "hypridle",
     "hyprlock",
     "hyprpicker",
@@ -29,6 +28,7 @@ arch = [
     "xdg-desktop-portal-gtk",
 
     # required utilities
+    "swww",
     "rofi",
     "rofi-calc",
     "rofi-emoji",
