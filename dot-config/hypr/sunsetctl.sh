@@ -18,21 +18,33 @@ set_time() {
 
     sun_info=$(curl -s "https://api.sunrise-sunset.org/json?lat=$lat&lng=$lng&tzid=$tzid" | jq .results)
     sunset=$(echo $sun_info | jq -r .sunset)
+    twilight=$(echo $sun_info | jq -r .civil_twilight_end)
     sunrise=$(echo $sun_info | jq -r .sunrise)
 
-    start_time=$(date -d "$sunset" "+%H%M")
-    full_time=$(python -c "print($start_time + 200)")
+    start_time=$(date -d "$sunset" "+%H%M" | sed 's/^0*//')
+    full_time=$(date -d "$twilight" "+%H%M" | sed 's/^0*//')
 
-    end_time=$(date -d "$sunrise" "+%H%M")
+    echo $start_time
+    echo $full_time
+
+    end_time=$(date -d "$sunrise" "+%H%M" | sed 's/^0*//')
 }
 
 # Calculate minutes until target time, handling midnight wrap
 minutes_until() {
     local target=$1 current=$2
-    if (( target > current )); then
-        echo $((target - current))
+    local target_h=$((target / 100))
+    local target_m=$((target % 100))
+    local current_h=$((current / 100))
+    local current_m=$((current % 100))
+
+    local target_minutes=$((target_h * 60 + target_m))
+    local current_minutes=$((current_h * 60 + current_m))
+
+    if (( target_minutes > current_minutes )); then
+        echo $((target_minutes - current_minutes))
     else
-        echo $((2400 - current + target))
+        echo $((1440 - current_minutes + target_minutes))
     fi
 }
 
@@ -47,7 +59,7 @@ format_sleep() {
 set_time
 
 while true; do
-    current_time=$(date +%-H%M | sed "s/^0*//g")
+    current_time=$(date +%H%M | sed 's/^0*//')
 
     # During gradient transition (sunset to full darkness)
     if [[ "$current_time" -ge "$start_time" && "$current_time" -le "$full_time" ]]; then
@@ -55,20 +67,26 @@ while true; do
         temp_value=$(python -c "print($max_temp + ($min_temp - $max_temp) * $lerp_t)")
         echo "Gradient: $temp_value K"
         hyprctl -i 0 hyprsunset temperature "$temp_value"
-        sleep 10m
+        if [[ -z "$1" ]]; then
+            sleep 10m
+        fi
     # During night (full darkness)
     elif [[ "$current_time" -gt "$full_time" || "$current_time" -lt "$end_time" ]]; then
         mins=$(minutes_until "$end_time" "$current_time")
         formatted=$(format_sleep "$mins")
         echo "Night: $min_temp K. Sleeping for $formatted"
         hyprctl -i 0 hyprsunset temperature "$min_temp"
-        sleep $formatted
+        if [[ -z "$1" ]]; then
+            sleep $formatted
+        fi
     # Before sunset
     else
         mins=$(format_sleep $(minutes_until "$start_time" "$current_time"))
         echo "Day: waiting $mins for sunset"
         hyprctl -i 0 hyprsunset identity
-        sleep $mins
+        if [[ -z "$1" ]]; then
+            sleep $mins
+        fi
     fi
 
     if [[ -n "$1" ]]; then
