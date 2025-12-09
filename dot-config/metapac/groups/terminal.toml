@@ -26,7 +26,6 @@ arch = [
     "fastfetch",
     "btop",
     "stress",
-    "syncthing",
     "tree",
     "unzip",
     "zip",

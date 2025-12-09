@@ -36,6 +36,7 @@ arch = [
     "jupyterlab",
     "patchelf",
     "arduino-cli",
+    "syncthing",
 
     # virtmanger
     "qemu-full",
