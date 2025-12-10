@@ -37,6 +37,7 @@ arch = [
     "patchelf",
     "arduino-cli",
     "syncthing",
+    "kanata-bin",
 
     # virtmanger
     "qemu-full",

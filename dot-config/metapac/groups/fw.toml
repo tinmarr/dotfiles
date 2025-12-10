@@ -13,7 +13,4 @@ arch = [
     "power-profiles-daemon",
     "fprintd",
     "powertop",
-
-    # utils
-    "kanata-bin",
 ]
