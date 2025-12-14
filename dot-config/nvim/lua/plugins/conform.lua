@@ -15,6 +15,7 @@ return {
         -- Set up format-on-save
         format_after_save = { async = true, timeout_ms = 500 },
         formatters_by_ft = {
+            html = { "prettier" },
             go = { "gofumpt", lsp_format = "first" },
             yaml = { "prettier" },
             javascript = { "prettier" },

@@ -12,6 +12,7 @@ local lsps = {
     "marksman",
     "arduino_language_server",
     "clangd",
+    "astro",
 }
 local pkgs = {
     -- debuggers
