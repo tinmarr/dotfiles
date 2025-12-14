@@ -9,12 +9,15 @@
 # Backends to enable from all metapac behavior. See the README.md for
 # the list of backend names
 # Default: []
-enabled_backends = ["arch", "brew"]
+enabled_backends = ["arch"]
 
 # Whether to use the [hostname_groups] config table to decide which
 # group files to use or to use all files in the groups folder.
 # Default: false
 hostname_groups_enabled = true
+
+[hostname_enabled_backends]
+martinmac = ["brew"]
 
 [arch]
 # Since pacman, paru, pikaur and yay all operate on the same package database
