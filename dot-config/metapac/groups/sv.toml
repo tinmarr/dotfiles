@@ -25,4 +25,5 @@ arch = [
     "iotop",
     "powerstat",
     "pigz",
+    "fail2ban",
 ]
