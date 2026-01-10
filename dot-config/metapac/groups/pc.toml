@@ -18,4 +18,10 @@ arch = [
 
     # ksp
     "ckan-bin",
+
+    # AI stuff
+    "cuda",
+    "python-openai-whisper",
+    "python-pytorch-cuda",
+    "python-torchvision-cuda",
 ]
