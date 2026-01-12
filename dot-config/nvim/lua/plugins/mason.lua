@@ -60,7 +60,7 @@ return {
     {
         "mason-org/mason.nvim",
         cmd = "Mason",
-        lazy = false,
+        event = "VeryLazy",
         keys = {
             { "<leader>am", "<cmd>Mason<cr>", desc = "Open Mason" }
         },

@@ -1,7 +1,7 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "catppuccin/nvim" },
-    event = { "BufReadPost", "BufNewFile" },
+    lazy = false,
+    priority = 999, -- load right after catppuccin
     opts = {
         options = {
             theme = "catppuccin",

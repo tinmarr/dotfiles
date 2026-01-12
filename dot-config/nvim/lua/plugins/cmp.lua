@@ -7,7 +7,7 @@ return {
         "hrsh7th/cmp-path",
         "saadparwaiz1/cmp_luasnip",
         "L3MON4D3/LuaSnip",
-        { "Gelio/cmp-natdat", config = { cmp_kind_text = "date" } },
+        { "Gelio/cmp-natdat", opts = { cmp_kind_text = "date" } },
     },
     opts = function()
         local luasnip = require("luasnip")

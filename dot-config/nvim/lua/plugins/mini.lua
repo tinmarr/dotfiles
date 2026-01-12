@@ -89,5 +89,5 @@ return {
                 max_number = 3,
             },
         },
-    }
+    },
 }

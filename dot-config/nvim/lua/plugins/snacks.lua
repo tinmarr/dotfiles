@@ -1,6 +1,6 @@
 return {
     "folke/snacks.nvim",
-    lazy = false,
+    event = "VeryLazy",
     dependencies = {
         "echasnovski/mini.icons",
     },
@@ -11,32 +11,6 @@ return {
     ---@class snacks.Config
     opts = {
         bigfile = {},
-        dashboard = {
-            preset = {
-                keys = {
-                    { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-                    { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-                    { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-                    { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-                    { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-                    { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-                },
-            },
-            sections = {
-                { section = "header" },
-                {
-                    align = "center",
-                    padding = 1,
-                    height = 1,
-                    text = {
-                        vim.re.gsub(vim.fn.getcwd(), "\"" .. vim.fn.getenv("HOME") .. "\"", "~")
-                    }
-                },
-                { section = "keys", gap = 1, padding = 2 },
-                { icon = " ", title = "Recent Files", section = "recent_files", cwd = true, indent = 2, padding = 2 },
-                { section = "startup" },
-            },
-        },
         indent = {
             indent = {
                 char = "▏",
@@ -46,9 +20,7 @@ return {
                 char = "▏",
             }
         },
-        input = {},
         notifier = {},
-        quickfile = {},
         scope = {},
         statuscolumn = {
             left = { "sign" },         -- priority of signs on the left (high to low)
