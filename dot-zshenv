@@ -1,6 +1,4 @@
 #!/usr/bin/env zsh
 
-export QT_QPA_PLATFORMTHEME=qt6ct
-
 # Give bin access to everything
 export PATH="$HOME/.local/bin:$PATH"

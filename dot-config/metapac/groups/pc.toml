@@ -24,4 +24,7 @@ arch = [
     "python-openai-whisper",
     "python-pytorch-cuda",
     "python-torchvision-cuda",
+
+    # misc
+    "libreoffice-fresh",
 ]
