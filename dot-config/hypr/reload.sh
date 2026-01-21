@@ -5,3 +5,5 @@ systemctl restart --user waybar
 systemctl stop --user sunsetctl.scope
 kill $(pgrep -f sunsetctl.sh)
 setsid -f uwsm app -u sunsetctl.scope -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh
+kill $(pgrep -f swww-daemon)
+setsid -f uwsm app -- swww-daemon
