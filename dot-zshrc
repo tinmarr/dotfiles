@@ -16,6 +16,9 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 unalias zi
 
+# add mason binaries to path (faster nvim & for opencode)
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
 # Install plugins
 zinit wait lucid light-mode for \
       atload"_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
