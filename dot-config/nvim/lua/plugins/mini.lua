@@ -51,12 +51,20 @@ return {
         event = "InsertEnter",
         opts = {
             mappings = {
-                ['$'] = { action = 'closeopen', pair = '$$', neigh_pattern = '[^%a\\].' },
-
                 ['«'] = { action = 'open', pair = '«»', neigh_pattern = '[^\\].' },
                 ['»'] = { action = 'close', pair = '«»', neigh_pattern = '[^\\].' },
             }
         },
+        config = function(_, opts)
+            require("mini.pairs").setup(opts)
+            -- Add $ pairing only for typst files
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "typst",
+                callback = function()
+                    MiniPairs.map_buf(0, "i", "$", { action = "closeopen", pair = "$$", neigh_pattern = "[^%a\\]." })
+                end,
+            })
+        end,
     },
     {
         "nvim-mini/mini.splitjoin",
