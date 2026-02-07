@@ -1,29 +1,31 @@
-arch = [
-    # hardware
-    "intel-ucode",
-    "libva-intel-driver",
+arch = {
+    packages = [
+        # hardware
+        "intel-ucode",
+        "libva-intel-driver",
 
-    # basic support
-    "ghostty-terminfo",
-    "fcron",
-    "nginx",
-    "nginx-mod-stream",
-    "rclone",
-    "restic",
-    "ufw",
-    "wireguard-tools",
+        # basic support
+        "ghostty-terminfo",
+        "fcron",
+        "nginx",
+        "nginx-mod-stream",
+        "rclone",
+        "restic",
+        "ufw",
+        "wireguard-tools",
 
-    # functionality
-    "lazydocker-bin",
-    "smartmontools",
-    "gnu-netcat",
-    "ffmpeg",
-    "exim",
-    "s-nail",
-    "powertop",
-    "ncdu",
-    "iotop",
-    "powerstat",
-    "pigz",
-    "fail2ban",
-]
+        # functionality
+        "lazydocker-bin",
+        "smartmontools",
+        "gnu-netcat",
+        "ffmpeg",
+        "exim",
+        "s-nail",
+        "powertop",
+        "ncdu",
+        "iotop",
+        "powerstat",
+        "pigz",
+        "fail2ban",
+    ]
+}

@@ -1,47 +1,48 @@
-arch = [
-    # pipewire
-    "pipewire",
-    "pipewire-alsa",
-    "pipewire-jack",
-    "pipewire-pulse",
-    "gst-plugin-pipewire",
-    "lib32-pipewire",
-    "alsa-utils",
-    "alsa-tools",
+arch = {
+    packages = [
+        # pipewire
+        "pipewire",
+        "pipewire-alsa",
+        "pipewire-jack",
+        "pipewire-pulse",
+        "gst-plugin-pipewire",
+        "lib32-pipewire",
+        "alsa-utils",
+        "alsa-tools",
 
-    # essentials
-    "ghostty",
-    "nautilus",
+        # essentials
+        "ghostty",
+        "nautilus",
 
-    # daily drivers
-    "zen-browser-bin",
-    "obsidian",
-    "slack-desktop",
-    "spotify-launcher",
+        # daily drivers
+        "zen-browser-bin",
+        "obsidian",
+        "slack-desktop",
+        "spotify-launcher",
 
-    # misc
-    "helium-browser-bin",
-    "vesktop-bin",
-    "bitwarden",
+        # misc
+        "helium-browser-bin",
+        "vesktop-bin",
+        "bitwarden",
 
-    # misc utilities
-    "qalculate-gtk",
-    "gimp",
-    "mpv",
-    "xournalpp",
-    "zathura",
-    "zathura-pdf-poppler",
-    "typst",
-    "postgresql",
-    "jupyterlab",
-    "patchelf",
-    "arduino-cli",
-    "syncthing",
-    "kanata-bin",
+        # misc utilities
+        "qalculate-gtk",
+        "gimp",
+        "mpv",
+        "xournalpp",
+        "zathura",
+        "zathura-pdf-poppler",
+        "typst",
+        "postgresql",
+        "jupyterlab",
+        "patchelf",
+        "syncthing",
+        "kanata-bin",
 
-    # virtmanger
-    "qemu-full",
-    "dnsmasq",
-    "libvirt",
-    "virt-manager",
-]
+        # virtmanger
+        "qemu-full",
+        "dnsmasq",
+        "libvirt",
+        "virt-manager",
+    ]
+}

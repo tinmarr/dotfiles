@@ -1,16 +1,18 @@
-arch = [
-    # amd
-    "amd-ucode",
-    "mesa",
-    "lib32-mesa",
-    "vulkan-radeon",
-    "rocm-smi-lib",  # for btop gpu output
+arch = {
+    packages = [
+        # amd
+        "amd-ucode",
+        "mesa",
+        "lib32-mesa",
+        "vulkan-radeon",
+        "rocm-smi-lib",  # for btop gpu output
 
-    # hardware control
-    "acpi",
-    "framework-system",
-    "iw",
-    "power-profiles-daemon",
-    "fprintd",
-    "powertop",
-]
+        # hardware control
+        "acpi",
+        "framework-system",
+        "iw",
+        "power-profiles-daemon",
+        "fprintd",
+        "powertop",
+    ]
+}

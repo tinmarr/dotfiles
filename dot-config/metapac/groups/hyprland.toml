@@ -1,67 +1,69 @@
-arch = [
-    # display manager
-    "ly",
+arch = {
+    packages = [
+        # display manager
+        "ly",
 
-    # input
-    "ibus",
+        # input
+        "ibus",
 
-    # hypr-suite
-    "hyprland",
-    "hypridle",
-    "hyprlock",
-    "hyprpicker",
-    "hyprsunset",
-    "uwsm",
+        # hypr-suite
+        "hyprland",
+        "hypridle",
+        "hyprlock",
+        "hyprpicker",
+        "hyprsunset",
+        "uwsm",
 
-    # waybar
-    "waybar",
-    "kdeconnect",
-    "wiremix",
-    "bluetui",
-    "impala",
-    "bluez-utils",
-    "dualsensectl-git",
-    "waybar-module-pacman-updates-git",
+        # waybar
+        "waybar",
+        "kdeconnect",
+        "wiremix",
+        "bluetui",
+        "impala",
+        "bluez-utils",
+        "dualsensectl-git",
+        "waybar-module-pacman-updates-git",
 
-    # screensharing
-    "xdg-desktop-portal-hyprland",
-    "xdg-desktop-portal-gtk",
+        # screensharing
+        "xdg-desktop-portal-hyprland",
+        "xdg-desktop-portal-gtk",
 
-    # required utilities
-    "swww",
-    "rofi",
-    "rofi-calc",
-    "rofi-emoji",
-    "grim",
-    "slurp",
-    "swappy",
-    "wl-clipboard",
-    "wtype",
-    "brightnessctl",
-    "playerctl",
-    "dunst",
+        # required utilities
+        "swww",
+        "rofi",
+        "rofi-calc",
+        "rofi-emoji",
+        "grim",
+        "slurp",
+        "swappy",
+        "wl-clipboard",
+        "wtype",
+        "brightnessctl",
+        "playerctl",
+        "dunst",
 
-    # optional deps
-    "cpio",
-    "xorg-xwayland",
-    "polkit-gnome",
+        # optional deps
+        "cpio",
+        "xorg-xwayland",
+        "polkit-gnome",
 
-    # fonts
-    "ttf-jetbrains-mono-nerd",
-    "gnu-free-fonts",
-    "noto-fonts-emoji",
-    "noto-fonts-cjk",
-    "ttf-ms-fonts",
-    "inter-font",
+        # fonts
+        "ttf-jetbrains-mono-nerd",
+        "gnu-free-fonts",
+        "noto-fonts-emoji",
+        "noto-fonts-cjk",
+        "ttf-ms-fonts",
+        "inter-font",
 
-    # themeing
-    "nwg-look",
-    "papirus-icon-theme",
-    "papirus-folders",
-    "qt6ct-kde",
-    "breeze",
-    "catppuccin-gtk-theme-mocha",
-    "grub-customizer",
-    "spicetify-cli",
-    "spicetify-marketplace-bin",
-]
+        # themeing
+        "nwg-look",
+        "papirus-icon-theme",
+        "papirus-folders",
+        "qt6ct-kde",
+        "breeze",
+        "catppuccin-gtk-theme-mocha",
+        "grub-customizer",
+        "spicetify-cli",
+        "spicetify-marketplace-bin",
+    ]
+}

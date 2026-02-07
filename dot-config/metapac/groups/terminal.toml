@@ -1,44 +1,46 @@
-arch = [
-    # zshrc
-    "oh-my-posh-bin",
-    "ripgrep",
-    "eza",
-    "bat",
-    "direnv",
-    "fzf",
-    "zoxide",
-    "yazi",
-    "reflector",
+arch = {
+    packages = [
+        # zshrc
+        "oh-my-posh-bin",
+        "ripgrep",
+        "eza",
+        "bat",
+        "direnv",
+        "fzf",
+        "zoxide",
+        "yazi",
+        "reflector",
 
-    # yazi optional deps (also just good)
-    "jq",
-    "7zip",
-    "fd",
-    "imagemagick",
+        # yazi optional deps (also just good)
+        "jq",
+        "7zip",
+        "fd",
+        "imagemagick",
 
-    # tmux
-    "tmux",
-    "tmux-plugin-manager",
+        # tmux
+        "tmux",
+        "tmux-plugin-manager",
 
-    # good utils
-    "vim",
-    "github-cli",
-    "fastfetch",
-    "btop",
-    "stress",
-    "tree",
-    "unzip",
-    "zip",
-    "wget",
-    "rsync",
-    "bind",       # dig, etc
-    "stow",
+        # good utils
+        "vim",
+        "github-cli",
+        "fastfetch",
+        "btop",
+        "stress",
+        "tree",
+        "unzip",
+        "zip",
+        "wget",
+        "rsync",
+        "bind",       # dig, etc
+        "stow",
 
-    # docker
-    "docker",
-    "docker-buildx",
-    "docker-compose",
+        # docker
+        "docker",
+        "docker-buildx",
+        "docker-compose",
 
-    # deps
-    "python-dbus-next",
-]
+        # deps
+        "python-dbus-next",
+    ]
+}

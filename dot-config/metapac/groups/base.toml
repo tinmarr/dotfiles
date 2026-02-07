@@ -1,29 +1,31 @@
-arch = [
-    # core linux
-    "base",
-    "base-devel",
-    "grub",
-    "os-prober",
-    "linux",
-    "linux-firmware",
-    "linux-headers",
-    "pacman-contrib",
+arch = {
+    packages = [
+        # core linux
+        "base",
+        "base-devel",
+        "grub",
+        "os-prober",
+        "linux",
+        "linux-firmware",
+        "linux-headers",
+        "pacman-contrib",
 
-    # docs
-    "man-db",
-    "man-pages",
-    "tldr",
+        # docs
+        "man-db",
+        "man-pages",
+        "tldr",
 
-    # required shell stuff
-    "zsh",
-    "yay",
-    "metapac",
+        # required shell stuff
+        "zsh",
+        "yay",
+        "metapac",
 
-    # connectivity
-    "openssh",
-    "iwd",
+        # connectivity
+        "openssh",
+        "iwd",
 
-    # low level control (platform independent)
-    "fwupd",
-    "dmidecode",
-]
+        # low level control (platform independent)
+        "fwupd",
+        "dmidecode",
+    ]
+}
