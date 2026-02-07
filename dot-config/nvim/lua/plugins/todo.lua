@@ -6,5 +6,26 @@ return {
     },
     cmd = "TodoTelescope",
     event = { "BufReadPost", "BufNewFile" },
-    opts = {}
+    opts = {
+        search = {
+            args = {
+                "--color=never",
+                "--no-heading",
+                "--with-filename",
+                "--line-number",
+                "--column",
+                "--glob=!node_modules/*",
+                "--glob=!*vendor*",
+                "--glob=!.venv/*",
+                "--glob=!.git/*",
+                "--glob=!build/*",
+                "--glob=!dist/*",
+                "--glob=!target/*",
+                "--glob=!ThirdParty/*",
+                "--glob=!Generated/*",
+                "--glob=!*/generated/*",
+                "--glob=!*.pb.*",
+            },
+        },
+    }
 }
