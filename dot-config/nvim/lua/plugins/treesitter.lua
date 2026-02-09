@@ -20,7 +20,6 @@ return {
                 "typst",
                 "bash",
                 "markdown",
-                "arduino",
                 "astro",
             },
             auto_install = true,

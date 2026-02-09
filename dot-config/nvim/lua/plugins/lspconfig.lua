@@ -64,7 +64,6 @@ return {
             "sh",
             "bash",
             "markdown",
-            "arduino",
             "astro"
         },
         dependencies = {
@@ -118,7 +117,6 @@ return {
                 golangci_lint_ls = {},
                 bashls = {},
                 marksman = {},
-                arduino_language_server = {},
                 astro = {},
             },
         },
