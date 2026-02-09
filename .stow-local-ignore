@@ -34,3 +34,5 @@ README.org # Config compiler files
 
 # root
 ^/root
+
+AGENTS.md
