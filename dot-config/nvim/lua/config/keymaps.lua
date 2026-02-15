@@ -58,7 +58,18 @@ vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "Previous tab
 vim.keymap.set("n", "<leader>tt", "<cmd>tabnew<cr>", { desc = "Add tab" })
 
 -- markdown tasks
+local function is_notes_file()
+    local filepath = vim.api.nvim_buf_get_name(0)
+    local notes_dir = os.getenv("HOME") .. "/notes/"
+    return vim.startswith(filepath, notes_dir) and filepath:match("%.md$")
+end
+
 vim.keymap.set("n", "<leader>mc", function()
+    if not is_notes_file() then
+        vim.notify("Not in notes file", vim.log.levels.WARN)
+        return
+    end
+
     local ls = require("luasnip")
     local bufnr = 0
     local last = vim.api.nvim_buf_line_count(bufnr)
@@ -78,7 +89,13 @@ vim.keymap.set("n", "<leader>mc", function()
         end
     end)
 end, { desc = "Create task" })
+
 vim.keymap.set("n", "<leader>mx", function()
+    if not is_notes_file() then
+        vim.notify("Not in notes file", vim.log.levels.WARN)
+        return
+    end
+
     local bufnr = 0
     local row = vim.api.nvim_win_get_cursor(0)[1]
 
