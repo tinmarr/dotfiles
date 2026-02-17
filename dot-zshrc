@@ -113,6 +113,7 @@ alias h="history 0"
 alias lg="lazygit"
 alias ms="sudo test; metapac sync && metapac clean"
 alias sesh="sessionizer"
+alias oc="opencode"
 
 #### Macros ####
 alias updategrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
