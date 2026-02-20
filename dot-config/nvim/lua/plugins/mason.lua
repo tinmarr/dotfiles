@@ -5,7 +5,7 @@ local lsps = {
     "ts_ls",
     "jsonls",
     "pyright",
-    "taplo",
+    "tombi",
     "tinymist",
     "golangci_lint_ls",
     "bashls",

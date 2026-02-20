@@ -102,7 +102,7 @@ return {
                 jsonls = {},
                 clangd = {},
                 pyright = {},
-                taplo = {},  -- toml
+                tombi = {},  -- toml
                 tinymist = { -- typst
                     settings = {
                         formatterMode = "typstyle",
