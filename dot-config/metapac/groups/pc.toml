@@ -27,6 +27,7 @@ arch = {
         "python-torchvision-cuda",
 
         # misc
-        "libreoffice-fresh",
+        "onlyoffice-bin",
+        "ttf-aptos",
     ]
 }
