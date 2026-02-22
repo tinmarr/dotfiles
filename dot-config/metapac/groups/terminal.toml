@@ -35,9 +35,19 @@ arch = {
         "bind",       # dig, etc
         "stow",
 
-        # docker
-        "docker",
-        "docker-buildx",
+        # podman
+        {
+            name = "podman",
+            hooks = {
+                after_install = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "--now",
+                    "podman.socket",
+                ],
+            },
+        },
         "docker-compose",
 
         # deps
