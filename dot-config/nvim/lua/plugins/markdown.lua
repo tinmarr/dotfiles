@@ -64,8 +64,9 @@ return {
         build = vim.fn.stdpath("data") .. "/mason/bin/deno task --quiet build:fast",
         ft = { "markdown" },
         opts = {
+            theme = "light",
             auto_load = false,
-            app = "zen-browser",
+            app = { "zen-browser", "-P", "preview", "--new-window" },
         },
         config = function(_, opts)
             require("peek").setup(opts)
