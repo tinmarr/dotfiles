@@ -7,10 +7,6 @@ yay -Qu > $HOME/.cache/updated-packages.txt
 echo "Starting update:"
 yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
 
-if [[ $(rg spotify-launcher ~/.cache/updated-packages.txt) ]]; then
-    spicetify backup apply
-fi
-
 ZINIT="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 if [[ -e $ZINIT ]]; then
     zsh -c "
@@ -18,6 +14,14 @@ if [[ -e $ZINIT ]]; then
         zinit self-update && \
         zinit update --parallel
     "
+fi
+
+if [[ $(rg spicetify-cli ~/.cache/updated-packages.txt) ]]; then
+    spicetify restore backup apply
+fi
+
+if [[ $(rg spotify-launcher ~/.cache/updated-packages.txt) ]]; then
+    spicetify backup apply
 fi
 
 cd ~/dotfiles
