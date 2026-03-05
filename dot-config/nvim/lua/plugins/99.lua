@@ -11,7 +11,7 @@ return {
 		local basename = vim.fs.basename(cwd)
 		_99.setup({
 			provider = _99.OpenCodeProvider, -- default: OpenCodeProvider
-			model = "opencode/kimi-k2.5-free",
+			model = "opencode/minimax-m2.5-free",
 			logger = {
 				level = _99.ERROR,
 				path = "/tmp/" .. basename .. ".99.debug",
