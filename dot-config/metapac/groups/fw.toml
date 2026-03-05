@@ -14,5 +14,6 @@ arch = {
         "power-profiles-daemon",
         "fprintd",
         "powertop",
+        "wireless-regdb",
     ]
 }
