@@ -6,5 +6,6 @@ export XMODIFIERS=@im=ibus
 # QT stuff
 export QT_QPA_PLATFORMTHEME=qt6ct
 export QT_QPA_PLATFORM=wayland
-
+# Cursor
+export XCURSOR_SIZE=32
 

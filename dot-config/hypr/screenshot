@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Screenshot script with optional freeze support
+# Usage: screenshot [--freeze]
+
+freeze=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --freeze|-f)
+            freeze=true
+            shift
+            ;;
+        *)
+            printf "Unknown option: %s\n" "$1" >&2
+            exit 1
+            ;;
+    esac
+done
+
+pkill hyprpicker
+pkill slurp
+
+if [[ $freeze == true ]]; then
+    hyprpicker -r -z &
+    sleep 0.2
+fi
+
+# Take screenshot with slurp for area selection and swappy for editing
+uwsm-app -- grim -g "$(slurp)" - | setsid -f uwsm-app -- swappy -f -
+
+
+if [[ $freeze == true ]]; then
+    pkill hyprpicker
+fi
