@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Linear
+Comment=Linear
+Exec=helium-browser --app="https://linear.app"
+Terminal=false
+Type=Application
+StartupNotify=true
