@@ -12,7 +12,6 @@ arch = {
 
         # essentials
         "ghostty",
-        "alacritty",
         "nautilus",
 
         # daily drivers

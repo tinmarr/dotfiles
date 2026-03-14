@@ -10,6 +10,8 @@ configuration {
     kb-accept-entry: "Return";
     kb-remove-to-eol: "";
     run-command: "uwsm-app -- {cmd}";
+    terminal: "ghostty";
+    run-shell-command: "{terminal} +new-window -e {cmd}";
 
     run {
         display-name: "";
