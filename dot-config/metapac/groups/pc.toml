@@ -25,6 +25,19 @@ arch = {
         "python-openai-whisper",
         "python-pytorch-cuda",
         "python-torchvision-cuda",
+        {
+            name = "ollama",
+            # hooks = {
+            #     after_install = [
+            #         "sudo",
+            #         "systemctl",
+            #         "enable",
+            #         "--now",
+            #         "ollama"
+            #     ]
+            # }
+        },
+        "ollama-cuda",
 
         # misc
         "onlyoffice-bin",
