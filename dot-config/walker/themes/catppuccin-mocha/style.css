@@ -25,9 +25,22 @@
 @define-color base #1e1e2e;
 @define-color mantle #181825;
 @define-color crust #11111b;
+@define-color window_bg_color #1f1f28;
+@define-color accent_bg_color #54546d;
+@define-color theme_fg_color #f2ecbc;
+@define-color error_bg_color #C34043;
+@define-color error_fg_color #DCD7BA;
+
+:root {
+  --border-radius: 5px;
+  --padding-size: 10px;
+  --border-color: alpha(@mauve, 0.1);
+}
 
 * {
   all: unset;
+  /* font-family: JetBrainsMono Nerd Font Propo; */
+  font-family: Inter Regular;
 }
 
 .normal-icons {
@@ -35,7 +48,7 @@
 }
 
 .large-icons {
-  -gtk-icon-size: 32px;
+  -gtk-icon-size: 16px;
 }
 
 scrollbar {
@@ -43,13 +56,19 @@ scrollbar {
 }
 
 .box-wrapper {
-  box-shadow:
-    0 19px 38px rgba(0, 0, 0, 0.3),
-    0 15px 12px rgba(0, 0, 0, 0.22);
-  background: @base;
-  padding: 20px;
-  border-radius: 20px;
-  border: 1px solid @crust;
+  /* box-shadow: */
+  /*   0 19px 38px rgba(0, 0, 0, 0.3), */
+  /*   0 15px 12px rgba(0, 0, 0, 0.22); */
+  background: alpha(@surface0, 0.8);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+popover {
+  background: lighter(@window_bg_color);
+  border: 1px solid darker(@accent_bg_color);
+  border-radius: 18px;
+  padding: 10px;
 }
 
 .preview-box,
@@ -58,10 +77,13 @@ scrollbar {
   color: @text;
 }
 
+.box {
+}
+
 .search-container {
   border-radius: 10px;
-  background: @mantle;
-  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--padding-size) var(--padding-size);
 }
 
 .input placeholder {
@@ -69,7 +91,7 @@ scrollbar {
 }
 
 .input selection {
-  background: @surface1;
+  background: alpha(@mauve, 0.25);
 }
 
 .input {
@@ -79,24 +101,37 @@ scrollbar {
   color: @text;
 }
 
+.content-container {
+}
+
+.placeholder {
+}
+
+.scroll {
+}
+
 .list {
+  padding: 0px 10px;
   color: @text;
 }
 
 .item-box {
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: var(--border-radius);
+  padding: var(--padding-size);
 }
 
 .item-quick-activation {
   background: alpha(@mauve, 0.25);
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: var(--border-radius);
+  padding: var(--padding-size);
 }
 
 child:selected .item-box,
 row:selected .item-box {
-  background: alpha(@surface0, 0.6);
+  background: alpha(@mauve, 0.1);
+}
+
+.item-text-box {
 }
 
 .item-subtext {
@@ -113,14 +148,23 @@ row:selected .item-box {
   font-size: 28px;
 }
 
+.item-image {
+  padding-right: calc(var(--padding-size)/2);
+}
+
 .preview {
-  border: 1px solid alpha(@mauve, 0.25);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding-size);
+  margin-right: var(--padding-size);
   color: @text;
 }
 
 .calc .item-text {
   font-size: 24px;
+}
+
+.calc .item-subtext {
 }
 
 .symbols .item-image {
@@ -148,10 +192,20 @@ row:selected .item-box {
 }
 
 .keybinds {
-  padding-top: 10px;
-  border-top: 1px solid @surface0;
+  padding: var(--padding-size);
+  padding-bottom: calc(var(--padding-size)/2);
+  border-top: 1px solid var(--border-color);
   font-size: 12px;
-  color: @text;
+  color: alpha(@lavender, 0.5);
+}
+
+.global-keybinds {
+}
+
+.item-keybinds {
+}
+
+.keybind {
 }
 
 .keybind-button {
@@ -169,8 +223,8 @@ row:selected .item-box {
 
 .keybind-label {
   padding: 2px 4px;
-  border-radius: 4px;
-  border: 1px solid @text;
+  border-radius: var(--border-radius);
+  border: 1px solid alpha(@lavender, 0.5);
 }
 
 .error {
@@ -185,5 +239,5 @@ row:selected .item-box {
 
 .preview-content.archlinuxpkgs,
 .preview-content.dnfpackages {
-  font-family: monospace;
+  font-family: JetBrainsMono Nerd Font Propo;
 }
