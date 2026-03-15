@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-process=$(ps -U $(whoami) -o comm | tail -n +1 | sort | uniq | rofi -dmenu -p "kill")
+process=$(ps -U $(whoami) -o comm | tail -n +1 | sort | uniq | walker --dmenu -p "kill")
 
 if [[ -z $process ]]; then
     exit 0
