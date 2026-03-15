@@ -2,7 +2,7 @@
 Version=1.0
 Name=Linear
 Comment=Linear
-Exec=helium-browser --app="https://linear.app"
+Exec=helium-browser --app="https://linear.app/mchaperot"
 Terminal=false
 Type=Application
 StartupNotify=true
