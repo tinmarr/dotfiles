@@ -29,10 +29,26 @@ arch = {
         "xdg-desktop-portal-gtk",
 
         # required utilities
+        "walker",
+        {
+            name = "elephant",
+            hooks = {
+                after_install = [
+                    "elephant",
+                    "service",
+                    "enable"
+                ]
+            }
+        },
+        "elephant-desktopapplications",
+        "elephant-providerlist",
+        "elephant-calc",
+        "elephant-symbols",
+        "elephant-websearch",
+        "elephant-clipboard",
+        "elephant-runner",
+        "openbsd-netcat",
         "swww",
-        "rofi",
-        "rofi-calc",
-        "rofi-emoji",
         "grim",
         "slurp",
         "swappy",
