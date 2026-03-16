@@ -5,4 +5,5 @@ Comment=Linear
 Exec=helium-browser --app="https://linear.app/mchaperot"
 Terminal=false
 Type=Application
+Icon=/home/martin/.local/share/applications/icons/linear.svg
 StartupNotify=true
