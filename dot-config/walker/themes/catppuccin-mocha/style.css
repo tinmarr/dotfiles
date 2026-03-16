@@ -160,6 +160,10 @@ row:selected .item-box {
   color: @text;
 }
 
+.preview *, .clipboard .item-text {
+  font-family: JetBrainsMono Nerd Font Mono;
+}
+
 .calc .item-text {
   font-size: 24px;
 }

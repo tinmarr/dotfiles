@@ -11,7 +11,7 @@ show_actions = false
 show_actions_without_query = false
 show_generic = true
 single_instance_apps = ['discord']
-window_integration = false
+window_integration = true
 window_integration_ignore_actions = false
 wm_integration = false
 
