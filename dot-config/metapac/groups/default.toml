@@ -38,6 +38,8 @@ arch = {
         "patchelf",
         "syncthing",
         "kanata-bin",
+        "onlyoffice-bin",
+        "ttf-aptos",
 
         # virtmanger
         "qemu-full",

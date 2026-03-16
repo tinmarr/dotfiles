@@ -38,9 +38,5 @@ arch = {
             # }
         },
         "ollama-cuda",
-
-        # misc
-        "onlyoffice-bin",
-        "ttf-aptos",
     ]
 }
