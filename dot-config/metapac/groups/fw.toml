@@ -7,6 +7,10 @@ arch = {
         "vulkan-radeon",
         "rocm-smi-lib",  # for btop gpu output
 
+        # Better scheduler
+        "scx-scheds",
+        "scx-tools",
+
         # hardware control
         "acpi",
         "framework-system",
