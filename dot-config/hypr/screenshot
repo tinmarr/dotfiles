@@ -28,7 +28,7 @@ if [[ $freeze == true ]]; then
 fi
 
 # Take screenshot with slurp for area selection and swappy for editing
-uwsm-app -- grim -g "$(slurp)" - | setsid -f uwsm-app -- swappy -f -
+grim -g "$(slurp)" - | setsid -f uwsm-app -- swappy -f -
 
 
 if [[ $freeze == true ]]; then
