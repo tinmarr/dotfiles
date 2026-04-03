@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
+set -e
+
 sudo test
 mirrors
 yay -Syy
 yay -Qu > $HOME/.cache/updated-packages.txt
 echo "Starting update:"
 yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
+yay -Yc --noconfirm
 
 ZINIT="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 if [[ -e $ZINIT ]]; then
@@ -29,12 +32,7 @@ git pull
 ./install/restowall
 cd ~
 
-yay
-echo "Orphans:"
-yay -Qdt
-echo "If there are orphans, remove with:"
-echo "    yay -Qdtq | sudo pacman -Rns -"
-echo "Not done automatically because this could break stuff"
+echo "---"
 echo "$(cat $HOME/.cache/updated-packages.txt | wc -l) packages updated"
 echo "Updated packages stored in ~/.cache/updated-packages.txt"
 
