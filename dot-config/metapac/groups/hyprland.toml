@@ -4,7 +4,7 @@ arch = {
         "ly",
 
         # input
-        "ibus",
+        "fcitx5",
 
         # hypr-suite
         "hyprland",
@@ -48,7 +48,7 @@ arch = {
         "elephant-clipboard",
         "elephant-runner",
         "openbsd-netcat",
-        "swww",
+        "awww",
         "grim",
         "slurp",
         "swappy",
