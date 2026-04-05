@@ -1,0 +1,44 @@
+name = "system-control"
+name_pretty = "System Control"
+icon = "settings"
+fixed_order = true
+
+[[entries]]
+text = "Set 1440p (home screen)"
+actions = { "set" = "hyprctl keyword monitor desc:LG Electronics LG HDR 4K 0x00048B3D, 2560x1440@60, 0x0, 1" }
+icon = "monitor-symbolic"
+
+[[entries]]
+text = "Enable mirroring"
+actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1, mirror, eDP-1" }
+icon = "monitor-symbolic"
+
+[[entries]]
+text = "Disable mirroring"
+actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1" }
+icon = "monitor-symbolic"
+
+[[entries]]
+text = "Reboot"
+keywords = ["reboot", "restart"]
+actions = { "reboot" = "systemctl reboot" }
+icon = "system-reboot-symbolic"
+
+[[entries]]
+text = "Power Off"
+keywords = ["power", "off", "shutdown", "poweroff"]
+actions = { "poweroff" = "systemctl poweroff" }
+icon = "system-shutdown-symbolic"
+
+[[entries]]
+text = "Logout"
+keywords = ["logout", "exit", "quit"]
+actions = { "logout" = "loginctl terminate-user $USER" }
+icon = "system-log-out-symbolic"
+
+[[entries]]
+text = "Color Picker"
+keywords = ["color", "picker", "hypr"]
+actions = { "pick" = "wl-copy $(hyprpicker)" }
+icon = "color-picker"
+

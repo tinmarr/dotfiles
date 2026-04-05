@@ -50,7 +50,8 @@
     },
     "custom/icon": {
         "format": "",
-        "tooltip": false
+        "tooltip": false,
+        "on-click": "elephant menu system-control"
     },
     "custom/updates": {
         "format": "{}{icon}",
