@@ -4,6 +4,6 @@ git_on_demand = true
 ignored_providers = []
 launch_prefix = 'uwsm-app --'
 overload_local_env = false
-terminal_cmd = ''
+terminal_cmd = 'ghostty +new-window -e'
 
 [provider_hosts]
