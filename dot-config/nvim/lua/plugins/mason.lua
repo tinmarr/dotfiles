@@ -11,6 +11,7 @@ local lsps = {
     "marksman",
     "clangd",
     "astro",
+    "hyprls",
 }
 local pkgs = {
     -- debuggers

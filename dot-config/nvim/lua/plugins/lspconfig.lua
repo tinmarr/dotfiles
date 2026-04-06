@@ -64,7 +64,8 @@ return {
             "sh",
             "bash",
             "markdown",
-            "astro"
+            "astro",
+            "hyprlang",
         },
         dependencies = {
             "mason-org/mason.nvim",
@@ -117,6 +118,7 @@ return {
                 bashls = {},
                 marksman = {},
                 astro = {},
+                hyprls = {},
             },
         },
         config = function(_, opts)
