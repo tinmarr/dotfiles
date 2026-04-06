@@ -16,6 +16,7 @@ return {
             which_key = true,
             render_markdown = true,
         },
+        auto_integrations = true,
         custom_highlights = function(colors)
             return {
                 CatppucinRosewater = { fg = colors.rosewater },

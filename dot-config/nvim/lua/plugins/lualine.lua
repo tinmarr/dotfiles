@@ -1,10 +1,8 @@
 return {
     "nvim-lualine/lualine.nvim",
     lazy = false,
-    priority = 999, -- load right after catppuccin
     opts = {
         options = {
-            theme = "catppuccin",
             component_separators = "",
             section_separators = { left = '', right = '' },
             disabled_filetypes = {

@@ -30,15 +30,13 @@ vim.opt.winborder = "rounded"
 vim.opt.winblend = 0
 
 -- folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
 
 -- language
 vim.g.is_posix = 1
 
-vim.lsp.set_log_level("OFF")
+vim.lsp.log.set_level("OFF")
 
 vim.api.nvim_create_user_command("W", "write", { nargs = "*", range = true, bang = true, complete = "file" })
 

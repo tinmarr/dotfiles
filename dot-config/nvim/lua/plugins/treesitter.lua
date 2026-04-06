@@ -1,42 +1,47 @@
+local ensureInstalled = {
+    "hyprlang",
+    "go",
+    "lua",
+    "yaml",
+    "vue",
+    "javascript",
+    "typescript",
+    "json",
+    "c",
+    "cpp",
+    "python",
+    "toml",
+    "typst",
+    "bash",
+    "markdown",
+    "astro",
+}
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPost", "BufNewFile" },
         build = ":TSUpdate",
-        opts = {
-            ensure_installed = {
-                "hyprlang",
-                "go",
-                "lua",
-                "yaml",
-                "vue",
-                "javascript",
-                "typescript",
-                "json",
-                "c",
-                "cpp",
-                "python",
-                "toml",
-                "typst",
-                "bash",
-                "markdown",
-                "astro",
-            },
-            auto_install = true,
-            sync_install = false,
-            ignore_install = {},
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-                disable = { "latex" },
-            },
-            indent = {
-                enable = true
-            },
-            modules = {} -- doesn't do anything... for lsp
-        },
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+        opts = {},
+        init = function()
+            -- runs on every buffer
+            vim.api.nvim_create_autocmd('FileType', {
+                callback = function()
+                    pcall(vim.treesitter.start)
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                    vim.wo[0][0].foldmethod = 'expr'
+                end,
+            })
+
+            local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+            local parsersToInstall = vim.iter(ensureInstalled)
+                :filter(function(parser)
+                    return not vim.tbl_contains(alreadyInstalled, parser)
+                end)
+                :totable()
+            require('nvim-treesitter').install(parsersToInstall)
+
 
             vim.filetype.add({
                 pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
