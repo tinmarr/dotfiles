@@ -2,7 +2,7 @@
 
 set -e
 
-sudo test
+sudo -v
 mirrors
 yay -Syy
 yay -Qu > $HOME/.cache/updated-packages.txt
