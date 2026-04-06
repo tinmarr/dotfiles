@@ -2,7 +2,7 @@ auto_detect_launch_prefix = false
 before_load = []
 git_on_demand = true
 ignored_providers = []
-launch_prefix = 'uwsm-app --'
+launch_prefix = 'app2unit --'
 overload_local_env = false
 terminal_cmd = 'ghostty +new-window -e'
 

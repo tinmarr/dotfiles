@@ -9,4 +9,5 @@ export QT_QPA_PLATFORMTHEME=qt6ct
 export QT_QPA_PLATFORM=wayland
 # Cursor
 export XCURSOR_SIZE=32
-
+# app2unit
+export APP2UNIT_SLICES='a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice'

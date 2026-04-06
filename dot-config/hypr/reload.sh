@@ -2,8 +2,7 @@
 
 hyprctl reload
 systemctl restart --user waybar
-systemctl stop --user sunsetctl.scope
-kill $(pgrep -f sunsetctl.sh)
-setsid -f uwsm app -u sunsetctl.scope -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh
-kill $(pgrep -f awww-daemon)
-setsid -f uwsm app -- awww-daemon
+systemctl stop --user sunsetctl.service
+setsid -f app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh
+systemctl stop --user awww-daemon.service
+setsid -f app2unit -u awww-daemon.service -t service -s b -- awww-daemon
