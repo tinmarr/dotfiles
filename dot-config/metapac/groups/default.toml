@@ -1,5 +1,11 @@
 arch = {
     packages = [
+        # cachy things
+        "cachyos-keyring",
+        "cachyos-mirrorlist",
+        "cachyos-v3-mirrorlist",
+        "cachyos-v4-mirrorlist",
+
         # pipewire
         "pipewire",
         "pipewire-alsa",

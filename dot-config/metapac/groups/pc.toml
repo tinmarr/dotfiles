@@ -3,11 +3,7 @@ arch = {
         "sunshine-bin",
         "v4l2loopback-dkms",
 
-        # cachy things
-        "cachyos-keyring",
-        "cachyos-mirrorlist",
-        "cachyos-v3-mirrorlist",
-        "cachyos-v4-mirrorlist",
+        # cachy kernel
         "linux-cachyos-bore",
         "linux-cachyos-bore-headers",
 
