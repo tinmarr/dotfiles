@@ -11,3 +11,8 @@ export QT_QPA_PLATFORM=wayland
 export XCURSOR_SIZE=32
 # app2unit
 export APP2UNIT_SLICES='a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice'
+# Custom path
+export PATH="$HOME/.local/bin:$PATH"
+# Podman stuff
+export PODMAN_COMPOSE_WARNING_LOGS=false
+export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
