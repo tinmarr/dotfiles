@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader>lk", vim.diagnostic.open_float, { desc = "Open floating diagnostics" })
         map("n", "<leader>lx", vim.diagnostic.setloclist, { desc = "Open buffer diagnostics" })
         map("n", "<leader>lX", vim.diagnostic.setqflist, { desc = "Open all diagnostics" })
-        map("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "Restart lsp" })
+        map("n", "<leader>lR", "<cmd>lsp restart<cr>", { desc = "Restart lsp" })
         map("n", "<leader>la", function()
             vim.lsp.buf.code_action({
                 ---@diagnostic disable-next-line: missing-fields
