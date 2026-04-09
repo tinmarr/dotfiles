@@ -1,6 +1,7 @@
 arch = {
     packages = [
-        # zshrc
+        # shell
+        "fish",
         "oh-my-posh-bin",
         "ripgrep",
         "eza",
