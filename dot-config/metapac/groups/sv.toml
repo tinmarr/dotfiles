@@ -16,6 +16,7 @@ arch = {
 
         # functionality
         "lazydocker-bin",
+        "lazygit",
         "smartmontools",
         "gnu-netcat",
         "ffmpeg",
@@ -27,5 +28,10 @@ arch = {
         "powerstat",
         "pigz",
         "fail2ban",
+        "git-lfs",
+
+        # Temp
+        "docker",
+        "docker-buildx",
     ]
 }
