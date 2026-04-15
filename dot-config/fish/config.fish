@@ -72,7 +72,11 @@ if status is-interactive
     oh-my-posh init fish --config "~/.config/ohmyposh/theme.json" | source
 
     # keybinds
-    bind -M insert ctrl-e,ctrl-f $HOME/.local/bin/sessionizer
+    function sessionizer-wrapper
+        $HOME/.local/bin/sessionizer
+        commandline -f repaint
+    end
+    bind -M insert ctrl-e,ctrl-f sessionizer-wrapper
     bind -M insert ctrl-k history-search-backward
     bind -M insert ctrl-j history-search-forward
 end
