@@ -1,8 +1,9 @@
 return {
 	"ThePrimeagen/99",
 	keys = {
-		{ "<leader>av", function() require("99").visual() end,            desc = "99 visual", mode = "v" },
-		{ "<leader>as", function() require("99").stop_all_requests() end, desc = "99 stop",   mode = { "n", "v" } },
+		{ "<leader>av", function() require("99").visual({}) end,          desc = "99 visual", mode = "v" },
+		{ "<leader>ax", function() require("99").stop_all_requests() end, desc = "99 stop",   mode = { "n", "v" } },
+		{ "<leader>as", function() require("99").search({}) end,          desc = "99 search", mode = { "n", "v" } },
 	},
 	config = function()
 		local _99 = require("99")
@@ -10,7 +11,7 @@ return {
 		local cwd = vim.uv.cwd()
 		local basename = vim.fs.basename(cwd)
 		_99.setup({
-			provider = _99.OpenCodeProvider, -- default: OpenCodeProvider
+			provider = _99.Providers.OpenCodeProvider, -- default: OpenCodeProvider
 			model = "opencode/minimax-m2.5-free",
 			logger = {
 				level = _99.ERROR,
