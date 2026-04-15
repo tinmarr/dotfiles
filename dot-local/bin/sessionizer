@@ -2,12 +2,16 @@
 # Inspiration:
 # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-SUB_DIRS=(coding)
-EXACT_DIRS=(notes dotfiles)
+if [[ -n $1 ]]; then
+    selected=$1
+else
+    SUB_DIRS=(coding)
+    EXACT_DIRS=(notes dotfiles)
 
-FIND_DIRS=$(fd . $SUB_DIRS -t d -d 1 -u --base-directory $HOME)
+    FIND_DIRS=$(fd . $SUB_DIRS -t d -d 1 -u --base-directory $HOME)
 
-selected=$(printf "$(printf "%s\n" "${EXACT_DIRS[@]}")\n$FIND_DIRS" | fzf --height 40% --tmux center --layout reverse --border)
+    selected=$(printf "$(printf "%s\n" "${EXACT_DIRS[@]}")\n$FIND_DIRS" | fzf --height 40% --tmux center --layout reverse --border)
+fi
 
 if [[ -z $selected ]]; then
     exit 0
@@ -17,9 +21,8 @@ selected="$HOME/"$selected
 name=$(basename "$selected" | tr . _)
 
 if [[ -z $(pgrep tmux) ]] || ! tmux has-session -t=$name 2> /dev/null; then
-    tmux new-session -ds $name -c $selected
+    tmux new-session -ds $name -c $selected "nvim; exec $SHELL"
     tmux renamew -t $name nvim
-    tmux send-keys -t $name "v" Enter
 fi
 
 if [[ -z $TMUX ]]; then
