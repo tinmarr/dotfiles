@@ -79,7 +79,7 @@ arch = {
         "papirus-folders",
         "qt6ct-kde",
         "breeze",
-        "catppuccin-gtk-theme-mocha",
+        "gnome-themes-extra",
         "spicetify-cli",
         "spicetify-marketplace-bin",
     ]
