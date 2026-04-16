@@ -22,14 +22,15 @@ arch = {
 
         # daily drivers
         "zen-browser-bin",
-        "obsidian",
         "slack-desktop",
         "spotify-launcher",
 
         # misc
+        "obsidian",
         "helium-browser-bin",
         "vesktop-bin",
-        "bitwarden",
+        "kicad",
+        "kicad-library",
 
         # misc utilities
         "qalculate-gtk",
