@@ -13,7 +13,7 @@ arch = {
         # tooling
         "cmake",
         "gdb",
-        "opencode-bin",
+        "opencode",
         "valgrind",
         "just",
         "pnpm",
