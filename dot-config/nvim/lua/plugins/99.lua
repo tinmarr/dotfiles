@@ -3,7 +3,7 @@ return {
 	keys = {
 		{ "<leader>av", function() require("99").visual({}) end,          desc = "99 visual", mode = "v" },
 		{ "<leader>ax", function() require("99").stop_all_requests() end, desc = "99 stop",   mode = { "n", "v" } },
-		{ "<leader>as", function() require("99").search({}) end,          desc = "99 search", mode = { "n", "v" } },
+		{ "<leader>af", function() require("99").search({}) end,          desc = "99 search", mode = { "n", "v" } },
 	},
 	config = function()
 		local _99 = require("99")
