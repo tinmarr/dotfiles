@@ -24,12 +24,19 @@ resize-overlay = never
 
 confirm-close-surface = false
 
+shell-integration = detect
 shell-integration-features = true
 
 quick-terminal-position = top
 quick-terminal-size = 35%,50%
 
 quit-after-last-window-closed = false
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = bell,notify
+notify-on-command-finish-after = 0s
+bell-features = attention
+
+app-notifications = no-clipboard-copy
 
 macos-option-as-alt = true
 macos-titlebar-style = hidden
