@@ -1,11 +1,8 @@
 arch = {
     packages = [
-        "sunshine-bin",
-        "v4l2loopback-dkms",
-
         # cachy kernel
-        "linux-cachyos-bore",
-        "linux-cachyos-bore-headers",
+        "linux-cachyos-bore-lto",
+        "linux-cachyos-bore-lto-headers",
 
         # nvidia
         "nvidia-open-dkms",
@@ -20,9 +17,6 @@ arch = {
         # csl dd support
         "hid-fanatecff-dkms",
         "oversteer",
-
-        # ksp
-        "ckan-bin",
 
         # AI stuff
         "cuda",

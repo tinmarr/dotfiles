@@ -1,0 +1,28 @@
+arch = {
+    packages = [
+        # core linux
+        "base",
+        "base-devel",
+        "limine",
+        "limine-mkinitcpio-hook",
+        "linux-firmware",
+        "pacman-contrib",
+
+        # docs
+        "man-db",
+        "man-pages",
+        "tldr",
+
+        # required shell stuff
+        "yay",
+        "metapac",
+
+        # connectivity
+        "openssh",
+        "iwd",
+
+        # low level control (platform independent)
+        "fwupd",
+        "dmidecode",
+    ]
+}

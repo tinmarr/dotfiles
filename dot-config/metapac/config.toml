@@ -32,7 +32,7 @@ package_manager = "yay"
 # Default: None
 [hostname_groups]
 martinpc = [
-    "base",
+    "base-new",
     "default",
     "terminal",
     "dev",
