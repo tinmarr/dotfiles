@@ -37,7 +37,7 @@ printf "$mag""Installing Utilities""$reset""\n"
 curl https://pyenv.run | bash
 git clone https://github.com/alefpereira/pyenv-pyright.git ~/.pyenv/plugins/pyenv-pyright
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
-git clone https://aur.archlinux.org/metapac-bin.git && cd metapac-bin && makepkg -si && cd .. && rm -rf metapac-bin
+git clone https://aur.archlinux.org/metapac.git && cd metapac && makepkg -si && cd .. && rm -rf metapac
 
 sudo test
 yes | metapac sync
@@ -48,7 +48,7 @@ if [[ $(yay -Q ly) ]]; then
 fi
 
 if [[ $(yay -Q hyprland) ]]; then
-    systemctl --user enable waybar.service hypridle.service hyprpaper.service hyprsunset.service
+    systemctl --user enable waybar.service hypridle.service hyprsunset.service
 fi
 
 printf "$mag""metapac was run for $HOST.$reset\n"
