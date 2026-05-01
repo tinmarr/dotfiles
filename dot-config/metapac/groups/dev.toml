@@ -19,5 +19,6 @@ arch = {
         "pnpm",
         "platformio-core",
         "platformio-core-udev",
+        "t3code-bin",
     ]
 }
