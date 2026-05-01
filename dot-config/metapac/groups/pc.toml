@@ -4,6 +4,9 @@ arch = {
         "linux-cachyos-bore-lto",
         "linux-cachyos-bore-lto-headers",
 
+        # btrfs
+        "btrfs-progs",
+
         # nvidia
         "nvidia-open-dkms",
         "nvidia-utils",

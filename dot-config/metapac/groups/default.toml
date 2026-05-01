@@ -15,6 +15,7 @@ arch = {
         "lib32-pipewire",
         "alsa-utils",
         "alsa-tools",
+        "plymouth",
 
         # essentials
         "ghostty",

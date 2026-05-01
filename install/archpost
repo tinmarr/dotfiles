@@ -12,8 +12,7 @@ sudo pacman -S --needed \
     base-devel \
     man-db man-pages texinfo \
     git github-cli openssh \
-    zsh \
-    stow
+    stow go
 
 
 # Manpage setup
