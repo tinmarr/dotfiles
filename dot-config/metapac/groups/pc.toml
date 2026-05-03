@@ -6,6 +6,10 @@ arch = {
 
         # btrfs
         "btrfs-progs",
+        "snapper",
+        "compsize",
+        "snap-pac",
+        "limine-snapper-sync",
 
         # nvidia
         "nvidia-open-dkms",
