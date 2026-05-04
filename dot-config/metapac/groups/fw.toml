@@ -1,5 +1,8 @@
 arch = {
     packages = [
+        # plymouth theme
+        "plymouth-theme-framework-git",
+
         # amd
         "amd-ucode",
         "mesa",
