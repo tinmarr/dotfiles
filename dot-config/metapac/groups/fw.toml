@@ -1,5 +1,9 @@
 arch = {
     packages = [
+        # kernel
+        "linux",
+        "linux-headers",
+
         # plymouth theme
         "plymouth-theme-framework-git",
 
@@ -18,6 +22,7 @@ arch = {
         "acpi",
         "framework-system",
         "iw",
+        "iwd",
         "power-profiles-daemon",
         "fprintd",
         "powertop",

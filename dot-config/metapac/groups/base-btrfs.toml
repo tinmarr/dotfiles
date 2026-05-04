@@ -9,6 +9,13 @@ arch = {
         "pacman-contrib",
         "efibootmgr",
 
+        # btrfs
+        "btrfs-progs",
+        "snapper",
+        "compsize",
+        "snap-pac",
+        "limine-snapper-sync",
+
         # docs
         "man-db",
         "man-pages",
@@ -21,7 +28,6 @@ arch = {
 
         # connectivity
         "openssh",
-        "iwd",
 
         # low level control (platform independent)
         "fwupd",

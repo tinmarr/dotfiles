@@ -32,7 +32,7 @@ package_manager = "yay"
 # Default: None
 [hostname_groups]
 martinpc = [
-    "base-new",
+    "base-btrfs",
     "default",
     "terminal",
     "dev",
@@ -42,7 +42,7 @@ martinpc = [
     "pc",
 ]
 martinfw = [
-    "base",
+    "base-btrfs",
     "default",
     "terminal",
     "dev",
@@ -51,4 +51,4 @@ martinfw = [
     "latex",
     "fw",
 ]
-martinsv = ["base", "terminal", "sv"]
+martinsv = ["base-ext4", "terminal", "sv"]

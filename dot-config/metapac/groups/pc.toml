@@ -4,13 +4,6 @@ arch = {
         "linux-cachyos-bore-lto",
         "linux-cachyos-bore-lto-headers",
 
-        # btrfs
-        "btrfs-progs",
-        "snapper",
-        "compsize",
-        "snap-pac",
-        "limine-snapper-sync",
-
         # nvidia
         "nvidia-open-dkms",
         "nvidia-utils",

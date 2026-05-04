@@ -6,8 +6,8 @@ arch = {
         "grub",
         "os-prober",
         "linux",
-        "linux-firmware",
         "linux-headers",
+        "linux-firmware",
         "pacman-contrib",
 
         # docs
