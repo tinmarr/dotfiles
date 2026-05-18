@@ -400,6 +400,13 @@ hl.bind("switch:off:Lid Switch", lid_open, { locked = true })
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
+---@param w HL.Window
+hl.on("window.open", function(w)
+    if #hl.get_workspace_windows(w.workspace) == 1 then
+        hl.dispatch(hl.dsp.layout("fit active"))
+    end
+end)
+
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
