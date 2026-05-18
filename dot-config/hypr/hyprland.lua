@@ -321,9 +321,8 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 local function reload()
     hl.exec_cmd("hyprctl reload")
     hl.exec_cmd("systemctl restart --user waybar")
-    hl.exec_cmd("systemctl stop --user sunsetctl.service")
     hl.exec_cmd(
-        "setsid -f app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
+        "app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
     hl.exec_cmd("systemctl stop --user awww-daemon.service")
     hl.exec_cmd("setsid -f app2unit -u awww-daemon.service -t service -s b -- awww-daemon")
 end
