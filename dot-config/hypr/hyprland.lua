@@ -234,6 +234,8 @@ hl.config({
         hide_on_key_press = true,
         hide_on_touch = true,
         use_cpu_buffer = true,
+        zoom_rigid = true,
+        zoom_detached_camera = false,
     },
     gestures = {
         workspace_swipe_distance = 200,
@@ -244,11 +246,8 @@ hl.config({
     },
 })
 
-hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace"
-})
+hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
+hl.gesture({ fingers = 4, direction = "horizontal", action = "scroll_move" })
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
