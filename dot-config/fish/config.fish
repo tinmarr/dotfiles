@@ -13,8 +13,11 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 set -gx GOPATH "$HOME/go"
 set -gx PATH "$GOPATH/bin" $PATH
 
-# add mason binaries to path (faster nvim & for opencode)
+# add mason binaries to path
 set -gx PATH "$HOME/.local/share/nvim/mason/bin" $PATH
+
+# add local bin to path
+set -gx PATH "$HOME/.local/bin" $PATH
 
 direnv hook fish | source
 
