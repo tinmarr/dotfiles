@@ -24,11 +24,13 @@ hl.monitor({
     scale = 1.5,
 })
 -- Laptop
+---@type HL.MonitorSpec
 local default_laptop = {
     output = "eDP-1",
     mode = "preferred",
     position = "auto",
     scale = 1.33,
+    icc = os.getenv("HOME") .. "/.local/share/icc/framework13.icm"
 }
 hl.monitor(default_laptop)
 -- Work screens
@@ -88,7 +90,7 @@ hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow
 hl.permission({ binary = "/usr/bin/hyprpicker", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/bin/grim", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/lib/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
-hl.permission({ binary = "/home/martin/.config/hypr/screenshot", type = "screencopy", mode = "allow" })
+hl.permission({ binary = os.getenv("HOME") .. "/.config/hypr/screenshot", type = "screencopy", mode = "allow" })
 
 hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 
@@ -162,7 +164,7 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default
 -- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
 hl.config({
     scrolling = {
-        fullscreen_on_one_column = true,
+        fullscreen_on_one_column = false,
         focus_fit_method = 1,
         explicit_column_widths = "0.25, 0.333, 0.5, 0.667, 0.75, 1",
     },
@@ -276,7 +278,6 @@ hl.bind("ALT + TAB", hl.dsp.focus({ last = true }))
 hl.bind(mainMod .. " + SHIFT + f", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + f", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + m", hl.dsp.layout("fit active"))
-hl.bind(mainMod .. " + v", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + i", hl.dsp.layout("colresize +conf"))
 hl.bind(mainMod .. " + u", hl.dsp.layout("colresize -conf"))
 hl.bind(mainMod .. " + p", hl.dsp.window.pseudo())
