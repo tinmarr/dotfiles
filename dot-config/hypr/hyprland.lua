@@ -24,12 +24,13 @@ hl.monitor({
     scale = 1.5,
 })
 -- Laptop
-hl.monitor({
+local default_laptop = {
     output = "eDP-1",
     mode = "preferred",
     position = "auto",
     scale = 1.33,
-})
+}
+hl.monitor(default_laptop)
 -- Work screens
 hl.monitor({
     output = "desc:LG Electronics LG ULTRAGEAR 508BNPS1H816",
@@ -317,9 +318,19 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 
 -- Hyprland Management
+local function reload()
+    hl.exec_cmd("hyprctl reload")
+    hl.exec_cmd("systemctl restart --user waybar")
+    hl.exec_cmd("systemctl stop --user sunsetctl.service")
+    hl.exec_cmd(
+        "setsid -f app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
+    hl.exec_cmd("systemctl stop --user awww-daemon.service")
+    hl.exec_cmd("setsid -f app2unit -u awww-daemon.service -t service -s b -- awww-daemon")
+end
+
 hl.bind(mainMod .. " + q", hl.dsp.window.close())
 hl.bind(mainMod .. " + ALT + q", hl.dsp.window.kill())
-hl.bind(mainMod .. " + SHIFT + r", hl.dsp.exec_cmd("~/.config/hypr/reload.sh"))
+hl.bind(mainMod .. " + SHIFT + r", reload)
 hl.bind(mainMod .. " + SHIFT + w", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 hl.bind(mainMod .. " + s", hl.dsp.window.toggle_swallow())
 
@@ -365,7 +376,24 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Lid switch
-hl.bind("switch:Lid Switch", hl.dsp.exec_cmd("~/.config/hypr/switch.sh"), { locked = true })
+local function lid_closed()
+    local monitors = hl.get_monitors()
+    if #monitors ~= 1 then
+        hl.monitor({
+            output = "eDP-1",
+            disabled = true,
+        })
+        hl.exec_cmd("systemctl --user restart waybar.service")
+    end
+end
+
+local function lid_open()
+    hl.monitor(default_laptop)
+    hl.exec_cmd("systemctl --user restart waybar.service")
+end
+
+hl.bind("switch:on:Lid Switch", lid_closed, { locked = true })
+hl.bind("switch:off:Lid Switch", lid_open, { locked = true })
 
 
 --------------------------------
