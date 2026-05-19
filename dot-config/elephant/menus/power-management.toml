@@ -1,0 +1,24 @@
+name = "power-management"
+name_pretty = "Power Management"
+icon = "power-symbolic"
+fixed_order = true
+
+[[entries]]
+text = "Performance"
+actions = { "set" = "powerprofilesctl set performance" }
+icon = "power-symbolic"
+
+[[entries]]
+text = "Balanced"
+actions = { "set" = "powerprofilesctl set balanced" }
+icon = "power-symbolic"
+
+[[entries]]
+text = "Power Saver"
+actions = { "set" = "powerprofilesctl set power-saver" }
+icon = "power-symbolic"
+
+[[entries]]
+text = "Toggle Extreme Power Saver"
+actions = { "set" = """hyprctl eval 'dofile(os.getenv("HOME") .. "/.config/hypr/power-save.lua")'""" }
+icon = "power-symbolic"

@@ -3,21 +3,33 @@ name_pretty = "System Control"
 icon = "settings"
 fixed_order = true
 
+# Monitor stuff
 [[entries]]
-text = "Set 1440p (home screen)"
+hosts = [ "martinpc" ]
+text = "Set 1440p"
 actions = { "set" = "hyprctl keyword monitor desc:LG Electronics LG HDR 4K 0x00048B3D, 2560x1440@60, 0x0, 1" }
 icon = "monitor-symbolic"
 
 [[entries]]
+hosts = [ "martinfw" ]
 text = "Enable mirroring"
 actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1, mirror, eDP-1" }
 icon = "monitor-symbolic"
 
 [[entries]]
+hosts = [ "martinfw" ]
 text = "Disable mirroring"
 actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1" }
 icon = "monitor-symbolic"
 
+# Power management
+[[entries]]
+hosts = [ "martinfw" ]
+text = "Power Management"
+submenu = "power-management"
+icon = "power-symbolic"
+
+# System
 [[entries]]
 text = "Reboot"
 keywords = ["reboot", "restart"]
@@ -36,6 +48,7 @@ keywords = ["logout", "exit", "quit"]
 actions = { "logout" = "loginctl terminate-user $USER" }
 icon = "system-log-out-symbolic"
 
+# Misc
 [[entries]]
 text = "Color Picker"
 keywords = ["color", "picker", "hypr"]

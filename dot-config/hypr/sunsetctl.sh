@@ -53,10 +53,10 @@ minutes_until() {
 }
 
 schedule_next_run() {
-    local delay=$1
+    local calendar=$(date -d "+$1" "+%Y-%m-%d %H:%M:%S")
     local unit_name="sunsetctl-$(date +%s)-$$"
-    echo "Scheduling next update in $delay"
-    systemd-run --user --quiet --slice="background-graphical.slice" --unit="$unit_name" --on-active="$delay" systemd-cat -t sunsetctl "$script_path"
+    echo "Scheduling next update on $calendar"
+    systemd-run --user --quiet --slice="background-graphical.slice" --unit="$unit_name" --on-calendar="$calendar" systemd-cat -t sunsetctl "$script_path"
 }
 
 # Cleanup timers
@@ -77,7 +77,7 @@ elif [[ "$current_time" -gt "$full_time" || "$current_time" -lt "$end_time" ]]; 
     mins=$(minutes_until "$end_time" "$current_time")
     hours=$((mins / 60))
     remaining=$((mins % 60))
-    delay="${hours}h ${remaining}m"
+    delay="${hours}hour ${remaining}min"
     echo "Night: $min_temp K. Scheduling next update in $delay ($full_time)"
     hyprctl -i 0 hyprsunset temperature "$min_temp"
     schedule_next_run "$delay"
@@ -86,7 +86,7 @@ else
     mins=$(minutes_until "$start_time" "$current_time")
     hours=$((mins / 60))
     remaining=$((mins % 60))
-    delay="${hours}h ${remaining}m"
+    delay="${hours}hour ${remaining}min"
     echo "Day: waiting $delay for sunset ($start_time)"
     hyprctl -i 0 hyprsunset identity
     schedule_next_run "$delay"

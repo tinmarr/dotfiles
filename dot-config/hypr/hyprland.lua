@@ -7,7 +7,6 @@
 
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
--- require("myColors")
 local colors = require("catppuccin-mocha")
 
 
@@ -131,9 +130,7 @@ hl.config({
         rounding = 5,
 
         shadow   = {
-            enabled      = true,
-            range        = 4,
-            render_power = 1,
+            enabled = false,
         },
 
         blur     = {
@@ -409,6 +406,12 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+
+hl.window_rule({
+    name         = "red-border-xwayland",
+    match        = { xwayland = true },
+    border_color = { colors = { colors.red, colors.blue, colors.red }, angle = 90 },
+})
 
 hl.window_rule({
     name = "slack-to-4",
