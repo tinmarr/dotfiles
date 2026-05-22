@@ -5,6 +5,13 @@ arch = {
         "lazygit",
         "tree-sitter-cli",
 
+        # misc dev apps
+        "opencode",
+        "pi",
+        "t3code-bin",
+        "voxtype-bin",
+        "ollama",
+
         # languages
         "clang",
         "go",
@@ -13,12 +20,11 @@ arch = {
         # tooling
         "cmake",
         "gdb",
-        "opencode",
         "valgrind",
         "just",
         "pnpm",
         "platformio-core",
         "platformio-core-udev",
-        "t3code-bin",
+        "hugo"
     ]
 }

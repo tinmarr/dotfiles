@@ -27,5 +27,12 @@ arch = {
         "fprintd",
         "powertop",
         "wireless-regdb",
+
+        # AI stuff
+        "ollama-rocm",
+        "rocm-hip-runtime",
+
+        # Printing
+        "cups",
     ]
 }

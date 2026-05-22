@@ -63,6 +63,7 @@ arch = {
 
         # optional deps
         "cpio",
+        "wev",
         "xorg-xwayland",
 
         # fonts
