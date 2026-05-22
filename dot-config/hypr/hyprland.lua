@@ -337,6 +337,8 @@ hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("pkill hyprpicker || app2unit -- 
 hl.bind("Print", hl.dsp.exec_cmd("app2unit -- ~/.config/hypr/screenshot"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("app2unit -- ~/.config/hypr/screenshot --freeze"))
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.global("com.mitchellh.ghostty:SHIFT+LOGO+Return"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("voxtype record toggle"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("voxtype record cancel"))
 
 -- Runner
 hl.bind(mainMod .. " + r", hl.dsp.exec_cmd("nc -U /run/user/1000/walker/walker.sock"))

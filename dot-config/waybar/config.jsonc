@@ -8,6 +8,7 @@
         "custom/icon",
         "hyprland/workspaces",
         "custom/updates",
+        "custom/voxtype",
         "hyprland/submap"
     ],
     "modules-center": [
@@ -47,6 +48,20 @@
         "format": "{}",
         "on-click": "dualsensectl power-off && killall -SIGUSR2 waybar",
         "tooltip": false
+    },
+    "custom/voxtype": {
+        "exec": "voxtype status --follow --format json",
+        "return-type": "json",
+        "format": "{icon}",
+        "hide-empty-text": true,
+        "format-icons": {
+            "idle": "",
+            "recording": "󰍬",
+            "transcribing": "",
+            "stopped": ""
+        },
+        "tooltip": false,
+        "on-click": "systemctl --user restart voxtype"
     },
     "custom/icon": {
         "format": "",

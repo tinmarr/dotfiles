@@ -31,6 +31,7 @@ window#waybar {
 #tray,
 #custom-dualsense,
 #custom-level,
+#custom-voxtype,
 #custom-dunst {
     border-radius: 32px;
     border: 1px solid @mauve;
@@ -98,6 +99,20 @@ window#waybar {
     color: @lavender;
 }
 
+#custom-voxtype {
+    padding: 0 10px;
+}
+
+#custom-voxtype.recording {
+    color: #ff5555;
+    animation: voxtype-pulse 1s ease-in-out infinite;
+}
+
+#custom-voxtype.transcribing {
+    color: #f1fa8c;
+}
+
+
 #custom-icon {
     color: @sapphire;
 }
@@ -163,5 +178,11 @@ menuitem {
 
 /***** TRAY *****/
 #tray > .passive {
-    color: @overlay2
+    color: @overlay2;
+}
+
+@keyframes voxtype-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
