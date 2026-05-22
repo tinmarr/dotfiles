@@ -112,7 +112,7 @@ hl.config({
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
-        resize_on_border  = true,
+        resize_on_border  = false,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing     = false,
@@ -347,7 +347,7 @@ hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("elephant menu system-control"))
 
 -- Open popups
 hl.bind(mainMod .. " + o", hl.dsp.submap("open"))
-hl.define_submap("open", function()
+hl.define_submap("open", "reset", function()
     hl.bind("a", hl.dsp.exec_cmd("ghostty +new-window --title='-float-' -e /usr/bin/wiremix"))
     hl.bind("b", hl.dsp.exec_cmd("ghostty +new-window --title='-float-' -e /usr/bin/bluetui"))
     hl.bind("w", hl.dsp.exec_cmd("ghostty +new-window --title='-float-' -e /usr/bin/impala"))
@@ -357,7 +357,7 @@ end)
 
 -- Notification Submap
 hl.bind(mainMod .. " + n", hl.dsp.submap("notif"))
-hl.define_submap("notif", function()
+hl.define_submap("notif", "reset", function()
     hl.bind("c", hl.dsp.exec_cmd("dunstctl close-all"))
     hl.bind("p", hl.dsp.exec_cmd("dunstctl set-paused toggle"))
     hl.bind("x", hl.dsp.exec_cmd("dunstctl history-clear"))
@@ -404,6 +404,11 @@ hl.on("window.open", function(w)
     if #hl.get_workspace_windows(w.workspace) == 1 then
         hl.dispatch(hl.dsp.layout("fit active"))
     end
+end)
+
+---@param w HL.Window
+hl.on("window.urgent", function(w)
+    hl.dispatch(hl.dsp.focus({ window = w }))
 end)
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
