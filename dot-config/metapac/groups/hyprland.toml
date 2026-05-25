@@ -17,7 +17,7 @@ arch = {
         "app2unit",
 
         # waybar
-        "waybar",
+        "waybar-git",
         "kdeconnect",
         "wiremix",
         "bluetui",
