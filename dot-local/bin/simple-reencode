@@ -15,16 +15,30 @@ elif [[ -z $2 ]]; then
     exit
 fi
 
-encoder="hevc_nvenc"
-decoder="auto"
 if [[ $3 == "-amd" ]]; then
     encoder="hevc_amf"
+    decoder="auto"
 elif [[ $3 == "-intel" ]]; then
     encoder="libx265"
     decoder="none"
 fi
 
-
-ffmpeg -hwaccel $decoder -i "$1" -c:v $encoder -preset slow -rc vbr -crf 23 -c:a aac -b:a 192k -c:s copy -map 0:v:0 -map 0:a -map 0:s? "$2"
+if [[ -z $3 || $3 = "-nvidia" ]]; then
+    ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i "$1" \
+        -c:v hevc_nvenc -preset p4 -tune hq \
+        -rc vbr -cq 23 -b:v 0 \
+        -bf 3 -rc-lookahead 32 \
+        -c:a aac -ac 2 -b:a 192k \
+        -c:s copy \
+        -map 0:v:0 -map 0:a -map 0:s? \
+        "$2"
+else
+    ffmpeg -hwaccel $decoder -i "$1" \
+        -c:v $encoder -preset p4 -tune hq \
+        -rc vbr -crf 23 -bf 3 -rc-lookahead 32 \
+        -c:a aac -b:a 192k \
+        -c:s copy \
+        -map 0:v:0 -map 0:a -map 0:s? "$2"
+fi
 
 notify-send -a "simple-reencode" "encoding finished for '$2'" 2>/dev/null
