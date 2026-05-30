@@ -6,7 +6,6 @@ arch = {
         "tree-sitter-cli",
 
         # misc dev apps
-        "opencode",
         "pi",
         "t3code-bin",
         "voxtype-bin",

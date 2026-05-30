@@ -35,6 +35,7 @@ arch = {
         "rsync",
         "bind",       # dig, etc
         "stow",
+        "opencode",
 
         # podman
         {
