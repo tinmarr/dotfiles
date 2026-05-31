@@ -16,7 +16,6 @@ arch = {
         "tldr",
 
         # required shell stuff
-        "zsh",
         "yay",
         "metapac",
 

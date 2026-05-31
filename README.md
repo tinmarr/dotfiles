@@ -11,26 +11,29 @@ I've used quite a few things in the past and this repo houses all of configs for
 
 ### Current stack:
 
-* *OS*: Arch Linux
-* *WM*: Hyprland
-* *Text editor/IDE*: Neovim
-* *Terminal Emulator*: Ghostty
-* *Shell*: ZSH
-* *Themes*: Catppuccin
+- _OS_: Arch Linux
+- _WM_: Hyprland
+- _Text editor/IDE_: Neovim
+- _Terminal Emulator_: Ghostty
+- _Shell_: Fish
+- _Themes_: Catppuccin
 
 ### Past stacks:
-*Note that I do not maintain these since I do not use them.*
+
+_Note that I do not maintain these since I do not use them._
 
 You can see the configuration for these in [this repo](https://github.com/tinmarr/dotfiles-archive)
 
-* *WMs*: QTile, AwesomeWM
-* *Text editor/IDE*: GNU Emacs
-* *Terminal Emulators*: Alacritty, Kitty
-* *Themes*: Dracula
+- _WMs_: QTile, AwesomeWM
+- _Text editor/IDE_: GNU Emacs
+- _Terminal Emulators_: Alacritty, Kitty
+- _Shells_: ZSH
+- _Themes_: Dracula
 
 ## To get onto new computer
 
 Install Arch normally. Then:
+
 ```shell
 curl "https://raw.githubusercontent.com/tinmarr/dotfiles/main/install/archpost" > archpost && chmod +x archpost && \
 ./archpost && \

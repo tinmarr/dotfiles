@@ -19,7 +19,7 @@ sudo pacman -S --needed \
 sudo mandb
 
 # Configure user
-chsh -s /bin/zsh
+chsh -s /bin/fish
 sudo usermod -aG video,input,wheel $USER
 
 # Setup dotfiles
