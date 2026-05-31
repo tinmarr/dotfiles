@@ -61,17 +61,6 @@ if status is-interactive
     abbr -a pipunall "pip freeze | grep -v '^-e' | xargs pip uninstall -y"
     abbr -a watch-dirty "watch -n 0.5 'cat /proc/meminfo | rg Dirty --before-context=3 --after-context=1'"
 
-    # yazi
-    # https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-    function y
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-        command yazi $argv --cwd-file="$tmp"
-        if read -z cwd < "$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
-            builtin cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
-    end
-
     # theme
     fish_config theme choose catppuccin-mocha
     oh-my-posh init fish --config "~/.config/ohmyposh/theme.json" | source

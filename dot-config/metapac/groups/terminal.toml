@@ -9,14 +9,7 @@ arch = {
         "direnv",
         "fzf",
         "zoxide",
-        "yazi",
         "reflector",
-
-        # yazi optional deps (also just good)
-        "jq",
-        "7zip",
-        "fd",
-        "imagemagick",
 
         # tmux
         "tmux",
@@ -36,6 +29,10 @@ arch = {
         "bind",       # dig, etc
         "stow",
         "opencode",
+        "jq",
+        "7zip",
+        "fd",
+        "imagemagick",
 
         # podman
         {
