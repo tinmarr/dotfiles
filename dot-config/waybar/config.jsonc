@@ -7,7 +7,7 @@
     "modules-left": [
         "custom/icon",
         "hyprland/workspaces",
-        "custom/updates",
+        "custom/weather",
         "custom/voxtype",
         "hyprland/submap"
     ],
@@ -68,15 +68,12 @@
         "tooltip": false,
         "on-click": "elephant menu system-control"
     },
-    "custom/updates": {
-        "format": "{}{icon}",
-        "return-type": "json",
-        "format-icons": {
-            "has-updates": " ",
-            "updated": ""
-        },
-        "exec-if": "which waybar-module-pacman-updates",
-        "exec": "waybar-module-pacman-updates --interval-seconds 60 --network-interval-seconds 300 --no-zero-output"
+    "custom/weather": {
+        "exec": "~/.config/waybar/weather.sh",
+        "interval": 900,
+        "format": "{}",
+        "hide-empty-text": true,
+        "tooltip": false
     },
     "hyprland/workspaces": {},
     "hyprland/window": {
