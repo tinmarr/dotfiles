@@ -25,6 +25,7 @@ arch = {
         "pnpm",
         "platformio-core",
         "platformio-core-udev",
-        "hugo"
+        "hugo",
+        "uv"
     ]
 }

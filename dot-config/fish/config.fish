@@ -5,10 +5,6 @@ set -U fish_greeting
 function fish_mode_prompt
 end
 
-# Setup pyenv
-set -Ux PYENV_ROOT $HOME/.pyenv
-set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-
 # Setup go
 set -gx GOPATH "$HOME/go"
 set -gx PATH "$GOPATH/bin" $PATH
@@ -35,8 +31,6 @@ if status is-interactive
     set -gx FZF_DEFAULT_OPTS "--height 40% --tmux center --layout reverse --border"
     fzf --fish | source
     zoxide init fish | source
-    pyenv init - --no-rehash | source
-    pyenv virtualenv-init - | source
 
     # vi mode
     set -g fish_key_bindings fish_vi_key_bindings
