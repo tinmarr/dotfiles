@@ -8,6 +8,7 @@
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
 local colors = require("catppuccin-mocha")
+local lid = require("lid")
 
 
 ------------------
@@ -23,19 +24,11 @@ hl.monitor({
     scale = 1.5,
 })
 -- Laptop
----@type HL.MonitorSpec
-local default_laptop = {
-    output = "eDP-1",
-    mode = "preferred",
-    position = "auto",
-    scale = 1.33,
-    icc = os.getenv("HOME") .. "/.local/share/icc/framework13.icm"
-}
-hl.monitor(default_laptop)
+hl.monitor(lid.LAPTOP_MONITOR)
 -- Work screens
 hl.monitor({
     output = "desc:LG Electronics LG ULTRAGEAR 508BNPS1H816",
-    mode = "preferred",
+    mode = "2560x1440@60.00",
     position = "auto-up",
     scale = 1,
 })
@@ -375,24 +368,8 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Lid switch
-local function lid_closed()
-    local monitors = hl.get_monitors()
-    if #monitors ~= 1 then
-        hl.monitor({
-            output = "eDP-1",
-            disabled = true,
-        })
-        hl.exec_cmd("systemctl --user restart waybar.service")
-    end
-end
-
-local function lid_open()
-    hl.monitor(default_laptop)
-    hl.exec_cmd("systemctl --user restart waybar.service")
-end
-
-hl.bind("switch:on:Lid Switch", lid_closed, { locked = true })
-hl.bind("switch:off:Lid Switch", lid_open, { locked = true })
+hl.bind("switch:on:Lid Switch", lid.close, { locked = true })
+hl.bind("switch:off:Lid Switch", lid.open, { locked = true })
 
 
 --------------------------------

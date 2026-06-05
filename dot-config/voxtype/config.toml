@@ -214,8 +214,8 @@ type_delay_ms = 0
 # Pre/post output hooks (optional)
 # Commands to run before and after typing output. Useful for compositor integration.
 # Example: Block modifier keys during typing with Hyprland submap:
-#   pre_output_command = "hyprctl dispatch submap voxtype_suppress"
-#   post_output_command = "hyprctl dispatch submap reset"
+#   pre_output_command = "hyprctl dispatch 'hl.dsp.submap(\"voxtype_suppress\")'"
+#   post_output_command = "hyprctl dispatch 'hl.dsp.submap(\"reset\")'"
 # See troubleshooting docs for the required Hyprland submap configuration.
 # Note: usually unnecessary now that wait_for_modifier_release is enabled by
 # default; the submap workaround is only needed if /dev/input is unreadable.

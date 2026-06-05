@@ -7,19 +7,19 @@ fixed_order = true
 [[entries]]
 hosts = [ "martinpc" ]
 text = "Set 1440p"
-actions = { "set" = "hyprctl keyword monitor desc:LG Electronics LG HDR 4K 0x00048B3D, 2560x1440@60, 0x0, 1" }
+actions = { "set" = """hyprctl eval 'hl.monitor({ output = "desc:LG Electronics LG HDR 4K 0x00048B3D", mode = "2560x1440@60", position = "0x0", scale = 1 })'""" }
 icon = "monitor-symbolic"
 
 [[entries]]
 hosts = [ "martinfw" ]
 text = "Enable mirroring"
-actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1, mirror, eDP-1" }
+actions = { "enable" = """hyprctl eval 'hl.monitor({ output = "", mode = "preferred", position = "auto-right", scale = 1, mirror = "eDP-1" })'""" }
 icon = "monitor-symbolic"
 
 [[entries]]
 hosts = [ "martinfw" ]
 text = "Disable mirroring"
-actions = { "enable" = "hyprctl keyword monitor , preferred, auto-right, 1" }
+actions = { "enable" = """hyprctl eval 'hl.monitor({ output = "", mode = "preferred", position = "auto-right", scale = 1 })'""" }
 icon = "monitor-symbolic"
 
 # Power management
