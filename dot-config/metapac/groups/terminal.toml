@@ -33,6 +33,7 @@ arch = {
         "7zip",
         "fd",
         "imagemagick",
+        "chafa",
 
         # podman
         {

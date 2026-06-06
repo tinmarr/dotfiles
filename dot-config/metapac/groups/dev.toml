@@ -6,11 +6,11 @@ arch = {
         "tree-sitter-cli",
 
         # misc dev apps
-        "pi",
         "t3code-bin",
         "voxtype-bin",
         "ollama",
         "browser-use-cli",
+        "openai-codex",
 
         # languages
         "clang",
