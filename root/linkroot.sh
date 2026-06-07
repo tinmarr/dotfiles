@@ -3,7 +3,6 @@
 set -e pipefail
 
 setup_links () {
-    link ./etc-ly-config.ini /etc/ly/config.ini
     link ./autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
 }
 

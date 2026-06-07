@@ -1,8 +1,5 @@
 arch = {
     packages = [
-        # display manager
-        "ly",
-
         # input
         "fcitx5",
 
