@@ -26,6 +26,12 @@ set -gx GPG_TTY $TTY
 set -gx MANROFFOPT "-c"
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+if status is-login
+    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+        exec uwsm start -e -D Hyprland hyprland.desktop &>/dev/null
+    end
+end
+
 if status is-interactive
     # Load various shell utilities
     set -gx FZF_DEFAULT_OPTS "--height 40% --tmux center --layout reverse --border"

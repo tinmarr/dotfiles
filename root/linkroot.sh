@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+set -e pipefail
+
 setup_links () {
-    link etc-ly-config.ini /etc/ly/config.ini
+    link ./etc-ly-config.ini /etc/ly/config.ini
+    link ./autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
 }
 
 # link from_file /path/to/to_file
@@ -11,7 +14,7 @@ link () {
         return
     fi
 
-    sudo rm $2
+    sudo rm -f $2
     sudo ln -s $(readlink -e $1) $2
 }
 
@@ -23,7 +26,9 @@ if [[ $script_path != $(pwd) ]]; then
 fi
 
 # get sudo
-sudo test
+sudo true
 
 setup_links
 
+echo "Links setup. Run the following to finish:"
+echo "- sudo systemctl edit getty@tty1 --drop-in=autologin"
