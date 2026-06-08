@@ -19,14 +19,6 @@ if [[ $(command -v zsh) && -e $ZINIT ]]; then
     "
 fi
 
-if [[ $(rg spicetify-cli ~/.cache/updated-packages.txt) ]]; then
-    spicetify restore backup apply
-fi
-
-if [[ $(rg spotify-launcher ~/.cache/updated-packages.txt) ]]; then
-    spicetify backup apply
-fi
-
 cd ~/dotfiles
 git pull
 ./install/restowall
