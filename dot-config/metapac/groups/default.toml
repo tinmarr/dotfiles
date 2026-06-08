@@ -32,7 +32,6 @@ arch = {
         "vesktop-bin",
         "kicad",
         "kicad-library",
-        "zoom",
 
         # misc utilities
         "qalculate-gtk",
