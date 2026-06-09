@@ -4,7 +4,7 @@ local lsps = {
     "yamlls",
     "ts_ls",
     "jsonls",
-    "pyright",
+    "ty",
     "tinymist",
     "golangci_lint_ls",
     "bashls",
@@ -20,8 +20,7 @@ local pkgs = {
     -- linters
     "golangci-lint",
     -- formatters
-    "isort",
-    "black",
+    "ruff",
     "prettier",
     "gofumpt",
     "clang-format",

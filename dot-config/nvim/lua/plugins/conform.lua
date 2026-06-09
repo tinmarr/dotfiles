@@ -24,7 +24,7 @@ return {
             json = { "prettier" },
             c = { "clang-format" },
             cpp = { "clang-format" },
-            python = { "black", "isort", stop_after_first = false },
+            python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
             markdown = { "prettier" },
             typst = { "typstyle" },
         },

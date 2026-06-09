@@ -102,7 +102,15 @@ return {
                 },
                 jsonls = {},
                 clangd = {},
-                pyright = {},
+                ty = {
+                    cmd = { "ty", "server" },
+                    env = {
+                        VIRTUAL_ENV = vim.fn.getcwd() .. "/.venv",
+                        PATH = vim.fn.getcwd() .. "/.venv/bin:"
+                            .. vim.fn.stdpath("data") .. "/mason/bin:"
+                            .. vim.env.PATH,
+                    },
+                },
                 tinymist = { -- typst
                     settings = {
                         formatterMode = "typstyle",
@@ -133,6 +141,7 @@ return {
                         filetypes = conf.filetypes,
                         on_attach = conf.on_attach,
                         cmd = conf.cmd,
+                        env = conf.env,
                     }
                 )
                 vim.lsp.enable(name)
