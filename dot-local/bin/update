@@ -7,7 +7,7 @@ mirrors
 yay -Syy
 yay -Qu > $HOME/.cache/updated-packages.txt
 echo "Starting update:"
-yay -Syu --answerclean N --answerdiff N --removemake --noconfirm
+yay -Syu --answerclean N --answerdiff A --removemake --noconfirm
 yay -Yc --noconfirm
 
 ZINIT="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
