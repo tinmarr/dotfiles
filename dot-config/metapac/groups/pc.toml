@@ -24,7 +24,6 @@ arch = {
 
         # AI stuff
         "cuda",
-        "python-openai-whisper",
         "python-pytorch-cuda",
         "python-torchvision-cuda",
         "ollama-cuda",

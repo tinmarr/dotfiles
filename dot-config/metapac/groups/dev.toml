@@ -11,6 +11,7 @@ arch = {
         "ollama",
         "browser-use-cli",
         "openai-codex",
+        "python-openai-whisper",
 
         # languages
         "clang",
