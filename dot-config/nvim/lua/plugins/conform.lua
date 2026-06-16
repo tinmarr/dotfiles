@@ -12,6 +12,16 @@ return {
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
+        formatters = {
+            typstyle = {
+                command = "typstyle",
+                args = {
+                    "--wrap-text",
+                    "--line-width",
+                    "120"
+                }
+            }
+        },
         -- Set up format-on-save
         format_after_save = { async = true, timeout_ms = 500 },
         formatters_by_ft = {
