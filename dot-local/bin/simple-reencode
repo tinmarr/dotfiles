@@ -1,44 +1,75 @@
 #!/usr/bin/env bash
+set -eo pipefail
 
 if [[ $1 == "-h" || -z $1 ]]; then
-    echo "simple-reencode input output [-amd | -intel | -nvidia]"
+    echo "simple-reencode file [-amd | -intel | -nvidia]"
+    echo "  file can be a local path or server:/path (rsync format)"
     exit
 fi
 
-if [[ ! -e $1 ]]; then
-    echo "'$1' is not a valid input file"
-    echo "simple-reencode input output [-amd | -intel | -nvidia]"
-    exit
-elif [[ -z $2 ]]; then
-    echo "'$2' is not a valid output file"
-    echo "simple-reencode input output [-amd | -intel | -nvidia]"
-    exit
+if [[ $1 == *:* ]]; then
+    remote=true
+    remote_file="$1"
+    remote_host="${remote_file%%:*}"
+    remote_path="${remote_file#*:}"
+    file_basename="$(basename "$remote_file")"
+else
+    remote=false
+    if [[ ! -e $1 ]]; then
+        echo "'$1' is not a valid input file"
+        exit 1
+    fi
+    file_basename="$(basename "$1")"
 fi
 
-if [[ $3 == "-amd" ]]; then
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+local_file="${tmpdir}/${file_basename}"
+output_file="${tmpdir}/new-${file_basename}"
+
+if [[ $remote == true ]]; then
+    echo "Pulling ${remote_file}..."
+    rsync -aPW "${remote_host}:${remote_path}" "${tmpdir}/"
+    if [[ ! -e "$local_file" ]]; then
+        echo "Failed to pull '${remote_file}'"
+        exit 1
+    fi
+else
+    cp "$1" "$local_file"
+fi
+
+if [[ $2 == "-amd" ]]; then
     encoder="hevc_amf"
     decoder="auto"
-elif [[ $3 == "-intel" ]]; then
+elif [[ $2 == "-intel" ]]; then
     encoder="libx265"
     decoder="none"
 fi
 
-if [[ -z $3 || $3 = "-nvidia" ]]; then
-    ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i "$1" \
+if [[ -z $2 || $2 = "-nvidia" ]]; then
+    ffmpeg -hwaccel cuda -hwaccel_output_format cuda -i "$local_file" \
         -c:v hevc_nvenc -preset p4 -tune hq \
         -rc vbr -cq 23 -b:v 0 \
         -bf 3 -rc-lookahead 32 \
         -c:a aac -ac 2 -b:a 192k \
         -c:s copy \
         -map 0:v:0 -map 0:a -map 0:s? \
-        "$2"
+        "$output_file"
 else
-    ffmpeg -hwaccel $decoder -i "$1" \
+    ffmpeg -hwaccel $decoder -i "$local_file" \
         -c:v $encoder -preset p4 -tune hq \
         -rc vbr -crf 23 -bf 3 -rc-lookahead 32 \
         -c:a aac -b:a 192k \
         -c:s copy \
-        -map 0:v:0 -map 0:a -map 0:s? "$2"
+        -map 0:v:0 -map 0:a -map 0:s? \
+        "$output_file"
 fi
 
-notify-send -a "simple-reencode" "encoding finished for '$2'" 2>/dev/null
+if [[ $remote == true ]]; then
+    echo "Pushing result back to ${remote_file}..."
+    rsync -aPW "$output_file" "${remote_host}:${remote_path}"
+else
+    mv "$output_file" "$1"
+fi
+
+notify-send -a "simple-reencode" "encoding finished for '$1'" 2>/dev/null
