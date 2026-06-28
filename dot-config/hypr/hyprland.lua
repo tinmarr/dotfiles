@@ -20,7 +20,7 @@ local lid = require("lid")
 hl.monitor({
     output = "desc:LG Electronics LG HDR 4K 0x00048B3D",
     mode = "3840x2160@60",
-    position = "0x0",
+    position = "auto-right",
     scale = 1.5,
 })
 -- Laptop
