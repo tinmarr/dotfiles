@@ -5,6 +5,6 @@ return {
     cmd = "TypstPreviewToggle",
     opts = {
         -- dependencies_bin = { ["tinymist"] = "tinymist" },
-        open_cmd = "zen-browser --new-window %s -P preview",
+        open_cmd = "helium-browser --app='%s'",
     },
 }
