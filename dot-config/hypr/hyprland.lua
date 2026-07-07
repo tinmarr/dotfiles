@@ -23,8 +23,8 @@ hl.monitor({
     position = "auto-right",
     scale = 1.5,
 })
--- Laptop
-hl.monitor(lid.LAPTOP_MONITOR)
+-- Laptop (configure based on lid state)
+lid.configure_on_load()
 -- Work screens
 hl.monitor({
     output = "desc:LG Electronics LG ULTRAGEAR 508BNPS1H816",

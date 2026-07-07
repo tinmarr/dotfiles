@@ -50,8 +50,34 @@ local function open()
     end, { timeout = 500, type = "oneshot" })
 end
 
+--- Check if the lid is currently closed
+---@return boolean
+local function is_lid_closed()
+    local f = io.open("/proc/acpi/button/lid/LID0/state", "r")
+    if f then
+        local state = f:read("*a")
+        f:close()
+        return state:match("closed") ~= nil
+    end
+    return false
+end
+
+--- Apply correct laptop monitor config based on current lid state.
+--- Call this on config reload to ensure eDP-1 is properly configured.
+local function configure_on_load()
+    if is_lid_closed() and has_external_monitor() then
+        -- Lid closed with external monitor: disable laptop screen
+        hl.monitor({ output = "eDP-1", disabled = true })
+    else
+        -- Lid open or no external monitor: enable laptop screen
+        hl.monitor(LAPTOP_MONITOR)
+    end
+end
+
 return {
     LAPTOP_MONITOR = LAPTOP_MONITOR,
     close = close,
     open = open,
+    is_lid_closed = is_lid_closed,
+    configure_on_load = configure_on_load,
 }

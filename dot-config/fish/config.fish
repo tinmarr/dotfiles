@@ -53,7 +53,6 @@ if status is-interactive
     alias h "history 0"
     alias lg "lazygit"
     alias ms "sudo test; metapac sync && metapac clean"
-    alias sesh "sessionizer"
     alias oc "opencode"
 
     # macros
