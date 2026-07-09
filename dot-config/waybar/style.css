@@ -5,6 +5,10 @@
     font-size: 11px;
     padding: 0;
     background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
 }
 
 window#waybar {
@@ -67,6 +71,19 @@ window#waybar {
 #custom-dunst {
     font-size: 14px;
     padding: 0 6px;
+}
+
+/* Newer Waybar custom modules wrap the label in an AIconLabel box and still
+   mark the inner label as .module. Keep the pill on the outer box only. */
+#custom-icon label,
+#custom-weather label,
+#custom-voxtype label,
+#custom-dualsense label,
+#custom-level label,
+#custom-dunst label {
+    padding: 0;
+    background: transparent;
+    border: none;
 }
 
 /***** LABEL LOOK *****/
