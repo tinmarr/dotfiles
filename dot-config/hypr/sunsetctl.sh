@@ -71,7 +71,7 @@ if [[ "$current_time" -ge "$start_time" && "$current_time" -le "$full_time" ]]; 
     temp_value=$(python -c "print($max_temp + ($min_temp - $max_temp) * $lerp_t)")
     echo "Gradient: $temp_value K"
     hyprctl -i 0 hyprsunset temperature "$temp_value"
-    schedule_next_run "10m"
+    schedule_next_run "10min"
 # During night (full darkness)
 elif [[ "$current_time" -gt "$full_time" || "$current_time" -lt "$end_time" ]]; then
     mins=$(minutes_until "$end_time" "$current_time")
