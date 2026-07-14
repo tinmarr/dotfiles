@@ -8,9 +8,12 @@ else
     SUB_DIRS=(coding)
     EXACT_DIRS=(notes dotfiles)
 
+    _ZOXIDE_IGNORE=$(echo "${SUB_DIRS[@]} ${EXACT_DIRS[@]}" | sed 's/ /\\|/g')
+    ZOXIDE_DIRS=$(zoxide query -l --base-dir $HOME | sed -e "s|/home/martin/||" -e "/^\($_ZOXIDE_IGNORE\)\$/d")
+
     FIND_DIRS=$(fd . $SUB_DIRS -t d -d 1 -u --base-directory $HOME)
 
-    selected=$(printf "$(printf "%s\n" "${EXACT_DIRS[@]}")\n$FIND_DIRS" | fzf --height 40% --tmux center --layout reverse --border)
+    selected=$(printf "$(printf "%s\n" "${EXACT_DIRS[@]}")\n$FIND_DIRS\n$ZOXIDE_DIRS" | fzf --height 40% --tmux center --layout reverse --border)
 fi
 
 if [[ -z $selected ]]; then
