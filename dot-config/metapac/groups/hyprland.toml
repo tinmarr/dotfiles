@@ -54,6 +54,7 @@ arch = {
         "wl-clipboard",
         "wtype",
         "brightnessctl",
+        "ddcutil",
         "playerctl",
         "dunst",
 

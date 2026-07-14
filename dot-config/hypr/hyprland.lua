@@ -336,6 +336,7 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("voxtype record cancel"))
 hl.bind(mainMod .. " + r", hl.dsp.exec_cmd("nc -U /run/user/1000/walker/walker.sock"))
 hl.bind(mainMod .. " + ALT + w", hl.dsp.exec_cmd("walker-kill"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("elephant menu system-control"))
+hl.bind(mainMod .. " + b", hl.dsp.exec_cmd("~/.config/hypr/brightness-menu.sh"))
 
 -- Open popups
 hl.bind(mainMod .. " + o", hl.dsp.submap("open"))
