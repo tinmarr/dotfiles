@@ -312,6 +312,7 @@ on_transcription = false
 
 [parakeet]
 model = "parakeet-tdt-0.6b-v3"
+on_demand_loading = true
 
 [osd]
 enabled = false
