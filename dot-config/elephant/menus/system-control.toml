@@ -11,6 +11,18 @@ actions = { "set" = """hyprctl eval 'hl.monitor({ output = "desc:LG Electronics 
 icon = "monitor-symbolic"
 
 [[entries]]
+hosts = [ "martinpc" ]
+text = "Set 1080p"
+actions = { "set" = """hyprctl eval 'hl.monitor({ output = "desc:LG Electronics LG HDR 4K 0x00048B3D", mode = "1920x1080@60", position = "0x0", scale = 1 })'""" }
+icon = "monitor-symbolic"
+
+[[entries]]
+hosts = [ "martinpc" ]
+text = "Set 720p"
+actions = { "set" = """hyprctl eval 'hl.monitor({ output = "desc:LG Electronics LG HDR 4K 0x00048B3D", mode = "1280x720@60", position = "0x0", scale = 1 })'""" }
+icon = "monitor-symbolic"
+
+[[entries]]
 hosts = [ "martinfw" ]
 text = "Enable mirroring"
 actions = { "enable" = """hyprctl eval 'hl.monitor({ output = "", mode = "preferred", position = "auto-right", scale = 1, mirror = "eDP-1" })'""" }
