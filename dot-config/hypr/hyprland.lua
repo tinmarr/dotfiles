@@ -80,8 +80,9 @@ hl.config({
 hl.permission({ binary = "/usr/bin/hyprlock", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/bin/hyprpicker", type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/bin/grim", type = "screencopy", mode = "allow" })
-hl.permission({ binary = "/usr/lib/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
 hl.permission({ binary = os.getenv("HOME") .. "/.config/hypr/screenshot", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/bin/sunshine", type = "screencopy", mode = "allow" })
 
 hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 
