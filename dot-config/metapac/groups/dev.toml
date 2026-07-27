@@ -6,6 +6,7 @@ arch = {
         "tree-sitter-cli",
 
         # misc dev apps
+        "codex-desktop", # managed/installed with make
         "t3code-bin",
         "voxtype-bin",
         "ollama",

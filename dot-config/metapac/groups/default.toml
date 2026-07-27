@@ -27,7 +27,6 @@ arch = {
         "spotify-launcher",
 
         # misc
-        "obsidian",
         "helium-browser-bin",
         "vesktop-bin",
         "kicad",

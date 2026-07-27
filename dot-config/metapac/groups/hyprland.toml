@@ -10,6 +10,15 @@ arch = {
         "hyprpicker",
         "hyprsunset",
         "hyprpolkitagent",
+        "aquamarine",
+        "hyprcursor",
+        "hyprgraphics",
+        "hyprland-guiutils",
+        "hyprlang",
+        "hyprtoolkit",
+        "hyprutils",
+        "hyprwayland-scanner",
+        "hyprwire",
         "uwsm",
         "app2unit",
 
@@ -57,6 +66,7 @@ arch = {
         "ddcutil",
         "playerctl",
         "dunst",
+        "wlr-randr",
 
         # optional deps
         "cpio",
@@ -70,6 +80,8 @@ arch = {
         "noto-fonts-cjk",
         "ttf-ms-fonts",
         "inter-font",
+        "ttf-oswald",
+        "ttf-roboto",
 
         # themeing
         "nwg-look",

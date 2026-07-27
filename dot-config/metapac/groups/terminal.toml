@@ -20,6 +20,7 @@ arch = {
         "github-cli",
         "fastfetch",
         "btop",
+        "nvtop",
         "stress",
         "tree",
         "unzip",
@@ -34,6 +35,7 @@ arch = {
         "fd",
         "imagemagick",
         "chafa",
+        "git-lfs",
 
         # podman
         {

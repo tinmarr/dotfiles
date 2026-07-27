@@ -10,6 +10,7 @@ arch = {
         "lib32-nvidia-utils",
         "libva-nvidia-driver",
         "nvidia-container-toolkit",
+        "nvidia-settings",
 
         # intel
         "intel-ucode",
@@ -30,5 +31,10 @@ arch = {
 
         # misc
         "kdenlive",
+        "sunshine",
+
+        # ebook things
+        "calibre",
+        "thorium-reader-bin",
     ]
 }

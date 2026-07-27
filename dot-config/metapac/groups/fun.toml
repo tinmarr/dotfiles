@@ -6,7 +6,7 @@ arch = {
         "gamemode",
         "lib32-gamemode",
         "proton-ge-custom-bin",
-        "proton-cachyos",
+        "proton-cachyos-slr",
         "protontricks",
         "mangohud",
         "libxnvctrl",

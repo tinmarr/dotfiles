@@ -30,7 +30,6 @@ return {
             { "<leader>h",      group = "harpoon" },
             { "<leader>l",      group = "lsp" },
             { "<leader>n",      group = "notifications" },
-            { "<leader>o",      group = "obsidian" },
             { "<leader>s",      group = "surround" },
             { "<leader>t",      group = "tab" },
 
