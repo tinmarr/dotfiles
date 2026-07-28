@@ -32,6 +32,13 @@ hl.monitor({
     position = "auto-up",
     scale = 1,
 })
+-- TV
+hl.monitor({
+    output   = "desc:Samsung Electric Company SAMSUNG",
+    mode     = "1280x720@60",
+    position = "auto-up",
+    scale    = "1",
+})
 -- All other screens
 hl.monitor({
     output   = "",
