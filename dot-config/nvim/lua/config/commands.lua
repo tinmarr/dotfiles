@@ -18,9 +18,9 @@ end, {})
 vim.api.nvim_create_user_command("TogglePreviewFile", function()
     local ft = vim.bo.filetype
 
-    if ft == "markdown" then
-        vim.cmd("Lazy load peek.nvim")
-        vim.cmd("PeekToggle")
+    if ft == "markdown" or ft == "mermaid" then
+        vim.cmd("Lazy load markdown-preview.nvim")
+        vim.cmd("MarkdownPreview")
     elseif ft == "typst" then
         vim.cmd("Lazy load typst-preview.nvim")
         vim.cmd("TypstPreviewToggle")
