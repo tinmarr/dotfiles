@@ -31,6 +31,7 @@ arch = {
         "vesktop-bin",
         "kicad",
         "kicad-library",
+        "orca-slicer-bin",
 
         # misc utilities
         "qalculate-gtk",
