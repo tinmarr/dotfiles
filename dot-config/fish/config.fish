@@ -70,6 +70,4 @@ if status is-interactive
         commandline -f repaint
     end
     bind -M insert ctrl-e,ctrl-f sessionizer-wrapper
-    bind -M insert ctrl-k history-search-backward
-    bind -M insert ctrl-j history-search-forward
 end
