@@ -26,8 +26,11 @@ arch = {
         "metapac",
         "git",
 
-        # connectivity
+        # connectivity/wifi
         "openssh",
+        "iw",
+        "iwd",
+        "wireless-regdb",
 
         # low level control (platform independent)
         "fwupd",

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=T3 Code Nightly
+Comment=Nightly desktop control surface for local coding agents
+Exec=t3code-nightly --password-store=kwallet6 %U
+TryExec=t3code-nightly --password-store=kwallet6
+Terminal=false
+Type=Application
+Icon=t3code-nightly
+StartupWMClass=t3code
+Categories=Development;
+MimeType=x-scheme-handler/t3code;
