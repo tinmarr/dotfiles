@@ -138,14 +138,14 @@
             ]
         },
         "format-muted": " {icon}",
-        "on-click": "ghostty --title='-float-' -e /usr/bin/wiremix"
+        "on-click": "ghostty --title='-float-' -e wiremix"
     },
     "bluetooth": {
         "format": "",
         "format-off": "󰂲",
         "format-on": "󰂯",
         "format-connected": "󰂱",
-        "on-click": "ghostty --title='-float-' -e /usr/bin/bluetui"
+        "on-click": "ghostty --title='-float-' -e bluetui"
     },
     "network": {
         "format-ethernet": "",
@@ -154,6 +154,6 @@
         "format-disconnected": "",
         "format-disabled": "",
         "tooltip": false,
-        "on-click": "ghostty --title='-float-' -e /usr/bin/impala"
+        "on-click": "ghostty --title='-float-' -e impala"
     }
 }

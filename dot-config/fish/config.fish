@@ -9,6 +9,9 @@ end
 set -gx GOPATH "$HOME/go"
 set -gx PATH "$GOPATH/bin" $PATH
 
+# add cargo bin to path
+set -gx PATH "$HOME/.cargo/bin" $PATH
+
 # add mason binaries to path
 set -gx PATH "$HOME/.local/share/nvim/mason/bin" $PATH
 
