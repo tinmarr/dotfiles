@@ -36,5 +36,8 @@ arch = {
         # ebook things
         "calibre",
         "thorium-reader-bin",
+
+        # required for wifi dongle
+        "usb_modeswitch",
     ]
 }

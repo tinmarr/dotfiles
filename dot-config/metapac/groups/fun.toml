@@ -12,6 +12,6 @@ arch = {
         "libxnvctrl",
 
         # misc
-        "obs-studio",
+        "lact",
     ]
 }

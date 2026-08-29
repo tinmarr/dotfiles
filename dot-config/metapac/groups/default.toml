@@ -25,6 +25,7 @@ arch = {
         "zen-browser-bin",
         "slack-desktop",
         "spotify-launcher",
+        "obs-studio",
 
         # misc
         "helium-browser-bin",

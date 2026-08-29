@@ -8,16 +8,18 @@ arch = {
         # misc dev apps
         "codex-desktop", # managed/installed with make
         "t3code-bin",
+        "freecad",
+
+        # clis
         "voxtype-bin",
         "ollama",
-        "browser-use-cli",
-        "openai-codex",
         "python-openai-whisper",
 
         # languages
         "clang",
         "go",
         "typescript",
+        "rustup",
 
         # tooling
         "cmake",
