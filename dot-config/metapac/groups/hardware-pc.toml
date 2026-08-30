@@ -36,7 +36,17 @@ arch = {
 
         # misc
         "kdenlive",
-        "sunshine",
+        {
+            name = "sunshine",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "app-dev.lizardbyte.app.Sunshine.service",
+                ],
+            },
+        },
         "wlr-randr", # for sunshine to set resolution
 
         # ebook things

@@ -16,7 +16,17 @@ arch = {
         "opencode",
 
         # clis
-        "ollama",
+        {
+            name = "ollama",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "ollama.service",
+                ]
+            }
+        },
         "python-openai-whisper",
         "github-cli",
         "direnv",
@@ -44,11 +54,10 @@ arch = {
         {
             name = "podman",
             hooks = {
-                after_install = [
+                after_sync = [
                     "systemctl",
                     "--user",
                     "enable",
-                    "--now",
                     "podman.socket",
                 ],
             },

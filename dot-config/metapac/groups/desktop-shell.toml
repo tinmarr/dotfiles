@@ -1,7 +1,17 @@
 arch = {
     packages = [
         # status bar
-        "waybar-git",
+        {
+            name = "waybar-git",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "waybar.service",
+                ],
+            },
+        },
         "dunst",
 
         # system control
@@ -17,7 +27,13 @@ arch = {
                 after_install = [
                     "elephant",
                     "service",
-                    "enable"
+                    "enable",
+                ],
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "elephant.service",
                 ]
             }
         },

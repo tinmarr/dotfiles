@@ -2,11 +2,41 @@ arch = {
     packages = [
         # hypr-suite
         "hyprland",
-        "hypridle",
+        {
+            name = "hypridle",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "hypridle.service",
+                ],
+            },
+        },
         "hyprlock",
         "hyprpicker",
-        "hyprsunset",
-        "hyprpolkitagent",
+        {
+            name = "hyprsunset",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "hyprsunset.service",
+                ],
+            },
+        },
+        {
+            name = "hyprpolkitagent",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "hyprpolkitagent.service",
+                ],
+            },
+        },
         "aquamarine",
         "hyprcursor",
         "hyprgraphics",

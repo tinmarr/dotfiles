@@ -11,14 +11,54 @@ arch = {
         "alsa-tools",
 
         # services
-        "kanata-bin",
-        "syncthing",
+        {
+            name = "kanata-bin",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "kanata.service",
+                ],
+            },
+        },
+        {
+            name = "syncthing",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "syncthing@martin",
+                ]
+            }
+        },
         "localsend",
-        "voxtype-bin",
+        {
+            name = "voxtype-bin",
+            hooks = {
+                after_sync = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "voxtype.service",
+                ],
+            },
+        },
         "wtype", # optional for voxtype
 
         # hw utils
-        "bluez-utils",
+        {
+            name = "bluez-utils",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "bluetooth.service",
+                ]
+            }
+        },
         "dualsensectl-git",
         "brightnessctl",
         "ddcutil",

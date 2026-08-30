@@ -11,6 +11,16 @@ arch = {
         "mangohud",
 
         # miscellaneous gaming hardware utility
-        "lact",
+        {
+            name = "lact",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "lactd.service",
+                ]
+            }
+        },
     ]
 }

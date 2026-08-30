@@ -2,7 +2,19 @@
 arch = {
     packages = [
         # core Linux
-        "base",
+        {
+            name = "base",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "systemd-networkd.service",
+                    "systemd-resolved.service",
+                    "systemd-timesyncd.service",
+                ]
+            }
+        },
         "base-devel",
         "linux-firmware",
         "pacman-contrib",
@@ -23,8 +35,18 @@ arch = {
         "metapac",
 
         # connectivity
-        "openssh",
-        "iwd",
+        {
+            name = "openssh",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "sshd",
+                ]
+            }
+        },
+        {
 
         # low-level control
         "fwupd",
@@ -72,11 +94,10 @@ arch = {
         {
             name = "podman",
             hooks = {
-                after_install = [
+                after_sync = [
                     "systemctl",
                     "--user",
                     "enable",
-                    "--now",
                     "podman.socket",
                 ],
             },

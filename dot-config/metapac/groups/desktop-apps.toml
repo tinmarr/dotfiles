@@ -24,7 +24,19 @@ arch = {
         # virtualization
         "qemu-full",
         "dnsmasq",
-        "libvirt",
+        {
+            name = "libvirt",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "libvirtd.socket",
+                    "libvirtd-ro.socket",
+                    "libvirtd-admin.socket",
+                ]
+            }
+        },
         "virt-manager",
     ]
 }
