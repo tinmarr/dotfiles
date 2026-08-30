@@ -9,7 +9,7 @@ arch = {
                     "sudo",
                     "systemctl",
                     "enable",
-                    "systemd-networkd.service",
+                    # "systemd-networkd.service", <- only needed if using ethernet
                     "systemd-resolved.service",
                     "systemd-timesyncd.service",
                 ]
