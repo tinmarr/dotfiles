@@ -33,23 +33,19 @@ cd $HOME
 
 # Install utilities
 printf "$mag""Installing Utilities""$reset""\n"
-git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
+git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -rf paru
 git clone https://aur.archlinux.org/metapac.git && cd metapac && makepkg -si && cd .. && rm -rf metapac
 
 sudo test
 yes | metapac sync
 
-if [[ $(yay -Q ly) ]]; then
+if [[ $(paru -Q ly) ]]; then
     sudo systemctl enable ly
     sudo systemctl disable getty@tty2.service
 fi
 
-if [[ $(yay -Q hyprland) ]]; then
-    systemctl --user enable waybar.service hypridle.service hyprsunset.service
-fi
-
 printf "$mag""metapac was run for $HOST.$reset\n"
-printf "If it was configured yet, metapac should be configured then rerun (services won't be automatic either).\n"
+printf "Package service hooks are applied during metapac sync.\n"
 
 printf "$mag""The following tools (in installed) need to be configured manually:
     - nwg-look

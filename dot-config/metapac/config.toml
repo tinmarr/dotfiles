@@ -25,7 +25,7 @@ martinmac = ["brew"]
 # metapac to use.
 # Must be one of: ["pacman", "paru", "pikaur", "yay"]
 # Default: "pacman"
-package_manager = "yay"
+package_manager = "paru"
 
 # Which group files apply for which hostnames
 # paths starting without a / are relative to the groups folder
@@ -54,3 +54,4 @@ martinfw = [
     "hardware-framework",
 ]
 martinsv = ["server"]
+martinmac = ["xx.macos"]

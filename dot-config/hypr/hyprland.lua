@@ -60,7 +60,6 @@ hl.monitor({
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprctl setcursor oreo_purple_cursors 32")
     hl.exec_cmd("app2unit -- fcitx5 -kr")
-    hl.exec_cmd("app2unit -- localsend --hidden")
     hl.exec_cmd("app2unit -- playerctld daemon")
     hl.exec_cmd("app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
     hl.exec_cmd("app2unit -- bat-notif")
