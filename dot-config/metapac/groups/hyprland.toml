@@ -1,8 +1,5 @@
 arch = {
     packages = [
-        # input
-        "fcitx5",
-
         # hypr-suite
         "hyprland",
         "hypridle",
@@ -19,79 +16,21 @@ arch = {
         "hyprutils",
         "hyprwayland-scanner",
         "hyprwire",
+
+        # session
         "uwsm",
         "app2unit",
 
-        # waybar
-        "waybar-git",
-        "localsend",
-        "wiremix",
-        # "bluetui", <- currently running my own fork for mouse support
-        "impala",
-        "bluez-utils",
-        "dualsensectl-git",
+        # input
+        "fcitx5",
 
         # screensharing
         "xdg-desktop-portal-hyprland",
         "xdg-desktop-portal-gtk",
 
-        # required utilities
-        "walker",
-        {
-            name = "elephant",
-            hooks = {
-                after_install = [
-                    "elephant",
-                    "service",
-                    "enable"
-                ]
-            }
-        },
-        "elephant-desktopapplications",
-        "elephant-providerlist",
-        "elephant-calc",
-        "elephant-symbols",
-        "elephant-websearch",
-        "elephant-clipboard",
-        "elephant-runner",
-        "elephant-menus",
-        "openbsd-netcat",
-        "awww",
-        "grim",
-        "slurp",
-        "swappy",
-        "wl-clipboard",
-        "wtype",
-        "brightnessctl",
-        "ddcutil",
-        "playerctl",
-        "dunst",
-        "wlr-randr",
-        "kwallet",
-        "kwallet-pam",
-        "kwalletmanager",
-
-        # optional deps
+        # optional Hyprland dependencies
+        "xorg-xwayland",
         "cpio",
         "wev",
-        "xorg-xwayland",
-
-        # fonts
-        "ttf-jetbrains-mono-nerd",
-        "gnu-free-fonts",
-        "noto-fonts-emoji",
-        "noto-fonts-cjk",
-        "ttf-ms-fonts",
-        "inter-font",
-        "ttf-oswald",
-        "ttf-roboto",
-
-        # themeing
-        "nwg-look",
-        "papirus-icon-theme",
-        "papirus-folders",
-        "qt6ct-kde",
-        "breeze",
-        "gnome-themes-extra",
     ]
 }

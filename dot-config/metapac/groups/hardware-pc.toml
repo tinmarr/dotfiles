@@ -1,3 +1,4 @@
+# PC-specific hardware and applications
 arch = {
     packages = [
         # cachy kernel
@@ -11,6 +12,7 @@ arch = {
         "libva-nvidia-driver",
         "nvidia-container-toolkit",
         "nvidia-settings",
+        "libxnvctrl",
 
         # intel
         "intel-ucode",
@@ -23,21 +25,22 @@ arch = {
         "hid-fanatecff-dkms",
         "oversteer",
 
-        # AI stuff
+        # AI acceleration
         "cuda",
         "python-pytorch-cuda",
         "python-torchvision-cuda",
         "ollama-cuda",
 
+        # required for wifi dongle
+        "usb_modeswitch",
+
         # misc
         "kdenlive",
         "sunshine",
+        "wlr-randr", # for sunshine to set resolution
 
         # ebook things
         "calibre",
         "thorium-reader-bin",
-
-        # required for wifi dongle
-        "usb_modeswitch",
     ]
 }

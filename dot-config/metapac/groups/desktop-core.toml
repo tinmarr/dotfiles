@@ -1,0 +1,40 @@
+arch = {
+    packages = [
+        # audio
+        "pipewire",
+        "pipewire-alsa",
+        "pipewire-jack",
+        "pipewire-pulse",
+        "gst-plugin-pipewire",
+        "lib32-pipewire",
+        "alsa-utils",
+        "alsa-tools",
+
+        # services
+        "kanata-bin",
+        "syncthing",
+        "localsend",
+        "voxtype-bin",
+        "wtype", # optional for voxtype
+
+        # hw utils
+        "bluez-utils",
+        "dualsensectl-git",
+        "brightnessctl",
+        "ddcutil",
+
+        # secrets store
+        "kwallet",
+        "kwallet-pam",
+        "kwalletmanager",
+
+        # screenshots
+        "grim",
+        "slurp",
+        "swappy",
+
+        # basic utils
+        "wl-clipboard",
+        "playerctl",
+    ]
+}

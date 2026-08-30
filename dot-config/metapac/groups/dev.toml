@@ -5,21 +5,28 @@ arch = {
         "lazygit",
         "tree-sitter-cli",
 
+        # tmux
+        "tmux",
+        "tmux-plugin-manager",
+
         # misc dev apps
         "codex-desktop", # managed/installed with make
+        "openai-codex",
         "t3code-bin",
-        "freecad",
+        "opencode",
 
         # clis
-        "voxtype-bin",
         "ollama",
         "python-openai-whisper",
+        "github-cli",
+        "direnv",
 
         # languages
         "clang",
         "go",
         "typescript",
         "rustup",
+        "typst",
 
         # tooling
         "cmake",
@@ -30,6 +37,22 @@ arch = {
         "platformio-core",
         "platformio-core-udev",
         "hugo",
-        "uv"
+        "uv",
+        "postgresql",
+
+        # podman
+        {
+            name = "podman",
+            hooks = {
+                after_install = [
+                    "systemctl",
+                    "--user",
+                    "enable",
+                    "--now",
+                    "podman.socket",
+                ],
+            },
+        },
+        "docker-compose",
     ]
 }

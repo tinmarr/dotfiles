@@ -1,0 +1,54 @@
+arch = {
+    packages = [
+        # status bar
+        "waybar-git",
+        "dunst",
+
+        # system control
+        "wiremix",
+        "impala",
+        # "bluetui", <- managed by my own fork
+
+        # run launcher
+        "walker",
+        {
+            name = "elephant",
+            hooks = {
+                after_install = [
+                    "elephant",
+                    "service",
+                    "enable"
+                ]
+            }
+        },
+        "elephant-desktopapplications",
+        "elephant-providerlist",
+        "elephant-calc",
+        "elephant-symbols",
+        "elephant-websearch",
+        "elephant-clipboard",
+        "elephant-runner",
+        "elephant-menus",
+
+
+        # fonts
+        "ttf-jetbrains-mono-nerd",
+        "gnu-free-fonts",
+        "noto-fonts-emoji",
+        "noto-fonts-cjk",
+        "ttf-ms-fonts",
+        "inter-font",
+        "ttf-oswald",
+        "ttf-roboto",
+        "ttf-aptos",
+
+        # theming
+        "awww",
+        "nwg-look",
+        "papirus-icon-theme",
+        "papirus-folders",
+        "qt6ct-kde",
+        "breeze",
+        "gnome-themes-extra",
+    ]
+}

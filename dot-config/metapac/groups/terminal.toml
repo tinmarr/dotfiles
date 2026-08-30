@@ -1,23 +1,11 @@
 arch = {
     packages = [
-        # shell
+        # shell + prompt
         "fish",
         "oh-my-posh-bin",
-        "ripgrep",
-        "eza",
-        "bat",
-        "direnv",
-        "fzf",
-        "zoxide",
-        "reflector",
 
-        # tmux
-        "tmux",
-        "tmux-plugin-manager",
-
-        # good utils
+        # utils
         "vim",
-        "github-cli",
         "fastfetch",
         "btop",
         "nvtop",
@@ -29,30 +17,16 @@ arch = {
         "rsync",
         "bind",       # dig, etc
         "stow",
-        "opencode",
         "jq",
         "7zip",
         "fd",
         "imagemagick",
         "chafa",
-        "git-lfs",
-
-        # podman
-        {
-            name = "podman",
-            hooks = {
-                after_install = [
-                    "systemctl",
-                    "--user",
-                    "enable",
-                    "--now",
-                    "podman.socket",
-                ],
-            },
-        },
-        "docker-compose",
-
-        # deps
-        "python-dbus-next",
+        "openbsd-netcat",
+        "ripgrep",
+        "eza",
+        "bat",
+        "fzf",
+        "zoxide",
     ]
 }

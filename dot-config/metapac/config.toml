@@ -32,23 +32,25 @@ package_manager = "yay"
 # Default: None
 [hostname_groups]
 martinpc = [
-    "base-btrfs",
-    "default",
+    "base",
+    "desktop-core",
+    "desktop-apps",
+    "desktop-shell",
+    "hyprland",
     "terminal",
     "dev",
-    "hyprland",
-    "fun",
-    "latex",
-    "pc",
+    "gaming",
+    "hardware-pc",
 ]
 martinfw = [
-    "base-btrfs",
-    "default",
+    "base",
+    "desktop-core",
+    "desktop-apps",
+    "desktop-shell",
+    "hyprland",
     "terminal",
     "dev",
-    "hyprland",
-    "fun",
-    "latex",
-    "fw",
+    "gaming",
+    "hardware-framework",
 ]
-martinsv = ["base-ext4", "terminal", "sv"]
+martinsv = ["server"]

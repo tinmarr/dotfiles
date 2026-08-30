@@ -1,3 +1,4 @@
+# Framework-specific hardware and services
 arch = {
     packages = [
         # kernel
@@ -21,14 +22,11 @@ arch = {
         # hardware control
         "acpi",
         "framework-system",
-        "iw",
-        "iwd",
         "power-profiles-daemon",
         "fprintd",
         "powertop",
-        "wireless-regdb",
 
-        # AI stuff
+        # AI acceleration
         "ollama-rocm",
         "rocm-hip-runtime",
 

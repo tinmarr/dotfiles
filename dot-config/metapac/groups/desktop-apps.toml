@@ -1,0 +1,30 @@
+arch = {
+    packages = [
+        # daily drivers
+        "ghostty",
+        "nautilus",
+        "zen-browser-bin",
+        "slack-desktop",
+        "spotify-launcher",
+        "obs-studio",
+        "helium-browser-bin",
+        "vesktop-bin",
+        "onlyoffice-bin",
+
+        # engineering
+        "kicad",
+        "kicad-library",
+        "orca-slicer-bin",
+        "freecad",
+
+        # media
+        "gimp",
+        "mpv",
+
+        # virtualization
+        "qemu-full",
+        "dnsmasq",
+        "libvirt",
+        "virt-manager",
+    ]
+}

@@ -1,38 +1,48 @@
+# Arch desktop foundation
 arch = {
     packages = [
-        # core linux
+        # core Linux
         "base",
         "base-devel",
-        "limine",
-        "limine-mkinitcpio-hook",
         "linux-firmware",
         "pacman-contrib",
-        "efibootmgr",
 
-        # btrfs
+        # CachyOS repositories
+        "cachyos-keyring",
+        "cachyos-mirrorlist",
+        "cachyos-v3-mirrorlist",
+        "cachyos-v4-mirrorlist",
+
+        # Btrfs and boot
+        "limine",
+        "limine-mkinitcpio-hook",
+        "efibootmgr",
         "btrfs-progs",
         "snapper",
         "compsize",
         "snap-pac",
         "limine-snapper-sync",
+        "plymouth",
 
         # docs
         "man-db",
         "man-pages",
         "tldr",
 
-        # required shell stuff
+        # package management
         "yay",
         "metapac",
         "git",
+        "git-lfs",
+        "reflector",
 
-        # connectivity/wifi
+        # connectivity and Wi-Fi
         "openssh",
         "iw",
         "iwd",
         "wireless-regdb",
 
-        # low level control (platform independent)
+        # low-level control
         "fwupd",
         "dmidecode",
     ]
