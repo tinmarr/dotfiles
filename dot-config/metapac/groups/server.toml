@@ -31,7 +31,7 @@ arch = {
         "tldr",
 
         # package management
-        "yay",
+        "paru",
         "metapac",
 
         # connectivity
@@ -46,7 +46,6 @@ arch = {
                 ]
             }
         },
-        {
 
         # low-level control
         "fwupd",
