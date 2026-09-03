@@ -74,5 +74,18 @@ arch = {
             },
         },
         "docker-compose",
+
+        {
+            name = "tailscale",
+            hooks = {
+                after_sync = [
+                    "sudo",
+                    "systemctl",
+                    "enable",
+                    "--now",
+                    "tailscaled"
+                ]
+            }
+        },
     ]
 }
