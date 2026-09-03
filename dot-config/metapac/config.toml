@@ -9,7 +9,7 @@
 # Backends to enable from all metapac behavior. See the README.md for
 # the list of backend names
 # Default: []
-enabled_backends = ["arch"]
+enabled_backends = ["arch", "npm"]
 
 # Whether to use the [hostname_groups] config table to decide which
 # group files to use or to use all files in the groups folder.

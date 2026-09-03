@@ -1,0 +1,2 @@
+prefix=/home/martin/.local
+allow-scripts=msgpackr-extract,node-pty
