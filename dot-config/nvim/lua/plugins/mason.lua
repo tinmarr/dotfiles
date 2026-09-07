@@ -12,6 +12,7 @@ local lsps = {
     "clangd",
     "astro",
     "hyprls",
+    "qmlls"
 }
 local pkgs = {
     -- debuggers

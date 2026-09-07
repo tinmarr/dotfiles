@@ -66,6 +66,7 @@ return {
             "markdown",
             "astro",
             "hyprlang",
+            "qml",
         },
         dependencies = {
             "mason-org/mason.nvim",
@@ -127,6 +128,7 @@ return {
                 marksman = {},
                 astro = {},
                 hyprls = {},
+                qmlls = {},
             },
         },
         config = function(_, opts)
