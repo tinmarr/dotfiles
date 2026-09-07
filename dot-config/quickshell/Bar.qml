@@ -1,7 +1,5 @@
 import Quickshell
-import Quickshell.Io
 import QtQuick
-import "config.js" as Config
 import qs.bar as Widgets
 
 Scope {
@@ -23,7 +21,6 @@ Scope {
         implicitHeight: 25
         color: "transparent"
 
-
         Row {
             height: parent.height
             spacing: 5
@@ -44,6 +41,10 @@ Scope {
             anchors.right: parent.right
 
             Widgets.Tray {}
+
+            Widgets.Pill {
+                Widgets.Network {}
+            }
         }
     }
 }

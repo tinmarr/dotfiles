@@ -1,16 +1,13 @@
-import Quickshell
 import Quickshell.Io
 import QtQuick
 import "../config.js" as Config
 
 Pill {
-    implicitWidth: clock.implicitWidth + parent.height
     Text {
         id: clock
 
         color: Config.theme.primary
         font: Config.font
-        anchors.centerIn: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 

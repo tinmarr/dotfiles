@@ -1,16 +1,15 @@
-import Quickshell
+pragma ComponentBehavior: Bound
+
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
-import "../config.js" as Config
 
 Pill {
     id: root
-    implicitWidth: row.childrenRect.width + 10
+    padding: 5
 
     Row {
         id: row
-        anchors.centerIn: parent
 
         Repeater {
             model: SystemTray.items
