@@ -13,6 +13,7 @@ arch = {
             },
         },
         "dunst",
+        "quickshell",
 
         # system control
         "wiremix",
