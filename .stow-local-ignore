@@ -36,3 +36,5 @@ README.org # Config compiler files
 ^/root
 
 AGENTS.md
+
+.qmlls.ini

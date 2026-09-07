@@ -1,11 +1,10 @@
-import Quickshell
 import Quickshell.Hyprland
 import QtQuick
 import "../config.js" as Config
 
 Pill {
     id: root
-    implicitWidth: childrenRect.width
+    padding: 0
 
     Row {
         Repeater {
