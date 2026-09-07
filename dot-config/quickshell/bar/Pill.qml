@@ -19,7 +19,7 @@ Rectangle {
     Row {
         id: content
 
-        spacing: 0
+        spacing: 10
         anchors.centerIn: parent
     }
 }
