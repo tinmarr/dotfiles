@@ -1,24 +1,25 @@
-import Quickshell
 import Quickshell.Io
 import QtQuick
 import "../config.js" as Config
 
 Pill {
-    width: this.height
+    id: root
+    square: true
 
-    Text {
-        text: ""
-        font: Config.font
-        color: Config.colors.sapphire
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-    }
+    Item {
+        implicitWidth: root.width
+        implicitHeight: root.height
 
-    MouseArea {
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        onClicked: onClickProc.running = true
+        BarText {
+            text: ""
+            color: Config.colors.sapphire
+            anchors.fill: parent
+        }
+
+        MouseArea {
+            cursorShape: Qt.PointingHandCursor
+            onClicked: onClickProc.running = true
+        }
     }
 
     Process {
