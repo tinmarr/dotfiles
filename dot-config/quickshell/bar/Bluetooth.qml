@@ -4,14 +4,25 @@ import QtQuick
 import "../config.js" as Config
 
 Item {
+    id: root
     implicitWidth: childrenRect.width
     implicitHeight: childrenRect.height
+
+    property var adapter: Bluetooth.defaultAdapter
 
     BarText {
         id: icon
         color: Config.colors.teal
 
-        text: Bluetooth.defaultAdapter.enabled ? Bluetooth.devices.values.length == 0 ? "󰂯" : "󰂱" : "󰂲"
+        text: {
+            if (root.adapter == null) {
+                return "󰂲";
+            }
+
+            let numConnected = Bluetooth.devices.values.reduce((t, v) => t + (v.connected ? 1 : 0), 0);
+
+            return root.adapter.enabled ? numConnected == 0 ? "󰂯" : "󰂱" : "󰂲";
+        }
     }
 
     MouseArea {
