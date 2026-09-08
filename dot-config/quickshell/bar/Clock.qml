@@ -6,7 +6,7 @@ Pill {
     Text {
         id: clock
 
-        color: Config.theme.primary
+        color: Config.colors.pink
         font: Config.font
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

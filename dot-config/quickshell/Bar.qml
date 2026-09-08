@@ -43,6 +43,7 @@ Scope {
             Widgets.Tray {}
 
             Widgets.Pill {
+                Widgets.Audio {}
                 Widgets.Bluetooth {}
                 Widgets.Network {}
             }
