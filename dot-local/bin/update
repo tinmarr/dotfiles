@@ -14,7 +14,6 @@ paru -Qu > $HOME/.cache/updated-packages.txt
 echo "Starting update:"
 yes | paru -Syu --batchinstall --combinedupgrade --mflags="--noconfirm"
 metapac update-all
-paru -Syu --removemake
 paru -c --noconfirm
 
 ZINIT="$HOME/.local/share/zinit/zinit.git/zinit.zsh"
