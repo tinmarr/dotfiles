@@ -1,4 +1,15 @@
 # Standalone Arch server profile
+npm = {
+    packages = [
+        {
+            name = "t3",
+            hooks = {
+                after_install = ["t3", "service", "install"],
+                after_sync = ["t3","service","update"]
+            }
+        }
+    ]
+}
 arch = {
     packages = [
         # core Linux
@@ -88,6 +99,7 @@ arch = {
         "imagemagick",
         "chafa",
         "git-lfs",
+        "npm",
 
         # containers
         {
