@@ -223,6 +223,8 @@ hl.config({
         sensitivity                 = 0,
         emulate_discrete_scroll     = 0,
 
+        numlock_by_default          = true,
+
         touchpad                    = {
             natural_scroll = true,
         },
