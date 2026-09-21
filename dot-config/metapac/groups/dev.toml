@@ -4,7 +4,7 @@ npm = {
             name = "t3",
             hooks = {
                 after_install = ["t3", "service", "install"],
-                after_sync = ["t3","service","update"]
+                after_sync = ["t3", "update"]
             }
         }
     ]
