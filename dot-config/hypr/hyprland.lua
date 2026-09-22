@@ -66,6 +66,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("app2unit -u awww-daemon.service -t service -s b -- awww-daemon")
     hl.exec_cmd("app2unit -- awww-randomize")
     hl.exec_cmd("app2unit -- walker --gapplication-service")
+    hl.exec_cmd("~/.config/hypr/brightness-menu.sh update-cache")
 end)
 
 -----------------------
@@ -345,7 +346,7 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("voxtype record cancel"))
 hl.bind(mainMod .. " + r", hl.dsp.exec_cmd("nc -U /run/user/1000/walker/walker.sock"))
 hl.bind(mainMod .. " + ALT + w", hl.dsp.exec_cmd("walker-kill"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("elephant menu system-control"))
-hl.bind(mainMod .. " + b", hl.dsp.exec_cmd("~/.config/hypr/brightness-menu.sh"))
+hl.bind(mainMod .. " + b", hl.dsp.exec_cmd("~/.config/hypr/brightness-menu.sh menu"))
 
 -- Open popups
 hl.bind(mainMod .. " + o", hl.dsp.submap("open"))
@@ -379,6 +380,14 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Lid switch
 hl.bind("switch:on:Lid Switch", lid.close, { locked = true })
 hl.bind("switch:off:Lid Switch", lid.open, { locked = true })
+
+hl.on("monitor.added", function(_)
+    hl.exec_cmd("~/.config/hypr/brightness-menu.sh update-cache")
+end)
+
+hl.on("monitor.removed", function(_)
+    hl.exec_cmd("~/.config/hypr/brightness-menu.sh prune-cache")
+end)
 
 
 --------------------------------

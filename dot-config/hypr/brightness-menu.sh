@@ -3,16 +3,34 @@
 set -euo pipefail
 
 # Open a Walker menu for selecting a monitor and setting its brightness.
-# Discovery is intentionally on-demand: unlike the old Waybar helper this
-# script has no watcher, event listener, or periodic DDC polling.
+# The I2C bus mapping is cached in the runtime directory. Hyprland output
+# events refresh it in the background, with discovery as a fallback on cache
+# misses or stale bus mappings.
 
 readonly DETECT_TIMEOUT_SECONDS=10
 readonly VALUE_TIMEOUT_SECONDS=5
+readonly CACHE_VALUE_TIMEOUT_SECONDS=1
+readonly NEGATIVE_CACHE_TTL_SECONDS=60
+
+cache_directory() {
+    local runtime_dir=${XDG_RUNTIME_DIR:-}
+
+    if [[ -n $runtime_dir && -d $runtime_dir && -w $runtime_dir ]]; then
+        printf '%s/brightness-menu\n' "$runtime_dir"
+    else
+        printf '%s/brightness-menu-%s\n' "${TMPDIR:-/tmp}" "$UID"
+    fi
+}
+
+readonly CACHE_DIR=$(cache_directory)
+readonly CACHE_FILE="$CACHE_DIR/ddc-buses.tsv"
 
 declare -A DDC_BUS_BY_CONNECTOR=()
 declare -A DDC_MODEL_BY_CONNECTOR=()
 declare -A DDC_SERIAL_BY_CONNECTOR=()
 declare -A DDC_MAX_BY_CONNECTOR=()
+declare -A DDC_NO_DDC_BY_CONNECTOR=()
+declare -A DDC_CURRENT_VALUE_BY_CONNECTOR=()
 
 TARGET_OUTPUT=''
 TARGET_KIND=''
@@ -71,12 +89,14 @@ flush_ddc_display() {
 }
 
 discover_ddc() {
-    local line
+    local line detect_output detect_status=0
 
     DDC_BUS_BY_CONNECTOR=()
     DDC_MODEL_BY_CONNECTOR=()
     DDC_SERIAL_BY_CONNECTOR=()
     DDC_MAX_BY_CONNECTOR=()
+    DDC_NO_DDC_BY_CONNECTOR=()
+    DDC_CURRENT_VALUE_BY_CONNECTOR=()
 
     CURRENT_DDC_CONNECTOR=''
     CURRENT_DDC_BUS=''
@@ -84,6 +104,8 @@ discover_ddc() {
     CURRENT_DDC_MODEL=''
     CURRENT_DDC_SERIAL=''
     CURRENT_DDC_MAX='100'
+
+    detect_output=$(timeout "$DETECT_TIMEOUT_SECONDS" ddcutil detect --verbose 2>/dev/null) || detect_status=$?
 
     while IFS= read -r line; do
         if [[ $line =~ ^Display[[:space:]]+[0-9]+ ]]; then
@@ -107,9 +129,183 @@ discover_ddc() {
         elif [[ $line =~ Serial[[:space:]]+number:[[:space:]]+(.+) ]]; then
             CURRENT_DDC_SERIAL=$(trim "${BASH_REMATCH[1]}")
         fi
-    done < <(timeout "$DETECT_TIMEOUT_SECONDS" ddcutil detect --verbose 2>/dev/null || true)
+    done <<< "$detect_output"
 
     flush_ddc_display
+    ((detect_status == 0))
+}
+
+get_hypr_monitor_tsv() {
+    local monitor_json
+
+    monitor_json=$(timeout 2 hyprctl monitors -j 2>/dev/null) || return 1
+    jq -r '.[] | [.name, (.description // .name)] | @tsv' <<< "$monitor_json"
+}
+
+is_external_output() {
+    [[ ! $1 =~ ^(eDP|LVDS|DSI)- ]]
+}
+
+load_ddc_cache() {
+    local record output rest bus model serial
+
+    DDC_BUS_BY_CONNECTOR=()
+    DDC_MODEL_BY_CONNECTOR=()
+    DDC_SERIAL_BY_CONNECTOR=()
+    DDC_MAX_BY_CONNECTOR=()
+    DDC_NO_DDC_BY_CONNECTOR=()
+    DDC_CURRENT_VALUE_BY_CONNECTOR=()
+
+    [[ -r $CACHE_FILE ]] || return 0
+
+    while IFS= read -r record || [[ -n $record ]]; do
+        [[ -n $record && $record != \#* ]] || continue
+        [[ $record == *$'\t'* ]] || continue
+
+        output=${record%%$'\t'*}
+        rest=${record#*$'\t'}
+        bus=${rest%%$'\t'*}
+        if [[ $rest == *$'\t'* ]]; then
+            rest=${rest#*$'\t'}
+            model=${rest%%$'\t'*}
+            serial=${rest#*$'\t'}
+        else
+            model=''
+            serial=''
+        fi
+
+        [[ -n $output ]] || continue
+        if [[ $bus =~ ^[0-9]+$ ]]; then
+            DDC_BUS_BY_CONNECTOR["$output"]=$bus
+            DDC_MODEL_BY_CONNECTOR["$output"]=${model:-$output}
+            DDC_SERIAL_BY_CONNECTOR["$output"]=$serial
+            DDC_MAX_BY_CONNECTOR["$output"]=100
+        elif [[ $bus == - ]]; then
+            DDC_NO_DDC_BY_CONNECTOR["$output"]=true
+        fi
+    done < "$CACHE_FILE"
+}
+
+cache_is_current() {
+    local output bus value has_external=false has_negative=false
+    local cache_mtime now
+
+    DDC_CURRENT_VALUE_BY_CONNECTOR=()
+
+    for output in "$@"; do
+        is_external_output "$output" || continue
+        has_external=true
+    done
+    [[ $has_external == true ]] || return 0
+    [[ -r $CACHE_FILE ]] || return 1
+
+    for output in "$@"; do
+        is_external_output "$output" || continue
+        bus=${DDC_BUS_BY_CONNECTOR[$output]:-}
+        if [[ $bus =~ ^[0-9]+$ ]]; then
+            value=$(read_ddc_value "$bus" "$CACHE_VALUE_TIMEOUT_SECONDS") || return 1
+            [[ $value =~ ^[0-9]+[[:space:]]+[1-9][0-9]*$ ]] || return 1
+            DDC_CURRENT_VALUE_BY_CONNECTOR["$output"]=$value
+        elif [[ ${DDC_NO_DDC_BY_CONNECTOR[$output]:-false} == true ]]; then
+            has_negative=true
+        else
+            return 1
+        fi
+    done
+
+    if [[ $has_negative == true ]]; then
+        cache_mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null) || return 1
+        now=$(date +%s) || return 1
+        ((now - cache_mtime < NEGATIVE_CACHE_TTL_SECONDS)) || return 1
+    fi
+
+    return 0
+}
+
+write_ddc_cache() {
+    local mark_missing=$1
+    shift
+
+    local temporary_file output bus model serial
+
+    mkdir -p -m 700 -- "$CACHE_DIR"
+    chmod 700 "$CACHE_DIR"
+    temporary_file=$(mktemp "$CACHE_DIR/ddc-buses.XXXXXX") || return 1
+    printf '# connector\tbus\tmodel\tserial\n' > "$temporary_file"
+
+    for output in "$@"; do
+        is_external_output "$output" || continue
+        bus=${DDC_BUS_BY_CONNECTOR[$output]:-}
+        model=${DDC_MODEL_BY_CONNECTOR[$output]:-}
+        serial=${DDC_SERIAL_BY_CONNECTOR[$output]:-}
+
+        if [[ $bus =~ ^[0-9]+$ ]]; then
+            printf '%s\t%s\t%s\t%s\n' "$output" "$bus" "$model" "$serial" \
+                >> "$temporary_file"
+        elif [[ ${DDC_NO_DDC_BY_CONNECTOR[$output]:-false} == true || $mark_missing == true ]]; then
+            printf '%s\t-\t\t\n' "$output" >> "$temporary_file"
+        fi
+    done
+
+    mv -f -- "$temporary_file" "$CACHE_FILE"
+}
+
+update_ddc_cache() {
+    local lock_fd monitor_tsv output description
+    local -a outputs=()
+
+    mkdir -p -m 700 -- "$CACHE_DIR"
+    chmod 700 "$CACHE_DIR"
+    exec {lock_fd}>"$CACHE_DIR/update.lock"
+    flock "$lock_fd"
+
+    if ! monitor_tsv=$(get_hypr_monitor_tsv); then
+        exec {lock_fd}>&-
+        return 1
+    fi
+
+    while IFS=$'\t' read -r output description; do
+        [[ -n $output ]] || continue
+        outputs+=("$output")
+    done <<< "$monitor_tsv"
+
+    load_ddc_cache
+    if cache_is_current "${outputs[@]}"; then
+        exec {lock_fd}>&-
+        return 0
+    fi
+
+    if ! discover_ddc; then
+        exec {lock_fd}>&-
+        return 1
+    fi
+
+    write_ddc_cache true "${outputs[@]}"
+    exec {lock_fd}>&-
+}
+
+prune_ddc_cache() {
+    local lock_fd monitor_tsv output description
+    local -a outputs=()
+
+    mkdir -p -m 700 -- "$CACHE_DIR"
+    chmod 700 "$CACHE_DIR"
+    exec {lock_fd}>"$CACHE_DIR/update.lock"
+    flock "$lock_fd"
+
+    if ! monitor_tsv=$(get_hypr_monitor_tsv); then
+        exec {lock_fd}>&-
+        return 1
+    fi
+
+    while IFS=$'\t' read -r output description; do
+        [[ -n $output ]] || continue
+        outputs+=("$output")
+    done <<< "$monitor_tsv"
+
+    load_ddc_cache
+    write_ddc_cache false "${outputs[@]}"
+    exec {lock_fd}>&-
 }
 
 select_backlight_device() {
@@ -145,9 +341,10 @@ read_sysfs_value() {
 
 read_ddc_value() {
     local bus=$1
+    local timeout_seconds=${2:-$VALUE_TIMEOUT_SECONDS}
     local terse
 
-    terse=$(timeout "$VALUE_TIMEOUT_SECONDS" ddcutil --bus "$bus" \
+    terse=$(timeout "$timeout_seconds" ddcutil --bus "$bus" \
         getvcp 10 --terse 2>/dev/null) || return 1
 
     awk '$1 == "VCP" && toupper($2) == "10" && $3 == "C" {
@@ -188,15 +385,18 @@ append_menu_item() {
 stream_monitors() {
     local fifo=$1
     local state_file=$2
-    local output description device bus value current max percent label model serial index
+    local monitor_tsv output description device bus value current max percent label model serial index
     local -a outputs=()
     local -a descriptions=()
 
     exec 3>"$fifo"
 
-    # Enumerate Hyprland outputs immediately and stream the internal panel
-    # before the slower DDC probe starts. If there is no internal panel, Walker
-    # opens with an empty list and receives the external rows below.
+    if ! monitor_tsv=$(get_hypr_monitor_tsv); then
+        exec 3>&-
+        return 1
+    fi
+
+    # Stream the internal panel immediately while Walker is opening.
     while IFS=$'\t' read -r output description; do
         [[ -n $output ]] || continue
         outputs+=("$output")
@@ -206,32 +406,38 @@ stream_monitors() {
             if device=$(select_backlight_device) && value=$(read_sysfs_value "$device"); then
                 read -r current max <<< "$value"
                 percent=$(percent_for_value "$current" "$max")
-                label="󰃠  ${description:-$output} (${output}) — ${percent}%"
+                label="󰃠  ${description:-$output} (${output}): ${percent}%"
                 append_menu_item "$state_file" "$output" sysfs "$device" - \
                     "$current" "$max" "$percent" "$label"
             fi
         fi
-    done < <(timeout 2 hyprctl monitors -j 2>/dev/null \
-        | jq -r '.[] | [.name, (.description // .name)] | @tsv' || true)
+    done <<< "$monitor_tsv"
 
-    # DDC discovery and VCP reads happen while the Walker window is already
-    # visible. Each usable external monitor is appended as soon as its value
-    # is available.
-    discover_ddc
+    # Validate the cached bus mapping, refreshing it only on a cache miss or
+    # failed bus probe. This runs after Walker has opened its FIFO.
+    if ! update_ddc_cache; then
+        # Keep trying known mappings if detection itself failed. The cache
+        # update leaves the on-disk cache untouched on a failed scan.
+        load_ddc_cache
+    fi
+
     for index in "${!outputs[@]}"; do
         output=${outputs[$index]}
         description=${descriptions[$index]}
         [[ $output =~ ^(eDP|LVDS|DSI)- ]] && continue
         bus=${DDC_BUS_BY_CONNECTOR[$output]:-}
-        [[ -n $bus ]] || continue
-        value=$(read_ddc_value "$bus") || continue
+        [[ $bus =~ ^[0-9]+$ ]] || continue
+        value=${DDC_CURRENT_VALUE_BY_CONNECTOR[$output]:-}
+        if [[ -z $value ]]; then
+            value=$(read_ddc_value "$bus" "$CACHE_VALUE_TIMEOUT_SECONDS") || continue
+        fi
         read -r current max <<< "$value"
         [[ $current =~ ^[0-9]+$ && $max =~ ^[1-9][0-9]*$ ]] || continue
         percent=$(percent_for_value "$current" "$max")
         model=${DDC_MODEL_BY_CONNECTOR[$output]:-$description}
         serial=${DDC_SERIAL_BY_CONNECTOR[$output]:-}
         [[ -n $serial ]] && model+=" (${serial})"
-        label="󰍹  ${model} (${output}) — ${percent}%"
+        label="󰍹  ${model} (${output}): ${percent}%"
         append_menu_item "$state_file" "$output" ddc - "$bus" \
             "$current" "$max" "$percent" "$label"
     done
@@ -282,7 +488,7 @@ set_brightness() {
         setvcp 10 "$target" --noverify
 }
 
-main() {
+show_menu() {
     local fifo state_file selected_index percent runtime_dir
 
     runtime_dir=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}
@@ -305,6 +511,27 @@ main() {
     load_selected_item "$state_file" "$selected_index" || exit 0
     percent=$(choose_brightness) || exit 0
     set_brightness "$percent"
+}
+
+main() {
+    case ${1:-menu} in
+        menu)
+            [[ $# -le 1 ]] || return 2
+            show_menu
+            ;;
+        update-cache)
+            [[ $# -eq 1 ]] || return 2
+            update_ddc_cache
+            ;;
+        prune-cache)
+            [[ $# -eq 1 ]] || return 2
+            prune_ddc_cache
+            ;;
+        *)
+            printf 'Usage: %s [menu|update-cache|prune-cache]\n' "${0##*/}" >&2
+            return 2
+            ;;
+    esac
 }
 
 main "$@"
