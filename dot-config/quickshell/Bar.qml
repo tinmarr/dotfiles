@@ -54,7 +54,7 @@ Scope {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        Quickshell.execDetached(["sh", "-c", "dualsensectl power-off && killall -SIGUSR2 waybar"]);
+                        Quickshell.execDetached(["sh", "-c", "dualsensectl power-off"]);
                     }
                 }
             }
