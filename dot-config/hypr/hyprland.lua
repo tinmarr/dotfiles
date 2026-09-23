@@ -67,6 +67,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("app2unit -- awww-randomize")
     hl.exec_cmd("app2unit -- walker --gapplication-service")
     hl.exec_cmd("~/.config/hypr/brightness-menu.sh update-cache")
+    hl.exec_cmd("app2unit -- qs")
 end)
 
 -----------------------
@@ -320,11 +321,11 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 -- Hyprland Management
 local function reload()
     hl.exec_cmd("hyprctl reload")
-    hl.exec_cmd("systemctl restart --user waybar")
     hl.exec_cmd(
         "app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
     hl.exec_cmd("systemctl stop --user awww-daemon.service")
     hl.exec_cmd("setsid -f app2unit -u awww-daemon.service -t service -s b -- awww-daemon")
+    hl.exec_cmd("pkill qs; app2unit -- qs")
 end
 
 hl.bind(mainMod .. " + q", hl.dsp.window.close())

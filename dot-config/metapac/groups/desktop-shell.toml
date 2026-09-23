@@ -1,17 +1,7 @@
 arch = {
     packages = [
         # status bar
-        {
-            name = "waybar-git",
-            hooks = {
-                after_sync = [
-                    "systemctl",
-                    "--user",
-                    "enable",
-                    "waybar.service",
-                ],
-            },
-        },
+        "waybar-git",
         "dunst",
         "quickshell",
 
