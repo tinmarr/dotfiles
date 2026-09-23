@@ -24,7 +24,7 @@ Item {
 
             color = dev.percentage <= .2 ? "#FF0000" : Config.colors.green;
 
-            return Math.round(dev.percentage * 100) + "% " + glyphs[Math.round(dev.percentage * 10 / 4)];
+            return Math.round(dev.percentage * 100) + "% " + glyphs[Math.ceil(dev.percentage * 10 / 4)];
         }
     }
 }
