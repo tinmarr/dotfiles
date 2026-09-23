@@ -1,5 +1,13 @@
 import Quickshell
+import QtQuick
 
 Scope {
-    Bar {}
+    Variants {
+        model: Quickshell.screens
+
+        Bar {
+            required property var modelData
+            screen: modelData
+        }
+    }
 }

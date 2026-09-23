@@ -12,14 +12,14 @@ Item {
         color: Config.colors.peach
         text: {
             switch (PowerProfiles.profile) {
-                case PowerProfile.Performance:
-                    return "";
-                case PowerProfile.PowerSaver:
-                    return "";
-                case PowerProfile.Balanced:
-                    return "";
-                default:
-                    return "";
+            case PowerProfile.Performance:
+                return "󱐋";
+            case PowerProfile.PowerSaver:
+                return "󰌪";
+            case PowerProfile.Balanced:
+                return "󰗑";
+            default:
+                return "";
             }
         }
     }
@@ -29,15 +29,15 @@ Item {
         cursorShape: Qt.PointingHandCursor
         onClicked: {
             switch (PowerProfiles.profile) {
-                case PowerProfile.Performance:
-                    PowerProfiles.profile = PowerProfile.Balanced;
-                    break;
-                case PowerProfile.Balanced:
-                    PowerProfiles.profile = PowerProfile.PowerSaver;
-                    break;
-                case PowerProfile.PowerSaver:
-                    PowerProfiles.profile = PowerProfile.Performance;
-                    break;
+            case PowerProfile.Performance:
+                PowerProfiles.profile = PowerProfile.Balanced;
+                break;
+            case PowerProfile.Balanced:
+                PowerProfiles.profile = PowerProfile.PowerSaver;
+                break;
+            case PowerProfile.PowerSaver:
+                PowerProfiles.profile = PowerProfile.Performance;
+                break;
             }
         }
     }
