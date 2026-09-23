@@ -35,7 +35,7 @@ let theme = {
 
 let font = {
   family: "JetBrainsMono Nerd Font Propo",
-  pixelSize: 11,
+  pointSize: 9,
 };
 
 let border = {

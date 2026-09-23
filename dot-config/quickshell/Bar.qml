@@ -27,8 +27,13 @@ Scope {
             anchors.left: parent.left
 
             Widgets.Icon {}
-
             Widgets.Workspaces {}
+            Widgets.Script {
+                command: ["weather"]
+                ms: 15 * 90 * 1000
+            }
+            Widgets.Voxtype {}
+            Widgets.Submap {}
         }
 
         Widgets.Clock {
@@ -41,6 +46,29 @@ Scope {
             anchors.right: parent.right
 
             Widgets.Tray {}
+
+            Widgets.Script {
+                command: ["dualsense"]
+                ms: 5 * 60 * 1000
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        Quickshell.execDetached(["sh", "-c", "dualsensectl power-off && killall -SIGUSR2 waybar"]);
+                    }
+                }
+            }
+
+            Widgets.Script {
+                command: ["level"]
+                ms: 5 * 60 * 1000
+            }
+
+            Widgets.Pill {
+                Widgets.PowerProfiles {}
+                Widgets.Battery {}
+                Widgets.Brightness {}
+            }
 
             Widgets.Pill {
                 Widgets.Audio {}

@@ -3,13 +3,9 @@ import QtQuick
 import "../config.js" as Config
 
 Pill {
-    Text {
+    BarText {
         id: clock
-
         color: Config.colors.pink
-        font: Config.font
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
 
         Process {
             id: dateProc
