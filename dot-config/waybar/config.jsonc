@@ -43,7 +43,7 @@
         "tooltip": false
     },
     "custom/dualsense": {
-        "exec": "~/.config/waybar/dualsense.sh",
+        "exec": "dualsense",
         "interval": 300,
         "format": "{}",
         "on-click": "dualsensectl power-off && killall -SIGUSR2 waybar",
@@ -69,7 +69,7 @@
         "on-click": "elephant menu system-control"
     },
     "custom/weather": {
-        "exec": "~/.config/waybar/weather.sh",
+        "exec": "weather",
         "interval": 900,
         "format": "{}",
         "hide-empty-text": true,
