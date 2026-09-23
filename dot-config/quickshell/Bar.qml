@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import qs.bar as Widgets
+import "./config.js" as Config
 
 Scope {
     id: root
@@ -31,6 +32,7 @@ Scope {
             Widgets.Script {
                 command: ["weather"]
                 ms: 15 * 90 * 1000
+                textColor: Config.colors.peach
             }
             Widgets.Voxtype {}
             Widgets.Submap {}
@@ -50,6 +52,7 @@ Scope {
             Widgets.Script {
                 command: ["dualsense"]
                 ms: 5 * 60 * 1000
+                textColor: Config.colors.lavender
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
@@ -62,6 +65,8 @@ Scope {
             Widgets.Script {
                 command: ["level"]
                 ms: 5 * 60 * 1000
+                textColor: Config.colors.lavender
+                postfix: " "
             }
 
             Widgets.Pill {

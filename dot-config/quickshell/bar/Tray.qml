@@ -7,6 +7,7 @@ import QtQuick
 Pill {
     id: root
     padding: 5
+    visible: false
 
     Row {
         id: row
@@ -28,6 +29,10 @@ Pill {
                     anchors.centerIn: parent
                     mipmap: true
                 }
+            }
+
+            onCountChanged: {
+                root.visible = count > 0;
             }
         }
     }

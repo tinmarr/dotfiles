@@ -7,10 +7,13 @@ Pill {
     visible: false
     required property list<string> command
     required property int ms
+    property string textColor: Config.colors.text
+    property string prefix: ""
+    property string postfix: ""
 
     BarText {
         id: weather
-        color: Config.colors.peach
+        color: root.textColor
 
         Process {
             id: dateProc
@@ -21,6 +24,8 @@ Pill {
                 onStreamFinished: {
                     weather.text = this.text.trim();
                     root.visible = weather.text != "";
+
+                    weather.text = `${root.prefix}${weather.text}${root.postfix}`;
                 }
             }
         }
