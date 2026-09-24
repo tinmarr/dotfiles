@@ -77,5 +77,7 @@ PanelWindow {
             Widgets.Bluetooth {}
             Widgets.Network {}
         }
+
+        Widgets.DunstDND {}
     }
 }
