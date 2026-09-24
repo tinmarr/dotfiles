@@ -1,14 +1,25 @@
 import Quickshell.Hyprland
+import Quickshell
 import QtQuick
 import "../config.js" as Config
 
 Pill {
     id: root
+    required property var screen
     padding: 0
 
     Row {
         Repeater {
-            model: Hyprland.workspaces
+            model: ScriptModel {
+                values: {
+                    const monitor = Hyprland.monitorFor(root.screen);
+                    return monitor
+                        ? Hyprland.workspaces.values.filter(workspace =>
+                            workspace.monitor && workspace.monitor.name === monitor.name
+                        )
+                        : [];
+                }
+            }
 
             delegate: Rectangle {
                 id: cont

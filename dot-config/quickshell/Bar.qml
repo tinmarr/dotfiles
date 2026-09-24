@@ -4,6 +4,8 @@ import qs.bar as Widgets
 import "./config.js" as Config
 
 PanelWindow {
+    id: root
+
     anchors {
         top: true
         left: true
@@ -25,7 +27,9 @@ PanelWindow {
         anchors.left: parent.left
 
         Widgets.Icon {}
-        Widgets.Workspaces {}
+        Widgets.Workspaces {
+            screen: root.screen
+        }
         Widgets.Script {
             command: ["weather"]
             ms: 15 * 90 * 1000
