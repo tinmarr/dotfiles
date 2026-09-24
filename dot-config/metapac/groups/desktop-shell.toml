@@ -1,7 +1,6 @@
 arch = {
     packages = [
         # status bar
-        "waybar-git",
         "dunst",
         "quickshell",
 

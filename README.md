@@ -4,15 +4,13 @@ I use [GNU Stow](https://www.gnu.org/software/stow/) to manage all my dotfiles s
 
 ## "Tech stack"
 
-![showcase image](https://github.com/tinmarr/dotfiles/blob/main/showcase.png?raw=true)
-
 What do I actually use right now?
 I've used quite a few things in the past and this repo houses all of configs for everything I've configured and used as a daily driver.
 
 ### Current stack:
 
 - _OS_: Arch Linux
-- _WM_: Hyprland
+- _WM_: Hyprland + Quickshell
 - _Text editor/IDE_: Neovim
 - _Terminal Emulator_: Ghostty
 - _Shell_: Fish
