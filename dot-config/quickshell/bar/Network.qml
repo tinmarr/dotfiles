@@ -3,8 +3,10 @@ import QtQuick
 import "../config.js" as Config
 
 Item {
+    id: root
     implicitWidth: childrenRect.width
     implicitHeight: childrenRect.height
+    property string station: "wlan0"
 
     BarText {
         id: icon
@@ -33,9 +35,22 @@ Item {
     }
 
     Process {
+        id: getStation
+        running: true
+        command: ["sh", "-c", "iwctl station list | rg 'wlan\\d' -o"]
+
+        stdout: SplitParser {
+            onRead: data => {
+                root.station = data;
+                setPowerState.running = true;
+            }
+        }
+    }
+
+    Process {
         id: setPowerState
         running: true
-        command: ["iwctl", "station", "wlan0", "show"]
+        command: ["iwctl", "station", root.station, "show"]
 
         stdout: StdioCollector {
             onStreamFinished: {
@@ -51,7 +66,7 @@ Item {
     Process {
         id: setState
         running: false
-        command: ["sh", "-c", "iwctl station wlan0 show | rg '\s*State\s*(.*)' -or '$1' | tr -d ' '"]
+        command: ["sh", "-c", `iwctl station ${root.station} show | rg '\s*State\s*(.*)' -or '$1' | tr -d ' '`]
 
         stdout: SplitParser {
             onRead: data => {
@@ -73,7 +88,7 @@ Item {
     Process {
         id: setRSSI
         running: false
-        command: ["sh", "-c", "iwctl station wlan0 show | rg '\s*AverageRSSI\s*(.*) dBm' -or '$1' | tr -d ' '"]
+        command: ["sh", "-c", `iwctl station ${root.station} show | rg '\s*AverageRSSI\s*(.*) dBm' -or '$1' | tr -d ' '`]
 
         stdout: SplitParser {
             onRead: data => {
