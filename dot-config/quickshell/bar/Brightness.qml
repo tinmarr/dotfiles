@@ -31,6 +31,7 @@ Item {
 
         stdout: StdioCollector {
             onStreamFinished: {
+                root.visible = this.text.trim() != "";
                 icon.text = this.text.trim() + " 󰃠";
             }
         }

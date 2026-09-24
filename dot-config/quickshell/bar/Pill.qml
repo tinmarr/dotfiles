@@ -2,6 +2,7 @@ import QtQuick
 import "../config.js" as Config
 
 Rectangle {
+    id: root
     default property alias contentData: content.data
 
     property bool square: false
@@ -21,5 +22,9 @@ Rectangle {
 
         spacing: 10
         anchors.centerIn: parent
+
+        onVisibleChildrenChanged: {
+            root.visible = this.visibleChildren.length > 0;
+        }
     }
 }

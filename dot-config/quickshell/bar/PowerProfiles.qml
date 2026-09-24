@@ -11,6 +11,7 @@ Item {
         id: icon
         color: Config.colors.peach
         text: {
+            root.visible = PowerProfiles.hasPerformanceProfile;
             switch (PowerProfiles.profile) {
             case PowerProfile.Performance:
                 return "󱐋";

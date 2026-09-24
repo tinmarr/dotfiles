@@ -12,8 +12,11 @@ Item {
         text: {
             let dev = UPower.displayDevice;
 
-            if (!dev.isLaptopBattery)
+            if (!dev.isLaptopBattery) {
+                root.visible = false;
                 return "";
+            }
+            root.visible = true;
 
             let glyphs;
             if (UPower.onBattery) {
