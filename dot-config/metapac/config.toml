@@ -16,8 +16,8 @@ enabled_backends = ["arch", "npm"]
 # Default: false
 hostname_groups_enabled = true
 
-[hostname_enabled_backends]
-martinmac = ["brew"]
+# [hostname_enabled_backends]
+# martinmac = ["brew"]
 
 [arch]
 # Since pacman, paru, pikaur and yay all operate on the same package database
@@ -53,5 +53,3 @@ martinfw = [
     "gaming",
     "hardware-framework",
 ]
-martinsv = ["server"]
-martinmac = ["xx.macos"]
