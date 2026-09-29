@@ -21,7 +21,6 @@ arch = {
         "tmux-plugin-manager",
 
         # misc dev apps
-        "codex-desktop", # managed/installed with make
         "openai-codex",
         "t3code-bin",
         "opencode",
