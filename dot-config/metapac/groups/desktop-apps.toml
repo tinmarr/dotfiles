@@ -16,6 +16,7 @@ arch = {
         "kicad-library",
         "orca-slicer-bin",
         "freecad",
+        "blender",
 
         # media
         "gimp",
