@@ -18,11 +18,14 @@ PanelWindow {
         right: 10
     }
 
-    implicitHeight: 25
+    property int barHeight: 25
+
+    // Leave room below the pills for their antialiased edges.
+    implicitHeight: barHeight + 1
     color: "transparent"
 
     Row {
-        height: parent.height
+        height: root.barHeight
         spacing: 5
         anchors.left: parent.left
 
@@ -40,11 +43,13 @@ PanelWindow {
     }
 
     Widgets.Clock {
-        anchors.centerIn: parent
+        height: root.barHeight
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
     }
 
     Row {
-        height: parent.height
+        height: root.barHeight
         spacing: 5
         anchors.right: parent.right
 

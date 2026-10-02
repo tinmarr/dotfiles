@@ -24,10 +24,30 @@ Pill {
 
                 margin: 4
 
-                IconImage {
+                child: IconImage {
                     source: cont.modelData.icon
-                    anchors.centerIn: parent
                     mipmap: true
+
+                    DropdownMenu {
+                        enabled: cont.modelData.hasMenu
+                        cursorShape: Qt.PointingHandCursor
+                        menuHandle: cont.modelData.menu
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+                        cursorShape: Qt.PointingHandCursor
+
+                        onClicked: mouse => {
+                            if (mouse.button == Qt.LeftButton) {
+                                cont.modelData.activate();
+                            }
+                            if (mouse.button == Qt.MiddleButton) {
+                                cont.modelData.secondaryActivate();
+                            }
+                        }
+                    }
                 }
             }
 

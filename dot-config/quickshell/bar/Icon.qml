@@ -18,6 +18,7 @@ Pill {
 
         MouseArea {
             cursorShape: Qt.PointingHandCursor
+            anchors.fill: parent
             onClicked: onClickProc.running = true
         }
     }
