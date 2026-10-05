@@ -57,8 +57,8 @@ return {
         },
     },
     {
-        "selimacerbas/markdown-preview.nvim",
-        dependencies = { "selimacerbas/live-server.nvim" },
+        "selimacerbas/mdkite.nvim",
+        dependencies = { "selimacerbas/kitehost.nvim" },
         ft = { "markdown", "mermaid" },
         config = {
             -- all optional; sane defaults shown
@@ -74,28 +74,4 @@ return {
             },
         },
     },
-    -- {
-    --     "fmorroni/peek.nvim",
-    --     branch = "callouts",
-    --     -- original repo
-    --     -- "toppair/peek.nvim",
-    --     build = vim.fn.stdpath("data") .. "/mason/bin/deno task --quiet build:fast",
-    --     ft = { "markdown" },
-    --     opts = {
-    --         theme = "light",
-    --         auto_load = false,
-    --         app = { "zen-browser", "-P", "preview", "--new-window" },
-    --     },
-    --     config = function(_, opts)
-    --         require("peek").setup(opts)
-    --         vim.api.nvim_create_user_command("PeekToggle", function()
-    --             local p = require("peek")
-    --             if p.is_open() then
-    --                 p.close()
-    --             else
-    --                 p.open()
-    --             end
-    --         end, {})
-    --     end,
-    -- },
 }
