@@ -1,8 +1,16 @@
 import Quickshell.Io
 import QtQuick
+import "../notifications" as Notifications
 import "../config.js" as Config
 
 Pill {
+    id: root
+    required property var screen
+    property var criticalPopup: Notifications.CriticalNotifications {
+        pill: root
+        targetScreen: root.screen
+    }
+
     BarText {
         id: clock
         color: Config.colors.pink

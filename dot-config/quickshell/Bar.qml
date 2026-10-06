@@ -43,6 +43,7 @@ PanelWindow {
     }
 
     Widgets.Clock {
+        screen: root.screen
         height: root.barHeight
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -87,6 +88,6 @@ PanelWindow {
             Widgets.Network {}
         }
 
-        Widgets.DunstDND {}
+        Widgets.NotificationDND {}
     }
 }

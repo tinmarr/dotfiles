@@ -14,8 +14,12 @@ Item {
     property Pill pill: null
     property Item sourceItem: parent
     property bool dismissOnOutsideClick: true
+    property bool dismissOnEscape: true
     property int padding: 5
     property int horizontalPadding: padding
+    // Reserve a stable Wayland surface for content whose height is animated.
+    property real reservedBodyHeight: 0
+    readonly property real expandedHeight: body.implicitHeight + headerHeight + padding * 2
     readonly property alias headerItem: header
     readonly property bool opened: popupWindow.visible && !popupWindow.closing
     readonly property real headerHeight: pill ? pill.height : 0
@@ -50,8 +54,8 @@ Item {
 
     Rectangle {
         parent: root.sourceItem
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.bottom
+        anchors.horizontalCenter: parent ? parent.horizontalCenter : undefined
+        anchors.top: parent ? parent.bottom : undefined
         anchors.topMargin: 2
         width: 3
         height: 3
@@ -73,9 +77,10 @@ Item {
             header.x = point.x - anchor.rect.x - header.width / 2;
         }
         implicitWidth: Math.max(root.pill ? root.pill.width + 48 : 80, body.implicitWidth + root.horizontalPadding * 2)
-        implicitHeight: body.implicitHeight + root.headerHeight + root.padding * 2
+        implicitHeight: (root.reservedBodyHeight > 0 ? root.reservedBodyHeight : body.implicitHeight) + root.headerHeight + root.padding * 2
         color: "transparent"
         visible: false
+        mask: Region { item: surface }
         // Own dismissal so the surface can contract before it is hidden.
         grabFocus: false
         property bool closing: false
@@ -130,7 +135,7 @@ Item {
             id: surface
             x: header.x * (1 - popupWindow.reveal)
             width: header.width + (popupWindow.width - header.width) * popupWindow.reveal
-            height: root.headerHeight + (popupWindow.height - root.headerHeight) * popupWindow.reveal
+            height: root.headerHeight + (root.expandedHeight - root.headerHeight) * popupWindow.reveal
             color: Config.theme.bg
             border.color: Config.border.color
             border.width: Config.border.width
@@ -140,7 +145,7 @@ Item {
         Item {
             id: header
             focus: true
-            Keys.onEscapePressed: root.close()
+            Keys.onEscapePressed: { if (root.dismissOnEscape) root.close(); }
             width: root.pill ? root.pill.width : 0
             height: root.headerHeight
         }

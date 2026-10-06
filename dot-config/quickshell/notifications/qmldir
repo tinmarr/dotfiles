@@ -1,0 +1,4 @@
+singleton Service 1.0 Service.qml
+NotificationCard 1.0 NotificationCard.qml
+NotificationStack 1.0 NotificationStack.qml
+CriticalNotifications 1.0 CriticalNotifications.qml

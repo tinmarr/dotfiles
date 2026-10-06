@@ -362,13 +362,13 @@ end)
 -- Notification Submap
 hl.bind(mainMod .. " + n", hl.dsp.submap("notif"))
 hl.define_submap("notif", "reset", function()
-    hl.bind("c", hl.dsp.exec_cmd("dunstctl close-all"))
-    hl.bind("p", hl.dsp.exec_cmd("dunstctl set-paused toggle"))
-    hl.bind("x", hl.dsp.exec_cmd("dunstctl history-clear"))
-    hl.bind("a", hl.dsp.exec_cmd("dunstctl action 0"))
+    hl.bind("c", hl.dsp.exec_cmd("qs ipc call notifications closeAll"))
+    hl.bind("p", hl.dsp.exec_cmd("qs ipc call notifications togglePaused"))
+    hl.bind("x", hl.dsp.exec_cmd("qs ipc call notifications clearHistory"))
+    hl.bind("a", hl.dsp.exec_cmd("qs ipc call notifications action 0"))
     for i = 1, 10 do
         local key = i % 10
-        hl.bind(tostring(key), hl.dsp.exec_cmd("dunstctl action " .. (i - 1)))
+        hl.bind(tostring(key), hl.dsp.exec_cmd("qs ipc call notifications action " .. (i - 1)))
     end
     hl.bind("escape", hl.dsp.submap("reset"))
     hl.bind("catchall", hl.dsp.submap("reset"))
