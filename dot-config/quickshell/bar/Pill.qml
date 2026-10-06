@@ -5,17 +5,27 @@ Rectangle {
     id: root
     default property alias contentData: content.data
 
+    property var activePopup: null
+    property bool relocatingContent: false
+
     property bool square: false
     property int padding: parent.height / 2
 
-    border.color: Config.border.color
+    border.color: activePopup ? "transparent" : Config.border.color
     border.width: Config.border.width
     radius: parent.height / 2
 
-    color: Config.theme.bg
+    color: activePopup ? "transparent" : Config.theme.bg
 
     implicitHeight: parent.height
     implicitWidth: square ? parent.height : content.implicitWidth + (padding * 2)
+
+    // Keep the live icons and their hitboxes inside the expanded surface.
+    onActivePopupChanged: {
+        relocatingContent = true;
+        content.parent = activePopup ? activePopup.headerItem : root;
+        relocatingContent = false;
+    }
 
     Row {
         id: content
@@ -24,7 +34,8 @@ Rectangle {
         anchors.centerIn: parent
 
         onVisibleChildrenChanged: {
-            root.visible = this.visibleChildren.length > 0;
+            if (!root.activePopup && !root.relocatingContent)
+                root.visible = this.visibleChildren.length > 0;
         }
     }
 }

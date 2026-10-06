@@ -29,6 +29,7 @@ Pill {
                     mipmap: true
 
                     DropdownMenu {
+                        parentPill: root
                         enabled: cont.modelData.hasMenu
                         cursorShape: Qt.PointingHandCursor
                         menuHandle: cont.modelData.menu
