@@ -7,6 +7,8 @@ export QT_IM_MODULES="wayland;fcitx;ibus"
 # QT stuff
 export QT_QPA_PLATFORMTHEME=qt6ct
 export QT_QPA_PLATFORM=wayland
+# Keep Hyprland's blur behavior with GTK 4.24's background effect protocol
+export GDK_WAYLAND_DISABLE=ext_background_effect_manager_v1
 # Cursor
 export XCURSOR_SIZE=32
 # app2unit
