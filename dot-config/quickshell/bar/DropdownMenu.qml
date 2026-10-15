@@ -53,8 +53,8 @@ Item {
 
     IslandPopup {
         id: popup
+        cornerRadius: 5
         sourceItem: root
-        horizontalPadding: Config.border.width
 
         ColumnLayout {
             spacing: 0
@@ -88,7 +88,7 @@ Item {
                     required property int index
                     required property var modelData
                     readonly property bool separator: root.menuHandle && modelData.isSeparator
-                    radius: 5
+                    radius: 3
                     color: hitbox.containsMouse && !separator ? Config.colors.surface0 : "transparent"
                     implicitWidth: separator ? 30 : actionContent.implicitWidth
                     implicitHeight: separator ? Config.border.width + 6 : actionContent.implicitHeight
