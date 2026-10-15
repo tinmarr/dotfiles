@@ -6,7 +6,6 @@ arch = {
         # system control
         "wiremix",
         "impala",
-        # "bluetui", <- managed by my own fork
 
         # run launcher
         "walker",

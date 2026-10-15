@@ -6,18 +6,35 @@ Rectangle {
     default property alias contentData: content.data
 
     property var activePopup: null
+    property var popupSnapshot: null
     property bool square: false
     property int padding: parent.height / 2
 
-    border.color: activePopup ? "transparent" : Config.border.color
+    border.color: Config.border.color
     border.width: Config.border.width
     radius: parent.height / 2
 
     visible: activePopup !== null || content.visibleChildren.length > 0
-    color: activePopup ? "transparent" : Config.theme.bg
+    color: Config.theme.bg
 
     implicitHeight: parent.height
     implicitWidth: square ? parent.height : content.implicitWidth + (padding * 2)
+
+    function preparePopup(callback) {
+        content.grabToImage(result => {
+            popupSnapshot = result;
+            callback();
+        });
+    }
+
+    // Cover the gap between moving the controls and the popup being mapped.
+    Image {
+        anchors.centerIn: parent
+        width: content.width
+        height: content.height
+        source: root.popupSnapshot ? root.popupSnapshot.url : ""
+        visible: root.activePopup !== null
+    }
 
     // Keep the live icons and their hitboxes inside the expanded surface.
     onActivePopupChanged: {

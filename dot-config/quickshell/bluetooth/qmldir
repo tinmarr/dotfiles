@@ -1,0 +1,4 @@
+module qs.bluetooth
+singleton Service 1.0 Service.qml
+ActionButton 1.0 ActionButton.qml
+Manager 1.0 Manager.qml

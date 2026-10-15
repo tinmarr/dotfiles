@@ -11,10 +11,12 @@ Item {
     id: root
     default property alias content: body.child
 
+    property string title: ""
     property Pill pill: null
     property Item sourceItem: parent
     property bool dismissOnOutsideClick: true
     property bool dismissOnEscape: true
+    property real cornerRadius: 16
     property int padding: 5
     property int horizontalPadding: padding
     // Reserve a stable Wayland surface for content whose height is animated.
@@ -25,6 +27,13 @@ Item {
     readonly property real headerHeight: pill ? pill.height : 0
 
     function open() {
+        if (!popupWindow.visible && pill)
+            pill.preparePopup(() => root.showPopup());
+        else
+            showPopup();
+    }
+
+    function showPopup() {
         transition.stop();
         popupWindow.closing = false;
         if (popupWindow.visible) {
@@ -81,7 +90,7 @@ Item {
         color: "transparent"
         visible: false
         mask: Region { item: surface }
-        // Own dismissal so the surface can contract before it is hidden.
+        // Hyprland grabs also work when opened by IPC without prior pointer input.
         grabFocus: false
         property bool closing: false
         property real reveal: 0
@@ -139,7 +148,7 @@ Item {
             color: Config.theme.bg
             border.color: Config.border.color
             border.width: Config.border.width
-            radius: root.headerHeight / 2 + (16 - root.headerHeight / 2) * popupWindow.reveal
+            radius: root.headerHeight / 2 + (root.cornerRadius - root.headerHeight / 2) * popupWindow.reveal
         }
 
         Item {
@@ -150,13 +159,28 @@ Item {
             height: root.headerHeight
         }
 
+        // Keep content inside the background throughout the reveal.
         Item {
             id: revealClip
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.right: parent.right
+            x: surface.x
+            width: surface.width
             height: surface.height
             clip: true
+        }
+
+        Text {
+            parent: revealClip
+            x: root.horizontalPadding - revealClip.x
+            width: Math.max(0, header.x - root.horizontalPadding * 2)
+            height: root.headerHeight
+            text: root.title
+            color: Config.border.color
+            font.bold: true
+            font.family: Config.font.family
+            font.pointSize: Config.font.pointSize
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+            opacity: body.opacity
         }
 
         WrapperItem {
@@ -164,7 +188,7 @@ Item {
             parent: revealClip
             opacity: Math.max(0, Math.min(1, (popupWindow.reveal - 0.25) / 0.75))
             enabled: !popupWindow.closing && popupWindow.reveal > 0.7
-            x: root.horizontalPadding
+            x: root.horizontalPadding - revealClip.x
             y: root.headerHeight + root.padding
             width: popupWindow.width - root.horizontalPadding * 2
         }

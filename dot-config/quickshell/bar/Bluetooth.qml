@@ -1,39 +1,42 @@
 import Quickshell.Bluetooth
-import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
+import "../bluetooth" as BluetoothUi
 import "../config.js" as Config
 
 Item {
     id: root
-    implicitWidth: childrenRect.width
-    implicitHeight: childrenRect.height
+    implicitWidth: icon.implicitWidth
+    implicitHeight: icon.implicitHeight
+    property Pill pill: null
+    property string screenName: ""
+    readonly property var adapter: BluetoothUi.Service.adapter
 
-    property var adapter: Bluetooth.defaultAdapter
-
+    function toggle() { if (popup.opened) popup.close(); else popup.open(); }
     BarText {
         id: icon
         color: Config.colors.teal
-
-        text: {
-            if (root.adapter == null) {
-                return "󰂲";
-            }
-
-            let numConnected = Bluetooth.devices.values.reduce((t, v) => t + (v.connected ? 1 : 0), 0);
-
-            return root.adapter.enabled ? numConnected == 0 ? "󰂯" : "󰂱" : "󰂲";
-        }
+        text: !root.adapter || !root.adapter.enabled ? "󰂲" : Bluetooth.devices.values.some(d => d.connected) ? "󰂱" : "󰂯"
     }
-
     MouseArea {
         anchors.fill: parent
-        onClicked: bluetui.running = true
+        onClicked: root.toggle()
         cursorShape: Qt.PointingHandCursor
     }
-
-    Process {
-        id: bluetui
-        running: false
-        command: ["ghostty", "+new-window", "--title='-float-'", "-e", "bluetui"]
+    IslandPopup {
+        id: popup
+        title: "Bluetooth"
+        pill: root.pill
+        sourceItem: root
+        cornerRadius: 5
+        dismissOnEscape: false
+        padding: 12
+        BluetoothUi.Manager { opened: popup.opened; onDismiss: popup.close() }
+    }
+    Connections {
+        target: BluetoothUi.Service
+        function onToggleRequested() {
+            if (!Hyprland.focusedMonitor || Hyprland.focusedMonitor.name === root.screenName) root.toggle();
+        }
     }
 }
