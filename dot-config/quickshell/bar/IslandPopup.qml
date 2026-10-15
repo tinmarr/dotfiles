@@ -21,7 +21,7 @@ Item {
     property int horizontalPadding: padding
     // Reserve a stable Wayland surface for content whose height is animated.
     property real reservedBodyHeight: 0
-    readonly property real expandedHeight: Math.ceil(body.implicitHeight + headerHeight + padding * 2)
+    readonly property real expandedHeight: body.implicitHeight + headerHeight + padding * 2
     readonly property alias headerItem: header
     readonly property bool opened: popupWindow.visible && !popupWindow.closing
     readonly property real headerHeight: pill ? pill.height : 0
@@ -85,8 +85,10 @@ Item {
             anchor.rect.y = point.y;
             header.x = point.x - anchor.rect.x - header.width / 2;
         }
-        implicitWidth: Math.ceil(Math.max(root.pill ? root.pill.width + 48 : 80, body.implicitWidth + root.horizontalPadding * 2))
-        implicitHeight: Math.ceil((root.reservedBodyHeight > 0 ? root.reservedBodyHeight : body.implicitHeight) + root.headerHeight + root.padding * 2)
+        implicitWidth: Math.max(root.pill ? root.pill.width + 48 : 80, body.implicitWidth + root.horizontalPadding * 2)
+        // Leave room for the bottom antialiased edge at fractional display scales.
+        // Keep the background, reveal clip and input mask at their content size.
+        implicitHeight: (root.reservedBodyHeight > 0 ? root.reservedBodyHeight : body.implicitHeight) + root.headerHeight + root.padding * 2 + 1
         color: "transparent"
         visible: false
         mask: Region { item: surface }
@@ -148,7 +150,6 @@ Item {
             color: Config.theme.bg
             border.color: Config.border.color
             border.width: Config.border.width
-            border.pixelAligned: false
             radius: root.headerHeight / 2 + (root.cornerRadius - root.headerHeight / 2) * popupWindow.reveal
         }
 
