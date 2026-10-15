@@ -12,6 +12,7 @@ Rectangle {
 
     border.color: Config.border.color
     border.width: Config.border.width
+    border.pixelAligned: false
     radius: parent.height / 2
 
     visible: activePopup !== null || content.visibleChildren.length > 0
