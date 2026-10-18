@@ -28,6 +28,7 @@ arch = {
         },
         "python-openai-whisper",
         "github-cli",
+        "cloudflare-cf",
         "direnv",
 
         # languages
