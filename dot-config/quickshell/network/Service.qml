@@ -1,6 +1,7 @@
 pragma Singleton
 import Quickshell
 import Quickshell.Io
+import "../widgets" as Widgets
 import QtQuick
 
 Singleton {
@@ -17,28 +18,19 @@ Singleton {
     signal toggleRequested()
     function send(action, args = {}) {
         if (!backend.running) { error = "Wi-Fi service stopped. Reopen the popup to retry."; return; }
-        args.action = action;
-        backend.write(JSON.stringify(args) + "\n");
+        backend.request(action, args);
     }
-    function refresh() {
-        if (!backend.running) backend.running = true;
-        else send("refresh");
-    }
-    Process {
+    function refresh() { backend.refresh(); }
+    Widgets.JsonProcess {
         id: backend
+        label: "Wi-Fi"
         command: ["python", "-u", Qt.resolvedUrl("backend.py").toString().replace("file://", "")]
-        running: true
-        stdinEnabled: true
-        stdout: SplitParser {
-            onRead: data => {
-                try {
-                    const update = JSON.parse(data);
-                    for (const key of Object.keys(update)) root[key] = update[key];
-                } catch (error) { root.error = "Invalid Wi-Fi service response."; }
-            }
+        onInvalidResponse: root.error = "Invalid Wi-Fi service response."
+        onResponse: update => {
+            for (const key of ["devices", "networks", "device", "state", "powered", "scanning", "busy", "error", "prompt"])
+                if (Object.prototype.hasOwnProperty.call(update, key)) root[key] = update[key];
         }
-        stderr: SplitParser { onRead: data => console.warn("Wi-Fi backend: " + data) }
-        onExited: { root.busy = false; root.prompt = ""; root.state = "unavailable"; root.error = "Wi-Fi service stopped. Requires python-gobject and iwd."; }
+        onBackendExited: { root.busy = false; root.prompt = ""; root.state = "unavailable"; root.error = "Wi-Fi service stopped. Requires python-gobject and iwd."; }
     }
     IpcHandler {
         target: "network"

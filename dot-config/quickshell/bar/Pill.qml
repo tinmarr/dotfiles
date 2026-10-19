@@ -21,6 +21,14 @@ Rectangle {
     implicitHeight: parent.height
     implicitWidth: square ? parent.height : content.implicitWidth + (padding * 2)
 
+    function attachPopup(popup) {
+        if (activePopup && activePopup !== popup) activePopup.close(true);
+        activePopup = popup;
+    }
+    function detachPopup(popup) {
+        if (activePopup === popup) activePopup = null;
+    }
+
     function preparePopup(callback) {
         const size = Qt.size(content.width, content.height);
         content.grabToImage(result => {

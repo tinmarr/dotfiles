@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../bluetooth" as BluetoothUi
+import "../widgets" as Widgets
 import "../config.js" as Config
 
 FocusScope {
@@ -25,15 +25,11 @@ FocusScope {
         }
     }
     function focusMenu() {
-        portSelector.focus = false;
-        routeSelector.focus = false;
-        profileSelector.focus = false;
+        configuration.focus = false;
         root.forceActiveFocus();
     }
     onKindChanged: {
-        portSelector.popup.close();
-        routeSelector.popup.close();
-        profileSelector.popup.close();
+        configuration.popup.close();
         focusMenu();
         selectedId = "";
         Qt.callLater(() => { ensureSelection(); focusMenu(); });
@@ -43,17 +39,9 @@ FocusScope {
     function send(action, value) {
         if (selected && (tab < 4 || action === "profile")) Service.send(action, {kind: kind, id: selected.id, value: value});
     }
-    function move(delta) {
-        if (!items.length) return;
-        const index = (items.findIndex(item => item.id === selectedId) + delta + items.length) % items.length;
-        selectedId = items[index].id;
-        list.positionViewAtIndex(index, ListView.Contain);
-    }
     function configure() {
         if (!selected) return;
-        const control = tab === 4 ? profileSelector : tab < 2 ? portSelector : routeSelector;
-        if (!control.visible || !control.count) return;
-        control.openMenu();
+        configuration.openMenu();
     }
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
@@ -67,8 +55,8 @@ FocusScope {
         }
         switch (event.key) {
         case Qt.Key_Escape: case Qt.Key_Q: root.dismiss(); break;
-        case Qt.Key_J: case Qt.Key_Down: move(1); break;
-        case Qt.Key_K: case Qt.Key_Up: move(-1); break;
+        case Qt.Key_J: case Qt.Key_Down: list.move(1); break;
+        case Qt.Key_K: case Qt.Key_Up: list.move(-1); break;
         case Qt.Key_H: case Qt.Key_Left: tab = (tab + kinds.length - 1) % kinds.length; break;
         case Qt.Key_L: case Qt.Key_Right: tab = (tab + 1) % kinds.length; break;
         case Qt.Key_M: send("mute"); break;
@@ -93,7 +81,7 @@ FocusScope {
         RowLayout {
             Repeater {
                 model: ["Outputs", "Inputs", "Playback", "Recording", "Profiles"]
-                BluetoothUi.ActionButton {
+                Widgets.ActionButton {
                     required property int index
                     required property string modelData
                     text: modelData
@@ -110,39 +98,16 @@ FocusScope {
             font.family: Config.font.family
             wrapMode: Text.WordWrap
         }
-        ListView {
+        Widgets.DeviceList {
             id: list
-            Layout.fillWidth: true
-            Layout.preferredHeight: Math.min(280, contentHeight)
-            clip: true
-            spacing: 3
             model: root.items
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar {}
-            delegate: Rectangle {
-                id: row
-                required property var modelData
-                width: list.width
-                height: 55
-                radius: 5
-                color: root.selectedId === modelData.id ? Config.colors.surface0 : hitbox.containsMouse ? Config.colors.mantle : "transparent"
-                border.width: root.selectedId === modelData.id ? 1 : 0
-                border.color: Config.colors.surface2
-                Column {
-                    anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 10 }
-                    spacing: 3
-                    Text { width: parent.width; text: row.modelData.label; elide: Text.ElideRight; color: row.modelData.default ? Config.colors.yellow : Config.colors.text; font.family: Config.font.family; font.pointSize: Config.font.pointSize }
-                    Text { text: root.tab === 4 ? row.modelData.profileLabel : (row.modelData.default ? "Default · " : "") + (row.modelData.muted ? "Muted" : row.modelData.volume + "%"); color: Config.colors.subtext0; font.family: Config.font.family; font.pointSize: Config.font.pointSize - 1 }
-                }
-                MouseArea {
-                    id: hitbox
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: { root.selectedId = row.modelData.id; root.forceActiveFocus(); }
-                    onDoubleClicked: root.configure()
-                }
-            }
+            keyRole: "id"
+            selectedKey: root.selectedId
+            titleFor: item => item.label
+            subtitleFor: item => root.tab === 4 ? item.profileLabel : (item.default ? "Default · " : "") + (item.muted ? "Muted" : item.volume + "%")
+            colorFor: item => item.default ? Config.colors.yellow : Config.colors.text
+            onSelected: (key, byMouse) => { root.selectedId = key; if (byMouse) root.forceActiveFocus(); }
+            onActivated: root.configure()
         }
         RowLayout {
             visible: root.tab < 4
@@ -212,41 +177,22 @@ FocusScope {
                 }
                 Accessible.name: "Volume"
             }
-            BluetoothUi.ActionButton { text: root.selected && root.selected.muted ? "Unmute" : "Mute"; onClicked: root.send("mute") }
-            BluetoothUi.ActionButton { visible: root.tab < 2; text: "Set default"; enabled: !!root.selected && !root.selected.default; onClicked: root.send("default") }
+            Widgets.ActionButton { text: root.selected && root.selected.muted ? "Unmute" : "Mute"; onClicked: root.send("mute") }
+            Widgets.ActionButton { visible: root.tab < 2; text: "Set default"; enabled: !!root.selected && !root.selected.default; onClicked: root.send("default") }
         }
         DeviceSelector {
-            id: portSelector
+            id: configuration
             onMenuClosed: root.focusMenu()
             Layout.fillWidth: true
-            visible: root.tab < 2 && count > 0
-            model: root.selected && root.tab < 2 ? root.selected.ports : []
+            readonly property string optionKey: root.tab === 4 ? "profile" : root.tab < 2 ? "port" : "device"
+            readonly property string action: root.tab === 4 ? "profile" : root.tab < 2 ? "port" : "move"
+            readonly property string valueKey: root.tab >= 2 && root.tab < 4 ? "id" : "name"
+            visible: !!root.selected && count > 0
+            model: !root.selected ? [] : root.tab === 4 ? root.selected.profiles : root.tab < 2 ? root.selected.ports : root.devices
             textRole: "label"
-            selectedIndex: root.selected && root.tab < 2 ? root.selected.ports.findIndex(port => port.name === root.selected.port) : -1
-            onActivated: index => root.send("port", model[index].name)
-            Accessible.name: "Device port"
-        }
-        DeviceSelector {
-            id: routeSelector
-            onMenuClosed: root.focusMenu()
-            Layout.fillWidth: true
-            visible: root.tab >= 2 && root.tab < 4 && !!root.selected
-            model: root.devices
-            textRole: "label"
-            selectedIndex: root.selected ? root.devices.findIndex(device => device.id === root.selected.device) : -1
-            onActivated: index => root.send("move", root.devices[index].id)
-            Accessible.name: "Route application to device"
-        }
-        DeviceSelector {
-            id: profileSelector
-            onMenuClosed: root.focusMenu()
-            Layout.fillWidth: true
-            visible: root.tab === 4 && !!root.selected
-            model: root.selected && root.tab === 4 ? root.selected.profiles : []
-            textRole: "label"
-            selectedIndex: root.selected && root.tab === 4 ? root.selected.profiles.findIndex(profile => profile.name === root.selected.profile) : -1
-            onActivated: index => root.send("profile", model[index].name)
-            Accessible.name: "Device profile"
+            selectedIndex: root.selected ? model.findIndex(option => option[valueKey] === root.selected[optionKey]) : -1
+            onActivated: index => root.send(action, model[index][valueKey])
+            Accessible.name: root.tab === 4 ? "Device profile" : root.tab < 2 ? "Device port" : "Route application to device"
         }
         Text {
             Layout.fillWidth: true

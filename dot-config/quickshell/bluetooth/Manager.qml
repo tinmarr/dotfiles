@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "../config.js" as Config
+import "../widgets" as Widgets
 
 FocusScope {
     id: root
@@ -44,12 +45,6 @@ FocusScope {
             forgetPath = "";
         }
     }
-    function moveSelection(delta) {
-        if (!devices.length) return;
-        const index = devices.findIndex(d => d.dbusPath === selectedPath);
-        selectedPath = devices[(index + delta + devices.length) % devices.length].dbusPath;
-        list.positionViewAtIndex((index + delta + devices.length) % devices.length, ListView.Contain);
-    }
     function activateSelected() {
         if (!selected || !adapter || !adapter.enabled) return;
         if (selected.pairing) selected.cancelPair();
@@ -74,13 +69,13 @@ FocusScope {
         if (event.key === Qt.Key_Escape) {
             if (forgetPath) forgetPath = "";
             else root.dismiss();
-        } else if (event.key === Qt.Key_Down) moveSelection(1);
-        else if (event.key === Qt.Key_Up) moveSelection(-1);
+        } else if (event.key === Qt.Key_Down) list.move(1);
+        else if (event.key === Qt.Key_Up) list.move(-1);
         else {
             if (editing) return;
             switch (event.key) {
-            case Qt.Key_J: moveSelection(1); break;
-            case Qt.Key_K: moveSelection(-1); break;
+            case Qt.Key_J: list.move(1); break;
+            case Qt.Key_K: list.move(-1); break;
             case Qt.Key_Left:
             case Qt.Key_H: savedOnly = true; break;
             case Qt.Key_Right:
@@ -109,7 +104,7 @@ FocusScope {
             visible: Bluetooth.adapters.values.length > 1
             Repeater {
                 model: Bluetooth.adapters.values
-                ActionButton {
+                Widgets.ActionButton {
                     required property var modelData
                     text: modelData.name
                     highlighted: root.adapter === modelData
@@ -118,15 +113,15 @@ FocusScope {
             }
         }
         RowLayout {
-            ActionButton { text: "Saved"; highlighted: root.savedOnly; onClicked: root.savedOnly = true }
-            ActionButton { text: "All devices"; highlighted: !root.savedOnly; onClicked: root.savedOnly = false }
+            Widgets.ActionButton { text: "Saved"; highlighted: root.savedOnly; onClicked: root.savedOnly = true }
+            Widgets.ActionButton { text: "All devices"; highlighted: !root.savedOnly; onClicked: root.savedOnly = false }
             Item { Layout.fillWidth: true }
-            ActionButton {
+            Widgets.ActionButton {
                 text: root.adapter && root.adapter.discovering ? "Stop scan" : "Scan"
                 enabled: !!root.adapter && root.adapter.enabled && (!root.adapter.discovering || Service.ownsScan)
                 onClicked: { root.savedOnly = false; Service.scan(); }
             }
-            ActionButton { text: root.adapter && root.adapter.enabled ? "On" : "Off"; enabled: !!root.adapter; onClicked: { Service.stopScan(); root.adapter.enabled = !root.adapter.enabled; } }
+            Widgets.ActionButton { text: root.adapter && root.adapter.enabled ? "On" : "Off"; enabled: !!root.adapter; onClicked: { Service.stopScan(); root.adapter.enabled = !root.adapter.enabled; } }
         }
         TextField {
             id: search
@@ -152,55 +147,27 @@ FocusScope {
             font.family: Config.font.family
             padding: 8
         }
-        ListView {
+        Widgets.DeviceList {
             id: list
-            Layout.fillWidth: true
-            Layout.preferredHeight: Math.min(280, contentHeight)
-            clip: true
-            spacing: 3
             model: root.devices
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar {}
-            delegate: Rectangle {
-                id: row
-                required property var modelData
-                width: list.width
-                height: 55
-                radius: 5
-                color: root.selectedPath === modelData.dbusPath ? Config.colors.surface0 : hitbox.containsMouse ? Config.colors.mantle : "transparent"
-                border.width: root.selectedPath === modelData.dbusPath ? 1 : 0
-                border.color: Config.colors.surface2
-                Column {
-                    anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 10 }
-                    spacing: 3
-                    Text { width: parent.width; text: row.modelData.name || row.modelData.address; elide: Text.ElideRight; color: row.modelData.connected ? Config.colors.teal : Config.colors.text; font.family: Config.font.family; font.pointSize: Config.font.pointSize }
-                    Text {
-                        width: parent.width
-                        elide: Text.ElideRight
-                        text: row.modelData.address + " · " + (row.modelData.pairing ? "Pairing…" : BluetoothDeviceState.toString(row.modelData.state)) + (row.modelData.paired ? " · Paired" : "") + (row.modelData.trusted ? " · Trusted" : "") + (row.modelData.batteryAvailable ? " · " + Math.round(row.modelData.battery * 100) + "%" : "")
-                        color: Config.colors.subtext0; font.family: Config.font.family; font.pointSize: Config.font.pointSize - 1
-                    }
-                }
-                MouseArea {
-                    id: hitbox
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: { root.selectedPath = row.modelData.dbusPath; root.forceActiveFocus(); }
-                    onDoubleClicked: root.activateSelected()
-                }
-            }
+            keyRole: "dbusPath"
+            selectedKey: root.selectedPath
+            titleFor: item => item.name || item.address
+            subtitleFor: item => item.address + " · " + (item.pairing ? "Pairing…" : BluetoothDeviceState.toString(item.state)) + (item.paired ? " · Paired" : "") + (item.trusted ? " · Trusted" : "") + (item.batteryAvailable ? " · " + Math.round(item.battery * 100) + "%" : "")
+            colorFor: item => item.connected ? Config.colors.teal : Config.colors.text
+            onSelected: (key, byMouse) => { root.selectedPath = key; if (byMouse) root.forceActiveFocus(); }
+            onActivated: root.activateSelected()
         }
         RowLayout {
             Layout.fillWidth: true
             enabled: !!root.selected && !!root.adapter && root.adapter.enabled
-            ActionButton {
+            Widgets.ActionButton {
                 text: !root.selected ? "Pair" : root.selected.pairing ? "Cancel pair" : root.selected.connected ? "Disconnect" : root.selected.paired ? "Connect" : "Pair"
                 enabled: !!root.selected && (!root.busy || root.selected.pairing)
                 onClicked: root.activateSelected()
             }
-            ActionButton { text: root.selected && root.selected.trusted ? "Untrust" : "Trust"; onClicked: root.selected.trusted = !root.selected.trusted }
-            ActionButton { text: root.forgetPath ? "Confirm?" : "Forget"; enabled: !root.busy; onClicked: root.forgetSelected() }
+            Widgets.ActionButton { text: root.selected && root.selected.trusted ? "Untrust" : "Trust"; onClicked: root.selected.trusted = !root.selected.trusted }
+            Widgets.ActionButton { text: root.forgetPath ? "Confirm?" : "Forget"; enabled: !root.busy; onClicked: root.forgetSelected() }
         }
         Text {
             Layout.fillWidth: true

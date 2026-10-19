@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../bluetooth" as BluetoothUi
+import "../widgets" as Widgets
 import "../config.js" as Config
 
 FocusScope {
@@ -37,12 +37,6 @@ FocusScope {
                 else password.forceActiveFocus();
             } else if (root.opened) root.forceActiveFocus();
         }
-    }
-    function move(delta) {
-        if (!networks.length) return;
-        const index = (networks.findIndex(n => n.path === selectedPath) + delta + networks.length) % networks.length;
-        selectedPath = networks[index].path;
-        list.positionViewAtIndex(index, ListView.Contain);
     }
     function activate() {
         if (!selected || Service.busy || !Service.powered) return;
@@ -84,13 +78,13 @@ FocusScope {
             else if (searching) { searching = false; root.forceActiveFocus(); }
             else if (forgetPath) forgetPath = "";
             else root.dismiss();
-        } else if (search.activeFocus && event.key === Qt.Key_Down) move(1);
-        else if (search.activeFocus && event.key === Qt.Key_Up) move(-1);
+        } else if (search.activeFocus && event.key === Qt.Key_Down) list.move(1);
+        else if (search.activeFocus && event.key === Qt.Key_Up) list.move(-1);
         else {
             if (editing) return;
             switch (event.key) {
-            case Qt.Key_J: case Qt.Key_Down: move(1); break;
-            case Qt.Key_K: case Qt.Key_Up: move(-1); break;
+            case Qt.Key_J: case Qt.Key_Down: list.move(1); break;
+            case Qt.Key_K: case Qt.Key_Up: list.move(-1); break;
             case Qt.Key_H: case Qt.Key_Left: savedOnly = true; break;
             case Qt.Key_L: case Qt.Key_Right: savedOnly = false; break;
             case Qt.Key_S: scan(); break;
@@ -112,7 +106,7 @@ FocusScope {
             visible: Service.devices.length > 1
             Repeater {
                 model: Service.devices
-                BluetoothUi.ActionButton {
+                Widgets.ActionButton {
                     required property var modelData
                     text: modelData.name
                     highlighted: modelData.path === Service.device
@@ -122,11 +116,11 @@ FocusScope {
             }
         }
         RowLayout {
-            BluetoothUi.ActionButton { text: "Saved"; highlighted: root.savedOnly; onClicked: root.savedOnly = true }
-            BluetoothUi.ActionButton { text: "All networks"; highlighted: !root.savedOnly; onClicked: root.savedOnly = false }
+            Widgets.ActionButton { text: "Saved"; highlighted: root.savedOnly; onClicked: root.savedOnly = true }
+            Widgets.ActionButton { text: "All networks"; highlighted: !root.savedOnly; onClicked: root.savedOnly = false }
             Item { Layout.fillWidth: true }
-            BluetoothUi.ActionButton { text: Service.scanning ? "Scanning…" : "Scan"; enabled: Service.powered && !Service.scanning && !Service.busy; onClicked: root.scan() }
-            BluetoothUi.ActionButton { text: Service.powered ? "On" : "Off"; enabled: Service.devices.length > 0 && !Service.busy; onClicked: Service.send("power", {value: !Service.powered}) }
+            Widgets.ActionButton { text: Service.scanning ? "Scanning…" : "Scan"; enabled: Service.powered && !Service.scanning && !Service.busy; onClicked: root.scan() }
+            Widgets.ActionButton { text: Service.powered ? "On" : "Off"; enabled: Service.devices.length > 0 && !Service.busy; onClicked: Service.send("power", {value: !Service.powered}) }
         }
         TextField {
             id: search
@@ -149,58 +143,28 @@ FocusScope {
             font.family: Config.font.family
             wrapMode: Text.WordWrap
         }
-        ListView {
+        Widgets.DeviceList {
             id: list
-            Layout.fillWidth: true
-            Layout.preferredHeight: Math.min(280, contentHeight)
-            clip: true
-            spacing: 3
             model: root.networks
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar {}
-            delegate: Rectangle {
-                id: row
-                required property var modelData
-                width: list.width
-                height: 55
-                radius: 5
-                color: root.selectedPath === modelData.path ? Config.colors.surface0 : hitbox.containsMouse ? Config.colors.mantle : "transparent"
-                border.width: root.selectedPath === modelData.path ? 1 : 0
-                border.color: Config.colors.surface2
-                Column {
-                    anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter; margins: 10 }
-                    spacing: 3
-                    Text { width: parent.width; text: row.modelData.name; elide: Text.ElideRight; color: row.modelData.connected ? Config.colors.maroon : Config.colors.text; font.family: Config.font.family; font.pointSize: Config.font.pointSize }
-                    Text {
-                        width: parent.width
-                        text: (row.modelData.connected ? "Connected · " : "") + row.modelData.security + (row.modelData.known ? " · Saved" : "") + " · " + row.modelData.signal + " dBm"
-                        elide: Text.ElideRight
-                        color: Config.colors.subtext0
-                        font.family: Config.font.family
-                        font.pointSize: Config.font.pointSize - 1
-                    }
-                }
-                MouseArea {
-                    id: hitbox
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: { root.selectedPath = row.modelData.path; root.forceActiveFocus(); }
-                    onDoubleClicked: root.activate()
-                }
-            }
+            keyRole: "path"
+            selectedKey: root.selectedPath
+            titleFor: item => item.name
+            subtitleFor: item => (item.connected ? "Connected · " : "") + item.security + (item.known ? " · Saved" : "") + " · " + item.signal + " dBm"
+            colorFor: item => item.connected ? Config.colors.maroon : Config.colors.text
+            onSelected: (key, byMouse) => { root.selectedPath = key; if (byMouse) root.forceActiveFocus(); }
+            onActivated: root.activate()
         }
         RowLayout {
             enabled: !Service.busy && !root.credentials
-            BluetoothUi.ActionButton { text: root.selected && root.selected.connected ? "Disconnect" : "Connect"; enabled: !!root.selected && Service.powered; onClicked: root.activate() }
-            BluetoothUi.ActionButton { text: root.forgetPath ? "Confirm?" : "Forget"; enabled: !!root.selected && !!root.selected.known; onClicked: root.forget() }
-            BluetoothUi.ActionButton { text: root.selected && root.selected.autoconnect ? "Auto: on" : "Auto: off"; enabled: !!root.selected && !!root.selected.known; onClicked: root.toggleAutoconnect() }
-            BluetoothUi.ActionButton { text: "Hidden…"; enabled: Service.powered; onClicked: { root.hiddenNetwork = !root.hiddenNetwork; ssid.forceActiveFocus(); } }
+            Widgets.ActionButton { text: root.selected && root.selected.connected ? "Disconnect" : "Connect"; enabled: !!root.selected && Service.powered; onClicked: root.activate() }
+            Widgets.ActionButton { text: root.forgetPath ? "Confirm?" : "Forget"; enabled: !!root.selected && !!root.selected.known; onClicked: root.forget() }
+            Widgets.ActionButton { text: root.selected && root.selected.autoconnect ? "Auto: on" : "Auto: off"; enabled: !!root.selected && !!root.selected.known; onClicked: root.toggleAutoconnect() }
+            Widgets.ActionButton { text: "Hidden…"; enabled: Service.powered; onClicked: { root.hiddenNetwork = !root.hiddenNetwork; ssid.forceActiveFocus(); } }
         }
         RowLayout {
             visible: root.hiddenNetwork
             TextField { id: ssid; Layout.fillWidth: true; placeholderText: "Hidden network name"; Accessible.name: "Hidden network name"; onAccepted: root.joinHidden() }
-            BluetoothUi.ActionButton { text: "Join"; enabled: !!ssid.text && !Service.busy; onClicked: root.joinHidden() }
+            Widgets.ActionButton { text: "Join"; enabled: !!ssid.text && !Service.busy; onClicked: root.joinHidden() }
         }
         ColumnLayout {
             visible: root.credentials
@@ -209,8 +173,8 @@ FocusScope {
             TextField { id: username; visible: Service.prompt === "RequestUserNameAndPassword"; Layout.fillWidth: true; placeholderText: "Username"; Accessible.name: "Username"; onAccepted: password.forceActiveFocus() }
             TextField { id: password; Layout.fillWidth: true; placeholderText: "Password"; echoMode: TextInput.Password; Accessible.name: "Wi-Fi password"; onAccepted: root.submitCredentials() }
             RowLayout {
-                BluetoothUi.ActionButton { text: "Connect"; onClicked: root.submitCredentials() }
-                BluetoothUi.ActionButton { text: "Cancel"; onClicked: Service.send("cancel") }
+                Widgets.ActionButton { text: "Connect"; onClicked: root.submitCredentials() }
+                Widgets.ActionButton { text: "Cancel"; onClicked: Service.send("cancel") }
             }
         }
         Text {

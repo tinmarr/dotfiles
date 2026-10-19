@@ -86,8 +86,7 @@ Item {
     }
 
     Component.onDestruction: {
-        if (pill && pill.activePopup === root)
-            pill.activePopup = null;
+        if (pill) pill.detachPopup(root);
     }
 
     Rectangle {
@@ -154,14 +153,8 @@ Item {
                 transition.start();
             if (!root.pill)
                 return;
-            if (visible) {
-                const previous = root.pill.activePopup;
-                if (previous && previous !== root)
-                    previous.close(true);
-                root.pill.activePopup = root;
-            } else if (root.pill.activePopup === root) {
-                root.pill.activePopup = null;
-            }
+            if (visible) root.pill.attachPopup(root);
+            else root.pill.detachPopup(root);
         }
 
         Rectangle {

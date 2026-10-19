@@ -2,6 +2,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
+import "../widgets" as Widgets
 import QtQuick
 
 Singleton {
@@ -62,31 +63,20 @@ Singleton {
                 args.value = target.bridgeId;
             }
         }
-        args.action = action;
-        backend.write(JSON.stringify(args) + "\n");
+        backend.request(action, args);
     }
-    function refresh() {
-        if (!backend.running) backend.running = true;
-        else send("refresh");
-    }
-    Process {
+    function refresh() { backend.refresh(); }
+    Widgets.JsonProcess {
         id: backend
+        label: "Audio"
         command: ["python", "-u", Qt.resolvedUrl("backend.py").toString().replace("file://", "")]
-        running: true
-        stdinEnabled: true
-        stdout: SplitParser {
-            onRead: data => {
-                try {
-                    const update = JSON.parse(data);
-                    for (const key of Object.keys(update)) {
-                        if (key !== "metadata" || JSON.stringify(root.metadata) !== JSON.stringify(update.metadata))
-                            root[key] = update[key];
-                    }
-                } catch (error) { root.error = "Invalid Audio service response."; }
-            }
+        onInvalidResponse: root.error = "Invalid Audio service response."
+        onResponse: update => {
+            if (update.metadata && JSON.stringify(root.metadata) !== JSON.stringify(update.metadata))
+                root.metadata = update.metadata;
+            if (typeof update.error === "string") root.error = update.error;
         }
-        stderr: SplitParser { onRead: data => console.warn("Audio backend: " + data) }
-        onExited: { root.error = "Audio configuration bridge stopped. Volume and mute remain available."; }
+        onBackendExited: root.error = "Audio configuration bridge stopped. Volume and mute remain available."
     }
     IpcHandler {
         target: "audio"
