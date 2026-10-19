@@ -34,6 +34,12 @@ text = "Disable mirroring"
 actions = { "enable" = """hyprctl eval 'hl.monitor({ output = "", mode = "preferred", position = "auto-right", scale = 1 })'""" }
 icon = "monitor-symbolic"
 
+[[entries]]
+text = "Brightness"
+keywords = ["brighntess", "monitor", "display"]
+actions = { "set" = """~/.config/hypr/brightness-menu.sh menu""" }
+icon = "brightness-symbolic"
+
 # Power management
 [[entries]]
 hosts = [ "martinfw" ]
