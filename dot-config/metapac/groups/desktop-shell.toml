@@ -2,10 +2,10 @@ arch = {
     packages = [
         # status bar
         "quickshell",
+        "python-gobject", # iwd bridge for the Wi-Fi popup
 
         # system control
         "wiremix",
-        "impala",
 
         # run launcher
         "walker",

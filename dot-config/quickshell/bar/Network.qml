@@ -1,111 +1,41 @@
-import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
+import "../network" as NetworkUi
 import "../config.js" as Config
 
 Item {
     id: root
-    implicitWidth: childrenRect.width
-    implicitHeight: childrenRect.height
-    property string station: "wlan0"
+    implicitWidth: icon.implicitWidth
+    implicitHeight: icon.implicitHeight
+    property Pill pill: null
+    property string screenName: ""
+    readonly property var connected: NetworkUi.Service.networks.find(n => n.connected) || null
 
+    function toggle() { if (popup.opened) popup.close(); else popup.open(); }
     BarText {
         id: icon
         color: Config.colors.maroon
+        text: !NetworkUi.Service.powered ? "" : NetworkUi.Service.state === "connecting" ? "󰓦" : !root.connected ? "󰤮" : root.connected.signal > -50 ? "󰤨" : root.connected.signal > -60 ? "󰤥" : root.connected.signal > -67 ? "󰤢" : root.connected.signal > -80 ? "󰤟" : "󰤯"
     }
-
     MouseArea {
         anchors.fill: parent
-        onClicked: impala.running = true
+        onClicked: root.toggle()
         cursorShape: Qt.PointingHandCursor
     }
-
-    Process {
-        running: true
-        command: ["gdbus", "monitor", "--system", "--dest", "net.connman.iwd"]
-
-        stdout: SplitParser {
-            onRead: setPowerState.running = true
-        }
+    IslandPopup {
+        id: popup
+        title: "Wi-Fi"
+        pill: root.pill
+        sourceItem: root
+        cornerRadius: 5
+        dismissOnEscape: false
+        padding: 12
+        NetworkUi.Manager { opened: popup.opened; onDismiss: popup.close() }
     }
-
-    Process {
-        id: impala
-        running: false
-        command: ["ghostty", "+new-window", "--title='-float-'", "-e", "impala"]
-    }
-
-    Process {
-        id: getStation
-        running: true
-        command: ["sh", "-c", "iwctl station list | rg 'wlan\\d' -o"]
-
-        stdout: SplitParser {
-            onRead: data => {
-                root.station = data;
-                setPowerState.running = true;
-            }
-        }
-    }
-
-    Process {
-        id: setPowerState
-        running: true
-        command: ["iwctl", "station", root.station, "show"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                if (this.text.startsWith("No station")) {
-                    icon.text = "";
-                } else {
-                    setState.running = true;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: setState
-        running: false
-        command: ["sh", "-c", `iwctl station ${root.station} show | rg '\s*State\s*(.*)' -or '$1' | tr -d ' '`]
-
-        stdout: SplitParser {
-            onRead: data => {
-                switch (data) {
-                case "connected":
-                    setRSSI.running = true;
-                    break;
-                case "connecting":
-                    icon.text = "󰓦";
-                    break;
-                case "disconnected":
-                    icon.text = "󰤮";
-                    break;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: setRSSI
-        running: false
-        command: ["sh", "-c", `iwctl station ${root.station} show | rg '\s*AverageRSSI\s*(.*) dBm' -or '$1' | tr -d ' '`]
-
-        stdout: SplitParser {
-            onRead: data => {
-                let rssi = parseInt(data);
-
-                if (rssi > -50) {
-                    icon.text = "󰤨";
-                } else if (rssi > -60) {
-                    icon.text = "󰤥";
-                } else if (rssi > -67) {
-                    icon.text = "󰤢";
-                } else if (rssi > -80) {
-                    icon.text = "󰤟";
-                } else {
-                    icon.text = "󰤯";
-                }
-            }
+    Connections {
+        target: NetworkUi.Service
+        function onToggleRequested() {
+            if (!Hyprland.focusedMonitor || Hyprland.focusedMonitor.name === root.screenName) root.toggle();
         }
     }
 }
