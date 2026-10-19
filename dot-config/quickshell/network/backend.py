@@ -71,6 +71,18 @@ class Backend:
             station = props.get(IWD + '.Station', {})
             powered = props.get(IWD + '.Device', {}).get('Powered', False)
             strengths = dict(self.call(self.device, IWD + '.Station', 'GetOrderedNetworks')[0]) if powered and station else {}
+            band = ''
+            if station.get('State') == 'connected' and IWD + '.StationDiagnostic' in props:
+                try:
+                    frequency = self.call(self.device, IWD + '.StationDiagnostic', 'GetDiagnostics')[0].get('Frequency', 0)
+                    if 2400 <= frequency < 2500:
+                        band = '2.4 GHz'
+                    elif 5000 <= frequency < 5925:
+                        band = '5 GHz'
+                    elif 5925 <= frequency <= 7125:
+                        band = '6 GHz'
+                except GLib.Error:
+                    pass  # Diagnostics can disappear while the connection changes.
             networks = []
             for path, interfaces in objects.items():
                 network = interfaces.get(IWD + '.Network')
@@ -78,6 +90,7 @@ class Backend:
                     known = network.get('KnownNetwork', '')
                     networks.append(dict(path=path, name=network['Name'], security=network['Type'],
                                          connected=network.get('Connected', False), known=known,
+                                         band=band if network.get('Connected', False) else '',
                                          autoconnect=objects.get(known, {}).get(IWD + '.KnownNetwork', {}).get('AutoConnect', True),
                                          signal=round(strengths.get(path, -10000) / 100)))
             networks.sort(key=lambda n: (not n['connected'], not bool(n['known']), -(n['signal'] or -100), n['name']))

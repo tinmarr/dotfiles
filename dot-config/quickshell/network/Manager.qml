@@ -149,7 +149,7 @@ FocusScope {
             keyRole: "path"
             selectedKey: root.selectedPath
             titleFor: item => item.name
-            subtitleFor: item => (item.connected ? "Connected · " : "") + item.security + (item.known ? " · Saved" : "") + " · " + item.signal + " dBm"
+            subtitleFor: item => (item.connected ? "Connected · " : "") + (item.band ? item.band + " · " : "") + item.security + (item.known ? " · Saved" : "") + " · " + item.signal + " dBm"
             colorFor: item => item.connected ? Config.colors.maroon : Config.colors.text
             onSelected: (key, byMouse) => { root.selectedPath = key; if (byMouse) root.forceActiveFocus(); }
             onActivated: root.activate()
