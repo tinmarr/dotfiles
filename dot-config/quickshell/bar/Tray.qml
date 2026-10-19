@@ -4,7 +4,7 @@ import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 
-Pill {
+TrayPill {
     id: root
     padding: 5
     visible: false

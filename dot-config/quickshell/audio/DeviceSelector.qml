@@ -100,14 +100,19 @@ ComboBox {
         }
     }
     popup: Popup {
+        parent: Overlay.overlay
+        z: 1000
         focus: true
+        onAboutToShow: {
+            const point = root.mapToItem(parent, 0, 0);
+            x = Math.max(0, Math.min(parent.width - width, point.x));
+            y = Math.max(0, point.y - implicitHeight - 4);
+        }
         onOpened: {
             root.menuIndex = root.selectedIndex >= 0 ? root.selectedIndex : (root.count ? 0 : -1);
             options.positionViewAtIndex(root.menuIndex, ListView.Contain);
             options.forceActiveFocus();
         }
-        // Keep the list inside the bar popup on its first keyboard opening.
-        y: -implicitHeight - 4
         width: root.width
         padding: 5
         implicitHeight: Math.min(240, root.count * 36 + Math.max(0, root.count - 1) * 3 + padding * 2)

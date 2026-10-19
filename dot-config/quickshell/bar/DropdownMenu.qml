@@ -51,7 +51,7 @@ Item {
         }
     }
 
-    IslandPopup {
+    TrayPopup {
         id: popup
         cornerRadius: 5
         sourceItem: root

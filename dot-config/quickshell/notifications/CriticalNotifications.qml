@@ -15,7 +15,6 @@ IslandPopup {
 
     dismissOnOutsideClick: false
     dismissOnEscape: false
-    reservedBodyHeight: targetScreen ? Math.max(1, targetScreen.height - headerHeight - padding * 2 - 5) : 1
 
     onContentHeightChanged: { if (hasNotifications) heldHeight = contentHeight; }
     onHasNotificationsChanged: {

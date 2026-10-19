@@ -1,25 +1,35 @@
+import Quickshell
 import QtQuick
 import "../config.js" as Config
 
 Rectangle {
     id: root
     default property alias contentData: content.data
+    readonly property alias contentItem: content
 
     property var activePopup: null
-    property var popupSnapshot: null
-    property size popupSnapshotSize: Qt.size(0, 0)
     property bool square: false
     property int padding: parent.height / 2
 
+    // Blend every pill covered by an expanded surface into its background.
+    readonly property bool covered: {
+        const window = root.QsWindow.window;
+        if (!window || !window.popups) return false;
+        let x = 0;
+        for (let item = root; item && item !== window.contentItem; item = item.parent) x += item.x;
+        return window.popups.some(popup => {
+            const surface = popup.inputRegion.item;
+            const left = surface.parent.x + surface.x;
+            return x < left + surface.width && x + root.width > left;
+        });
+    }
     border.color: Config.border.color
-    border.width: Config.border.width
+    border.width: covered ? 0 : Config.border.width
     radius: parent.height / 2
-
-    visible: activePopup !== null || content.visibleChildren.length > 0
-    color: Config.theme.bg
-
+    visible: content.visibleChildren.length > 0
+    color: covered ? "transparent" : Config.theme.bg
     implicitHeight: parent.height
-    implicitWidth: square ? parent.height : content.implicitWidth + (padding * 2)
+    implicitWidth: square ? parent.height : content.implicitWidth + padding * 2
 
     function attachPopup(popup) {
         if (activePopup && activePopup !== popup) activePopup.close(true);
@@ -29,32 +39,8 @@ Rectangle {
         if (activePopup === popup) activePopup = null;
     }
 
-    function preparePopup(callback) {
-        const size = Qt.size(content.width, content.height);
-        content.grabToImage(result => {
-            popupSnapshotSize = size;
-            popupSnapshot = result;
-            if (callback) callback();
-        });
-    }
-
-    // Cover the gap between moving the controls and the popup being mapped.
-    Image {
-        anchors.centerIn: parent
-        width: root.popupSnapshotSize.width
-        height: root.popupSnapshotSize.height
-        source: root.popupSnapshot ? root.popupSnapshot.url : ""
-        visible: root.activePopup !== null
-    }
-
-    // Keep the live icons and their hitboxes inside the expanded surface.
-    onActivePopupChanged: {
-        content.parent = activePopup ? activePopup.headerItem : root;
-    }
-
     Row {
         id: content
-
         spacing: 10
         anchors.centerIn: parent
     }
