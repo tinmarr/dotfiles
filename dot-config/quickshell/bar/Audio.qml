@@ -1,94 +1,41 @@
-import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
+import "../audio" as AudioUi
 import "../config.js" as Config
 
 Item {
     id: root
-    implicitWidth: icon.width
-    implicitHeight: childrenRect.height
+    implicitWidth: icon.implicitWidth
+    implicitHeight: icon.implicitHeight
+    property Pill pill: null
+    property string screenName: ""
+    readonly property var output: AudioUi.Service.groups.sinks.find(item => item.default) || null
 
+    function toggle() { if (popup.opened) popup.close(); else popup.open(); }
     BarText {
         id: icon
         color: Config.colors.yellow
+        text: !root.output ? "󰝟" : (root.output.muted ? "󰝟" : root.output.volume + "% " + (/headphones|headset/.test(root.output.port) ? "󰋋" : root.output.volume < 33 ? "󰕿" : root.output.volume < 66 ? "󰖀" : "󰕾")) + (root.output.name.includes("bluez") ? "󰂯" : "")
     }
-
     MouseArea {
         anchors.fill: parent
-        onClicked: wiremix.running = true
+        onClicked: root.toggle()
         cursorShape: Qt.PointingHandCursor
     }
-
-    Process {
-        id: wiremix
-        running: false
-        command: ["ghostty", "+new-window", "--title='-float-'", "-e", "wiremix"]
+    IslandPopup {
+        id: popup
+        title: "Audio"
+        pill: root.pill
+        sourceItem: root
+        cornerRadius: 5
+        dismissOnEscape: false
+        padding: 12
+        AudioUi.Manager { opened: popup.opened; onDismiss: popup.close() }
     }
-
-    Process {
-        running: true
-        command: ["sh", "-c", "pactl subscribe | rg --line-buffered sink"]
-
-        stdout: SplitParser {
-            onRead: getInfo.running = true
-        }
-    }
-
-    Process {
-        running: true
-        command: ["sh", "-c", "pactl subscribe | rg --line-buffered server"]
-
-        stdout: SplitParser {
-            onRead: getInfo.running = true
-        }
-    }
-
-    Process {
-        id: getInfo
-        running: true
-        command: ["sh", "-c", "pactl --format=json list sinks | jq --arg sink $(pactl get-default-sink) '.[] | select(.name == $sink) | .name, .volume.\"front-left\".value_percent, .mute, .active_port' -r"]
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                // name, volume, muted, port
-                let values = this.text.split("\n");
-
-                let volDisplay = "";
-                let volume = -1;
-                if (values[2] == "false") {
-                    volDisplay = values[1];
-                    volume = parseInt(volDisplay);
-                }
-
-                if (/headphones|headset/.test(values[3])) {
-                    icon.text = "󰋋";
-                    if (volume == -1) {
-                        icon.text = "󰟎";
-                    }
-                } else {
-                    switch (Math.floor(volume / 33)) {
-                    case -1:
-                        icon.text = "󰝟";
-                        break;
-                    case 0:
-                        icon.text = "󰕿";
-                        break;
-                    case 1:
-                        icon.text = "󰖀";
-                        break;
-                    case 2:
-                    default:
-                        icon.text = "󰕾";
-                        break;
-                    }
-                }
-
-                if (values[0].includes("bluez"))
-                    icon.text += "󰂯";
-
-                if (volDisplay) {
-                    icon.text = `${volDisplay} ${icon.text}`;
-                }
-            }
+    Connections {
+        target: AudioUi.Service
+        function onToggleRequested() {
+            if (!Hyprland.focusedMonitor || Hyprland.focusedMonitor.name === root.screenName) root.toggle();
         }
     }
 }

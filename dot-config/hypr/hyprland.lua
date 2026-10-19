@@ -348,17 +348,10 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("voxtype record cancel"))
 hl.bind(mainMod .. " + r", hl.dsp.exec_cmd("nc -U /run/user/1000/walker/walker.sock"))
 hl.bind(mainMod .. " + ALT + w", hl.dsp.exec_cmd("walker-kill"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("elephant menu system-control"))
-hl.bind(mainMod .. " + b", hl.dsp.exec_cmd("~/.config/hypr/brightness-menu.sh menu"))
-
--- Open popups
-hl.bind(mainMod .. " + o", hl.dsp.submap("open"))
-hl.define_submap("open", "reset", function()
-    hl.bind("a", hl.dsp.exec_cmd("ghostty +new-window --title='-float-' -e wiremix"))
-    hl.bind("b", hl.dsp.exec_cmd("quickshell ipc call bluetooth toggle"))
-    hl.bind("w", hl.dsp.exec_cmd("quickshell ipc call network toggle"))
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("catchall", hl.dsp.submap("reset"))
-end)
+hl.bind(mainMod .. " + d", hl.dsp.exec_cmd("~/.config/hypr/brightness-menu.sh menu"))
+hl.bind(mainMod .. " + b", hl.dsp.exec_cmd("quickshell ipc call bluetooth toggle"))
+hl.bind(mainMod .. " + w", hl.dsp.exec_cmd("quickshell ipc call network toggle"))
+hl.bind(mainMod .. " + a", hl.dsp.exec_cmd("quickshell ipc call audio toggle"))
 
 -- Notification Submap
 hl.bind(mainMod .. " + n", hl.dsp.submap("notif"))

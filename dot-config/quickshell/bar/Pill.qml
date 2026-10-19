@@ -7,6 +7,7 @@ Rectangle {
 
     property var activePopup: null
     property var popupSnapshot: null
+    property size popupSnapshotSize: Qt.size(0, 0)
     property bool square: false
     property int padding: parent.height / 2
 
@@ -21,17 +22,19 @@ Rectangle {
     implicitWidth: square ? parent.height : content.implicitWidth + (padding * 2)
 
     function preparePopup(callback) {
+        const size = Qt.size(content.width, content.height);
         content.grabToImage(result => {
+            popupSnapshotSize = size;
             popupSnapshot = result;
-            callback();
+            if (callback) callback();
         });
     }
 
     // Cover the gap between moving the controls and the popup being mapped.
     Image {
         anchors.centerIn: parent
-        width: content.width
-        height: content.height
+        width: root.popupSnapshotSize.width
+        height: root.popupSnapshotSize.height
         source: root.popupSnapshot ? root.popupSnapshot.url : ""
         visible: root.activePopup !== null
     }

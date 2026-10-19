@@ -26,6 +26,35 @@ Item {
     readonly property bool opened: popupWindow.visible && !popupWindow.closing
     readonly property real headerHeight: pill ? pill.height : 0
 
+    function positionPopup() {
+        const anchor = popupWindow.anchor;
+        const target = root.pill || root.sourceItem;
+        if (!target || !anchor.window) return;
+        const center = target.width / 2;
+        const point = target.mapToItem(anchor.window.contentItem, center, root.pill ? 0 : target.height);
+        const x = Math.round(Math.max(0, Math.min(anchor.window.width - popupWindow.width, point.x - popupWindow.width / 2)));
+        const y = Math.round(point.y);
+        if (anchor.rect.x !== x) anchor.rect.x = x;
+        if (anchor.rect.y !== y) anchor.rect.y = y;
+        header.x = point.x - x - header.width / 2;
+    }
+    function updateAnchor() {
+        if (popupWindow.visible) positionPopup();
+    }
+    function scheduleAnchorUpdate() { Qt.callLater(root.updateAnchor); }
+    Connections {
+        target: root.pill || root.sourceItem
+        function onWidthChanged() { root.scheduleAnchorUpdate(); }
+        function onHeightChanged() { root.scheduleAnchorUpdate(); }
+        function onXChanged() { root.scheduleAnchorUpdate(); }
+        function onYChanged() { root.scheduleAnchorUpdate(); }
+    }
+    Connections {
+        target: (root.pill || root.sourceItem)?.parent ?? null
+        function onXChanged() { root.scheduleAnchorUpdate(); }
+        function onYChanged() { root.scheduleAnchorUpdate(); }
+    }
+
     function open() {
         if (!popupWindow.visible && pill)
             pill.preparePopup(() => root.showPopup());
@@ -77,14 +106,7 @@ Item {
         id: popupWindow
 
         anchor.window: root.pill ? root.pill.QsWindow.window : root.sourceItem.QsWindow.window
-        anchor.onAnchoring: {
-            const target = root.pill || root.sourceItem;
-            const center = root.pill ? root.pill.width / 2 : root.sourceItem.width / 2;
-            const point = target.mapToItem(anchor.window.contentItem, center, root.pill ? 0 : target.height);
-            anchor.rect.x = Math.max(0, Math.min(anchor.window.width - popupWindow.width, point.x - popupWindow.width / 2));
-            anchor.rect.y = point.y;
-            header.x = point.x - anchor.rect.x - header.width / 2;
-        }
+        anchor.onAnchoring: root.positionPopup()
         implicitWidth: Math.max(root.pill ? root.pill.width + 48 : 80, body.implicitWidth + root.horizontalPadding * 2)
         // Leave room for the bottom antialiased edge at fractional display scales.
         // Keep the background, reveal clip and input mask at their content size.

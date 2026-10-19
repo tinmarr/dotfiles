@@ -84,7 +84,7 @@ PanelWindow {
 
         Widgets.Pill {
             id: connectivityPill
-            Widgets.Audio {}
+            Widgets.Audio { pill: connectivityPill; screenName: root.screen.name }
             Widgets.Bluetooth { pill: connectivityPill; screenName: root.screen.name }
             Widgets.Network { pill: connectivityPill; screenName: root.screen.name }
         }

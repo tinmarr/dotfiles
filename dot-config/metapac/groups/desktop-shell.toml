@@ -4,9 +4,6 @@ arch = {
         "quickshell",
         "python-gobject", # iwd bridge for the Wi-Fi popup
 
-        # system control
-        "wiremix",
-
         # run launcher
         "walker",
         {
