@@ -50,7 +50,7 @@ FocusScope {
         if (selected.pairing) selected.cancelPair();
         else if (busy) return;
         else if (selected.connected) selected.disconnect();
-        else if (!selected.paired) selected.pair();
+        else if (!selected.paired && Service.agentReady) selected.pair();
         else selected.connect();
     }
     function forgetSelected() {
@@ -65,6 +65,7 @@ FocusScope {
             event.accepted = true;
             return;
         }
+        if (pairingInput.activeFocus) return;
         const editing = search.activeFocus;
         if (event.key === Qt.Key_Escape) {
             if (forgetPath) forgetPath = "";
@@ -83,7 +84,7 @@ FocusScope {
             case Qt.Key_M: savedOnly = !savedOnly; break;
             case Qt.Key_S: savedOnly = false; Service.scan(); break;
             case Qt.Key_T: if (selected) selected.trusted = !selected.trusted; break;
-            case Qt.Key_P: if (selected && !selected.paired && !busy) selected.pair(); break;
+            case Qt.Key_P: if (selected && !selected.paired && !busy && Service.agentReady) selected.pair(); break;
             case Qt.Key_X:
             case Qt.Key_Delete: forgetSelected(); break;
             case Qt.Key_Return:
@@ -100,6 +101,62 @@ FocusScope {
         id: layout
         width: parent.width
         spacing: 8
+        Text {
+            Layout.fillWidth: true
+            visible: Service.error !== ""
+            text: Service.error
+            color: Config.colors.red
+            wrapMode: Text.WordWrap
+            font.family: Config.font.family
+        }
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: Service.prompt !== null
+            readonly property var prompt: Service.prompt || ({})
+            readonly property bool inputRequired: prompt.kind === "RequestPinCode" || prompt.kind === "RequestPasskey"
+            readonly property bool displayOnly: (prompt.kind || "").startsWith("Display")
+            id: pairing
+            Text {
+                Layout.fillWidth: true
+                text: "Pairing: " + (pairing.prompt.device || "") + "\n" +
+                      (pairing.displayOnly ? "Type " + pairing.prompt.code + " on the Bluetooth device, then press Enter." +
+                       (pairing.prompt.entered !== undefined ? " (" + pairing.prompt.entered + "/6 entered)" : "") :
+                       pairing.inputRequired ? "Enter the device's " + (pairing.prompt.kind === "RequestPinCode" ? "PIN:" : "passkey:") :
+                       pairing.prompt.kind === "RequestConfirmation" ? "Does this code match the device? " + pairing.prompt.code :
+                       pairing.prompt.kind === "AuthorizeService" ? "Allow service " + pairing.prompt.uuid + "?" : "Allow this device to pair?")
+                color: Config.colors.text
+                font.family: Config.font.family
+                wrapMode: Text.WordWrap
+            }
+            TextField {
+                id: pairingInput
+                Layout.fillWidth: true
+                visible: pairing.inputRequired
+                maximumLength: pairing.prompt.kind === "RequestPinCode" ? 16 : 6
+                placeholderText: "PIN or passkey"
+                onAccepted: Service.reply(true, text)
+            }
+            Connections {
+                target: Service
+                function onPromptChanged() { pairingInput.clear(); }
+            }
+            RowLayout {
+                Widgets.ActionButton {
+                    visible: !pairing.displayOnly
+                    text: pairing.inputRequired ? "Submit" : "Allow"
+                    onClicked: Service.reply(true, pairingInput.text)
+                }
+                Widgets.ActionButton {
+                    text: "Cancel"
+                    onClicked: {
+                        const path = Service.prompt ? Service.prompt.device : "";
+                        const device = Bluetooth.devices.values.find(d => d.address === path);
+                        if (device && device.pairing) device.cancelPair();
+                        Service.cancelPrompt();
+                    }
+                }
+            }
+        }
         RowLayout {
             visible: Bluetooth.adapters.values.length > 1
             Repeater {
@@ -163,7 +220,7 @@ FocusScope {
             enabled: !!root.selected && !!root.adapter && root.adapter.enabled
             Widgets.ActionButton {
                 text: !root.selected ? "Pair" : root.selected.pairing ? "Cancel pair" : root.selected.connected ? "Disconnect" : root.selected.paired ? "Connect" : "Pair"
-                enabled: !!root.selected && (!root.busy || root.selected.pairing)
+                enabled: !!root.selected && (!root.busy || root.selected.pairing) && (root.selected.paired || root.selected.pairing || Service.agentReady)
                 onClicked: root.activateSelected()
             }
             Widgets.ActionButton { text: root.selected && root.selected.trusted ? "Untrust" : "Trust"; onClicked: root.selected.trusted = !root.selected.trusted }
