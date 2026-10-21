@@ -9,6 +9,7 @@
 -- Create your files separately and then require them like this:
 local colors = require("catppuccin-mocha")
 local lid = require("lid")
+local utils = require("utils")
 
 
 ------------------
@@ -320,18 +321,9 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 
 -- Hyprland Management
-local function reload()
-    hl.exec_cmd("hyprctl reload")
-    hl.exec_cmd(
-        "app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
-    hl.exec_cmd("systemctl stop --user awww-daemon.service")
-    hl.exec_cmd("setsid -f app2unit -u awww-daemon.service -t service -s b -- awww-daemon")
-    hl.exec_cmd("systemctl --user stop qs; app2unit -u qs.service -t service -s a -- qs")
-end
-
 hl.bind(mainMod .. " + q", hl.dsp.window.close())
 hl.bind(mainMod .. " + ALT + q", hl.dsp.window.kill())
-hl.bind(mainMod .. " + SHIFT + r", reload)
+hl.bind(mainMod .. " + SHIFT + r", utils.reload)
 hl.bind(mainMod .. " + SHIFT + w", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 hl.bind(mainMod .. " + s", hl.dsp.window.toggle_swallow())
 

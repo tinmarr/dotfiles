@@ -1,4 +1,3 @@
--- ~/.config/hypr/lid.lua
 -- Lid switch handler.
 --
 -- On lid close:
@@ -11,6 +10,7 @@
 
 -- Default laptop monitor spec. Must match hyprland.lua's initial config.
 ---@type HL.MonitorSpec
+local utils = require("utils")
 local LAPTOP_MONITOR = {
     output = "eDP-1",
     mode = "preferred",
@@ -41,7 +41,7 @@ local function open()
     -- Reload config so Hyprland re-detects outputs. This is the only
     -- way to re-add eDP-1 after a suspend where the kernel dropped its
     -- HPD assertion (known Framework 13 AMD + s2idle issue).
-    hl.exec_cmd("hyprctl reload")
+    utils.reload()
     -- The 500ms timer must complete before reload, then wait a bit more
     -- for the reload to finish applying the monitor rule.
     hl.timer(function()
