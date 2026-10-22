@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import qs.bar as Widgets
@@ -100,14 +101,20 @@ PanelWindow {
             Widgets.Tray {}
 
             Widgets.Script {
+                id: dualsensePill
                 command: ["dualsense"]
                 ms: 5 * 60 * 1000
                 textColor: Config.colors.lavender
                 MouseArea {
+                    parent: dualsensePill
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        Quickshell.execDetached(["sh", "-c", "dualsensectl power-off"]);
+                    onClicked: powerOff.running = true
+
+                    Process {
+                        id: powerOff
+                        command: ["dualsensectl", "power-off"]
+                        onExited: dualsensePill.refresh()
                     }
                 }
             }

@@ -331,6 +331,7 @@ hl.bind(mainMod .. " + s", hl.dsp.window.toggle_swallow())
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("ghostty +new-window"))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("pkill hyprpicker || app2unit -- hyprpicker -a"))
 hl.bind("Print", hl.dsp.exec_cmd("app2unit -- ~/.config/hypr/screenshot"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("app2unit -- ~/.config/hypr/screenshot")) -- if there's no print
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("app2unit -- ~/.config/hypr/screenshot --freeze"))
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.global("com.mitchellh.ghostty:SHIFT+LOGO+Return"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("voxtype record toggle"))

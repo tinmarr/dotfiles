@@ -11,6 +11,10 @@ Pill {
     property string prefix: ""
     property string postfix: ""
 
+    function refresh() {
+        dateProc.running = true;
+    }
+
     BarText {
         id: weather
         color: root.textColor
@@ -34,7 +38,7 @@ Pill {
             interval: root.ms
             running: true
             repeat: true
-            onTriggered: dateProc.running = true
+            onTriggered: root.refresh()
         }
     }
 }
