@@ -10,6 +10,7 @@ arch = {
         "helium-browser-bin",
         "vesktop-bin",
         "onlyoffice-bin",
+        "zoom",
 
         # engineering
         "kicad",

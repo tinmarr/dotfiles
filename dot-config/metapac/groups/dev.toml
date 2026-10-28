@@ -50,6 +50,7 @@ arch = {
         "uv",
         "postgresql",
         "computer-use-linux",
+        "rclone",
 
         # podman
         {
