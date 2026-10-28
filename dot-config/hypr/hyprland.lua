@@ -143,6 +143,7 @@ hl.config({
             vibrancy          = 1,
             vibrancy_darkness = 1,
             brightness        = 1,
+            noise             = 0,
         },
     },
 
@@ -163,6 +164,9 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
 hl.config({
+    binds = {
+        movefocus_cycles_fullscreen = true,
+    },
     scrolling = {
         fullscreen_on_one_column = false,
         focus_fit_method = 1,
@@ -195,7 +199,7 @@ hl.config({
     render = {
         direct_scanout = 2, -- 0 - off, 1 - on, 2 - auto (on with content type ‘game’)
         ctm_animation = 1,  -- ctm == hyprsunset
-        cm_auto_hdr = 2,    -- Auto-switch to HDR in fullscreen when needed. 0 - off, 1 - switch to cm, hdr, 2 - switch to cm, hdredid
+        cm_auto_hdr = 0,    -- Auto-switch to HDR in fullscreen when needed. 0 - off, 1 - switch to cm, hdr, 2 - switch to cm, hdredid
         new_render_scheduling = true,
     },
     debug = {
@@ -203,6 +207,9 @@ hl.config({
     },
     ecosystem = {
         no_donation_nag = true,
+    },
+    layers = {
+        allow_new_top_layers_over_existing_fullscreen = false,
     }
 })
 
@@ -232,6 +239,8 @@ hl.config({
         touchpad                    = {
             natural_scroll = true,
         },
+
+        swallow_focus_click         = true,
     },
     cursor = {
         no_hardware_cursors = 2,
@@ -247,7 +256,7 @@ hl.config({
         workspace_swipe_cancel_ratio = 0,
         workspace_swipe_min_speed_to_force = 0,
         workspace_swipe_direction_lock = false,
-        workspace_swipe_direction_lock_threshold = 1000,
+        workspace_swipe_direction_lock_threshold = 200,
     },
 })
 
