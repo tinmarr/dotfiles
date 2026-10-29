@@ -1,5 +1,5 @@
 local function reload()
-    hl.dsp.reload_config()
+    hl.dispatch(hl.dsp.reload_config())
     hl.exec_cmd(
         "app2unit -u sunsetctl.service -t service -s b -- systemd-cat -t sunsetctl ~/.config/hypr/sunsetctl.sh")
     hl.exec_cmd("systemctl restart --user awww-daemon.service")
