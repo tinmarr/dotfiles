@@ -2,7 +2,7 @@
 Version=1.0
 Name=Linear
 Comment=Linear
-Exec=helium-browser --app="https://linear.app/mchaperot"
+Exec=helium-browser --app="https://linear.app/mchaperot" --password-store=kwallet6
 Terminal=false
 Type=Application
 Icon=/home/martin/.local/share/applications/icons/linear.svg

@@ -25,6 +25,8 @@ if [[ $(command -v zsh) && -e $ZINIT ]]; then
     "
 fi
 
+systemctl --user restart elephant
+
 echo "---"
 echo "$(cat $HOME/.cache/updated-packages.txt | wc -l) packages updated"
 echo "Updated packages stored in ~/.cache/updated-packages.txt"
