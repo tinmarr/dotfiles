@@ -418,6 +418,12 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "zoom-to-5",
+    match = { class = "Zoom" },
+    workspace = "5 silent",
+})
+
+hl.window_rule({
     name = "spotify-to-10",
     match = { title = "^(Spotify Premium)$" },
     workspace = "10 silent",
