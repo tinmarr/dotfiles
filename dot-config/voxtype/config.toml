@@ -371,3 +371,6 @@ threshold = 0.5
 
 [status]
 icon_theme = "emoji"
+
+[tray]
+enabled = false
