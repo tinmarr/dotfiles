@@ -413,7 +413,7 @@ hl.window_rule({
 
 hl.window_rule({
     name = "slack-to-4",
-    match = { class = "Slack" },
+    match = { class = "slack" },
     workspace = "4 silent",
 })
 
