@@ -35,13 +35,13 @@ arch = {
         },
         "localsend",
         {
-            name = "voxtype-bin",
+            name = "hex-bin",
             hooks = {
                 after_sync = [
                     "systemctl",
                     "--user",
                     "enable",
-                    "voxtype.service",
+                    "hex.service",
                 ],
             },
         },

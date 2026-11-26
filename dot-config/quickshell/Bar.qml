@@ -36,7 +36,8 @@ PanelWindow {
         regions: root.popups.map(popup => popup.inputRegion)
     }
     function addPopup(popup) {
-        if (!popups.includes(popup)) popups = [...popups, popup];
+        if (!popups.includes(popup))
+            popups = [...popups, popup];
     }
     function removePopup(popup) {
         popups = popups.filter(item => item !== popup);
@@ -47,7 +48,8 @@ PanelWindow {
         acceptedButtons: Qt.AllButtons
         onPressed: {
             for (const popup of root.popups)
-                if (popup.dismissOnOutsideClick) popup.close();
+                if (popup.dismissOnOutsideClick)
+                    popup.close();
         }
     }
     Item {
@@ -63,7 +65,8 @@ PanelWindow {
             onTapped: eventPoint => {
                 for (const popup of root.popups) {
                     const target = popup.pill || popup.sourceItem;
-                    if (popup.dismissOnOutsideClick && target && !target.contains(target.mapFromItem(barStrip, eventPoint.position))) popup.close();
+                    if (popup.dismissOnOutsideClick && target && !target.contains(target.mapFromItem(barStrip, eventPoint.position)))
+                        popup.close();
                 }
             }
         }
@@ -82,7 +85,6 @@ PanelWindow {
                 ms: 15 * 90 * 1000
                 textColor: Config.colors.peach
             }
-            Widgets.Voxtype {}
             Widgets.Submap {}
         }
 
@@ -134,9 +136,18 @@ PanelWindow {
 
             Widgets.Pill {
                 id: connectivityPill
-                Widgets.Audio { pill: connectivityPill; screenName: root.screen.name }
-                Widgets.Bluetooth { pill: connectivityPill; screenName: root.screen.name }
-                Widgets.Network { pill: connectivityPill; screenName: root.screen.name }
+                Widgets.Audio {
+                    pill: connectivityPill
+                    screenName: root.screen.name
+                }
+                Widgets.Bluetooth {
+                    pill: connectivityPill
+                    screenName: root.screen.name
+                }
+                Widgets.Network {
+                    pill: connectivityPill
+                    screenName: root.screen.name
+                }
             }
 
             Widgets.NotificationDND {}
