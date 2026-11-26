@@ -51,6 +51,7 @@ arch = {
         "postgresql",
         "computer-use-linux",
         "rclone",
+        "rbw", # bitwarden cli client
 
         # podman
         {

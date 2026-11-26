@@ -18,6 +18,7 @@ arch = {
         "orca-slicer-bin",
         "freecad",
         "blender",
+        "openscad",
 
         # media
         "gimp",
